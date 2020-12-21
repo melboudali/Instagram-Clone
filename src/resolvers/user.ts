@@ -75,7 +75,6 @@ export class UserResolver {
         return { errors: [{ field: 'username', message: 'username already exist' }] };
       }
     }
-    // Login after registration by adding userId to cookies session
     req.session!.userId = user.id;
     return { user };
   }
