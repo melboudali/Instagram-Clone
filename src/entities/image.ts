@@ -5,10 +5,13 @@ import {
   UpdateDateColumn,
   Column,
   BaseEntity,
-  ManyToOne
+  ManyToOne,
+  OneToMany
 } from 'typeorm';
 import { Field, Int, ObjectType } from 'type-graphql';
 import { User } from './user';
+import { Like } from './like';
+import { Comment } from './comment';
 
 @ObjectType()
 @Entity()
@@ -28,6 +31,9 @@ export class Image extends BaseEntity {
   @Column()
   comments!: string;
 
+  @Column()
+  url!: string;
+
   @Field(() => Int, { nullable: true })
   likeStatu: number | null;
 
@@ -36,11 +42,14 @@ export class Image extends BaseEntity {
   userId!: number;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.images)
+  @ManyToOne(() => User, user => user.images, { onDelete: 'CASCADE' })
   user: User;
 
-  // @OneToMany(() => Updoot, updoot => updoot.post)
-  // updoots: Updoot[];
+  @OneToMany(() => Like, like => like.image)
+  like: Like[];
+
+  @OneToMany(() => Comment, comment => comment.image)
+  comment: Comment[];
 
   @Field(() => String)
   @CreateDateColumn()

@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Field, Int, ObjectType } from 'type-graphql';
 import { User } from './user';
-import { Like } from './like';
+import { Image } from './image';
 
 @ObjectType()
 @Entity()
@@ -28,8 +28,16 @@ export class Comment extends BaseEntity {
   userId!: number;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.comment)
+  @ManyToOne(() => User, user => user.comment, { onDelete: 'CASCADE' })
   user: User;
+
+  @Field()
+  @Column()
+  imageId!: number;
+
+  @Field(() => Image)
+  @ManyToOne(() => Image, image => image.comment, { onDelete: 'CASCADE' })
+  image: User;
 
   @Field(() => String)
   @CreateDateColumn()
