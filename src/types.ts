@@ -4,8 +4,8 @@ import { Redis } from 'ioredis';
 import { createUserLoader } from './utils/createUserLoader';
 
 export type MyContext = {
-  req: Request & { session: Session & { userId: number } }; // nested types
+  req: Request & { session: Session & { userId: number } };
   res: Response;
   redis: Redis;
-  userLoader: ReturnType<typeof createUserLoader>; //if we dont know the type we can use TS ReturnType to get the type
+  userLoader: ReturnType<typeof createUserLoader>;
 };

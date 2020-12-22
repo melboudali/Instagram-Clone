@@ -5,6 +5,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { cookieName, __listenMessage__, __prod__ } from './config/constants';
 import { UserResolver } from './resolvers/user';
+import { ImageResolver } from './resolvers/image';
 import { createUserLoader } from './utils/createUserLoader';
 import Redis from 'ioredis';
 import session from 'express-session';
@@ -14,6 +15,7 @@ import { User } from './entities/user';
 import { Image } from './entities/image';
 import { Like } from './entities/like';
 import { Comment } from './entities/comment';
+import { graphqlUploadExpress } from 'graphql-upload';
 
 const main = async () => {
   const app = express();
@@ -53,7 +55,8 @@ const main = async () => {
   );
 
   const apolloServer = new ApolloServer({
-    schema: await buildSchema({ resolvers: [UserResolver], validate: false }),
+    uploads: false,
+    schema: await buildSchema({ resolvers: [UserResolver, ImageResolver], validate: false }),
     context: ({ req, res }) => ({
       req,
       res,
@@ -61,6 +64,8 @@ const main = async () => {
       userLoader: createUserLoader()
     })
   });
+
+  app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 1 }));
 
   apolloServer.applyMiddleware({ app, cors: false });
 

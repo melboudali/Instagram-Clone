@@ -7,7 +7,7 @@
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
     "build": "tsc",
     "watch": "tsc -w",
-    "dev": "nodemon dist/index.js"
+    "dev": "nodemon ./dist/index.js"
   },
   "author": "Med",
   "dependencies": {
@@ -22,6 +22,7 @@
     "graphql": "^15.4.0",
     "ioredis": "^4.19.4",
     "reflect-metadata": "^0.1.13",
+    "stream": "^0.0.2",
     "type-graphql": "^1.1.1",
     "typeorm": "^0.2.29",
     "uuid": "^8.3.2"
