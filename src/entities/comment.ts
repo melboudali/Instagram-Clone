@@ -5,10 +5,9 @@ import {
   UpdateDateColumn,
   Column,
   BaseEntity,
-  ManyToOne,
-  OneToMany
+  ManyToOne
 } from 'typeorm';
-import { Field, Int, ObjectType } from 'type-graphql';
+import { Field, ObjectType } from 'type-graphql';
 import { User } from './user';
 import { Image } from './image';
 
@@ -28,7 +27,7 @@ export class Comment extends BaseEntity {
   userId!: number;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.comment, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, user => user.comments, { onDelete: 'CASCADE' })
   user: User;
 
   @Field()

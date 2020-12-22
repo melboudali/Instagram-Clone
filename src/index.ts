@@ -11,6 +11,9 @@ import session from 'express-session';
 import connectRedis from 'connect-redis';
 import cors from 'cors';
 import { User } from './entities/user';
+import { Image } from './entities/image';
+import { Like } from './entities/like';
+import { Comment } from './entities/comment';
 
 const main = async () => {
   const app = express();
@@ -22,7 +25,7 @@ const main = async () => {
     username: 'postgres',
     password: 'postgres',
     database: 'instagram',
-    entities: [User],
+    entities: [User, Image, Like, Comment],
     synchronize: !__prod__,
     logging: false
   }).catch(error => console.log(error));

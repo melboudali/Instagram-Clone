@@ -6,13 +6,15 @@ import { cookieName } from '../config/constants';
 import { getConnection } from 'typeorm';
 
 @InputType()
-class userInputs {
+class registerInputs {
   @Field()
-  username: string;
+  userName: string;
   @Field()
   email: string;
   @Field()
   password: string;
+  @Field()
+  fullName: string;
 }
 
 @ObjectType()
@@ -43,19 +45,28 @@ export class UserResolver {
 
   @Mutation(() => UserResponse)
   async register(
-    @Arg('userInputs') userInputs: userInputs,
+    @Arg('registerInputs') registerInputs: registerInputs,
     @Ctx() { req }: MyContext
   ): Promise<UserResponse> {
-    if (userInputs.username.length <= 2) {
-      return { errors: [{ field: 'username', message: 'Length should be greater than 2' }] };
+    if (registerInputs.fullName.length <= 2) {
+      return {
+        errors: [{ field: 'fullName', message: 'Full name length should be greater than 2' }]
+      };
     }
-    if (userInputs.email.length <= 2 || !userInputs.email.includes('@')) {
+    if (registerInputs.userName.length <= 2) {
+      return {
+        errors: [{ field: 'userName', message: 'Username length should be greater than 2' }]
+      };
+    }
+    if (registerInputs.email.length <= 2 || !registerInputs.email.includes('@')) {
       return { errors: [{ field: 'email', message: 'Invalid email' }] };
     }
-    if (userInputs.password.length <= 2) {
-      return { errors: [{ field: 'password', message: 'Length should be greater than 2' }] };
+    if (registerInputs.password.length <= 2) {
+      return {
+        errors: [{ field: 'password', message: 'password length should be greater than 2' }]
+      };
     }
-    const hashedPassword = await argon2.hash(userInputs.password);
+    const hashedPassword = await argon2.hash(registerInputs.password);
     let user;
     try {
       const result = await getConnection()
@@ -63,8 +74,9 @@ export class UserResolver {
         .insert()
         .into(User)
         .values({
-          username: userInputs.username,
-          email: userInputs.email,
+          userName: registerInputs.userName,
+          fullName: registerInputs.fullName,
+          email: registerInputs.email,
           password: hashedPassword
         })
         .returning('*')
@@ -72,7 +84,7 @@ export class UserResolver {
       user = result.raw[0];
     } catch (error) {
       if (error.code === '23505') {
-        return { errors: [{ field: 'username', message: 'username already exist' }] };
+        return { errors: [{ field: 'userName', message: 'Username already exist' }] };
       }
     }
     req.session!.userId = user.id;
@@ -87,12 +99,12 @@ export class UserResolver {
   ) {
     const isEmail: boolean = userNameOrEmail.includes('@') ? true : false;
     const user = await User.findOne({
-      where: isEmail ? { email: userNameOrEmail } : { username: userNameOrEmail }
+      where: isEmail ? { email: userNameOrEmail } : { userName: userNameOrEmail }
     });
 
     if (!user) {
       return {
-        errors: [{ field: 'userNameOrEmail', message: "username or email doesn't exist!" }]
+        errors: [{ field: 'userNameOrEmail', message: "Username or email doesn't exist!" }]
       };
     }
     const isMatch = await argon2.verify(user.password, password);

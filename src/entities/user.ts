@@ -21,7 +21,7 @@ export class User extends BaseEntity {
 
   @Field()
   @Column({ unique: true })
-  username!: string;
+  userName!: string;
 
   @Field()
   @Column({ unique: true })
@@ -32,7 +32,7 @@ export class User extends BaseEntity {
 
   @Field()
   @Column({ default: '' })
-  name!: string;
+  fullName!: string;
 
   @Field()
   @Column({ default: 'https://' })
@@ -54,14 +54,14 @@ export class User extends BaseEntity {
   @Column({ default: 'https://searchusers.xyz/img/userb.png' })
   imageUrl!: string;
 
-  @OneToMany(() => Image, img => img.user)
+  @OneToMany(() => Image, image => image.user)
   images: Image[];
 
   @OneToMany(() => Like, like => like.user)
-  like: Comment[];
+  likes: Like[];
 
   @OneToMany(() => Comment, comment => comment.user)
-  comment: Comment[];
+  comments: Comment[];
 
   @Field(() => String)
   @CreateDateColumn()

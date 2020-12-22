@@ -1,5 +1,5 @@
 import { Entity, Column, BaseEntity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { User } from './User';
+import { User } from './user';
 import { Image } from './image';
 
 @Entity()
@@ -10,12 +10,12 @@ export class Like extends BaseEntity {
   @PrimaryColumn()
   userId: number;
 
-  @ManyToOne(() => User, user => user.like)
+  @ManyToOne(() => User, user => user.likes)
   user: User;
 
   @PrimaryColumn()
   imageId: number;
 
-  @ManyToOne(() => Image, image => image.like, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Image, image => image.likes, { onDelete: 'CASCADE' })
   image: Image;
 }
