@@ -1,18 +1,31 @@
 {
   "name": "instagram-clone",
   "version": "1.0.0",
-  "description": "",
+  "description": "instagram-clone",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MedElBoudali/Instagram-Clone.git"
+  },
+  "author": "med",
+  "bugs": {
+    "url": "https://github.com/MedElBoudali/Instagram-Clone/issues"
+  },
+  "homepage": "https://github.com/MedElBoudali/Instagram-Clone#readme",
+  "license": "MIT",
   "scripts": {
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
     "build": "tsc",
     "watch": "tsc -w",
-    "dev": "nodemon ./dist/index.js"
+    "client": "yarn --cwd client start",
+    "server": "nodemon ./dist/index.js",
+    "clientBuild": "yarn --cwd client build",
+    "all": "concurrently \"yarn server\" \"yarn client\""
   },
-  "author": "Med",
   "dependencies": {
     "apollo-server-express": "^2.19.0",
     "argon2": "^0.27.1",
+    "concurrently": "^5.3.0",
     "connect-pg-simple": "^6.2.1",
     "connect-redis": "^5.0.0",
     "cors": "^2.8.5",
