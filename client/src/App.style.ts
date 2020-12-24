@@ -14,13 +14,14 @@ export const GlobalStyle = createGlobalStyle`
   html {
     position: relative;
     min-height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
   }; 
 
   body {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     background-color: #FAFAFA;
   };
 `;
