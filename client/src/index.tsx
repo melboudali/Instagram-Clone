@@ -1,9 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import App from './App';
+import ScrollToTop from './utils/ScrollToTop';
+import reportWebVitals from './reportWebVitals';
 
 const client = new ApolloClient({
   uri: 'http://localhost:5000/graphql',
@@ -12,11 +12,12 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
+  <ApolloProvider client={client}>
+    <Router>
+      <ScrollToTop />
       <App />
-    </ApolloProvider>
-  </React.StrictMode>,
+    </Router>
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
