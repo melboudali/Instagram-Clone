@@ -9,15 +9,25 @@ type FormInputProps = {
   Maxlength: number | undefined;
   Name: string;
   Type: string;
+  SetLengthFunc: Function;
 };
 
-const FromInput = ({ LabelText, Required, Maxlength, Name, Type }: FormInputProps) => {
+const FromInput = ({
+  LabelText,
+  Required,
+  Maxlength,
+  Name,
+  Type,
+  SetLengthFunc
+}: FormInputProps) => {
   const [value, setValue] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const onChangeFunction = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    setValue(e.target.value);
+    const value = e.target.value;
+    setValue(value);
+    SetLengthFunc(value.length);
   };
 
   const onClickFunction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
@@ -58,7 +68,8 @@ FromInput.propTypes = {
   Required: PropTypes.bool.isRequired,
   Maxlength: PropTypes.number,
   Name: PropTypes.string.isRequired,
-  Type: PropTypes.string.isRequired
+  Type: PropTypes.string.isRequired,
+  SetLengthFunc: PropTypes.func
 };
 
 export default FromInput;

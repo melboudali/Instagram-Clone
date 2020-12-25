@@ -65,7 +65,7 @@ export const ShowButton = styled.button`
   cursor: pointer;
   display: block;
   font-weight: 600;
-  padding: 9px 4px 7px 4px;
+  padding: 9px 4px;
   text-align: center;
   height: 100%;
   text-transform: capitalize;

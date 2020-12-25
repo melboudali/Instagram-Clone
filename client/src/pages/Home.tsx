@@ -12,9 +12,13 @@ import {
 import Instagram from '../assets/images/d6bf0c928b5a.jpg';
 import FormINput from '../components/layouts/FormInput';
 import Button from '../components/layouts/Button';
+import { useState } from 'react';
 // import PropTypes from 'prop-types';
 
 const Home = () => {
+  const [userNameLength, setUserNameLength] = useState(0);
+  const [passwordLength, setPasswordLength] = useState(0);
+
   return (
     <Container>
       <LeftComponent>
@@ -32,6 +36,7 @@ const Home = () => {
                   Maxlength={75}
                   Name='username'
                   Type='text'
+                  SetLengthFunc={setUserNameLength}
                 />
                 <FormINput
                   LabelText='Password'
@@ -39,9 +44,12 @@ const Home = () => {
                   Maxlength={undefined}
                   Name='password'
                   Type='password'
+                  SetLengthFunc={setPasswordLength}
                 />
               </InputsContainer>
-              <Button Active={false}>Log In</Button>
+              <Button Active={userNameLength > 0 && passwordLength > 0 ? true : false}>
+                Log In
+              </Button>
             </LoginForm>
           </FormContainer>
         </LoginContainer>
