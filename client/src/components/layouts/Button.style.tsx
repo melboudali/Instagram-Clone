@@ -10,7 +10,7 @@ export const ButtonElement = styled.button<{ active: boolean }>`
   background-color: #0095f6;
   border-radius: 4px;
   color: #fff;
-  cursor: pointer;
+  cursor: ${({ active }) => (active ? 'pointer' : 'default')};
   display: block;
   font-weight: 600;
   font-size: 14px;

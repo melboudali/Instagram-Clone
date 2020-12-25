@@ -41,7 +41,7 @@ const Home = () => {
                   Type='password'
                 />
               </InputsContainer>
-                <Button Active={true}>Log In</Button>
+              <Button Active={false}>Log In</Button>
             </LoginForm>
           </FormContainer>
         </LoginContainer>
