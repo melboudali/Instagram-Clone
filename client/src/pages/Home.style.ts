@@ -39,7 +39,6 @@ export const LeftComponent = styled.div`
 
 export const RightComponent = styled.div`
   display: block;
-  background-color: red;
   color: #262626;
   flex-grow: 1;
   justify-content: center;

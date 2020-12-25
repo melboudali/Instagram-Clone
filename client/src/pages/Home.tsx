@@ -25,7 +25,20 @@ const Home = () => {
           <FormContainer>
             <LoginForm>
               <InputsContainer>
-                <FormINput />
+                <FormINput
+                  LabelText='Phone number, username, or email'
+                  Required={true}
+                  Maxlength={75}
+                  Name='username'
+                  Type='text'
+                />
+                <FormINput
+                  LabelText='Password'
+                  Required={true}
+                  Maxlength={undefined}
+                  Name='password'
+                  Type='password'
+                />
               </InputsContainer>
             </LoginForm>
           </FormContainer>
