@@ -9,8 +9,9 @@ import {
   InputsContainer,
   ImagesContainer
 } from './Home.style';
-import FormINput from '../components/layouts/FormInput';
 import Instagram from '../assets/images/d6bf0c928b5a.jpg';
+import FormINput from '../components/layouts/FormInput';
+import Button from '../components/layouts/Button';
 // import PropTypes from 'prop-types';
 
 const Home = () => {
@@ -40,6 +41,7 @@ const Home = () => {
                   Type='password'
                 />
               </InputsContainer>
+                <Button Active={true}>Log In</Button>
             </LoginForm>
           </FormContainer>
         </LoginContainer>

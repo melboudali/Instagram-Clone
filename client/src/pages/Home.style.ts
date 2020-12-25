@@ -51,7 +51,7 @@ export const RightComponent = styled.div`
 export const LoginContainer = styled.div`
   align-items: center;
   background-color: #fff;
-  border: 1px solid #dbdbdb;
+  border: 1px solid var(--borderColor);
   border-radius: 1px;
   margin: 0 0 10px;
   padding: 10px 0;

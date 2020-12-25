@@ -10,7 +10,7 @@ export const InputContainer = styled.div`
   border: 1px solid var(--borderColor);
   border-radius: 3px;
   box-sizing: border-box;
-  color: #262626;
+  color: var(--textColorDarkGray);
   display: flex;
   flex-direction: row;
   font-size: 14px;
@@ -29,7 +29,7 @@ export const Label = styled.label`
 `;
 
 export const Span = styled.span<{ value: string }>`
-  color: #8e8e8e;
+  color: var(--textColorGray);
   font-size: 12px;
   height: 36px;
   left: 8px;
@@ -59,7 +59,8 @@ export const Input = styled.input<{ value: string }>`
 `;
 
 export const ShowButton = styled.button`
-  background: transparent;
+  background: none;
+  color: var(--textColorGray) !important;
   border: 0;
   cursor: pointer;
   display: block;
