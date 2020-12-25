@@ -8,6 +8,9 @@ export const GlobalStyle = createGlobalStyle`
     --borderColor: #DBDBDB;
     --textColorGray: #8e8e8e;
     --textColorDarkGray: #262626;
+    --buttonLightBlue: #0095f6;
+    --linkColor: #385185;
+    --linkColorTwo: #00376b
   }
 
   * {
@@ -40,4 +43,8 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 14px;
     line-height: 18px;
   };
+
+  a, a:visited {
+    text-decoration: none;
+  }
 `;
