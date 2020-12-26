@@ -187,6 +187,24 @@ export const Links = styled.div`
 
 export const Lang = styled.div`
   margin: 12px 0;
+  display: flex;
+  justify-content: center;
+  color: var(--textColorGray);
+  div {
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: capitalize;
+    :nth-child(1) {
+      display: flex;
+      cursor: pointer;
+    }
+    :nth-child(2) {
+      margin-left: 16px;
+    }
+    svg {
+      margin-left: 4px;
+    }
+  }
 `;
 
 export const Link = styled.div`

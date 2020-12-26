@@ -193,7 +193,27 @@ const Home = () => {
               </Link>
             </div>
           </Links>
-          <Lang></Lang>
+          <Lang>
+            <div>
+              English
+              <span>
+                <svg
+                  width='11'
+                  height='6'
+                  viewBox='0 0 11 6'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    d='M1 1L5.5 5L10 1'
+                    stroke='#8E8E8E'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  />
+                </svg>
+              </span>
+            </div>
+            <div>© 2020 Instagram from Facebook</div>
+          </Lang>
         </LinksContainer>
       </Footer>
     </>
