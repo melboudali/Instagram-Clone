@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Main, InputContainer, Label, Span, Input, ShowButton } from './FormInput.style';
 import PropTypes from 'prop-types';
-import { off } from 'process';
 
 type FormInputProps = {
   LabelText: string;
@@ -9,7 +8,8 @@ type FormInputProps = {
   Maxlength: number | undefined;
   Name: string;
   Type: string;
-  SetLengthFunc: Function;
+  inputValue: string;
+  setInputValue: Function;
 };
 
 const FromInput = ({
@@ -18,16 +18,15 @@ const FromInput = ({
   Maxlength,
   Name,
   Type,
-  SetLengthFunc
+  inputValue,
+  setInputValue
 }: FormInputProps) => {
-  const [value, setValue] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const onChangeFunction = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     const value = e.target.value;
-    setValue(value);
-    SetLengthFunc(value.length);
+    setInputValue(value);
   };
 
   const onClickFunction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
@@ -39,7 +38,7 @@ const FromInput = ({
     <Main>
       <InputContainer>
         <Label>
-          <Span value={value}>{LabelText}</Span>
+          <Span value={inputValue}>{LabelText}</Span>
           <Input
             aria-label={LabelText}
             aria-required={Required}
@@ -48,11 +47,11 @@ const FromInput = ({
             maxLength={Maxlength}
             name={Name}
             type={Type === 'password' && showPassword ? 'text' : Type}
-            value={value}
+            value={inputValue}
             autoComplete='off'
             onChange={onChangeFunction}
           />
-          {Type === 'password' && value.length > 0 && (
+          {Type === 'password' && inputValue.length > 0 && (
             <ShowButton type='button' onClick={onClickFunction}>
               {showPassword ? 'hide' : 'show'}
             </ShowButton>
@@ -69,7 +68,8 @@ FromInput.propTypes = {
   Maxlength: PropTypes.number,
   Name: PropTypes.string.isRequired,
   Type: PropTypes.string.isRequired,
-  SetLengthFunc: PropTypes.func
+  inputValue: PropTypes.string.isRequired,
+  setInputValue: PropTypes.func.isRequired
 };
 
 export default FromInput;

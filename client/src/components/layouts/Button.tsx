@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 type ButtonProps = {
-  Active: boolean;
+  active: boolean;
   children: React.ReactNode;
+  type: 'submit' | 'reset' | 'button';
+  onClickFunction: Function;
 };
 
 export const ButtonContainer = styled.div`
@@ -26,13 +28,16 @@ export const ButtonElement = styled.button<{ active: boolean }>`
   width: 100%;
 `;
 
-const Button = ({ Active, children }: ButtonProps) => {
-  const onClickFunc = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-    e.preventDefault();
-  };
+const Button = ({ active, children, type, onClickFunction }: ButtonProps) => {
   return (
     <ButtonContainer>
-      <ButtonElement active={Active} type='submit' onClick={onClickFunc}>
+      <ButtonElement
+        active={active}
+        type={type}
+        onClick={e => {
+          e.preventDefault();
+          onClickFunction();
+        }}>
         {children}
       </ButtonElement>
     </ButtonContainer>
@@ -40,8 +45,9 @@ const Button = ({ Active, children }: ButtonProps) => {
 };
 
 Button.propTypes = {
-  Active: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired
+  active: PropTypes.bool.isRequired,
+  children: PropTypes.element.isRequired,
+  type: PropTypes.string
 };
 
 export default Button;

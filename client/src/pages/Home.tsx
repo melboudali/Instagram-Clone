@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import {
   Container,
   LeftComponent,
@@ -26,13 +26,37 @@ import Divider from '../components/layouts/Divider';
 import GooglePlay from '../assets/images/e9cd846dc748.png';
 import PlayStore from '../assets/images/180ae7a0bcf7.png';
 import Footer from '../components/layouts/Footer';
+import { useLoginMutation } from '../generated/graphql';
 
 const Home = () => {
-  const [userNameLength, setUserNameLength] = useState(0);
-  const [passwordLength, setPasswordLength] = useState(0);
+  const [login] = useLoginMutation();
+
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const loginFunction = async () => {
+    await login({
+      variables: {
+        userNameOrEmail: userName,
+        password
+      }
+    }).then(({ data }) => {
+      if (data?.login.errors) {
+        console.log({
+          registred: false,
+          error: {
+            field: data?.login.errors[0].field,
+            message: data?.login.errors[0].message
+          }
+        });
+      } else if (data?.login.user) {
+        console.log({ registred: true, user: data.login.user });
+      }
+    });
+  };
 
   return (
-    <>
+    <Fragment>
       <Container>
         <LeftComponent>
           <ImagesContainer src={Instagram} alt='image' />
@@ -49,7 +73,8 @@ const Home = () => {
                     Maxlength={75}
                     Name='username'
                     Type='text'
-                    SetLengthFunc={setUserNameLength}
+                    inputValue={userName}
+                    setInputValue={setUserName}
                   />
                   <FormINput
                     LabelText='Password'
@@ -57,10 +82,14 @@ const Home = () => {
                     Maxlength={undefined}
                     Name='password'
                     Type='password'
-                    SetLengthFunc={setPasswordLength}
+                    inputValue={password}
+                    setInputValue={setPassword}
                   />
                 </InputsContainer>
-                <Button Active={userNameLength > 0 && passwordLength > 0 ? true : false}>
+                <Button
+                  active={userName.length > 0 && password.length > 0 ? true : false}
+                  onClickFunction={loginFunction}
+                  type='submit'>
                   Log In
                 </Button>
                 <Divider />
@@ -100,7 +129,7 @@ const Home = () => {
         </RightComponent>
       </Container>
       <Footer />
-    </>
+    </Fragment>
   );
 };
 
