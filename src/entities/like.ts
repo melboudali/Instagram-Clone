@@ -1,6 +1,6 @@
 import { Entity, Column, BaseEntity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { User } from './user';
-import { Image } from './image';
+import { User } from './User';
+import { Image } from './Image';
 
 @Entity()
 export class Like extends BaseEntity {

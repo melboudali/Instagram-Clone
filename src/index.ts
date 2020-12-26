@@ -11,10 +11,10 @@ import Redis from 'ioredis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
 import cors from 'cors';
-import { User } from './entities/user';
-import { Image } from './entities/image';
-import { Like } from './entities/like';
-import { Comment } from './entities/comment';
+import { User } from './entities/User';
+import { Image } from './entities/Image';
+import { Like } from './entities/Like';
+import { Comment } from './entities/Comment';
 import { graphqlUploadExpress } from 'graphql-upload';
 
 const main = async () => {

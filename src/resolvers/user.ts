@@ -1,5 +1,5 @@
 import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Query, Resolver } from 'type-graphql';
-import { User } from '../entities/user';
+import { User } from '../entities/User';
 import { MyContext } from 'src/types';
 import argon2 from 'argon2';
 import { cookieName } from '../config/constants';

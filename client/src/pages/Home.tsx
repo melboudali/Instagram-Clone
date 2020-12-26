@@ -13,6 +13,7 @@ import {
   FBButton,
   FBLogo,
   ButtonText,
+  ErrorContainer,
   ForgotPwd,
   ForgotPwdContainer,
   Signup,
@@ -33,6 +34,7 @@ const Home = () => {
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const loginFunction = async () => {
     await login({
@@ -42,6 +44,7 @@ const Home = () => {
       }
     }).then(({ data }) => {
       if (data?.login.errors) {
+        setLoginError(data?.login.errors[0].message);
         console.log({
           registred: false,
           error: {
@@ -99,6 +102,11 @@ const Home = () => {
                     <ButtonText>Log in with Facebook</ButtonText>
                   </FBButton>
                 </FBButtonContainer>
+                {loginError.length > 0 && (
+                  <ErrorContainer>
+                    <p>{loginError}</p>
+                  </ErrorContainer>
+                )}
               </LoginForm>
               <ForgotPwdContainer>
                 <ForgotPwd href='#'>Forgot password?</ForgotPwd>

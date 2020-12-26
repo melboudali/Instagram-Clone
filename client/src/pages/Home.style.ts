@@ -110,6 +110,16 @@ export const ButtonText = styled.span`
   color: var(--linkColor);
 `;
 
+export const ErrorContainer = styled.div`
+  margin: 10px 40px;
+  p {
+    color: var(--textErrorColor);
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+  }
+`;
+
 export const ForgotPwdContainer = styled.div`
   text-align: center;
   margin: 12px 40px 0;
