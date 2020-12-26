@@ -5,7 +5,6 @@ import Assets from '../assets/images/32f0a4f27407.png';
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
-  min-height: 100%;
 `;
 
 export const Container = styled.section`
@@ -15,10 +14,8 @@ export const Container = styled.section`
   flex-direction: row;
   flex-grow: 1;
   justify-content: center;
-  margin: 32px auto 0;
   max-width: 935px;
   padding-bottom: 32px;
-  width: 100%;
 `;
 
 export const LeftComponent = styled.div`
@@ -93,7 +90,6 @@ export const FBButton = styled.button`
   display: inline-flex;
   cursor: pointer;
   font-weight: 600;
-  padding: 5px 9px;
   justify-self: center;
   align-items: center;
   border: none;
@@ -116,7 +112,7 @@ export const ButtonText = styled.span`
 
 export const ForgotPwdContainer = styled.div`
   text-align: center;
-  margin: 12px 40px 0 40px;
+  margin: 12px 40px 0;
 `;
 
 export const ForgotPwd = styled.a`
@@ -150,9 +146,10 @@ export const GetTheAppContainer = styled.div`
     color: var(--textColorDarkGray);
     font-size: 14px;
     line-height: 18px;
-    margin: 10px 20px 10px 20px;
+    margin: 10px 20px;
   }
 `;
+
 export const AppsButtons = styled.div`
   display: inline-flex;
   margin: 10px 0;
@@ -164,58 +161,6 @@ export const AppsButtons = styled.div`
     }
     img {
       height: 40px;
-    }
-  }
-`;
-
-export const Footer = styled.footer`
-  padding-left: 16px;
-  padding-right: 16px;
-`;
-export const LinksContainer = styled.div`
-  margin-bottom: 52px;
-`;
-
-export const Links = styled.div`
-  margin-top: 24px;
-  div {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-`;
-
-export const Lang = styled.div`
-  margin: 12px 0;
-  display: flex;
-  justify-content: center;
-  color: var(--textColorGray);
-  div {
-    font-size: 12px;
-    line-height: 14px;
-    text-transform: capitalize;
-    :nth-child(1) {
-      display: flex;
-      cursor: pointer;
-    }
-    :nth-child(2) {
-      margin-left: 16px;
-    }
-    svg {
-      margin-left: 4px;
-    }
-  }
-`;
-
-export const Link = styled.div`
-  margin: 0 8px 12px;
-  a {
-    color: var(--textColorGray);
-    div {
-      font-size: 12px;
-      line-height: 14px;
-      margin: -2px 0 -3px;
-      text-transform: capitalize;
     }
   }
 `;
