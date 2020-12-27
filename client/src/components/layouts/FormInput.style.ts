@@ -14,6 +14,7 @@ export const InputContainer = styled.div`
   font-size: 14px;
   position: relative;
   width: 100%;
+  cursor: text;
 `;
 
 export const Label = styled.label`
@@ -23,7 +24,6 @@ export const Label = styled.label`
   padding: 0;
   margin: 0;
   min-width: 0;
-  cursor: text;
 `;
 
 export const Span = styled.span<{ value: string }>`
@@ -38,6 +38,8 @@ export const Span = styled.span<{ value: string }>`
   transform-origin: left;
   transition: transform ease-out 0.1s;
   ${({ value }) => value.length > 0 && 'transform: scale(.83333) translateY(-10px);'}
+  transition: transform ease-out .1s,-webkit-transform ease-out .1s;
+  user-select: none;
   cursor: text;
 `;
 
@@ -46,7 +48,6 @@ export const Input = styled.input<{ value: string }>`
   border: none;
   flex: 1 0 auto;
   margin: 0;
-  outline: none;
   text-overflow: ellipsis;
   ${({ value }) =>
     value.length > 0

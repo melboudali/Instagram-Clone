@@ -1,4 +1,4 @@
-import { useState, Fragment, useEffect } from 'react';
+import { useState, Fragment } from 'react';
 import {
   Container,
   LeftComponent,
@@ -8,7 +8,6 @@ import {
   FormContainer,
   LoginForm,
   InputsContainer,
-  ImagesContainer,
   FBButtonContainer,
   FBButton,
   FBLogo,
@@ -20,10 +19,7 @@ import {
   GetTheAppContainer,
   AppsButtons
 } from './Home.style';
-import firstImage from '../assets/images/d6bf0c928b5a.jpg';
-import secondImage from '../assets/images/6f03eb85463c.jpg';
-import thirdImage from '../assets/images/f0c687aa6ec2.jpg';
-import forthImage from '../assets/images/842fe5699220.jpg';
+import Carousel from '../components/layouts/Carousel';
 import FormINput from '../components/layouts/FormInput';
 import Button from '../components/layouts/Button';
 import Divider from '../components/layouts/Divider';
@@ -39,25 +35,7 @@ const Home = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const [newImg, setNewImage] = useState(1);
-  const [oldImg, setOldImage] = useState(4);
 
-  useEffect(() => {
-    const Slider = setInterval(() => {
-      if (newImg < 5 - 1) {
-        if (oldImg < 5 - 1) {
-          setOldImage(oldImg + 1);
-        } else {
-          setOldImage(1);
-        }
-        setNewImage(newImg + 1);
-      } else {
-        setNewImage(1);
-        setOldImage(4);
-      }
-    }, 5000);
-    return () => clearInterval(Slider);
-  }, [newImg, oldImg]);
 
   const loginFunction = async () => {
     setLoading(true);
@@ -81,15 +59,7 @@ const Home = () => {
     <Fragment>
       <Container>
         <LeftComponent>
-          <ImagesContainer src={firstImage} alt={undefined} New={newImg === 1} Old={oldImg === 1} />
-          <ImagesContainer
-            src={secondImage}
-            alt={undefined}
-            New={newImg === 2}
-            Old={oldImg === 2}
-          />
-          <ImagesContainer src={thirdImage} alt={undefined} New={newImg === 3} Old={oldImg === 3} />
-          <ImagesContainer src={forthImage} alt={undefined} New={newImg === 4} Old={oldImg === 4} />
+         <Carousel/>
         </LeftComponent>
         <RightComponent>
           <LoginContainer>

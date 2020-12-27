@@ -11,7 +11,8 @@ export const GlobalStyle = createGlobalStyle`
     --buttonLightBlue: #0095f6;
     --linkColor: #385185;
     --linkColorTwo: #00376b;
-    --textErrorColor: #ed4956
+    --textErrorColor: #ed4956;
+    --borderDarkColor: #A8A8A8
   }
 
   * {

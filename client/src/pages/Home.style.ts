@@ -12,6 +12,7 @@ export const Container = styled.section`
   width: 100%;
   margin: 32px auto 0;
   flex-direction: row;
+  flex-wrap: nowrap;
   flex-grow: 1;
   justify-content: center;
   max-width: 935px;
@@ -71,28 +72,6 @@ export const InputsContainer = styled.div`
   margin-top: 24px;
   flex: 0 0 auto;
   justify-content: flex-start;
-`;
-
-export const ImagesContainer = styled.img<{ New: boolean; Old: boolean }>`
-  height: 427px;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 240px;
-  margin: 99px 0 0 151px;
-  opacity: 0;
-  visibility: hidden;
-  ${({ New }) =>
-    New &&
-    `opacity: 1;
-    visibility: visible;
-    transition: opacity 1.5s ease-in;
-    z-index: 2;`}
-  ${({ Old }) =>
-    Old
-      && `opacity: 1;
-    visibility: visible;`
-      }
 `;
 
 export const FBButtonContainer = styled.div`
