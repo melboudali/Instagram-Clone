@@ -73,33 +73,45 @@ export const InputsContainer = styled.div`
   justify-content: flex-start;
 `;
 
-export const ImagesContainer = styled.img`
+export const ImagesContainer = styled.img<{ New: boolean; Old: boolean }>`
   height: 427px;
   left: 0;
   position: absolute;
   top: 0;
   width: 240px;
   margin: 99px 0 0 151px;
-  transition: all 1.5s;
+  opacity: 0;
+  visibility: hidden;
+  ${({ New }) =>
+    New &&
+    `opacity: 1;
+    visibility: visible;
+    transition: opacity 1.5s ease-in;
+    z-index: 2;`}
+  ${({ Old }) =>
+    Old
+      && `opacity: 1;
+    visibility: visible;`
+      }
 `;
 
 export const FBButtonContainer = styled.div`
+  display: flex;
   margin: 8px 40px;
-  text-align: center;
+  justify-content: center;
 `;
 
 export const FBButton = styled.button`
-  display: inline-flex;
+  display: flex;
   cursor: pointer;
   font-weight: 600;
-  justify-self: center;
-  align-items: center;
   border: none;
   outline: none;
   background: none;
 `;
 
 export const FBLogo = styled.span`
+  align-self: center;
   margin-right: 8px;
   background: url(${Assets});
   background-repeat: no-repeat;
@@ -165,9 +177,7 @@ export const GetTheAppContainer = styled.div`
 export const AppsButtons = styled.div`
   display: inline-flex;
   margin: 10px 0;
-  flex-direction: row;
   a {
-    align-items: center;
     &:nth-child(1) {
       margin-right: 8px;
     }

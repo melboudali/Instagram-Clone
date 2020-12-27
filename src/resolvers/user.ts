@@ -20,15 +20,13 @@ class registerInputs {
 @ObjectType()
 class FieldError {
   @Field()
-  field: string;
-  @Field()
   message: string;
 }
 
 @ObjectType()
 class UserResponse {
-  @Field(() => [FieldError], { nullable: true })
-  errors?: FieldError[];
+  @Field(() => FieldError, { nullable: true })
+  error?: FieldError;
   @Field(() => User, { nullable: true })
   user?: User;
 }
@@ -50,20 +48,20 @@ export class UserResolver {
   ): Promise<UserResponse> {
     if (registerInputs.fullName.length <= 2) {
       return {
-        errors: [{ field: 'fullName', message: 'Full name length should be greater than 2' }]
+        error: { message: 'Full name length should be greater than 2' }
       };
     }
     if (registerInputs.userName.length <= 2) {
       return {
-        errors: [{ field: 'userName', message: 'Username length should be greater than 2' }]
+        error: { message: 'Username length should be greater than 2' }
       };
     }
     if (registerInputs.email.length <= 2 || !registerInputs.email.includes('@')) {
-      return { errors: [{ field: 'email', message: 'Invalid email' }] };
+      return { error: { message: 'Invalid email' } };
     }
     if (registerInputs.password.length <= 2) {
       return {
-        errors: [{ field: 'password', message: 'password length should be greater than 2' }]
+        error: { message: 'password length should be greater than 2' }
       };
     }
     const hashedPassword = await argon2.hash(registerInputs.password);
@@ -84,7 +82,7 @@ export class UserResolver {
       user = result.raw[0];
     } catch (error) {
       if (error.code === '23505') {
-        return { errors: [{ field: 'userName', message: 'Username already exist' }] };
+        return { error: { message: 'Username already exist' } };
       }
     }
     req.session!.userId = user.id;
@@ -96,7 +94,7 @@ export class UserResolver {
     @Arg('userNameOrEmail') userNameOrEmail: string,
     @Arg('password') password: string,
     @Ctx() { req }: MyContext
-  ) {
+  ): Promise<UserResponse> {
     const isEmail: boolean = userNameOrEmail.includes('@') ? true : false;
     const user = await User.findOne({
       where: isEmail ? { email: userNameOrEmail } : { userName: userNameOrEmail }
@@ -104,12 +102,19 @@ export class UserResolver {
 
     if (!user) {
       return {
-        errors: [{ field: 'userNameOrEmail', message: "Username or email doesn't exist!" }]
+        error: {
+          message:
+            "The username you entered doesn't belong to an account. Please check your username and try again."
+        }
       };
     }
     const isMatch = await argon2.verify(user.password, password);
     if (!isMatch) {
-      return { errors: [{ field: 'password', message: "password doesn't match!" }] };
+      return {
+        error: {
+          message: 'Sorry, your password was incorrect. Please double-check your password.'
+        }
+      };
     }
     req.session.userId = user.id;
     return { user };

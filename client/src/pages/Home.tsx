@@ -39,21 +39,25 @@ const Home = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
-  const [selectedImage, setSelectedImage] = useState(firstImage);
+  const [newImg, setNewImage] = useState(1);
+  const [oldImg, setOldImage] = useState(4);
 
   useEffect(() => {
-    let i = 1;
-    const images = [firstImage, secondImage, thirdImage, forthImage];
     const Slider = setInterval(() => {
-      if (i < images.length - 1) {
-        i++;
+      if (newImg < 5 - 1) {
+        if (oldImg < 5 - 1) {
+          setOldImage(oldImg + 1);
+        } else {
+          setOldImage(1);
+        }
+        setNewImage(newImg + 1);
       } else {
-        i = 0;
+        setNewImage(1);
+        setOldImage(4);
       }
-      setSelectedImage(images[i]);
-    }, 1500);
+    }, 5000);
     return () => clearInterval(Slider);
-  }, []);
+  }, [newImg, oldImg]);
 
   const loginFunction = async () => {
     setLoading(true);
@@ -77,7 +81,15 @@ const Home = () => {
     <Fragment>
       <Container>
         <LeftComponent>
-          <ImagesContainer src={selectedImage} alt={undefined} />
+          <ImagesContainer src={firstImage} alt={undefined} New={newImg === 1} Old={oldImg === 1} />
+          <ImagesContainer
+            src={secondImage}
+            alt={undefined}
+            New={newImg === 2}
+            Old={oldImg === 2}
+          />
+          <ImagesContainer src={thirdImage} alt={undefined} New={newImg === 3} Old={oldImg === 3} />
+          <ImagesContainer src={forthImage} alt={undefined} New={newImg === 4} Old={oldImg === 4} />
         </LeftComponent>
         <RightComponent>
           <LoginContainer>
