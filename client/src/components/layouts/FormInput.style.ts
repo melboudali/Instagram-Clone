@@ -37,6 +37,7 @@ export const Span = styled.span<{ value: string }>`
   text-overflow: ellipsis;
   transform-origin: left;
   transition: transform ease-out 0.1s;
+
   ${({ value }) => value.length > 0 && 'transform: scale(.83333) translateY(-10px);'}
   transition: transform ease-out .1s,-webkit-transform ease-out .1s;
   user-select: none;
@@ -49,6 +50,7 @@ export const Input = styled.input<{ value: string }>`
   flex: 1 0 auto;
   margin: 0;
   text-overflow: ellipsis;
+  border-radius: 3px;
   ${({ value }) =>
     value.length > 0
       ? 'font-size: 12px; padding: 14px 8px 2px;'
