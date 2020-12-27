@@ -28,6 +28,7 @@ export const LeftComponent = styled.div`
   margin-right: -15px;
   flex-basis: 454px;
   height: 618px;
+  overflow: hidden;
 `;
 
 export const RightComponent = styled.div`
@@ -79,6 +80,7 @@ export const ImagesContainer = styled.img`
   top: 0;
   width: 240px;
   margin: 99px 0 0 151px;
+  transition: all 1.5s;
 `;
 
 export const FBButtonContainer = styled.div`

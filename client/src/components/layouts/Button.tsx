@@ -36,11 +36,9 @@ const LoadingContainer = styled.div`
     animation: IGCoreSpinnerSpin8 0.8s steps(8) infinite;
     @keyframes IGCoreSpinnerSpin8 {
       0% {
-        -webkit-transform: rotate(180deg);
         transform: rotate(180deg);
       }
       to {
-        -webkit-transform: rotate(540deg);
         transform: rotate(540deg);
       }
     }

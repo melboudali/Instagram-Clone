@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import {
   Container,
   LeftComponent,
@@ -20,7 +20,10 @@ import {
   GetTheAppContainer,
   AppsButtons
 } from './Home.style';
-import Instagram from '../assets/images/d6bf0c928b5a.jpg';
+import firstImage from '../assets/images/d6bf0c928b5a.jpg';
+import secondImage from '../assets/images/6f03eb85463c.jpg';
+import thirdImage from '../assets/images/f0c687aa6ec2.jpg';
+import forthImage from '../assets/images/842fe5699220.jpg';
 import FormINput from '../components/layouts/FormInput';
 import Button from '../components/layouts/Button';
 import Divider from '../components/layouts/Divider';
@@ -36,6 +39,21 @@ const Home = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [selectedImage, setSelectedImage] = useState(firstImage);
+
+  useEffect(() => {
+    let i = 1;
+    const images = [firstImage, secondImage, thirdImage, forthImage];
+    const Slider = setInterval(() => {
+      if (i < images.length - 1) {
+        i++;
+      } else {
+        i = 0;
+      }
+      setSelectedImage(images[i]);
+    }, 1500);
+    return () => clearInterval(Slider);
+  }, []);
 
   const loginFunction = async () => {
     setLoading(true);
@@ -59,7 +77,7 @@ const Home = () => {
     <Fragment>
       <Container>
         <LeftComponent>
-          <ImagesContainer src={Instagram} alt='image' />
+          <ImagesContainer src={selectedImage} alt={undefined} />
         </LeftComponent>
         <RightComponent>
           <LoginContainer>
