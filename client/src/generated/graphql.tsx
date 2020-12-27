@@ -61,13 +61,12 @@ export type MutationUploadImageArgs = {
 
 export type UserResponse = {
   __typename?: 'UserResponse';
-  errors?: Maybe<Array<FieldError>>;
+  error?: Maybe<FieldError>;
   user?: Maybe<User>;
 };
 
 export type FieldError = {
   __typename?: 'FieldError';
-  field: Scalars['String'];
   message: Scalars['String'];
 };
 
@@ -92,10 +91,10 @@ export type LoginMutation = (
     & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'id' | 'userName' | 'email' | 'fullName' | 'website' | 'bio' | 'phoneNumber' | 'gender' | 'imageUrl' | 'createdAt' | 'updatedAt'>
-    )>, errors?: Maybe<Array<(
+    )>, error?: Maybe<(
       { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>> }
+      & Pick<FieldError, 'message'>
+    )> }
   ) }
 );
 
@@ -111,10 +110,10 @@ export type RegisterMutation = (
     & { user?: Maybe<(
       { __typename?: 'User' }
       & Pick<User, 'id' | 'userName' | 'email' | 'fullName' | 'website' | 'bio' | 'phoneNumber' | 'gender' | 'imageUrl' | 'createdAt' | 'updatedAt'>
-    )>, errors?: Maybe<Array<(
+    )>, error?: Maybe<(
       { __typename?: 'FieldError' }
-      & Pick<FieldError, 'field' | 'message'>
-    )>> }
+      & Pick<FieldError, 'message'>
+    )> }
   ) }
 );
 
@@ -135,8 +134,7 @@ export const LoginDocument = gql`
       createdAt
       updatedAt
     }
-    errors {
-      field
+    error {
       message
     }
   }
@@ -184,8 +182,7 @@ export const RegisterDocument = gql`
       createdAt
       updatedAt
     }
-    errors {
-      field
+    error {
       message
     }
   }

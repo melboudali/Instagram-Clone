@@ -13,8 +13,7 @@ mutation Login($userNameOrEmail: String!, $password: String!) {
       createdAt
       updatedAt
     }
-    errors {
-      field
+    error {
       message
     }
   }

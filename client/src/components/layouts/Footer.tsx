@@ -155,8 +155,8 @@ const Footer = () => {
                 <path
                   d='M1 1L5.5 5L10 1'
                   stroke='#8E8E8E'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
                 />
               </svg>
             </span>

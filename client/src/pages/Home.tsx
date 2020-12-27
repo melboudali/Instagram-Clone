@@ -34,25 +34,22 @@ const Home = () => {
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
 
   const loginFunction = async () => {
+    setLoading(true);
     await login({
       variables: {
         userNameOrEmail: userName,
         password
       }
     }).then(({ data }) => {
-      if (data?.login.errors) {
-        setLoginError(data?.login.errors[0].message);
-        console.log({
-          registred: false,
-          error: {
-            field: data?.login.errors[0].field,
-            message: data?.login.errors[0].message
-          }
-        });
+      if (data?.login.error) {
+        setLoginError(data?.login.error.message);
+        setLoading(false);
       } else if (data?.login.user) {
+        setLoading(false);
         console.log({ registred: true, user: data.login.user });
       }
     });
@@ -91,6 +88,7 @@ const Home = () => {
                 </InputsContainer>
                 <Button
                   active={userName.length > 0 && password.length > 0 ? true : false}
+                  loading={loading}
                   onClickFunction={loginFunction}
                   type='submit'>
                   Log In

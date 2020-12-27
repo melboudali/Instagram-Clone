@@ -13,8 +13,7 @@ mutation Register($registerInputs: registerInputs!) {
       createdAt
       updatedAt
     }
-    errors {
-      field
+    error {
       message
     }
   }
