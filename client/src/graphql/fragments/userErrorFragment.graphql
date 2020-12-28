@@ -1,0 +1,3 @@
+fragment userErrorFragment on FieldError {
+  message
+}

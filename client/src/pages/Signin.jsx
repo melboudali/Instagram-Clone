@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types';
 
 const Signin = props => {
-  return <div></div>;
+  return (
+    <div>
+      <h1>Signin page</h1>
+    </div>
+  );
 };
 
 Signin.propTypes = {};

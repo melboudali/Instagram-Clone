@@ -1,0 +1,13 @@
+fragment userFragment on User {
+  id
+  userName
+  email
+  fullName
+  website
+  bio
+  phoneNumber
+  gender
+  imageUrl
+  createdAt
+  updatedAt
+}

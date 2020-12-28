@@ -1,20 +1,10 @@
 mutation Login($userNameOrEmail: String!, $password: String!) {
   login(userNameOrEmail: $userNameOrEmail, password: $password) {
     user {
-      id
-      userName
-      email
-      fullName
-      website
-      bio
-      phoneNumber
-      gender
-      imageUrl
-      createdAt
-      updatedAt
+      ...userFragment
     }
     error {
-      message
+      ...userErrorFragment
     }
   }
 }

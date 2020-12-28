@@ -1,20 +1,10 @@
 mutation Register($registerInputs: registerInputs!) {
   register(registerInputs: $registerInputs) {
     user {
-      id
-      userName
-      email
-      fullName
-      website
-      bio
-      phoneNumber
-      gender
-      imageUrl
-      createdAt
-      updatedAt
+      ...userFragment
     }
     error {
-      message
+      ...userErrorFragment
     }
   }
 }
