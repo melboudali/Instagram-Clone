@@ -12,15 +12,17 @@ export const Links = styled.div`
   margin-top: 24px;
   div {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
   }
 `;
 
 const Lang = styled.div`
-  margin: 12px 0;
   display: flex;
+  margin: 12px 0;
   justify-content: center;
+
   color: var(--textColorGray);
   div {
     font-size: 12px;

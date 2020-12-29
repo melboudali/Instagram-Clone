@@ -30,6 +30,10 @@ export const LeftComponent = styled.div`
   flex-basis: 454px;
   height: 618px;
   overflow: hidden;
+  @media only screen and (max-width: 768px) {
+    flex-basis: 0px;
+    margin: 0;
+  }
 `;
 
 export const RightComponent = styled.div`
