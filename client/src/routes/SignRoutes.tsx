@@ -1,7 +1,7 @@
 import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import { MeQuery } from '../generated/graphql';
 
-type AuthPrivateRouteProps = {
+type SignRoutesProps = {
   exact: boolean;
   path: string;
   Component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
@@ -9,13 +9,11 @@ type AuthPrivateRouteProps = {
   loading: boolean | undefined;
 };
 
-const AuthPrivateRoute = ({ Component, data, loading, ...rest }: AuthPrivateRouteProps) => (
+const SignRoutes = ({ Component, data, loading, ...rest }: SignRoutesProps) => (
   <Route
     {...rest}
-    render={props =>
-      data?.me && !loading ? <Component {...props} /> : <Redirect to='/accounts/login' />
-    }
+    render={props => (data?.me && !loading ? <Redirect to='/' /> : <Component {...props} />)}
   />
 );
 
-export default AuthPrivateRoute;
+export default SignRoutes;
