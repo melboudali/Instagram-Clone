@@ -35,7 +35,7 @@ const App = () => {
               loading={loading}
             />
             <AuthPrivateRoute exact path='/' Component={Home} data={data} loading={loading} />
-            <Route exact path='*' Component={NotFound} />
+            <Route exact path='*' component={NotFound} />
             {/*<Route path='/shop' component={ShopPage} />
             <Route exact path='/checkout' component={CheckoutPage} />
             <Route exact path='/success' component={Success} />*/}

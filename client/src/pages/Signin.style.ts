@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 import BackgroundImage from '../assets/images/43cc71bb1b43.png';
 import Assets from '../assets/images/32f0a4f27407.png';
 
@@ -122,7 +123,7 @@ export const ForgotPwdContainer = styled.div`
   margin: 12px 40px 0;
 `;
 
-export const ForgotPwd = styled.a`
+export const ForgotPwd = styled(NavLink)`
   color: var(--linkColorTwo);
   font-size: 12px;
   line-height: 14px;
@@ -136,12 +137,13 @@ export const Signup = styled.div`
     margin: 15px;
     text-align: center;
   }
-  a {
-    span {
-      font-weight: 600;
-      color: var(--buttonLightBlue);
-      margin-left: 5px;
-    }
+`;
+
+export const SignupLink = styled(NavLink)`
+  span {
+    font-weight: 600;
+    color: var(--buttonLightBlue);
+    margin-left: 5px;
   }
 `;
 

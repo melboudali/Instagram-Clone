@@ -16,6 +16,7 @@ import {
   ForgotPwd,
   ForgotPwdContainer,
   Signup,
+  SignupLink,
   GetTheAppContainer,
   AppsButtons
 } from './Signin.style';
@@ -27,8 +28,10 @@ import GooglePlay from '../assets/images/e9cd846dc748.png';
 import PlayStore from '../assets/images/180ae7a0bcf7.png';
 import Footer from '../components/layouts/Footer';
 import { useLoginMutation } from '../generated/graphql';
+import { useHistory } from 'react-router-dom';
 
 const Signin = () => {
+  const history = useHistory();
   const [login] = useLoginMutation();
 
   const [userName, setUserName] = useState('');
@@ -47,9 +50,10 @@ const Signin = () => {
       if (data?.login.error) {
         setLoginLoading(false);
         setLoginLoginError(data?.login.error.message);
-      } else if (data?.login.user) {
+      }
+      if (data?.login.user) {
+        history.goBack();
         setLoginLoading(false);
-        console.log({ registred: true, user: data.login.user });
       }
     });
   };
@@ -106,7 +110,9 @@ const Signin = () => {
                 )}
               </LoginForm>
               <ForgotPwdContainer>
-                <ForgotPwd href='#'>Forgot password?</ForgotPwd>
+                <ForgotPwd to='/' exact>
+                  Forgot password?
+                </ForgotPwd>
               </ForgotPwdContainer>
             </FormContainer>
           </LoginContainer>
@@ -114,9 +120,9 @@ const Signin = () => {
             <Signup>
               <p>
                 Don't have an account?
-                <a href='/accounts/emailsignup'>
+                <SignupLink to='/accounts/emailsignup' exact>
                   <span>Sign up</span>
-                </a>
+                </SignupLink>
               </p>
             </Signup>
           </LoginContainer>
