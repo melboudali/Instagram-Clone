@@ -6,7 +6,7 @@ import {
   LoginContainer,
   Logo,
   FormContainer,
-  LoginForm,
+  Form,
   InputsContainer,
   FBButtonContainer,
   FBButton,
@@ -28,7 +28,7 @@ import GooglePlay from '../assets/images/e9cd846dc748.png';
 import PlayStore from '../assets/images/180ae7a0bcf7.png';
 import Footer from '../components/layouts/Footer';
 import { useLoginMutation } from '../generated/graphql';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const Signin = () => {
   const history = useHistory();
@@ -37,7 +37,7 @@ const Signin = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
-  const [loginLoginError, setLoginLoginError] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const loginFunction = async () => {
     setLoginLoading(true);
@@ -49,7 +49,7 @@ const Signin = () => {
     }).then(({ data }) => {
       if (data?.login.error) {
         setLoginLoading(false);
-        setLoginLoginError(data?.login.error.message);
+        setLoginError(data?.login.error.message);
       }
       if (data?.login.user) {
         history.goBack();
@@ -68,7 +68,7 @@ const Signin = () => {
           <LoginContainer>
             <Logo />
             <FormContainer>
-              <LoginForm>
+              <Form>
                 <InputsContainer>
                   <FormINput
                     LabelText='Phone number, username, or email'
@@ -103,16 +103,14 @@ const Signin = () => {
                     <ButtonText>Log in with Facebook</ButtonText>
                   </FBButton>
                 </FBButtonContainer>
-                {loginLoginError.length > 0 && (
+                {loginError.length > 0 && (
                   <ErrorContainer>
-                    <p>{loginLoginError}</p>
+                    <p>{loginError}</p>
                   </ErrorContainer>
                 )}
-              </LoginForm>
+              </Form>
               <ForgotPwdContainer>
-                <ForgotPwd to='/' exact>
-                  Forgot password?
-                </ForgotPwd>
+                <ForgotPwd to='/'>Forgot password?</ForgotPwd>
               </ForgotPwdContainer>
             </FormContainer>
           </LoginContainer>
@@ -120,7 +118,7 @@ const Signin = () => {
             <Signup>
               <p>
                 Don't have an account?
-                <SignupLink to='/accounts/emailsignup' exact>
+                <SignupLink to='/accounts/emailsignup'>
                   <span>Sign up</span>
                 </SignupLink>
               </p>

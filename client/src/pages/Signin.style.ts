@@ -1,12 +1,7 @@
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import BackgroundImage from '../assets/images/43cc71bb1b43.png';
 import Assets from '../assets/images/32f0a4f27407.png';
-
-export const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-`;
 
 export const Container = styled.section`
   display: flex;
@@ -68,7 +63,7 @@ export const FormContainer = styled.div`
   max-width: 350px;
 `;
 
-export const LoginForm = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
 `;
@@ -123,7 +118,7 @@ export const ForgotPwdContainer = styled.div`
   margin: 12px 40px 0;
 `;
 
-export const ForgotPwd = styled(NavLink)`
+export const ForgotPwd = styled(Link)`
   color: var(--linkColorTwo);
   font-size: 12px;
   line-height: 14px;
@@ -139,7 +134,7 @@ export const Signup = styled.div`
   }
 `;
 
-export const SignupLink = styled(NavLink)`
+export const SignupLink = styled(Link)`
   span {
     font-weight: 600;
     color: var(--buttonLightBlue);
