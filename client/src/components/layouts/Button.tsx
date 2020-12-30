@@ -151,7 +151,9 @@ const Button = ({ active, loading, children, type, onClickFunction }: ButtonProp
 Button.propTypes = {
   active: PropTypes.bool.isRequired,
   children: PropTypes.string.isRequired,
-  type: PropTypes.string
+  type: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
+  onClickFunction: PropTypes.func.isRequired
 };
 
 export default Button;

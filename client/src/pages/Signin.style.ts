@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import BackgroundImage from '../assets/images/43cc71bb1b43.png';
 import Assets from '../assets/images/32f0a4f27407.png';
+import { lessThan768px } from '../config/MediaQueries';
 
 export const Container = styled.section`
   display: flex;
-  width: 100%;
   margin: 32px auto 0;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -26,10 +26,12 @@ export const LeftComponent = styled.div`
   flex-basis: 454px;
   height: 618px;
   overflow: hidden;
-  @media only screen and (max-width: 768px) {
+  ${lessThan768px} {
     flex-basis: 0px;
     margin: 0;
   }
+  /* @media only screen and (max-width: 768px) {
+  } */
 `;
 
 export const RightComponent = styled.div`

@@ -43,14 +43,15 @@ const Lang = styled.div`
 
 const Link = styled.div`
   margin: 0 8px 12px;
-  a {
-    color: var(--textColorGray);
-    div {
-      font-size: 12px;
-      line-height: 14px;
-      margin: -2px 0 -3px;
-      text-transform: capitalize;
-    }
+`;
+
+const LinkTag = styled.a`
+  color: var(--textColorGray);
+  div {
+    font-size: 12px;
+    line-height: 14px;
+    margin: -2px 0 -3px;
+    text-transform: capitalize;
   }
 `;
 
@@ -61,86 +62,86 @@ const Footer = () => {
         <Links>
           <div>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>about</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>blog</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>jobs</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>aPI</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>privacy</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>terms</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>top accounts</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>hashtags</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>locations</div>
-              </a>
+              </LinkTag>
             </Link>
           </div>
           <div>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>beauty</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>dance & performance</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>fitness</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>food & drink</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>home & garden</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>music</div>
-              </a>
+              </LinkTag>
             </Link>
             <Link>
-              <a href='/about'>
+              <LinkTag href='/about'>
                 <div>visual arts</div>
-              </a>
+              </LinkTag>
             </Link>
           </div>
         </Links>
