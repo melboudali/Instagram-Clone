@@ -20,6 +20,7 @@ const App = () => {
       <ErrorBoundary>
         <Suspense fallback={<LoadingFullScreen />}>
           <Switch>
+            <AuthPrivateRoute exact path='/' Component={Home} data={data} loading={loading} />
             <SignRoutes
               exact
               path='/accounts/emailsignup'
@@ -34,7 +35,6 @@ const App = () => {
               data={data}
               loading={loading}
             />
-            <AuthPrivateRoute exact path='/' Component={Home} data={data} loading={loading} />
             <Route exact path='*' component={NotFound} />
           </Switch>
         </Suspense>

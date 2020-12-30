@@ -110,6 +110,7 @@ export const ErrorContainer = styled.div`
     font-size: 14px;
     line-height: 18px;
     text-align: center;
+    margin: 0;
   }
 `;
 

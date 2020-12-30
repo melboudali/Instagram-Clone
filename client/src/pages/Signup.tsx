@@ -14,6 +14,7 @@ import {
   FormContainer,
   Form,
   Signup as Login,
+  ErrorContainer,
   SignupLink,
   GetTheAppContainer,
   AppsButtons
@@ -23,7 +24,7 @@ import FormINput from '../components/layouts/FormInput';
 import Button from '../components/layouts/Button';
 import GooglePlay from '../assets/images/e9cd846dc748.png';
 import PlayStore from '../assets/images/180ae7a0bcf7.png';
-import { useRegisterMutation } from '../generated/graphql';
+import { MeDocument, MeQuery, useRegisterMutation } from '../generated/graphql';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/layouts/Footer';
 
@@ -44,14 +45,23 @@ const Signup = () => {
     await login({
       variables: {
         registerInputs: { email, fullName, userName, password }
+      },
+      update: (cache, { data }) => {
+        cache.writeQuery<MeQuery>({
+          query: MeDocument,
+          data: {
+            __typename: 'Query',
+            me: data?.register.user
+          }
+        });
       }
     }).then(({ data }) => {
       if (data?.register.error) {
-        setSignupLoading(false);
         setSignupError(data?.register.error.message);
+        setSignupLoading(false);
       }
       if (data?.register.user) {
-        history.goBack();
+        history.push('/');
         setSignupLoading(false);
       }
     });
@@ -67,7 +77,7 @@ const Signup = () => {
               <Form>
                 <SignupTitle>Sign up to see photos and videos from your friends.</SignupTitle>
                 <FBButtonContainer>
-                  <FBButton>
+                  <FBButton type='button' onClick={e => e.preventDefault()}>
                     <span></span>
                     Log in with Facebook
                   </FBButton>
@@ -123,7 +133,11 @@ const Signup = () => {
                   type='submit'>
                   Sign up
                 </Button>
-
+                {signupError.length > 0 && (
+                  <ErrorContainer>
+                    <p>{signupError}</p>
+                  </ErrorContainer>
+                )}
                 <Terms>
                   By signing up, you agree to our
                   <TermsLink target='_blank' to='https://help.instagram.com/581066165581870'>

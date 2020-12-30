@@ -27,7 +27,7 @@ import Divider from '../components/layouts/Divider';
 import GooglePlay from '../assets/images/e9cd846dc748.png';
 import PlayStore from '../assets/images/180ae7a0bcf7.png';
 import Footer from '../components/layouts/Footer';
-import { useLoginMutation } from '../generated/graphql';
+import { MeDocument, MeQuery, useLoginMutation } from '../generated/graphql';
 import { Redirect, useHistory } from 'react-router-dom';
 
 const Signin = () => {
@@ -45,6 +45,15 @@ const Signin = () => {
       variables: {
         userNameOrEmail: userName,
         password
+      },
+      update: (cache, { data }) => {
+        cache.writeQuery<MeQuery>({
+          query: MeDocument,
+          data: {
+            __typename: 'Query',
+            me: data?.login.user
+          }
+        });
       }
     }).then(({ data }) => {
       if (data?.login.error) {
@@ -52,7 +61,7 @@ const Signin = () => {
         setLoginError(data?.login.error.message);
       }
       if (data?.login.user) {
-        history.goBack();
+        history.push('/');
         setLoginLoading(false);
       }
     });
