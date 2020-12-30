@@ -57,4 +57,16 @@ export const FBButton = styled.button`
   }
 `;
 
+export const Terms = styled.p`
+  color: var(--textColorGray);
+  font-size: 12px;
+  line-height: 16px;
+  margin: 10px 40px;
+  text-align: center;
+`;
 
+export const TermsLink = styled(Link)`
+  color: var(--textColorGray);
+  font-weight: 600;
+  margin: 0px 3px;
+`;

@@ -4,14 +4,28 @@ import {
   SignupComponent,
   SignupTitle,
   FBButtonContainer,
-  FBButton
+  FBButton,
+  Terms,
+  TermsLink
 } from './Signup.style';
-import { LoginContainer, Logo, FormContainer, Form } from './Signin.style';
+import {
+  LoginContainer,
+  Logo,
+  FormContainer,
+  Form,
+  Signup as Login,
+  SignupLink,
+  GetTheAppContainer,
+  AppsButtons
+} from './Signin.style';
 import Divider from '../components/layouts/Divider';
 import FormINput from '../components/layouts/FormInput';
 import Button from '../components/layouts/Button';
+import GooglePlay from '../assets/images/e9cd846dc748.png';
+import PlayStore from '../assets/images/180ae7a0bcf7.png';
 import { useRegisterMutation } from '../generated/graphql';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/layouts/Footer';
 
 const Signup = () => {
   const history = useHistory();
@@ -109,11 +123,49 @@ const Signup = () => {
                   type='submit'>
                   Sign up
                 </Button>
+
+                <Terms>
+                  By signing up, you agree to our
+                  <TermsLink target='_blank' to='https://help.instagram.com/581066165581870'>
+                    Terms
+                  </TermsLink>
+                  ,
+                  <TermsLink target='_blank' to='https://help.instagram.com/519522125107875'>
+                    Data Policy
+                  </TermsLink>
+                  and
+                  <TermsLink target='_blank' to='/legal/cookies/'>
+                    Cookies Policy
+                  </TermsLink>
+                  .
+                </Terms>
               </Form>
             </FormContainer>
           </LoginContainer>
+          <LoginContainer>
+            <Login>
+              <p>
+                Have an account?
+                <SignupLink to='/accounts/login'>
+                  <span>Log in</span>
+                </SignupLink>
+              </p>
+            </Login>
+          </LoginContainer>
+          <GetTheAppContainer>
+            <p>Get the app.</p>
+            <AppsButtons>
+              <a href='https://itunes.apple.com/app/instagram/id389801252?pt=428156&ct=igweb.loginPage.badge&mt=8&vt=lo'>
+                <img src={PlayStore} alt='Available on the App Store"' />
+              </a>
+              <a href='https://play.google.com/store/apps/details?id=com.instagram.android&referrer=utm_source%3Dinstagramweb%26utm_campaign%3DloginPage%26ig_mid%3D12078F57-18AD-43B5-B18B-9B5D69598FA1%26utm_content%3Dlo%26utm_medium%3Dbadge'>
+                <img src={GooglePlay} alt='Available on Google Play' />
+              </a>
+            </AppsButtons>
+          </GetTheAppContainer>
         </SignupComponent>
       </Container>
+      <Footer />
     </Fragment>
   );
 };
