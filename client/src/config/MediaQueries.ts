@@ -13,3 +13,6 @@ export const largeDevices = `@media only screen and (min-width: ${size.large})`;
 export const extraLargeDevices = `@media only screen and (min-width: ${size.elarge})`;
 
 export const lessThan768px = `@media only screen and (max-width: ${size.medium})`;
+
+/* @media only screen and (max-width: 768px) {
+  } */

@@ -30,8 +30,6 @@ export const LeftComponent = styled.div`
     flex-basis: 0px;
     margin: 0;
   }
-  /* @media only screen and (max-width: 768px) {
-  } */
 `;
 
 export const RightComponent = styled.div`
