@@ -38,6 +38,7 @@ const Signin = () => {
   const [password, setPassword] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [ConnectionError, setConnectionError] = useState(false);
 
   const loginFunction = async () => {
     setLoginLoading(true);
@@ -55,19 +56,31 @@ const Signin = () => {
           }
         });
       }
-    }).then(({ data }) => {
-      if (data?.login.error) {
-        setLoginLoading(false);
-        setLoginError(data?.login.error.message);
-      }
-      if (data?.login.user) {
-        history.push('/');
-        setLoginLoading(false);
-      }
-    });
+    })
+      .then(({ data }) => {
+        if (data?.login.error) {
+          setLoginLoading(false);
+          setLoginError(data?.login.error.message);
+        }
+        if (data?.login.user) {
+          history.push('/');
+          setLoginLoading(false);
+        }
+      })
+      .catch(() => setConnectionError(true));
   };
 
-  return (
+  return ConnectionError ? (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100vh'
+      }}>
+      <h1 style={{ alignSelf: 'center', color: '#747474' }}>503 Service Unavailable</h1>
+    </div>
+  ) : (
     <Fragment>
       <Container>
         <LeftComponent>
