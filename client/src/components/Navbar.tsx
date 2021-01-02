@@ -100,8 +100,6 @@ const LinkContainer = styled.div`
   }
 `;
 
-const ProfileImageContainer = styled.div``;
-
 const ProfileImageBorder = styled.div<{ showMenu: boolean }>`
   ${({ showMenu }) => {
     if (showMenu) {
@@ -132,6 +130,41 @@ const ProfileImage = styled.span`
     height: 100%;
   }
 `;
+
+const MenuContainer = styled.div`
+  margin-left: -180px;
+  top: 15px;
+  position: relative;
+`;
+
+const Menu = styled.div`
+  transform-origin: top center;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 75ms linear, transform 38ms ease-out;
+  /* transform: translateY(-10px); */
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.0975);
+  position: absolute;
+  z-index: 3;
+`;
+
+const Bubble = styled.div`
+  left: 184px;
+  bottom: 0;
+  top: -6px;
+  background: #fff;
+  border: 1px solid #fff;
+  bottom: -6px;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.0975);
+  height: 14px;
+  position: absolute;
+  transform: rotate(45deg);
+  width: 14px;
+`;
+
+const MenuList = styled.div``
 
 const Navbar = ({ data, loading }: NavbarProps) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -195,6 +228,11 @@ const Navbar = ({ data, loading }: NavbarProps) => {
               <ProfileImage>
                 <img src={data?.me?.imageUrl} alt={`${data?.me?.fullName}'s profile`} />
               </ProfileImage>
+              <MenuContainer>
+                <Menu>
+                  <Bubble></Bubble>
+                </Menu>
+              </MenuContainer>
             </LinkContainer>
           </div>
         </RightNav>
