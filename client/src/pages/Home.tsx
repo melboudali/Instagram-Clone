@@ -1,11 +1,16 @@
-import Navbar from '../components/Navbar';
+import Container from '../components/Container';
+import { MeQuery } from '../generated/graphql';
 
-const Home = () => {
+type HomeProps = {
+  data: MeQuery | undefined;
+  loading: boolean | undefined;
+};
+
+const Home = ({ data, loading }: HomeProps) => {
   return (
-    <div>
-      <Navbar />
-      <h1>Home Page</h1>
-    </div>
+    <Container data={data} loading={loading}>
+      <h1>{data?.me?.fullName}</h1>
+    </Container>
   );
 };
 

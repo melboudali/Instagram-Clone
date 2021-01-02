@@ -1,10 +1,10 @@
-import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { MeQuery } from '../generated/graphql';
 
 type AuthPrivateRouteProps = {
   exact: boolean;
   path: string;
-  Component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+  Component: React.ComponentType<any>;
   data: MeQuery | undefined;
   loading: boolean | undefined;
 };
@@ -13,7 +13,11 @@ const AuthPrivateRoute = ({ Component, data, loading, ...rest }: AuthPrivateRout
   <Route
     {...rest}
     render={props =>
-      data?.me && !loading ? <Component {...props} /> : <Redirect to='/accounts/login' />
+      data?.me && !loading ? (
+        <Component data={data} loading={loading} {...props} />
+      ) : (
+        <Redirect to='/accounts/login' />
+      )
     }
   />
 );

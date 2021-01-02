@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
+import { MeQuery } from '../generated/graphql';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../assets/images/735145cfe0a4.png';
 import Assets from '../assets/images/32f0a4f27407.png';
 
-type NavbarProps = {};
+type NavbarProps = { data: MeQuery | undefined; loading: boolean | undefined };
 
 const Container = styled.div`
   height: 54px;
@@ -85,6 +87,8 @@ const RightNav = styled.div`
 `;
 
 const LinkContainer = styled.div`
+  position: relative;
+  cursor: pointer;
   margin: 0 0 0 22px;
   width: 22px;
   height: 22px;
@@ -96,7 +100,41 @@ const LinkContainer = styled.div`
   }
 `;
 
-const Navbar = ({}: NavbarProps) => {
+const ProfileImageContainer = styled.div``;
+
+const ProfileImageBorder = styled.div<{ showMenu: boolean }>`
+  ${({ showMenu }) => {
+    if (showMenu) {
+      return `border: 1px solid #262626;
+  border-radius: 50%;
+  height: 28px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;`;
+    }
+  }}
+`;
+
+const ProfileImage = styled.span`
+  background-color: none;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: block;
+  flex: 0 0 auto;
+  overflow: hidden;
+  position: relative;
+  width: 22px;
+  height: 22px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+const Navbar = ({ data, loading }: NavbarProps) => {
+  const [showMenu, setShowMenu] = useState(false);
   return (
     <Container>
       <NavbarContainer>
@@ -134,9 +172,9 @@ const Navbar = ({}: NavbarProps) => {
                   viewBox='0 0 48 48'
                   width='22'>
                   <path
-                    clip-rule='evenodd'
+                    clipRule='evenodd'
                     d='M24 0C10.8 0 0 10.8 0 24s10.8 24 24 24 24-10.8 24-24S37.2 0 24 0zm0 45C12.4 45 3 35.6 3 24S12.4 3 24 3s21 9.4 21 21-9.4 21-21 21zm10.2-33.2l-14.8 7c-.3.1-.6.4-.7.7l-7 14.8c-.3.6-.2 1.3.3 1.7.3.3.7.4 1.1.4.2 0 .4 0 .6-.1l14.8-7c.3-.1.6-.4.7-.7l7-14.8c.3-.6.2-1.3-.3-1.7-.4-.5-1.1-.6-1.7-.3zm-7.4 15l-5.5-5.5 10.5-5-5 10.5z'
-                    fill-rule='evenodd'></path>
+                    fillRule='evenodd'></path>
                 </svg>
               </Link>
             </LinkContainer>
@@ -152,7 +190,12 @@ const Navbar = ({}: NavbarProps) => {
                 </svg>
               </Link>
             </LinkContainer>
-            <LinkContainer></LinkContainer>
+            <LinkContainer onClick={() => setShowMenu(!showMenu)}>
+              <ProfileImageBorder showMenu={showMenu} />
+              <ProfileImage>
+                <img src={data?.me?.imageUrl} alt={`${data?.me?.fullName}'s profile`} />
+              </ProfileImage>
+            </LinkContainer>
           </div>
         </RightNav>
       </NavbarContainer>
