@@ -1,19 +1,11 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-type ButtonProps = {
-  active: boolean;
-  loading: boolean;
-  children: React.ReactNode;
-  type: 'submit' | 'reset' | 'button';
-  onClickFunction: Function;
-};
-
-export const ButtonContainer = styled.div`
+const ButtonContainer = styled.div`
   margin: 8px 40px;
 `;
 
-export const ButtonElement = styled.button<{ active: boolean }>`
+const ButtonElement = styled.button<{ active: boolean }>`
   opacity: ${({ active }) => (active ? '1' : '0.3')};
   border: 1px solid transparent;
   background-color: var(--buttonLightBlue);
@@ -44,6 +36,14 @@ const LoadingContainer = styled.div`
     }
   }
 `;
+
+type ButtonProps = {
+  active: boolean;
+  loading: boolean;
+  children: React.ReactNode;
+  type: 'submit' | 'reset' | 'button';
+  onClickFunction: Function;
+};
 
 const Button = ({ active, loading, children, type, onClickFunction }: ButtonProps) => {
   return (
