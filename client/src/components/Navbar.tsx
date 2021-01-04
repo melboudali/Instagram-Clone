@@ -194,7 +194,7 @@ const Navbar = ({ data, loading }: NavbarProps) => {
               <ProfileImage>
                 <img src={data?.me?.imageUrl} alt={`${data?.me?.fullName}'s profile`} />
               </ProfileImage>
-              {showMenu && <NavbarMenu data={data} showMenu={showMenu} />}
+              <NavbarMenu data={data} showMenu={showMenu} />
             </LinkContainer>
           </div>
         </RightNav>
