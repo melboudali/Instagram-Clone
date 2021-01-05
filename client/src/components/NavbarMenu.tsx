@@ -16,7 +16,7 @@ const Menu = styled.div<{ showMenu: boolean }>`
       ? 'transform: translateY(0);opacity: 1;visibility: visible;'
       : 'opacity: 0;transform: translateY(-10px);visibility:hidden;'}
 
-  transition: opacity 75ms linear, transform 38ms ease-out, visibility 38ms ease-out;
+  transition: opacity 75ms linear, transform 38ms ease-out, visibility 75ms linear;
   background: #fff;
   border-radius: 6px;
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.0975);
