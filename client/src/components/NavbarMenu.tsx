@@ -91,11 +91,11 @@ const NavbarMenu = ({ data, showMenu }: NavbarMenuProps) => {
           <NavbarMenuLink LinkName='log out' to='#'>
             <svg
               viewBox='0 0 24 24'
-              stroke-width='2'
+              strokeWidth='2'
               stroke='#262626'
               fill='none'
-              stroke-linecap='round'
-              stroke-linejoin='round'>
+              strokeLinecap='round'
+              strokeLinejoin='round'>
               <path stroke='none' d='M0 0h24v24H0z' fill='none' />
               <path d='M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2' />
               <path d='M7 12h14l-3 -3m0 6l3 -3' />

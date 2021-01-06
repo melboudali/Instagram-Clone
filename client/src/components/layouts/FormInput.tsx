@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 type FormInputProps = {
   LabelText: string;
   Required: boolean;
-  Maxlength: number | undefined;
+  Maxlength?: number;
   Name: string;
   Type: string;
   inputValue: string;

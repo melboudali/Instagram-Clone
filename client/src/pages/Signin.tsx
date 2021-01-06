@@ -104,7 +104,6 @@ const Signin = () => {
                   <FormINput
                     LabelText='Password'
                     Required={true}
-                    Maxlength={undefined}
                     Name='password'
                     Type='password'
                     inputValue={password}
