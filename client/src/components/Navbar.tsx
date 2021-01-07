@@ -135,8 +135,8 @@ const Navbar = ({ data, loading }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (ref.current && !ref.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
         if (showMenu) setShowMenu(false);
       }
     };
