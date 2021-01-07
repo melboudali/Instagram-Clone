@@ -8,9 +8,12 @@ import Logo from '../assets/images/735145cfe0a4.png';
 import Assets from '../assets/images/32f0a4f27407.png';
 
 const Container = styled.div`
+  position: fixed;
+  width: 100%;
   height: 54px;
   background-color: #fff;
   border-bottom: 1px solid var(--borderColor);
+  z-index: 2;
 `;
 
 const NavbarContainer = styled.div`

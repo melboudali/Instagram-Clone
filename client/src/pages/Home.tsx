@@ -1,4 +1,5 @@
 import Container from '../components/Container';
+import FileUploadInputProps from '../components/layouts/FileUploadInput';
 import { MeQuery } from '../generated/graphql';
 
 type HomeProps = {
@@ -9,7 +10,7 @@ type HomeProps = {
 const Home = ({ data, loading }: HomeProps) => {
   return (
     <Container data={data} loading={loading}>
-      <h1>{data?.me?.fullName}</h1>
+      <FileUploadInputProps></FileUploadInputProps>
     </Container>
   );
 };
