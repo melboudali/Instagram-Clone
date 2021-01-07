@@ -41,10 +41,8 @@ const FileInput = styled.input`
   cursor: pointer;
 `;
 
-type FileUploadInputProps = {};
-
-const FileUploadInput = ({}: FileUploadInputProps) => {
-  const [image, setImage] = useState<any>();
+const FileUploadInput = () => {
+  const [image, setImage] = useState<string | undefined>();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const Files = e.target.files;
@@ -55,12 +53,11 @@ const FileUploadInput = ({}: FileUploadInputProps) => {
         if (FileReader) {
           var fr = new FileReader();
           fr.onload = function () {
-            setImage(fr.result);
+            setImage(fr.result as string);
+            console.log(fr.LOADING);
           };
           fr.readAsDataURL(Files[0]);
         }
-
-        console.log({ Name: Files[0].name, Type: Files[0].type, Size: Files[0].size });
       }
     }
   };
@@ -75,8 +72,8 @@ const FileUploadInput = ({}: FileUploadInputProps) => {
             fill='none'
             xmlns='http://www.w3.org/2000/svg'>
             <path
-              fill-rule='evenodd'
-              clip-rule='evenodd'
+              fillRule='evenodd'
+              clipRule='evenodd'
               d='M67.7938 47.0103C67.1739 47.6721 66.0639 47.2334 66.0639 46.3267V1.5C66.0639 1.22386 65.8401 1 65.5639 1C65.2878 1 65.0639 1.22386 65.0639 1.5V46.3267C65.0639 47.2334 63.954 47.6721 63.3341 47.0103L47.8649 30.4964C47.6761 30.2948 47.3597 30.2845 47.1582 30.4733C46.9566 30.6621 46.9463 30.9785 47.1351 31.18L65.199 50.4639C65.3966 50.6749 65.7313 50.6749 65.9289 50.4639L83.9928 31.18C84.1816 30.9785 84.1712 30.6621 83.9697 30.4733C83.7682 30.2845 83.4518 30.2948 83.263 30.4964L67.7938 47.0103ZM4.5 37C4.5 36.1716 3.82843 35.5 3 35.5C2.17157 35.5 1.5 36.1716 1.5 37V59C1.5 62.5899 4.41015 65.5 8 65.5H123C126.59 65.5 129.5 62.5899 129.5 59V37C129.5 36.1716 128.828 35.5 128 35.5C127.172 35.5 126.5 36.1716 126.5 37V59C126.5 60.933 124.933 62.5 123 62.5H8C6.067 62.5 4.5 60.933 4.5 59V37Z'
               fill='#E5E5E5'
             />
@@ -96,7 +93,9 @@ const FileUploadInput = ({}: FileUploadInputProps) => {
           onChange={onChange}
         />
       </Container>
-      <img src={image} style={{ width: '400px' }} />
+      <div style={{ width: '100%', textAlign: 'center' }}>
+        <img src={image} style={{ width: '400px' }} alt='' />
+      </div>
     </>
   );
 };
