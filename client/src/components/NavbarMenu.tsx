@@ -1,3 +1,4 @@
+import { RefObject, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { MeQuery } from '../generated/graphql';
 import NavbarMenuLink from './layouts/NavbarMenuLink';
@@ -65,7 +66,7 @@ const NavbarMenu = ({ data, showMenu }: NavbarMenuProps) => {
   return (
     <MenuContainer>
       <Menu showMenu={showMenu}>
-        <Bubble></Bubble>
+        <Bubble />
         <MenuList>
           <NavbarMenuLink LinkName='profile' to={`/${data?.me?.userName}`}>
             <svg fill='#262626' height='16' viewBox='0 0 32 32' width='16'>

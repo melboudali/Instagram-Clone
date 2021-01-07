@@ -17,6 +17,7 @@ const Main = styled.div`
 `;
 
 const Container = ({ children, data, loading }: ContainerProps) => {
+
   return (
     <Fragment>
       <Navbar data={data} loading={loading} />
