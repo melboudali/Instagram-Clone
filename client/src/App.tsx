@@ -1,4 +1,4 @@
-import { Fragment, lazy, Suspense } from 'react';
+import React, { Fragment, lazy, Suspense } from 'react';
 import { useMeQuery } from './generated/graphql';
 import { GlobalStyle } from './App.style';
 import ErrorBoundary from './pages/ErrorBoundary';
@@ -16,29 +16,31 @@ const App = () => {
   const { data, loading } = useMeQuery();
   return (
     <Fragment>
-      <GlobalStyle />
-      <ErrorBoundary>
-        <Suspense fallback={<LoadingFullScreen />}>
-          <Switch>
-            <AuthPrivateRoute exact path='/' Component={Home} data={data} loading={loading} />
-            <SignRoutes
-              exact
-              path='/accounts/emailsignup'
-              Component={Signup}
-              data={data}
-              loading={loading}
-            />
-            <SignRoutes
-              exact
-              path='/accounts/login'
-              Component={Signin}
-              data={data}
-              loading={loading}
-            />
-            <Route exact path='*' component={NotFound} />
-          </Switch>
-        </Suspense>
-      </ErrorBoundary>
+      <React.StrictMode>
+        <GlobalStyle />
+        <ErrorBoundary>
+          <Suspense fallback={<LoadingFullScreen />}>
+            <Switch>
+              <AuthPrivateRoute exact path='/' Component={Home} data={data} loading={loading} />
+              <SignRoutes
+                exact
+                path='/accounts/emailsignup'
+                Component={Signup}
+                data={data}
+                loading={loading}
+              />
+              <SignRoutes
+                exact
+                path='/accounts/login'
+                Component={Signin}
+                data={data}
+                loading={loading}
+              />
+              <Route exact path='*' component={NotFound} />
+            </Switch>
+          </Suspense>
+        </ErrorBoundary>
+      </React.StrictMode>
     </Fragment>
   );
 };
