@@ -157,18 +157,21 @@ const Stories = ({}: StoriesProps) => {
   const [translate, setTranslate] = useState<number>(0);
 
   const NextSlide = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (StoriesData.length - currentIndex > 10) {
+    let leftWidth = (currentIndex + 5) * 88 - StoriesData.length * 88;
+    if (leftWidth > (currentIndex + 5) * 88) {
       setCurrentIndex(currentIndex + 5);
       setTranslate((currentIndex + 5) * 88);
+    } else {
+      setCurrentIndex(currentIndex - StoriesData.length);
+      setTranslate(leftWidth);
     }
-    console.log({ currentIndex, translate });
   };
 
   return (
     <Container ref={SliderRef}>
       <Main translateValue={translate}>
         {StoriesData.map(({ name, image }, i) => (
-          <Story name={name} image={image} />
+          <Story key={i} name={name} image={image} />
         ))}
       </Main>
       <NextBtn>
