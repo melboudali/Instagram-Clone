@@ -50,21 +50,21 @@ const Name = styled.h1`
   white-space: nowrap;
 `;
 
-type StoryProps = {};
+type StoryProps = {
+  name: string;
+  image: string;
+};
 
-const Story = ({}: StoryProps) => {
+const Story = ({ name, image }: StoryProps) => {
   return (
     <Container>
       <LogoContainer>
         <LogoBackground>
-          <Logo
-            src='https://instagram.fcmn3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn3-1.fna.fbcdn.net&_nc_ohc=6eukZvzDplAAX-Fimae&tp=1&oh=8ec24dbb4aaa685d5ec536028b9218a1&oe=602692DC'
-            alt='logo'
-          />
+          <Logo src={image} alt='logo' />
         </LogoBackground>
       </LogoContainer>
       <NameContainer>
-        <Name>mercedesbenz</Name>
+        <Name>{name}</Name>
       </NameContainer>
     </Container>
   );
