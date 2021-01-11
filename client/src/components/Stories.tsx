@@ -1,7 +1,7 @@
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Story from './Story';
 import Assets from '../assets/images/798b49104da7.png';
-import { useEffect, useRef, useState } from 'react';
 
 const Container = styled.div`
   position: relative;
