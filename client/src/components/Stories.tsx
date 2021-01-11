@@ -157,6 +157,7 @@ const Stories = ({}: StoriesProps) => {
   const [translate, setTranslate] = useState<number>(0);
 
   const NextSlide = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // TODO: i need to fix this slider later
     let leftWidth = (currentIndex + 5) * 88 - StoriesData.length * 88;
     if (leftWidth > (currentIndex + 5) * 88) {
       setCurrentIndex(currentIndex + 5);
