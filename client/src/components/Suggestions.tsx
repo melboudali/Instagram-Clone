@@ -1,11 +1,20 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Container = styled.div<{ isSticky: boolean }>`
   background-color: red;
-  left: 849px;
   right: 0;
-  top: 472px;
-  position: fixed;
+  top: 0;
+  ${({ isSticky }) =>
+    isSticky
+      ? `
+      position: fixed;
+      left: 849px;
+      top:  84px;
+        `
+      : `
+      top: 10px;
+      position: absolute;`}
   max-width: 293px;
   width: 100%;
 `;
@@ -13,7 +22,15 @@ const Container = styled.div`
 type SuggestionsProps = {};
 
 const Suggestions = ({}: SuggestionsProps) => {
-  return <Container>This is Suggestions Component/Page</Container>;
+  const [sticky, setSticky] = useState<boolean>(false);
+
+  useEffect(() => {
+    window.onscroll = () => {
+      window.scrollY >= 378 ? setSticky(true) : setSticky(false);
+    };
+  }, []);
+
+  return <Container isSticky={sticky}>This is Suggestions Component/Page</Container>;
 };
 
 export default Suggestions;
