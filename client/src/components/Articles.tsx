@@ -8,23 +8,49 @@ const Container = styled.div`
   width: 100%;
 `;
 
-type PostsProps = {};
+type ArticlesProps = {};
 
-const Posts = ({}: PostsProps) => {
+const Articles = ({}: ArticlesProps) => {
+  const ArticlesData: {
+    name: string;
+    logo: string;
+    image: string;
+    description: string;
+    liked: string;
+    comments: { user: string; comment: string }[];
+    commentsLength: number;
+    createdTime: string;
+  }[] = [
+    {
+      name: '',
+      logo: '',
+      image: '',
+      description: '',
+      liked: '',
+      comments: [{ user: '', comment: '' }],
+      commentsLength: 0,
+      createdTime: ''
+    }
+  ];
+
   return (
     <Container>
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
-      <Article />
+      {ArticlesData.map(
+        ({ name, logo, image, description, liked, comments, commentsLength, createdTime }) => (
+          <Article
+            name={name}
+            logo={logo}
+            image={image}
+            description={description}
+            liked={liked}
+            comments={comments}
+            commentsLength={commentsLength}
+            createdTime={createdTime}
+          />
+        )
+      )}
     </Container>
   );
 };
 
-export default Posts;
+export default Articles;

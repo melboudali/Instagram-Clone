@@ -51,9 +51,19 @@ type StoriesProps = {};
 const Stories = ({}: StoriesProps) => {
   const StoriesData: { name: string; image: string }[] = [
     {
-      name: 'mercedes',
+      name: 'versace',
       image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=6eukZvzDplAAX8SPuqu&tp=1&oh=e80692a5b919db2d9a3ee11dba33e643&oe=602692DC'
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=bN4uaYUUoU8AX9ZrIjd&tp=1&oh=b09096258865e3f8df8d6711ae40f90c&oe=602684FB'
+    },
+    {
+      name: 'ferrari',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/13256976_998954483525291_2088181491_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=_HwKzaGtBFoAX_aYplU&tp=1&oh=c9b497fd527f4df09e45683e29ab82a3&oe=6027E16C'
+    },
+    {
+      name: 'lamborghini',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/10914351_445156875637393_373836994_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=68MQfFBzrRMAX9yDrPp&oh=059b8ece9522801147ce86c81d25631a&oe=602881EC'
     },
     {
       name: 'pullandbear',
@@ -61,14 +71,34 @@ const Stories = ({}: StoriesProps) => {
         'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/119967716_168469141494754_1912290642671596029_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=xVXj9KZleKQAX_sBAH5&tp=1&oh=293f0d86a158dead8247ab2da6aaefdc&oe=60232E38'
     },
     {
+      name: 'porsche',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/72477687_2436503716627621_3330394547002802176_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=eTheBcKg3FUAX_L6A7g&tp=1&oh=00baefb9e0abdb1779d2eeb63a9d5252&oe=6025F6C8'
+    },
+    {
+      name: 'dior',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/42633985_1927008894059358_8334422696888631296_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=M7zS9McaNOcAX88S_VE&tp=1&oh=a5b071a63b71536b8eff464beaf0e10a&oe=602935F0'
+    },
+    {
+      name: 'louisvuitton',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/914335_653223868059486_1434031198_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=U6vgVx_e8o4AX833F7W&oh=0339da54381d42d4f923b0c15c373397&oe=60266A46'
+    },
+    {
       name: 'voguemagazine',
       image:
         'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/25024975_1053395324802105_3204556493470826496_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=42hUmjDaErAAX_rQGos&tp=1&oh=99e131336e1f9be396ce30c13775c2f9&oe=6025D940'
     },
     {
-      name: 'versace',
+      name: 'chanelofficial',
       image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=bN4uaYUUoU8AX9ZrIjd&tp=1&oh=b09096258865e3f8df8d6711ae40f90c&oe=602684FB'
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/66505567_684858381987599_4049279537282809856_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=JlK4jzw1zM8AX9FMHuU&tp=1&oh=5eb83b40f465669d993bb6602752d4d7&oe=60271462'
+    },
+    {
+      name: 'mercedes',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=6eukZvzDplAAX8SPuqu&tp=1&oh=e80692a5b919db2d9a3ee11dba33e643&oe=602692DC'
     },
     {
       name: 'dolcegabbana',
@@ -76,9 +106,19 @@ const Stories = ({}: StoriesProps) => {
         'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/110186591_652942011965204_3898636332437750301_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=GEJ9i7G2bpsAX_Y9nJm&tp=1&oh=6ca512147fa1f182a965f31ae4bdb573&oe=6025FBD9'
     },
     {
-      name: 'mercedes',
+      name: 'versace',
       image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=6eukZvzDplAAX8SPuqu&tp=1&oh=e80692a5b919db2d9a3ee11dba33e643&oe=602692DC'
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=bN4uaYUUoU8AX9ZrIjd&tp=1&oh=b09096258865e3f8df8d6711ae40f90c&oe=602684FB'
+    },
+    {
+      name: 'ferrari',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/13256976_998954483525291_2088181491_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=_HwKzaGtBFoAX_aYplU&tp=1&oh=c9b497fd527f4df09e45683e29ab82a3&oe=6027E16C'
+    },
+    {
+      name: 'lamborghini',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/10914351_445156875637393_373836994_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=68MQfFBzrRMAX9yDrPp&oh=059b8ece9522801147ce86c81d25631a&oe=602881EC'
     },
     {
       name: 'pullandbear',
@@ -86,64 +126,34 @@ const Stories = ({}: StoriesProps) => {
         'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/119967716_168469141494754_1912290642671596029_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=xVXj9KZleKQAX_sBAH5&tp=1&oh=293f0d86a158dead8247ab2da6aaefdc&oe=60232E38'
     },
     {
+      name: 'porsche',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/72477687_2436503716627621_3330394547002802176_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=eTheBcKg3FUAX_L6A7g&tp=1&oh=00baefb9e0abdb1779d2eeb63a9d5252&oe=6025F6C8'
+    },
+    {
+      name: 'dior',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/42633985_1927008894059358_8334422696888631296_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=M7zS9McaNOcAX88S_VE&tp=1&oh=a5b071a63b71536b8eff464beaf0e10a&oe=602935F0'
+    },
+    {
+      name: 'louisvuitton',
+      image:
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/914335_653223868059486_1434031198_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=U6vgVx_e8o4AX833F7W&oh=0339da54381d42d4f923b0c15c373397&oe=60266A46'
+    },
+    {
       name: 'voguemagazine',
       image:
         'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/25024975_1053395324802105_3204556493470826496_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=42hUmjDaErAAX_rQGos&tp=1&oh=99e131336e1f9be396ce30c13775c2f9&oe=6025D940'
     },
     {
-      name: 'versace',
+      name: 'chanelofficial',
       image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=bN4uaYUUoU8AX9ZrIjd&tp=1&oh=b09096258865e3f8df8d6711ae40f90c&oe=602684FB'
-    },
-    {
-      name: 'dolcegabbana',
-      image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/110186591_652942011965204_3898636332437750301_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=GEJ9i7G2bpsAX_Y9nJm&tp=1&oh=6ca512147fa1f182a965f31ae4bdb573&oe=6025FBD9'
+        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/66505567_684858381987599_4049279537282809856_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=JlK4jzw1zM8AX9FMHuU&tp=1&oh=5eb83b40f465669d993bb6602752d4d7&oe=60271462'
     },
     {
       name: 'mercedes',
       image:
         'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=6eukZvzDplAAX8SPuqu&tp=1&oh=e80692a5b919db2d9a3ee11dba33e643&oe=602692DC'
-    },
-    {
-      name: 'pullandbear',
-      image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/119967716_168469141494754_1912290642671596029_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=xVXj9KZleKQAX_sBAH5&tp=1&oh=293f0d86a158dead8247ab2da6aaefdc&oe=60232E38'
-    },
-    {
-      name: 'voguemagazine',
-      image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/25024975_1053395324802105_3204556493470826496_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=42hUmjDaErAAX_rQGos&tp=1&oh=99e131336e1f9be396ce30c13775c2f9&oe=6025D940'
-    },
-    {
-      name: 'versace',
-      image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=bN4uaYUUoU8AX9ZrIjd&tp=1&oh=b09096258865e3f8df8d6711ae40f90c&oe=602684FB'
-    },
-    {
-      name: 'dolcegabbana',
-      image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/110186591_652942011965204_3898636332437750301_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=GEJ9i7G2bpsAX_Y9nJm&tp=1&oh=6ca512147fa1f182a965f31ae4bdb573&oe=6025FBD9'
-    },
-    {
-      name: 'mercedes',
-      image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=6eukZvzDplAAX8SPuqu&tp=1&oh=e80692a5b919db2d9a3ee11dba33e643&oe=602692DC'
-    },
-    {
-      name: 'pullandbear',
-      image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/119967716_168469141494754_1912290642671596029_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=xVXj9KZleKQAX_sBAH5&tp=1&oh=293f0d86a158dead8247ab2da6aaefdc&oe=60232E38'
-    },
-    {
-      name: 'voguemagazine',
-      image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/25024975_1053395324802105_3204556493470826496_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=42hUmjDaErAAX_rQGos&tp=1&oh=99e131336e1f9be396ce30c13775c2f9&oe=6025D940'
-    },
-    {
-      name: 'versace',
-      image:
-        'https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=bN4uaYUUoU8AX9ZrIjd&tp=1&oh=b09096258865e3f8df8d6711ae40f90c&oe=602684FB'
     },
     {
       name: 'dolcegabbana',
