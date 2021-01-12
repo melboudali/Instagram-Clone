@@ -1,4 +1,4 @@
-import Post from './layouts/Post';
+import Article from './layouts/Article';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -6,7 +6,6 @@ const Container = styled.div`
   float: left;
   margin-right: 28px;
   width: 100%;
-  background-color: green;
 `;
 
 type PostsProps = {};
@@ -14,16 +13,16 @@ type PostsProps = {};
 const Posts = ({}: PostsProps) => {
   return (
     <Container>
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      <Article />
+      <Article />
+      <Article />
+      <Article />
+      <Article />
+      <Article />
+      <Article />
+      <Article />
+      <Article />
+      <Article />
     </Container>
   );
 };

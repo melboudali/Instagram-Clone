@@ -1,7 +1,7 @@
 import Container from '../components/Container';
 import FileUploadInputProps from '../components/layouts/FileUploadInput';
 import Stories from '../components/Stories';
-import PostsAndSuggestionsContainer from '../components/PostsAndSuggestionsContainer';
+import ArticlesAndSuggestionsContainer from '../components/ArticlesAndSuggestionsContainer';
 import { MeQuery } from '../generated/graphql';
 
 type HomeProps = {
@@ -14,7 +14,7 @@ const Home = ({ data, loading }: HomeProps) => {
     <Container data={data} loading={loading}>
       <FileUploadInputProps />
       <Stories />
-      <PostsAndSuggestionsContainer />
+      <ArticlesAndSuggestionsContainer />
     </Container>
   );
 };
