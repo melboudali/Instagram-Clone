@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { getSyntheticLeadingComments } from 'typescript';
+import { Link } from 'react-router-dom';
 
 const Container = styled.article`
   background-color: #fff;
@@ -9,6 +9,7 @@ const Container = styled.article`
 `;
 
 const Header = styled.header`
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -41,6 +42,48 @@ const Logo = styled.img`
   border-radius: 50%;
 `;
 
+const NameContainer = styled.div`
+  margin-left: 14px;
+`;
+
+const Name = styled(Link)`
+  color: #262626;
+  border: 0;
+  display: inline;
+  padding: 0;
+  position: relative;
+  text-decoration: none;
+  user-select: auto;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  text-transform: inherit;
+  text-overflow: ellipsis;
+  width: auto;
+`;
+
+const More = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  top: 0;
+  bottom: 0;
+  right: 4px;
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    padding: 8px;
+    margin: 0;
+  }
+`;
+
 type PostProps = {
   name: string;
   logo: string;
@@ -67,11 +110,23 @@ const Post = ({
       <Header>
         <LogoContainer>
           <LogoBackground>
-            <Logo />
+            <Logo src={logo} alt='logo' />
           </LogoBackground>
         </LogoContainer>
-        This is Post Component/Page
+        <NameContainer>
+          <Name to={`/${name}`}>{name}</Name>
+        </NameContainer>
+        <More>
+          <button type='button'>
+            <svg fill='#262626' height='16' viewBox='0 0 48 48' width='16'>
+              <circle clipRule='evenodd' cx='8' cy='24' fillRule='evenodd' r='4.5'></circle>
+              <circle clipRule='evenodd' cx='24' cy='24' fillRule='evenodd' r='4.5'></circle>
+              <circle clipRule='evenodd' cx='40' cy='24' fillRule='evenodd' r='4.5'></circle>
+            </svg>
+          </button>
+        </More>
       </Header>
+      <img src={image} alt='hh' style={{ width: '100%' }} />
     </Container>
   );
 };
