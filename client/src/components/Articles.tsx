@@ -8,9 +8,7 @@ const Container = styled.div`
   width: 100%;
 `;
 
-type ArticlesProps = {};
-
-const Articles = ({}: ArticlesProps) => {
+const Articles = () => {
   const ArticlesData: {
     name: string;
     logo: string;
@@ -91,8 +89,9 @@ const Articles = ({}: ArticlesProps) => {
   return (
     <Container>
       {ArticlesData.map(
-        ({ name, logo, image, description, liked, comments, commentsLength, createdTime }) => (
+        ({ name, logo, image, description, liked, comments, commentsLength, createdTime }, id) => (
           <Article
+            key={id}
             name={name}
             logo={logo}
             image={image}
