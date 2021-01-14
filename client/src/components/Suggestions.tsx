@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import IsSticky from '../Hooks/IsSticky';
 
 const Container = styled.div<{ isSticky: boolean }>`
   background-color: red;
@@ -22,15 +22,9 @@ const Container = styled.div<{ isSticky: boolean }>`
 type SuggestionsProps = {};
 
 const Suggestions = ({}: SuggestionsProps) => {
-  const [sticky, setSticky] = useState<boolean>(false);
+  const isSticky = IsSticky(378);
 
-  useEffect(() => {
-    window.onscroll = () => {
-      window.scrollY >= 378 ? setSticky(true) : setSticky(false);
-    };
-  }, []);
-
-  return <Container isSticky={sticky}>This is Suggestions Component/Page</Container>;
+  return <Container isSticky={isSticky}>This is Suggestions Component/Page</Container>;
 };
 
 export default Suggestions;
