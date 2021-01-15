@@ -15,7 +15,7 @@ const ArticlesAndSuggestionsContainer = ({}: ArticlesAndSuggestionsContainerProp
   return (
     <Container>
       <Articles data={data} loading={loading} />
-      <Suggestion data={data} loading={loading} />
+      <Suggestion data={data} loading={loading}/>
     </Container>
   );
 };

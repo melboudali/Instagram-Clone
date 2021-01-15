@@ -11,10 +11,10 @@ const Container = styled.div<{ isSticky: boolean }>`
       ? `
       position: fixed;
       left: 849px;
-      top:  60px;
+      top:  72px;
         `
       : `
-      top: 6px;
+      top: 18px;
       position: absolute;`}
   max-width: 293px;
   width: 100%;
@@ -31,16 +31,53 @@ const CurrentUser = styled.div`
 `;
 
 const ProfileImage = styled.div`
-  width: fit-content;
+  /* width: fit-content; */
+  margin-right: 12px;
+  width: 56px;
+  height: 56px;
   a {
     text-decoration: none;
     img {
-      width: 56px;
-      height: 56px;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       object-fit: cover;
     }
   }
+`;
+
+const ProfileName = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 1 auto;
+  span {
+    color: #8e8e8e;
+    font-weight: 400;
+  }
+`;
+
+const UserName = styled(Link)`
+  color: #262626;
+  font-weight: 600;
+  text-decoration: none;
+`;
+
+const SwitchButtonContainer = styled.div`
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+`;
+
+const SwitchButton = styled.button`
+  cursor: pointer;
+  color: #0095f6;
+  font-weight: 600;
+  padding: 0;
+  background: 0 0;
+  border: 0;
+  outline: 0;
 `;
 
 const SuggestionContainer = styled.div`
@@ -72,6 +109,15 @@ const Suggestions = ({ data, loading }: SuggestionsProps) => {
               <img src={data?.me?.imageUrl} alt={`${data?.me?.imageUrl}'s profile`} />
             </Link>
           </ProfileImage>
+          <ProfileName>
+            <UserName to={`/${data?.me?.userName}`}>{data?.me?.userName}</UserName>
+            <span>{data?.me?.fullName}</span>
+          </ProfileName>
+          <SwitchButtonContainer>
+            <SwitchButtonContainer>
+              <SwitchButton type='button'>Switch</SwitchButton>
+            </SwitchButtonContainer>
+          </SwitchButtonContainer>
         </CurrentUser>
       </CurrentUserContainer>
       <SuggestionContainer></SuggestionContainer>
