@@ -9,7 +9,8 @@ const Container = styled.div`
   align-items: center;
   margin: 24px auto 0;
   height: 160px;
-  width: 676px;
+  /* width: 676px; */
+  width: 70%;
   background-color: #fff;
   border: 1px dashed #dbdbdb;
   border-radius: 5px;

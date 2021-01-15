@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useMeQuery } from '../../generated/graphql';
+import { useState } from 'react';
 
 const Container = styled.article`
   background-color: #fff;
@@ -164,6 +165,9 @@ const CommentsCount = styled.div`
 
 const CommentAndCreatedtimeContainer = styled.div`
   margin-bottom: 4px;
+  &:last-child {
+    margin-bottom: 8px;
+  }
 `;
 
 const Comment = styled.div`
@@ -193,6 +197,43 @@ const CreatedTime = styled(Link)`
   color: #8e8e8e;
 `;
 
+const CommentContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid #efefef;
+  font-size: 14px;
+  line-height: 18px;
+  min-height: 56px;
+  padding: 0 16px;
+`;
+
+const CommentForm = styled.form`
+  display: flex;
+  flex: 1 1 100%;
+`;
+
+const CommentTextArea = styled.textarea`
+  height: 18px;
+  background: none;
+  border: 0;
+  color: #262626;
+  flex-grow: 1;
+  outline: 0;
+  padding: 0;
+  resize: none;
+`;
+
+const SubmitButton = styled.button<{ Active: boolean }>`
+  cursor: pointer;
+  background: 0 0;
+  outline: 0;
+  border: 0;
+  font-weight: 600;
+  color: #0095f6;
+  ${({ Active }) => !Active && 'opacity:0.3'}
+`;
+
 type PostProps = {
   name: string;
   logo: string;
@@ -215,6 +256,7 @@ const Post = ({
   createdTime
 }: PostProps) => {
   const { data } = useMeQuery();
+  const [textareaValue, setTextAreaValue] = useState<string>('');
   const onClick = (buttonName: string) => {
     // TODO: Edit this later
     console.log(`${buttonName} Button Clicked.`);
@@ -318,6 +360,24 @@ const Post = ({
           </CommentAndCreatedtimeContainer>
         </DescriptionAndCommentsContainer>
       </Details>
+      <CommentContainer>
+        <CommentForm>
+          <CommentTextArea
+            placeholder='Add a comment…'
+            autoComplete='off'
+            autoCorrect='off'
+            onChange={e => setTextAreaValue(e.target.value)}
+          />
+          <SubmitButton
+            Active={textareaValue.length > 0 ? true : false}
+            onClick={e => {
+              e.preventDefault();
+              onClick('Submit');
+            }}>
+            Post
+          </SubmitButton>
+        </CommentForm>
+      </CommentContainer>
     </Container>
   );
 };
