@@ -1,5 +1,6 @@
 import Article from './layouts/Article';
 import styled from 'styled-components';
+import { MeQuery } from '../generated/graphql';
 
 const Container = styled.div`
   max-width: 614px;
@@ -8,7 +9,12 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Articles = () => {
+type ArticleProps = {
+  data: MeQuery | undefined;
+  loading: boolean | undefined;
+};
+
+const Articles = ({ data, loading }: ArticleProps) => {
   const ArticlesData: {
     name: string;
     logo: string;
@@ -100,6 +106,8 @@ const Articles = () => {
             comments={comments}
             commentsLength={commentsLength}
             createdTime={createdTime}
+            data={data}
+            loading={loading}
           />
         )
       )}

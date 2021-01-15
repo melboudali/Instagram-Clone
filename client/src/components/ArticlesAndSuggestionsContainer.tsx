@@ -1,6 +1,7 @@
-import styled from 'styled-components';
 import Articles from './Articles';
 import Suggestion from './Suggestions';
+import { useMeQuery } from '../generated/graphql';
+import styled from 'styled-components';
 
 const Container = styled.div`
   position: relative;
@@ -10,10 +11,11 @@ const Container = styled.div`
 type ArticlesAndSuggestionsContainerProps = {};
 
 const ArticlesAndSuggestionsContainer = ({}: ArticlesAndSuggestionsContainerProps) => {
+  const { data, loading } = useMeQuery();
   return (
     <Container>
-      <Articles />
-      <Suggestion />
+      <Articles data={data} loading={loading} />
+      <Suggestion data={data} loading={loading} />
     </Container>
   );
 };

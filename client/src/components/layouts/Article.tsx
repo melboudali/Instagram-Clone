@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useMeQuery } from '../../generated/graphql';
 import { useState } from 'react';
+import { MeQuery } from '../../generated/graphql';
 
 const Container = styled.article`
   background-color: #fff;
@@ -234,7 +234,7 @@ const SubmitButton = styled.button<{ Active: boolean }>`
   ${({ Active }) => !Active && 'opacity:0.3'}
 `;
 
-type PostProps = {
+type ArticleProps = {
   name: string;
   logo: string;
   image: string;
@@ -243,9 +243,11 @@ type PostProps = {
   comments: { user: string; comment: string }[];
   commentsLength: number;
   createdTime: string;
+  data: MeQuery | undefined;
+  loading: boolean | undefined;
 };
 
-const Post = ({
+const Article = ({
   name,
   logo,
   image,
@@ -253,9 +255,10 @@ const Post = ({
   liked,
   comments,
   commentsLength,
-  createdTime
-}: PostProps) => {
-  const { data } = useMeQuery();
+  createdTime,
+  data,
+  loading
+}: ArticleProps) => {
   const [textareaValue, setTextAreaValue] = useState<string>('');
   const onClick = (buttonName: string) => {
     // TODO: Edit this later
@@ -382,4 +385,4 @@ const Post = ({
   );
 };
 
-export default Post;
+export default Article;
