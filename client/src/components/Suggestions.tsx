@@ -105,7 +105,7 @@ const SuggestionsTitleContainer = styled.div`
   }
 `;
 
-const SuggestionButton = styled(Link)`
+const SeeAllLink = styled(Link)`
   color: #262626;
   text-decoration: none;
   font-weight: 600;
@@ -187,17 +187,7 @@ const LinksList = styled.ul`
 
 const LinkItem = styled.li`
   display: inline-block;
-  white-space: nowrap;
   margin: 0;
-  &::after {
-    content: '';
-    margin: 0 3px;
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    background: rgb(107, 107, 107);
-    padding: 0;
-  }
 `;
 
 const ListLink = styled(Link)`
@@ -205,7 +195,17 @@ const ListLink = styled(Link)`
   font-size: 11px;
   font-weight: 400;
   line-height: 13px;
- 
+  display: flex;
+  align-items: center;
+  &::after {
+    content: '';
+    display: inline-block;
+    margin: 0 3px;
+    width: 2px;
+    height: 2px;
+    border-radius: 5px;
+    background: #c7c7c7;
+  }
 `;
 
 const SignatureContainer = styled.span`
@@ -223,6 +223,11 @@ type SuggestionsProps = {
 
 const Suggestions = ({ data, loading }: SuggestionsProps) => {
   const isSticky = IsSticky(400);
+
+  const onClick = (buttonName: string) => {
+    // TODO: Edit this later
+    console.log(`${buttonName} Button Clicked.`);
+  };
 
   const SuggestionsData: { image: string; username: string; status: string }[] = [
     {
@@ -257,7 +262,8 @@ const Suggestions = ({ data, loading }: SuggestionsProps) => {
     'Press',
     'API',
     'Jobs',
-    'PrivacyTerms',
+    'Privacy',
+    'Terms',
     'Locations',
     'Top Accounts',
     'Hashtags',
@@ -279,7 +285,9 @@ const Suggestions = ({ data, loading }: SuggestionsProps) => {
           </ProfileName>
           <SwitchButtonContainer>
             <SwitchButtonContainer>
-              <SwitchButton type='button'>Switch</SwitchButton>
+              <SwitchButton type='button' onClick={() => onClick('Switch Account')}>
+                Switch
+              </SwitchButton>
             </SwitchButtonContainer>
           </SwitchButtonContainer>
         </CurrentUser>
@@ -287,7 +295,7 @@ const Suggestions = ({ data, loading }: SuggestionsProps) => {
       <SuggestionsContainer>
         <SuggestionsTitleContainer>
           <span>Suggestions For You</span>
-          <SuggestionButton to='/fixLater'>See All</SuggestionButton>
+          <SeeAllLink to='/fixLater'>See All</SeeAllLink>
         </SuggestionsTitleContainer>
         {SuggestionsData.map(({ username, image, status }) => (
           <SuggestionContainer>
@@ -301,7 +309,9 @@ const Suggestions = ({ data, loading }: SuggestionsProps) => {
               <span>{status}</span>
             </SuggestedProfileName>
             <SuggestedSwitchButtonContainer>
-              <SuggestedSwitchButton>Follow</SuggestedSwitchButton>
+              <SuggestedSwitchButton type='button' onClick={() => onClick('Follow')}>
+                Follow
+              </SuggestedSwitchButton>
             </SuggestedSwitchButtonContainer>
           </SuggestionContainer>
         ))}
