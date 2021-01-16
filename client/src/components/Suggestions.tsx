@@ -201,8 +201,6 @@ const ListLink = styled(Link)`
     content: '';
     display: inline-block;
     margin: 0 3px;
-    width: 2px;
-    height: 2px;
     border-radius: 5px;
     background: #c7c7c7;
   }

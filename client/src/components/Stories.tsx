@@ -21,7 +21,7 @@ const Main = styled.div<{ translateValue: number }>`
   flex-grow: 1;
   align-items: center;
   transform: ${({ translateValue }) => `translateX(-${translateValue}px)`};
-  transition: transform 1s ease-out;
+  transition: transform 500ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 `;
 
 const NextBtn = styled.button`
@@ -44,6 +44,28 @@ const Next = styled.div`
   background-image: url(${Assets});
   background-repeat: no-repeat;
   background-position: -294px -273px;
+`;
+
+const PrevBtn = styled.button`
+  left: 0;
+  cursor: pointer;
+  padding: 0;
+  background: 0 0;
+  border: 0;
+  justify-self: center;
+  outline: 0;
+  padding: 16px 8px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const Prev = styled.div`
+  height: 45px;
+  width: 45px;
+  background-image: url(${Assets});
+  background-repeat: no-repeat;
+  background-position: -294px -226px;
 `;
 
 type StoriesProps = {};
@@ -163,31 +185,76 @@ const Stories = ({}: StoriesProps) => {
   ];
 
   const SliderRef = useRef<HTMLDivElement>(null);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [translate, setTranslate] = useState<number>(0);
+  const ContainerRef = useRef<HTMLDivElement>(null);
 
-  const NextSlide = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    // TODO: i need to fix this slider later
-    let leftWidth = (currentIndex + 5) * 88 - StoriesData.length * 88;
-    if (leftWidth > (currentIndex + 5) * 88) {
-      setCurrentIndex(currentIndex + 5);
-      setTranslate((currentIndex + 5) * 88);
+  const [currentIndex, setCurrentIndex] = useState<number>(4);
+  const [translateValue, setTranslateValue] = useState<number>(0);
+  const [keepSliding, setKeepSliding] = useState<{ right: boolean; left: boolean }>({
+    right: true,
+    left: false
+  });
+  const [LeftItems, setLeftItems] = useState<number>(StoriesData.length - 4);
+  const [slideButtons, setSlideButtons] = useState<{ leftButton: boolean; rightButton: boolean }>({
+    leftButton: false,
+    rightButton: true
+  });
+
+  const NextSlide = () => {
+    if (LeftItems > currentIndex) {
+      if (keepSliding.right) {
+        setLeftItems(LeftItems - 4);
+        setCurrentIndex(currentIndex + 4);
+        setTranslateValue(currentIndex * 88);
+        setSlideButtons({ leftButton: true, rightButton: true });
+      }
     } else {
-      setCurrentIndex(currentIndex - StoriesData.length);
-      setTranslate(leftWidth);
+      if (keepSliding.right) {
+        setKeepSliding({ ...keepSliding, right: true });
+        if (SliderRef.current && ContainerRef.current) {
+          setTranslateValue(SliderRef.current?.clientWidth - ContainerRef.current?.clientWidth);
+        }
+        setSlideButtons({ leftButton: true, rightButton: false });
+      }
     }
   };
 
+  const PrevSlide = () => {
+    // TODO: Fix this later ...
+    // if (LeftItems < currentIndex) {
+    //   if (keepSliding.left) {
+    //     setLeftItems(LeftItems - 4);
+    //     setCurrentIndex(currentIndex + 4);
+    //     setTranslateValue(currentIndex * 88);
+    //     setSlideButtons({ leftButton: true, rightButton: true });
+    //   }
+    // } else {
+    //   if (keepSliding) {
+    //     setKeepSliding({...keepSliding, left:false});
+    //     if (SliderRef.current && ContainerRef.current) {
+    //       setTranslateValue(SliderRef.current?.clientWidth - ContainerRef.current?.clientWidth);
+    //     }
+    //     setSlideButtons({ leftButton: true, rightButton: false });
+    //   }
+    // }
+  };
+
   return (
-    <Container ref={SliderRef}>
-      <Main translateValue={translate}>
+    <Container ref={ContainerRef}>
+      <Main translateValue={translateValue} ref={SliderRef}>
         {StoriesData.map(({ name, image }, i) => (
           <Story key={i} name={name} image={image} />
         ))}
       </Main>
-      <NextBtn>
-        <Next onClick={NextSlide} />
-      </NextBtn>
+      {slideButtons.leftButton && (
+        <PrevBtn>
+          <Prev onClick={PrevSlide} />
+        </PrevBtn>
+      )}
+      {slideButtons.rightButton && (
+        <NextBtn>
+          <Next onClick={NextSlide} />
+        </NextBtn>
+      )}
     </Container>
   );
 };

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Modal from '../Modal';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -64,6 +65,7 @@ const FileUploadInput = () => {
   };
   return (
     <Container>
+      <Modal />
       <SvgContainer>
         <svg
           width='131'
