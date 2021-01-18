@@ -26,9 +26,17 @@ const UploadText = styled.div`
   color: #8e8e8e;
   margin-top: 15px;
   letter-spacing: 1px;
+  text-align: center;
   span {
     font-weight: 500;
   }
+`;
+
+const ErrorMessage = styled.span`
+  color: var(--textErrorColor);
+  font-weight: 300;
+  display: block;
+  margin-top: 10px;
 `;
 
 const FileInput = styled.input`
@@ -46,20 +54,33 @@ const FileInput = styled.input`
 const FileUploadInput = () => {
   const [image, setImage] = useState<string | undefined>();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [uploadError, setUploadError] = useState<boolean>(false);
+  const [uploadErrorMessage, setUploadErroMessage] = useState<string>('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const Files = e.target.files;
+    var fileTypes = ['jpg', 'jpeg', 'png'];
+
     if (Files) {
       if (Files?.length > 1) {
-        console.error('Too many files');
+        setUploadErroMessage('Too many files !!');
+        setUploadError(true);
       } else {
-        if (FileReader) {
-          var fr = new FileReader();
-          fr.onload = function () {
-            setImage(fr.result as string);
-            setOpenModal(true);
-          };
-          fr.readAsDataURL(Files[0]);
+        const FileName = Files[0].name;
+        const extension = FileName.split('.').pop()?.toLowerCase();
+        if (fileTypes.indexOf(extension!) > -1) {
+          if (FileReader) {
+            var fr = new FileReader();
+            fr.onload = function () {
+              setImage(fr.result as string);
+              setOpenModal(true);
+              setUploadError(false);
+            };
+            fr.readAsDataURL(Files[0]);
+          }
+        } else {
+          setUploadErroMessage("We only accept 'jpg', 'jpeg', 'png' files !!");
+          setUploadError(true);
         }
       }
     }
@@ -88,6 +109,7 @@ const FileUploadInput = () => {
       </SvgContainer>
       <UploadText>
         <span>Choose a file</span> or drag it here.
+        {uploadError && <ErrorMessage>{uploadErrorMessage}</ErrorMessage>}
       </UploadText>
       <FileInput type='file' title='Choose a file or drag it here.' multiple onChange={onChange} />
     </Container>
