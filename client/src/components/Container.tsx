@@ -6,7 +6,6 @@ import Navbar from './Navbar';
 type ContainerProps = {
   children: React.ReactNode;
   data: MeQuery | undefined;
-  loading: boolean | undefined;
 };
 
 const Main = styled.div`
@@ -16,11 +15,10 @@ const Main = styled.div`
   padding: 84px 20px 0;
 `;
 
-const Container = ({ children, data, loading }: ContainerProps) => {
-
+const Container = ({ children, data }: ContainerProps) => {
   return (
     <Fragment>
-      <Navbar data={data} loading={loading} />
+      <Navbar data={data} />
       <Main>{children}</Main>
     </Fragment>
   );

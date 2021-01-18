@@ -131,10 +131,9 @@ const ProfileImage = styled.span`
 
 type NavbarProps = {
   data: MeQuery | undefined;
-  loading: boolean | undefined;
 };
 
-const Navbar = ({ data, loading }: NavbarProps) => {
+const Navbar = ({ data }: NavbarProps) => {
   const [showMenu, setShowMenu] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 

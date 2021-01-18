@@ -11,8 +11,8 @@ type HomeProps = {
 
 const Home = ({ data, loading }: HomeProps) => {
   return (
-    <Container data={data} loading={loading}>
-      <FileUploadInputProps />
+    <Container data={data}>
+      <FileUploadInputProps data={data} />
       <Stories />
       <ArticlesAndSuggestionsContainer />
     </Container>

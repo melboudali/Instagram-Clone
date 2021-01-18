@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from '../Modal';
 import styled from 'styled-components';
+import { MeQuery } from '../../generated/graphql';
 
 const Container = styled.div`
   display: flex;
@@ -51,7 +52,11 @@ const FileInput = styled.input`
   cursor: pointer;
 `;
 
-const FileUploadInput = () => {
+type FileUploadInputProps = {
+  data: MeQuery | undefined;
+};
+
+const FileUploadInput = ({ data }: FileUploadInputProps) => {
   const [image, setImage] = useState<string | undefined>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<boolean>(false);
@@ -87,7 +92,9 @@ const FileUploadInput = () => {
   };
   return (
     <Container>
-      {openModal && <Modal UploadedImage={image} setOpenModal={setOpenModal} />}
+      {openModal && (
+        <Modal UploadedImage={image} setOpenModal={setOpenModal} data={data} />
+      )}
       <SvgContainer>
         <svg
           width='131'

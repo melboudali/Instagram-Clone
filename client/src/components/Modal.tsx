@@ -1,4 +1,7 @@
+import { useState } from 'react';
+import Button from './layouts/Button';
 import styled from 'styled-components';
+import { MeQuery } from '../generated/graphql';
 
 const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.87);
@@ -13,9 +16,11 @@ const Container = styled.div`
 `;
 
 const Main = styled.div`
+  display: flex;
   position: absolute;
   border: none;
   width: 700px;
+  min-height: 60px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -51,14 +56,62 @@ const ImageContainer = styled.img`
   height: 100%;
 `;
 
-const ImageCaptionContainer = styled.div``;
+const ImageCaptionContainer = styled.div`
+  flex: 1 1 100%;
+  padding: 10px 20px 20px;
+  position: relative;
+`;
+
+const Title = styled.h1`
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--textColorDarkGray);
+  text-align: center;
+  padding: 0;
+  margin: 0;
+`;
+
+const CaptionContainer = styled.div`
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 20px;
+`;
+
+const Caption = styled.div`
+  display: flex;
+`;
+
+const UserImage = styled.img`
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+const CaptionArea = styled.textarea`
+  height: 120px;
+  background: none;
+  border: 0;
+  color: #262626;
+  flex: 1 1 100%;
+  outline: 0;
+  padding: 0;
+  resize: none;
+  margin: 0 0 10px 20px;
+`;
 
 type ModalProps = {
   UploadedImage: string | undefined;
   setOpenModal: (arg0: boolean) => void;
+  data: MeQuery | undefined;
 };
 
-const Modal = ({ UploadedImage, setOpenModal }: ModalProps) => {
+const Modal = ({ UploadedImage, setOpenModal, data }: ModalProps) => {
+  const [caption, setCaption] = useState<string>('');
+
   const Scrollbar = (arg: 'show' | 'hide') => {
     arg === 'show'
       ? (document.documentElement.style.overflowY = 'visible')
@@ -88,7 +141,29 @@ const Modal = ({ UploadedImage, setOpenModal }: ModalProps) => {
           </svg>
         </Close>
         <ImageContainer src={UploadedImage} alt='Uploaded Image' />
-        <ImageCaptionContainer></ImageCaptionContainer>
+        <ImageCaptionContainer>
+          <Title>New Post</Title>
+          <CaptionContainer>
+            <Caption>
+              <UserImage src={data?.me?.imageUrl} alt='profile' />
+              <CaptionArea
+                placeholder='Write a caption...'
+                autoComplete='off'
+                autoCorrect='off'
+                value={caption}
+                maxLength={200}
+                onChange={e => setCaption(e.target.value)}
+              />
+            </Caption>
+            <Button
+              active={!!caption}
+              loading={false}
+              type='button'
+              onClickFunction={() => console.log('hhhh')}>
+              Post
+            </Button>
+          </CaptionContainer>
+        </ImageCaptionContainer>
       </Main>
     </Container>
   );
