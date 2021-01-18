@@ -67,10 +67,7 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
     var fileTypes = ['jpg', 'jpeg', 'png'];
 
     if (Files) {
-      if (Files?.length > 1) {
-        setUploadErroMessage('Too many files !!');
-        setUploadError(true);
-      } else {
+      if (Files?.length === 1) {
         const FileName = Files[0].name;
         const extension = FileName.split('.').pop()?.toLowerCase();
         if (fileTypes.indexOf(extension!) > -1) {
@@ -87,14 +84,15 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
           setUploadErroMessage("We only accept 'jpg', 'jpeg', 'png' files !!");
           setUploadError(true);
         }
+      } else {
+        setUploadErroMessage('Too many files !!');
+        setUploadError(true);
       }
     }
   };
   return (
     <Container>
-      {openModal && (
-        <Modal UploadedImage={image} setOpenModal={setOpenModal} data={data} />
-      )}
+      {openModal && <Modal UploadedImage={image} setOpenModal={setOpenModal} data={data} />}
       <SvgContainer>
         <svg
           width='131'

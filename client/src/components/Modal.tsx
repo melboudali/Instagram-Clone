@@ -45,6 +45,7 @@ const Close = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
+  z-index: 2;
   svg {
     stroke: var(--textColorGray);
   }
@@ -58,7 +59,6 @@ const ImageContainer = styled.img`
 
 const ImageCaptionContainer = styled.div`
   flex: 1 1 100%;
-  padding: 10px 20px 20px;
   position: relative;
 `;
 
@@ -67,7 +67,7 @@ const Title = styled.h1`
   font-size: 14px;
   color: var(--textColorDarkGray);
   text-align: center;
-  padding: 0;
+  padding: 10px 0 0 0;
   margin: 0;
 `;
 
@@ -100,7 +100,7 @@ const CaptionArea = styled.textarea`
   outline: 0;
   padding: 0;
   resize: none;
-  margin: 0 0 10px 20px;
+  margin: 0 0 10px 10px;
 `;
 
 type ModalProps = {

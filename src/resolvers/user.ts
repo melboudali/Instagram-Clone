@@ -95,7 +95,7 @@ export class UserResolver {
     @Arg('password') password: string,
     @Ctx() { req }: MyContext
   ): Promise<UserResponse> {
-    const isEmail: boolean = userNameOrEmail.includes('@') ? true : false;
+    const isEmail: boolean = !!userNameOrEmail.includes('@');
     const user = await User.findOne({
       where: isEmail ? { email: userNameOrEmail } : { userName: userNameOrEmail }
     });

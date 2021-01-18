@@ -120,12 +120,7 @@ const Signup = () => {
                 />
                 <Button
                   active={
-                    email.length > 0 &&
-                    fullName.length > 0 &&
-                    userName.length > 0 &&
-                    password.length > 0
-                      ? true
-                      : false
+                    !!email.length && !!fullName.length && !!userName.length && !!password.length
                   }
                   loading={signupLoading}
                   onClickFunction={signupFunction}

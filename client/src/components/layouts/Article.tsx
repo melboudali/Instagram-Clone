@@ -372,7 +372,7 @@ const Article = ({
             onChange={e => setTextAreaValue(e.target.value)}
           />
           <SubmitButton
-            Active={textareaValue.length > 0 ? true : false}
+            Active={!!textareaValue.length}
             onClick={e => {
               e.preventDefault();
               onClick('Submit');
