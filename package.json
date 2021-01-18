@@ -32,13 +32,16 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "graphql": "^15.4.0",
+    "graphql-upload": "^11.0.0",
     "ioredis": "^4.19.4",
     "pg": "^8.5.1",
     "reflect-metadata": "^0.1.13",
-    "stream": "^0.0.2",
     "type-graphql": "^1.1.1",
     "typeorm": "^0.2.29",
     "uuid": "^8.3.2"
+  },
+  "resolutions": {
+    "graphql-upload": "^11.0.0"
   },
   "devDependencies": {
     "@types/connect-redis": "^0.0.16",

@@ -295,8 +295,8 @@ const Suggestions = ({ data, loading }: SuggestionsProps) => {
           <span>Suggestions For You</span>
           <SeeAllLink to='/fixLater'>See All</SeeAllLink>
         </SuggestionsTitleContainer>
-        {SuggestionsData.map(({ username, image, status }) => (
-          <SuggestionContainer>
+        {SuggestionsData.map(({ username, image, status }, id) => (
+          <SuggestionContainer key={id}>
             <SuggestedProfileImage>
               <Link to={`/${username}`}>
                 <img src={image} alt={`${username}'s profile`} />
@@ -317,8 +317,8 @@ const Suggestions = ({ data, loading }: SuggestionsProps) => {
       <div>
         <LinksContainer>
           <LinksList>
-            {LinksData.map(theLink => (
-              <LinkItem>
+            {LinksData.map((theLink, id) => (
+              <LinkItem key={id}>
                 <ListLink to={`/${theLink}`}>{theLink}</ListLink>
               </LinkItem>
             ))}

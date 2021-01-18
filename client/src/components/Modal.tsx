@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useUploadImageMutation } from '../generated/graphql';
 import Button from './layouts/Button';
 import styled from 'styled-components';
 import { MeQuery } from '../generated/graphql';
@@ -104,13 +105,16 @@ const CaptionArea = styled.textarea`
 `;
 
 type ModalProps = {
+  imageUpload: File | undefined;
   UploadedImage: string | undefined;
   setOpenModal: (arg0: boolean) => void;
   data: MeQuery | undefined;
 };
 
-const Modal = ({ UploadedImage, setOpenModal, data }: ModalProps) => {
+const Modal = ({ imageUpload, UploadedImage, setOpenModal, data }: ModalProps) => {
+  const [uploadImage] = useUploadImageMutation();
   const [caption, setCaption] = useState<string>('');
+  const [UploadLoading, setLoadingUpload] = useState<boolean>(false);
 
   const Scrollbar = (arg: 'show' | 'hide') => {
     arg === 'show'
@@ -118,6 +122,18 @@ const Modal = ({ UploadedImage, setOpenModal, data }: ModalProps) => {
       : (document.documentElement.style.overflowY = 'hidden');
   };
   Scrollbar('hide');
+
+  const UploadFile = async () => {
+    setLoadingUpload(true);
+    try {
+      await uploadImage({ variables: { picture: imageUpload } });
+      setLoadingUpload(false);
+    } catch (error) {
+      setLoadingUpload(false);
+      console.error(error);
+    }
+  };
+
   return (
     <Container>
       <Main>
@@ -150,6 +166,7 @@ const Modal = ({ UploadedImage, setOpenModal, data }: ModalProps) => {
                 placeholder='Write a caption...'
                 autoComplete='off'
                 autoCorrect='off'
+                autoFocus
                 value={caption}
                 maxLength={200}
                 onChange={e => setCaption(e.target.value)}
@@ -157,9 +174,9 @@ const Modal = ({ UploadedImage, setOpenModal, data }: ModalProps) => {
             </Caption>
             <Button
               active={!!caption}
-              loading={false}
+              loading={UploadLoading}
               type='button'
-              onClickFunction={() => console.log('hhhh')}>
+              onClickFunction={UploadFile}>
               Post
             </Button>
           </CaptionContainer>

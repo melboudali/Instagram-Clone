@@ -58,6 +58,7 @@ type FileUploadInputProps = {
 
 const FileUploadInput = ({ data }: FileUploadInputProps) => {
   const [image, setImage] = useState<string | undefined>();
+  const [imageUpload, setImageUpload] = useState<File | undefined>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<boolean>(false);
   const [uploadErrorMessage, setUploadErroMessage] = useState<string>('');
@@ -71,12 +72,14 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
         const FileName = Files[0].name;
         const extension = FileName.split('.').pop()?.toLowerCase();
         if (fileTypes.indexOf(extension!) > -1) {
+          
           if (FileReader) {
             var fr = new FileReader();
             fr.onload = function () {
               setImage(fr.result as string);
-              setOpenModal(true);
               setUploadError(false);
+              setImageUpload(Files[0]);
+              setOpenModal(true);
             };
             fr.readAsDataURL(Files[0]);
           }
@@ -92,7 +95,14 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
   };
   return (
     <Container>
-      {openModal && <Modal UploadedImage={image} setOpenModal={setOpenModal} data={data} />}
+      {openModal && (
+        <Modal
+          UploadedImage={image}
+          imageUpload={imageUpload}
+          setOpenModal={setOpenModal}
+          data={data}
+        />
+      )}
       <SvgContainer>
         <svg
           width='131'
