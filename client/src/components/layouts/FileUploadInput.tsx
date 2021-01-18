@@ -45,6 +45,7 @@ const FileInput = styled.input`
 
 const FileUploadInput = () => {
   const [image, setImage] = useState<string | undefined>();
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const Files = e.target.files;
@@ -56,7 +57,7 @@ const FileUploadInput = () => {
           var fr = new FileReader();
           fr.onload = function () {
             setImage(fr.result as string);
-            console.log(fr.LOADING);
+            setOpenModal(true);
           };
           fr.readAsDataURL(Files[0]);
         }
@@ -65,7 +66,7 @@ const FileUploadInput = () => {
   };
   return (
     <Container>
-      <Modal />
+      {openModal && <Modal UploadedImage={image} setOpenModal={setOpenModal} />}
       <SvgContainer>
         <svg
           width='131'
