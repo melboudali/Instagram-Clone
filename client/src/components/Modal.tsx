@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useUploadImageMutation } from '../generated/graphql';
 import Button from './layouts/Button';
 import styled from 'styled-components';
 import { MeQuery } from '../generated/graphql';
+import IsClickedAway from '../Hooks/IsClickedAway';
 
 const Container = styled.div`
   background-color: rgba(0, 0, 0, 0.87);
@@ -55,7 +56,8 @@ const Close = styled.button`
 const ImageContainer = styled.img`
   display: block;
   width: 300px;
-  height: 100%;
+  min-height: 300px;
+  object-fit: cover;
 `;
 
 const ImageCaptionContainer = styled.div`
@@ -105,14 +107,15 @@ const CaptionArea = styled.textarea`
 `;
 
 type ModalProps = {
-  imageUpload: File | undefined;
-  UploadedImage: string | undefined;
-  setOpenModal: (arg0: boolean) => void;
   data: MeQuery | undefined;
+  imageUri: string | undefined;
+  imageFile: File | undefined;
+  setOpenModal: (arg0: boolean) => void;
 };
 
-const Modal = ({ imageUpload, UploadedImage, setOpenModal, data }: ModalProps) => {
+const Modal = ({ imageFile, imageUri, setOpenModal, data }: ModalProps) => {
   const [uploadImageFunc] = useUploadImageMutation();
+
   const [caption, setCaption] = useState<string>('');
   const [UploadLoading, setLoadingUpload] = useState<boolean>(false);
 
@@ -121,11 +124,27 @@ const Modal = ({ imageUpload, UploadedImage, setOpenModal, data }: ModalProps) =
       ? (document.documentElement.style.overflowY = 'visible')
       : (document.documentElement.style.overflowY = 'hidden');
   };
-  Scrollbar('hide');
+
+  const ref = useRef<HTMLDivElement>(null);
+  const clickedAway = IsClickedAway(ref);
+
+  useEffect(() => {
+    Scrollbar('hide');
+    if (clickedAway) {
+      setOpenModal(false);
+      Scrollbar('show');
+    }
+  }, [clickedAway, setOpenModal]);
+
+  const closeModal = () => {
+    setLoadingUpload(false);
+    setOpenModal(false);
+    Scrollbar('show');
+  };
 
   const UploadFile = async () => {
     setLoadingUpload(true);
-    if (imageUpload) {
+    if (imageFile) {
       // With vanilla js using FormData can work also with Postman
       // const formData = new FormData();
       // formData.append(
@@ -153,23 +172,18 @@ const Modal = ({ imageUpload, UploadedImage, setOpenModal, data }: ModalProps) =
 
       // With Apollo-upload-client
       try {
-        const res = await uploadImageFunc({ variables: { file: imageUpload } });
-        console.log(res.data?.uploadImage);
-        setLoadingUpload(false);
-        setOpenModal(false);
-        Scrollbar('show');
+        const res = await uploadImageFunc({ variables: { file: imageFile } });
+        if (res.data?.uploadImage) closeModal();
       } catch (error) {
-        setLoadingUpload(false);
-        setOpenModal(false);
-        Scrollbar('show');
         console.error(error);
+        closeModal();
       }
     }
   };
 
   return (
     <Container>
-      <Main>
+      <Main ref={ref}>
         <Close
           type='button'
           onClick={() => {
@@ -189,7 +203,7 @@ const Modal = ({ imageUpload, UploadedImage, setOpenModal, data }: ModalProps) =
             <line x1='6' y1='6' x2='18' y2='18' />
           </svg>
         </Close>
-        <ImageContainer src={UploadedImage} alt='Uploaded Image' />
+        <ImageContainer src={imageUri} alt='Uploaded Image' />
         <ImageCaptionContainer>
           <Title>New Post</Title>
           <CaptionContainer>

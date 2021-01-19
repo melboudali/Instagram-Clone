@@ -57,50 +57,42 @@ type FileUploadInputProps = {
 };
 
 const FileUploadInput = ({ data }: FileUploadInputProps) => {
-  const [image, setImage] = useState<string | undefined>();
-  const [imageUpload, setImageUpload] = useState<File | undefined>();
+  const [imageUri, setImageUri] = useState<string | undefined>();
+  const [imageFile, setImageFile] = useState<File | undefined>();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [uploadError, setUploadError] = useState<boolean>(false);
   const [uploadErrorMessage, setUploadErroMessage] = useState<string>('');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const Files = e.target.files;
-    var fileTypes = ['jpg', 'jpeg', 'png'];
 
-    if (Files) {
-      if (Files?.length === 1) {
-        const FileName = Files[0].name;
-        const extension = FileName.split('.').pop()?.toLowerCase();
-        if (fileTypes.indexOf(extension!) > -1) {
-          if (FileReader) {
-            var fr = new FileReader();
-            fr.onload = function () {
-              setImage(fr.result as string);
-              setUploadError(false);
-              setOpenModal(true);
-            };
-            fr.readAsDataURL(Files[0]);
-          }
-          setImageUpload(Files[0]);
-        } else {
-          setUploadErroMessage("We only accept 'jpg', 'jpeg', 'png' files !!");
-          setUploadError(true);
+    if (Files?.length === 1) {
+      const FileType = Files[0].type;
+      if (FileType) {
+        console.log(FileType);
+        if (FileReader) {
+          const fr = new FileReader();
+          fr.onload = function () {
+            setImageUri(fr.result as string);
+            setUploadError(false);
+            setOpenModal(true);
+          };
+          fr.readAsDataURL(Files[0]);
         }
+        setImageFile(Files[0]);
       } else {
-        setUploadErroMessage('Too many files !!');
+        setUploadErroMessage("We only accept 'jpg', 'jpeg', 'png' files !!");
         setUploadError(true);
       }
+    } else {
+      setUploadErroMessage('Too many files !!');
+      setUploadError(true);
     }
   };
   return (
     <Container>
       {openModal && (
-        <Modal
-          UploadedImage={image}
-          imageUpload={imageUpload}
-          setOpenModal={setOpenModal}
-          data={data}
-        />
+        <Modal imageUri={imageUri} imageFile={imageFile} setOpenModal={setOpenModal} data={data} />
       )}
       <SvgContainer>
         <svg
