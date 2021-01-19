@@ -68,8 +68,7 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
 
     if (Files?.length === 1) {
       const FileType = Files[0].type;
-      if (FileType) {
-        console.log(FileType);
+      if (FileType === 'image/jpeg' || FileType === 'image/png') {
         if (FileReader) {
           const fr = new FileReader();
           fr.onload = function () {

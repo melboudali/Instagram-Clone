@@ -1,3 +1,5 @@
 mutation UploadImage($file: Upload!) {
-  uploadImage(file: $file)
+  uploadImage(file: $file) {
+    imageUrl
+  }
 }

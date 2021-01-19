@@ -173,7 +173,10 @@ const Modal = ({ imageFile, imageUri, setOpenModal, data }: ModalProps) => {
       // With Apollo-upload-client
       try {
         const res = await uploadImageFunc({ variables: { file: imageFile } });
-        if (res.data?.uploadImage) closeModal();
+        if (res.data?.uploadImage) {
+          closeModal();
+          console.log(res.data?.uploadImage.imageUrl);
+        }
       } catch (error) {
         console.error(error);
         closeModal();

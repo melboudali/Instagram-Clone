@@ -40,7 +40,7 @@ export type Mutation = {
   register: UserResponse;
   login: UserResponse;
   logout: Scalars['Boolean'];
-  uploadImage: Scalars['Boolean'];
+  uploadImage: UploadImageResponse;
 };
 
 
@@ -75,6 +75,11 @@ export type RegisterInputs = {
   email: Scalars['String'];
   password: Scalars['String'];
   fullName: Scalars['String'];
+};
+
+export type UploadImageResponse = {
+  __typename?: 'UploadImageResponse';
+  imageUrl: Scalars['String'];
 };
 
 
@@ -134,7 +139,10 @@ export type UploadImageMutationVariables = Exact<{
 
 export type UploadImageMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'uploadImage'>
+  & { uploadImage: (
+    { __typename?: 'UploadImageResponse' }
+    & Pick<UploadImageResponse, 'imageUrl'>
+  ) }
 );
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
@@ -247,7 +255,9 @@ export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const UploadImageDocument = gql`
     mutation UploadImage($file: Upload!) {
-  uploadImage(file: $file)
+  uploadImage(file: $file) {
+    imageUrl
+  }
 }
     `;
 export type UploadImageMutationFn = Apollo.MutationFunction<UploadImageMutation, UploadImageMutationVariables>;
