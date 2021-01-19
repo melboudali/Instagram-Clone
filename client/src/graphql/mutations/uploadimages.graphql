@@ -1,3 +1,3 @@
-mutation UploadImage($file: Upload!): File! {
+mutation UploadImage($file: Upload!) {
   uploadImage(file: $file)
 }

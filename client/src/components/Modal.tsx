@@ -126,12 +126,42 @@ const Modal = ({ imageUpload, UploadedImage, setOpenModal, data }: ModalProps) =
   const UploadFile = async () => {
     setLoadingUpload(true);
     if (imageUpload) {
+      // With vanilla js using FormData can work also with Postman
+      // const formData = new FormData();
+      // formData.append(
+      //   'operations',
+      //   JSON.stringify({
+      //     query: 'mutation UploadImage($file: Upload!) {\n  uploadImage(file: $file)\n}'
+      //   })
+      // );
+      // formData.append('map', JSON.stringify({ '0': ['variables.file'] }));
+      // formData.append('0', imageUpload);
+      // try {
+      //   fetch('http://localhost:5000/graphql', {
+      //     method: 'POST',
+      //     body: formData
+      //   });
+      //   setLoadingUpload(false);
+      //   setOpenModal(false);
+      //   Scrollbar('show');
+      // } catch (error) {
+      //   console.error(error);
+      //   setLoadingUpload(false);
+      //   setOpenModal(false);
+      //   Scrollbar('show');
+      // }
+
+      // With Apollo-upload-client
       try {
         const res = await uploadImageFunc({ variables: { file: imageUpload } });
         console.log(res.data?.uploadImage);
         setLoadingUpload(false);
+        setOpenModal(false);
+        Scrollbar('show');
       } catch (error) {
         setLoadingUpload(false);
+        setOpenModal(false);
+        Scrollbar('show');
         console.error(error);
       }
     }
