@@ -16,6 +16,7 @@ import { Image } from './entities/Image';
 import { Like } from './entities/Like';
 import { Comment } from './entities/Comment';
 import { graphqlUploadExpress } from 'graphql-upload';
+import path from 'path';
 
 const main = async () => {
   const app = express();
@@ -62,12 +63,14 @@ const main = async () => {
       res,
       redis,
       userLoader: createUserLoader()
-    }),
+    })
   });
 
   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 1 }));
 
   apolloServer.applyMiddleware({ app, cors: false });
+
+  app.use(express.static('public'));
 
   app.use((err: Error, _: Request, res: Response, _2: NextFunction) => {
     res.status(500).json({ message: err.message });
