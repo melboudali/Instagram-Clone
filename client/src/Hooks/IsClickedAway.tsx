@@ -17,7 +17,7 @@ const IsClickedAway = (ref: React.RefObject<HTMLDivElement>) => {
     };
   }, [clickedAway, ref]);
 
-  return clickedAway;
+  return { clickedAway, setClickedAway };
 };
 
 export default IsClickedAway;

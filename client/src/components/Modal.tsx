@@ -126,7 +126,7 @@ const Modal = ({ imageFile, imageUri, setOpenModal, data }: ModalProps) => {
   };
 
   const ref = useRef<HTMLDivElement>(null);
-  const clickedAway = IsClickedAway(ref);
+  const { clickedAway } = IsClickedAway(ref);
 
   useEffect(() => {
     Scrollbar('hide');
