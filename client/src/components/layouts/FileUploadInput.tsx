@@ -72,17 +72,16 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
         const FileName = Files[0].name;
         const extension = FileName.split('.').pop()?.toLowerCase();
         if (fileTypes.indexOf(extension!) > -1) {
-          
           if (FileReader) {
             var fr = new FileReader();
             fr.onload = function () {
               setImage(fr.result as string);
               setUploadError(false);
-              setImageUpload(Files[0]);
               setOpenModal(true);
             };
             fr.readAsDataURL(Files[0]);
           }
+          setImageUpload(Files[0]);
         } else {
           setUploadErroMessage("We only accept 'jpg', 'jpeg', 'png' files !!");
           setUploadError(true);

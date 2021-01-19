@@ -56,7 +56,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationUploadImageArgs = {
-  picture: Scalars['Upload'];
+  file: Scalars['Upload'];
 };
 
 export type UserResponse = {
@@ -128,7 +128,7 @@ export type RegisterMutation = (
 );
 
 export type UploadImageMutationVariables = Exact<{
-  picture: Scalars['Upload'];
+  file: Scalars['Upload'];
 }>;
 
 
@@ -246,8 +246,8 @@ export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const UploadImageDocument = gql`
-    mutation UploadImage($picture: Upload!) {
-  uploadImage(picture: $picture)
+    mutation UploadImage($file: Upload!) {
+  uploadImage(file: $file)
 }
     `;
 export type UploadImageMutationFn = Apollo.MutationFunction<UploadImageMutation, UploadImageMutationVariables>;
@@ -265,7 +265,7 @@ export type UploadImageMutationFn = Apollo.MutationFunction<UploadImageMutation,
  * @example
  * const [uploadImageMutation, { data, loading, error }] = useUploadImageMutation({
  *   variables: {
- *      picture: // value for 'picture'
+ *      file: // value for 'file'
  *   },
  * });
  */

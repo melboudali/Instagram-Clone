@@ -112,7 +112,7 @@ type ModalProps = {
 };
 
 const Modal = ({ imageUpload, UploadedImage, setOpenModal, data }: ModalProps) => {
-  const [uploadImage] = useUploadImageMutation();
+  const [uploadImageFunc] = useUploadImageMutation();
   const [caption, setCaption] = useState<string>('');
   const [UploadLoading, setLoadingUpload] = useState<boolean>(false);
 
@@ -125,12 +125,15 @@ const Modal = ({ imageUpload, UploadedImage, setOpenModal, data }: ModalProps) =
 
   const UploadFile = async () => {
     setLoadingUpload(true);
-    try {
-      await uploadImage({ variables: { picture: imageUpload } });
-      setLoadingUpload(false);
-    } catch (error) {
-      setLoadingUpload(false);
-      console.error(error);
+    if (imageUpload) {
+      try {
+        const res = await uploadImageFunc({ variables: { file: imageUpload } });
+        console.log(res.data?.uploadImage);
+        setLoadingUpload(false);
+      } catch (error) {
+        setLoadingUpload(false);
+        console.error(error);
+      }
     }
   };
 

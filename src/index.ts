@@ -62,7 +62,7 @@ const main = async () => {
       res,
       redis,
       userLoader: createUserLoader()
-    })
+    }),
   });
 
   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 1 }));
