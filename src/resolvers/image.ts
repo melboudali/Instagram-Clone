@@ -7,11 +7,14 @@ import {
   UseMiddleware,
   Ctx,
   Query,
-  Int
+  Int,
+  FieldResolver,
+  Root
 } from 'type-graphql';
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
 import { createWriteStream } from 'fs';
 import { Image } from '../entities/Image';
+import { User } from '../entities/User';
 import { v4 } from 'uuid';
 import path from 'path';
 import { isAuth } from '../middleware/isAuthenticated';
@@ -113,6 +116,11 @@ export class ImageResolver {
     `,
       queryParams
     );
+
     return { images, hasMore: images.length === minLimitPlusOne };
+  }
+  @FieldResolver(() => User)
+  user(@Root() image: Image, @Ctx() { userLoader }: MyContext) {
+    return userLoader.load(image.userId);
   }
 }

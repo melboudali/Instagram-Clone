@@ -102,13 +102,21 @@ const Articles = ({ data, loading, ImagesData, imagesLoading, error, fetchMore }
       {ImagesData &&
         !imagesLoading &&
         ImagesData.getAllImages.images.map(
-          ({ id, title, likes, url, likeStatu, userId, createdAt, updatedAt }) => (
+          ({
+            id,
+            title,
+            likes,
+            url,
+            likeStatu,
+            userId,
+            user: { id: uid, imageUrl, userName },
+            createdAt,
+            updatedAt
+          }) => (
             <Article
               key={id}
-              name={userId.toString()}
-              logo={
-                'https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/20635165_1942203892713915_5464937638928580608_a.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=qsnSJWhSh9QAX-0pg_6&tp=1&oh=5de8514f3be48074a3b03de85c62cb3c&oe=60271DE4'
-              }
+              name={userName}
+              logo={imageUrl}
               image={url}
               description={title}
               liked={'MedEL'}

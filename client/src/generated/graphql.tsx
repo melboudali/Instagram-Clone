@@ -207,7 +207,11 @@ export type GetAllImagesQuery = (
     & Pick<PaginatedImages, 'hasMore'>
     & { images: Array<(
       { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'title' | 'likes' | 'url' | 'likeStatu' | 'userId' | 'createdAt' | 'updatedAt'>
+      & Pick<Image, 'id' | 'title' | 'url' | 'likes' | 'likeStatu' | 'userId' | 'createdAt' | 'updatedAt'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'userName' | 'imageUrl'>
+      ) }
     )> }
   ) }
 );
@@ -402,10 +406,15 @@ export const GetAllImagesDocument = gql`
     images {
       id
       title
-      likes
       url
+      likes
       likeStatu
       userId
+      user {
+        id
+        userName
+        imageUrl
+      }
       createdAt
       updatedAt
     }

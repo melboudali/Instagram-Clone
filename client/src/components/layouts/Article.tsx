@@ -42,6 +42,7 @@ const Logo = styled.img`
   height: 100%;
   width: 100%;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 const NameContainer = styled.div`
@@ -89,6 +90,7 @@ const More = styled.div`
 const Image = styled.img`
   width: 100%;
   display: block;
+  
 `;
 
 const Details = styled.div`

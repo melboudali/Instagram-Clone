@@ -4,10 +4,15 @@ query GetAllImages($limit: Int!, $cursor: String) {
     images {
       id
       title
-      likes
       url
+      likes
       likeStatu
       userId
+      user {
+        id
+        userName
+        imageUrl
+      }
       createdAt
       updatedAt
     }
