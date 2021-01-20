@@ -1,6 +1,7 @@
 import { RefObject, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { MeQuery } from '../generated/graphql';
+import { MeQuery, useLogoutMutation } from '../generated/graphql';
+import LogoutLink from './layouts/LogoutLink';
 import NavbarMenuLink from './layouts/NavbarMenuLink';
 
 const MenuContainer = styled.div`
@@ -89,7 +90,7 @@ const NavbarMenu = ({ data, showMenu }: NavbarMenuProps) => {
             </svg>
           </NavbarMenuLink>
           <Hr />
-          <NavbarMenuLink LinkName='log out' to='#'>
+          <LogoutLink>
             <svg
               viewBox='0 0 24 24'
               strokeWidth='2'
@@ -101,7 +102,7 @@ const NavbarMenu = ({ data, showMenu }: NavbarMenuProps) => {
               <path d='M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2' />
               <path d='M7 12h14l-3 -3m0 6l3 -3' />
             </svg>
-          </NavbarMenuLink>
+          </LogoutLink>
         </MenuList>
       </Menu>
     </MenuContainer>
