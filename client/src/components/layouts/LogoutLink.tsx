@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/client';
+// import { useApolloClient } from '@apollo/client';
 import { MeDocument, MeQuery, useLogoutMutation } from '../../generated/graphql';
 import styled from 'styled-components';
 
@@ -58,12 +58,18 @@ type LogoutLinkProps = {
 
 const LogoutLink = ({ children }: LogoutLinkProps) => {
   const [logout] = useLogoutMutation();
-  const apollo = useApolloClient();
+  //   const apollo = useApolloClient();
 
   return (
     <LogoutContainer
       role='button'
       onClick={async () => {
+        //  if we cant to reset the store
+        //  await logout();
+        //  await apollo.resetStore();
+        //  history.push('/accounts/login');
+
+        // If we want to update the cache for the MeDocumentQuery
         await logout({
           update: cache => {
             cache.writeQuery<MeQuery>({
@@ -75,7 +81,6 @@ const LogoutLink = ({ children }: LogoutLinkProps) => {
             });
           }
         });
-        await apollo.resetStore();
       }}>
       <Main>
         <div>
