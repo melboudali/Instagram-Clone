@@ -34,7 +34,7 @@ export class ImageResolver {
   ): Promise<UploadImageResponse> {
     return new Promise((resolve, reject) => {
       const { ext, name } = path.parse(filename);
-      const imageFileName = `${name}-${v4()}-${Number(new Date())}.${ext}`;
+      const imageFileName = `${name}-${v4()}-${Number(new Date())}${ext}`;
 
       const userId = req.session.userId;
       if (!caption || caption.length <= 3) {
