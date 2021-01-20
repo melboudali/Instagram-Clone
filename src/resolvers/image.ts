@@ -1,4 +1,14 @@
-import { Resolver, Mutation, Arg, ObjectType, Field, UseMiddleware, Ctx } from 'type-graphql';
+import {
+  Resolver,
+  Mutation,
+  Arg,
+  ObjectType,
+  Field,
+  UseMiddleware,
+  Ctx,
+  Query,
+  Int
+} from 'type-graphql';
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
 import { createWriteStream } from 'fs';
 import { Image } from '../entities/Image';
@@ -6,6 +16,7 @@ import { v4 } from 'uuid';
 import path from 'path';
 import { isAuth } from '../middleware/isAuthenticated';
 import { MyContext } from '../types';
+import { getConnection } from 'typeorm';
 
 @ObjectType()
 class ErrorField {
@@ -21,6 +32,14 @@ class UploadImageResponse {
   imageData?: Image;
   @Field(() => ErrorField, { nullable: true })
   error?: ErrorField;
+}
+
+@ObjectType()
+class PaginatedImages {
+  @Field(() => [Image])
+  images: Image[];
+  @Field()
+  hasMore: boolean;
 }
 
 @Resolver(Image)
@@ -59,5 +78,41 @@ export class ImageResolver {
           reject({ error: { field: 'error', message: err.message } });
         });
     });
+  }
+
+  @Query(() => PaginatedImages)
+  async getAllImages(
+    @Arg('limit', () => Int) limit: number,
+    @Arg('cursor', () => String, { nullable: true }) cursor: string | null,
+    @Ctx() { req }: MyContext
+  ): Promise<PaginatedImages> {
+    const minLimit = Math.min(50, limit);
+    const minLimitPlusOne = minLimit + 1;
+    const userId = req.session.userId;
+    const queryParams: any[] = [minLimitPlusOne];
+    if (userId) {
+      queryParams.push(userId);
+    }
+    let cursorId = 3;
+    if (cursor) {
+      queryParams.push(new Date(parseInt(cursor)));
+      cursorId = queryParams.length;
+    }
+    const images = await getConnection().query(
+      `
+      select i.*, 
+      ${
+        userId
+          ? '(select value from "like" where "userId" = $2 and "imageId" = i.id) "likeStatu"'
+          : 'null as "likeStatu"'
+      }
+      from image i
+      ${cursor ? `where i."createdAt" < $${cursorId}` : ''}
+      order by i."createdAt" DESC
+      limit $1
+    `,
+      queryParams
+    );
+    return { images, hasMore: images.length === minLimitPlusOne };
   }
 }

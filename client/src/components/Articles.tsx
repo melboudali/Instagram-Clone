@@ -1,6 +1,7 @@
 import Article from './layouts/Article';
 import styled from 'styled-components';
-import { MeQuery } from '../generated/graphql';
+import { GetAllImagesQuery, MeQuery } from '../generated/graphql';
+import { ApolloError } from '@apollo/client';
 
 const Container = styled.div`
   max-width: 614px;
@@ -12,9 +13,13 @@ const Container = styled.div`
 type ArticleProps = {
   data: MeQuery | undefined;
   loading: boolean | undefined;
+  ImagesData: GetAllImagesQuery | undefined;
+  imagesLoading: boolean;
+  error: ApolloError | undefined;
+  fetchMore: any;
 };
 
-const Articles = ({ data, loading }: ArticleProps) => {
+const Articles = ({ data, loading, ImagesData, imagesLoading, error, fetchMore }: ArticleProps) => {
   const ArticlesData: {
     name: string;
     logo: string;
@@ -94,23 +99,30 @@ const Articles = ({ data, loading }: ArticleProps) => {
 
   return (
     <Container>
-      {ArticlesData.map(
-        ({ name, logo, image, description, liked, comments, commentsLength, createdTime }, id) => (
-          <Article
-            key={id}
-            name={name}
-            logo={logo}
-            image={image}
-            description={description}
-            liked={liked}
-            comments={comments}
-            commentsLength={commentsLength}
-            createdTime={createdTime}
-            data={data}
-            loading={loading}
-          />
-        )
-      )}
+      {ImagesData &&
+        !imagesLoading &&
+        ImagesData.getAllImages.images.map(
+          ({ id, title, likes, url, likeStatu, userId, createdAt, updatedAt }) => (
+            <Article
+              key={id}
+              name={userId.toString()}
+              logo={
+                'https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/20635165_1942203892713915_5464937638928580608_a.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=qsnSJWhSh9QAX-0pg_6&tp=1&oh=5de8514f3be48074a3b03de85c62cb3c&oe=60271DE4'
+              }
+              image={url}
+              description={title}
+              liked={'MedEL'}
+              comments={[
+                { user: 'brown.julianna', comment: '❤️❤️❤️' },
+                { user: 'faybrookepracht', comment: '😍' }
+              ]}
+              commentsLength={543}
+              createdTime={createdAt}
+              data={data}
+              loading={loading}
+            />
+          )
+        )}
     </Container>
   );
 };

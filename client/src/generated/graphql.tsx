@@ -18,6 +18,13 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<User>;
+  getAllImages: PaginatedImages;
+};
+
+
+export type QueryGetAllImagesArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
 };
 
 export type User = {
@@ -31,6 +38,25 @@ export type User = {
   phoneNumber: Scalars['Float'];
   gender: Scalars['String'];
   imageUrl: Scalars['String'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type PaginatedImages = {
+  __typename?: 'PaginatedImages';
+  images: Array<Image>;
+  hasMore: Scalars['Boolean'];
+};
+
+export type Image = {
+  __typename?: 'Image';
+  id: Scalars['Float'];
+  title: Scalars['String'];
+  likes: Scalars['Float'];
+  url: Scalars['String'];
+  likeStatu?: Maybe<Scalars['Int']>;
+  userId: Scalars['Float'];
+  user: User;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
 };
@@ -82,19 +108,6 @@ export type UploadImageResponse = {
   __typename?: 'UploadImageResponse';
   imageData?: Maybe<Image>;
   error?: Maybe<ErrorField>;
-};
-
-export type Image = {
-  __typename?: 'Image';
-  id: Scalars['Float'];
-  title: Scalars['String'];
-  likes: Scalars['Float'];
-  url: Scalars['String'];
-  likeStatu?: Maybe<Scalars['Int']>;
-  userId: Scalars['Float'];
-  user: User;
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
 };
 
 export type ErrorField = {
@@ -177,6 +190,24 @@ export type UploadImageMutation = (
     )>, error?: Maybe<(
       { __typename?: 'ErrorField' }
       & Pick<ErrorField, 'field' | 'message'>
+    )> }
+  ) }
+);
+
+export type GetAllImagesQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetAllImagesQuery = (
+  { __typename?: 'Query' }
+  & { getAllImages: (
+    { __typename?: 'PaginatedImages' }
+    & Pick<PaginatedImages, 'hasMore'>
+    & { images: Array<(
+      { __typename?: 'Image' }
+      & Pick<Image, 'id' | 'title' | 'likes' | 'url' | 'likeStatu' | 'userId' | 'createdAt' | 'updatedAt'>
     )> }
   ) }
 );
@@ -364,6 +395,50 @@ export function useUploadImageMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UploadImageMutationHookResult = ReturnType<typeof useUploadImageMutation>;
 export type UploadImageMutationResult = Apollo.MutationResult<UploadImageMutation>;
 export type UploadImageMutationOptions = Apollo.BaseMutationOptions<UploadImageMutation, UploadImageMutationVariables>;
+export const GetAllImagesDocument = gql`
+    query GetAllImages($limit: Int!, $cursor: String) {
+  getAllImages(limit: $limit, cursor: $cursor) {
+    hasMore
+    images {
+      id
+      title
+      likes
+      url
+      likeStatu
+      userId
+      createdAt
+      updatedAt
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllImagesQuery__
+ *
+ * To run a query within a React component, call `useGetAllImagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllImagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllImagesQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function useGetAllImagesQuery(baseOptions: Apollo.QueryHookOptions<GetAllImagesQuery, GetAllImagesQueryVariables>) {
+        return Apollo.useQuery<GetAllImagesQuery, GetAllImagesQueryVariables>(GetAllImagesDocument, baseOptions);
+      }
+export function useGetAllImagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllImagesQuery, GetAllImagesQueryVariables>) {
+          return Apollo.useLazyQuery<GetAllImagesQuery, GetAllImagesQueryVariables>(GetAllImagesDocument, baseOptions);
+        }
+export type GetAllImagesQueryHookResult = ReturnType<typeof useGetAllImagesQuery>;
+export type GetAllImagesLazyQueryHookResult = ReturnType<typeof useGetAllImagesLazyQuery>;
+export type GetAllImagesQueryResult = Apollo.QueryResult<GetAllImagesQuery, GetAllImagesQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

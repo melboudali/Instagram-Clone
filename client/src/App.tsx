@@ -14,6 +14,7 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 
 const App = () => {
   const { data, loading } = useMeQuery();
+
   return (
     <Fragment>
       <React.StrictMode>
