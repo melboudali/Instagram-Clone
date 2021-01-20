@@ -1,5 +1,18 @@
-mutation UploadImage($file: Upload!) {
-  uploadImage(file: $file) {
-    imageUrl
+mutation UploadImage($file: Upload!, $caption: String!) {
+  uploadImage(file: $file, caption: $caption) {
+    imageData {
+      id
+      title
+      likes
+      url
+      likeStatu
+      userId
+      createdAt
+      updatedAt
+    }
+    error {
+      field
+      message
+    }
   }
 }

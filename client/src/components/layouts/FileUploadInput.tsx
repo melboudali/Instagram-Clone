@@ -40,6 +40,21 @@ const ErrorMessage = styled.span`
   margin-top: 10px;
 `;
 
+const UploadSuccessful = styled.span`
+  color: var(--textColorGreen);
+  font-weight: 300;
+  display: block;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  svg {
+    stroke: var(--textColorGreen);
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+  }
+`;
+
 const FileInput = styled.input`
   opacity: 0;
   position: absolute;
@@ -60,8 +75,8 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
   const [imageUri, setImageUri] = useState<string | undefined>();
   const [imageFile, setImageFile] = useState<File | undefined>();
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [uploadError, setUploadError] = useState<boolean>(false);
-  const [uploadErrorMessage, setUploadErroMessage] = useState<string>('');
+  const [uploadErrorMessage, setUploadErroMessage] = useState<string | null>();
+  const [uploadSuccessfulMessage, setUploadSuccessfulMessage] = useState<string | null>();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const Files = e.target.files;
@@ -73,25 +88,32 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
           const fr = new FileReader();
           fr.onload = function () {
             setImageUri(fr.result as string);
-            setUploadError(false);
+            setUploadErroMessage(null);
+            setUploadSuccessfulMessage(null);
             setOpenModal(true);
           };
           fr.readAsDataURL(Files[0]);
         }
         setImageFile(Files[0]);
       } else {
+        setUploadSuccessfulMessage(null);
         setUploadErroMessage("We only accept 'jpg', 'jpeg', 'png' files !!");
-        setUploadError(true);
       }
     } else {
+      setUploadSuccessfulMessage(null);
       setUploadErroMessage('Too many files !!');
-      setUploadError(true);
     }
   };
   return (
     <Container>
       {openModal && (
-        <Modal imageUri={imageUri} imageFile={imageFile} setOpenModal={setOpenModal} data={data} />
+        <Modal
+          imageUri={imageUri}
+          imageFile={imageFile}
+          setOpenModal={setOpenModal}
+          data={data}
+          setUploadSuccessfulMessage={setUploadSuccessfulMessage}
+        />
       )}
       <SvgContainer>
         <svg
@@ -113,8 +135,24 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
         </svg>
       </SvgContainer>
       <UploadText>
-        <span>Choose a file</span> or drag it here.
-        {uploadError && <ErrorMessage>{uploadErrorMessage}</ErrorMessage>}
+        <span>Choose {uploadSuccessfulMessage ? `another` : `an`} image</span> or drag it here.
+        {uploadErrorMessage && <ErrorMessage>{uploadErrorMessage}</ErrorMessage>}
+        {uploadSuccessfulMessage && (
+          <UploadSuccessful>
+            <svg
+              viewBox='0 0 24 24'
+              strokeWidth='1.5'
+              fill='none'
+              strokeLinecap='round'
+              strokeLinejoin='round'>
+              <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+              <path d='M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1' />
+              <polyline points='9 15 12 12 15 15' />
+              <line x1='12' y1='12' x2='12' y2='21' />
+            </svg>
+            {uploadSuccessfulMessage}
+          </UploadSuccessful>
+        )}
       </UploadText>
       <FileInput type='file' title='Choose a file or drag it here.' multiple onChange={onChange} />
     </Container>

@@ -56,6 +56,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationUploadImageArgs = {
+  caption: Scalars['String'];
   file: Scalars['Upload'];
 };
 
@@ -79,7 +80,27 @@ export type RegisterInputs = {
 
 export type UploadImageResponse = {
   __typename?: 'UploadImageResponse';
-  imageUrl: Scalars['String'];
+  imageData?: Maybe<Image>;
+  error?: Maybe<ErrorField>;
+};
+
+export type Image = {
+  __typename?: 'Image';
+  id: Scalars['Float'];
+  title: Scalars['String'];
+  likes: Scalars['Float'];
+  url: Scalars['String'];
+  likeStatu?: Maybe<Scalars['Int']>;
+  userId: Scalars['Float'];
+  user: User;
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+};
+
+export type ErrorField = {
+  __typename?: 'ErrorField';
+  field: Scalars['String'];
+  message: Scalars['String'];
 };
 
 
@@ -134,6 +155,7 @@ export type RegisterMutation = (
 
 export type UploadImageMutationVariables = Exact<{
   file: Scalars['Upload'];
+  caption: Scalars['String'];
 }>;
 
 
@@ -141,7 +163,13 @@ export type UploadImageMutation = (
   { __typename?: 'Mutation' }
   & { uploadImage: (
     { __typename?: 'UploadImageResponse' }
-    & Pick<UploadImageResponse, 'imageUrl'>
+    & { imageData?: Maybe<(
+      { __typename?: 'Image' }
+      & Pick<Image, 'id' | 'title' | 'likes' | 'url' | 'likeStatu' | 'userId' | 'createdAt' | 'updatedAt'>
+    )>, error?: Maybe<(
+      { __typename?: 'ErrorField' }
+      & Pick<ErrorField, 'field' | 'message'>
+    )> }
   ) }
 );
 
@@ -254,9 +282,22 @@ export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
 export const UploadImageDocument = gql`
-    mutation UploadImage($file: Upload!) {
-  uploadImage(file: $file) {
-    imageUrl
+    mutation UploadImage($file: Upload!, $caption: String!) {
+  uploadImage(file: $file, caption: $caption) {
+    imageData {
+      id
+      title
+      likes
+      url
+      likeStatu
+      userId
+      createdAt
+      updatedAt
+    }
+    error {
+      field
+      message
+    }
   }
 }
     `;
@@ -276,6 +317,7 @@ export type UploadImageMutationFn = Apollo.MutationFunction<UploadImageMutation,
  * const [uploadImageMutation, { data, loading, error }] = useUploadImageMutation({
  *   variables: {
  *      file: // value for 'file'
+ *      caption: // value for 'caption'
  *   },
  * });
  */

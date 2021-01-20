@@ -10,7 +10,8 @@ export const GlobalStyle = createGlobalStyle`
     --linkColor: #385185;
     --linkColorTwo: #00376b;
     --textErrorColor: #ed4956;
-    --borderDarkColor: #A8A8A8
+    --borderDarkColor: #A8A8A8;
+    --textColorGreen: #37bf6e
   }
 
   * {

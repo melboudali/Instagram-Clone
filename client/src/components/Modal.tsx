@@ -110,10 +110,17 @@ type ModalProps = {
   data: MeQuery | undefined;
   imageUri: string | undefined;
   imageFile: File | undefined;
-  setOpenModal: (arg0: boolean) => void;
+  setOpenModal: (arg: boolean) => void;
+  setUploadSuccessfulMessage: (arg: string | null) => void;
 };
 
-const Modal = ({ imageFile, imageUri, setOpenModal, data }: ModalProps) => {
+const Modal = ({
+  imageFile,
+  imageUri,
+  setOpenModal,
+  data,
+  setUploadSuccessfulMessage
+}: ModalProps) => {
   const [uploadImageFunc] = useUploadImageMutation();
 
   const [caption, setCaption] = useState<string>('');
@@ -172,12 +179,17 @@ const Modal = ({ imageFile, imageUri, setOpenModal, data }: ModalProps) => {
 
       // With Apollo-upload-client
       try {
-        const res = await uploadImageFunc({ variables: { file: imageFile } });
+        const res = await uploadImageFunc({ variables: { file: imageFile, caption: caption } });
         if (res.data?.uploadImage) {
           closeModal();
-          console.log(res.data?.uploadImage.imageUrl);
+          setUploadSuccessfulMessage(`Image has been successfully uploaded!`);
+          console.log(res.data?.uploadImage.imageData);
+        } else {
+          setUploadSuccessfulMessage(null);
+          console.error(res.data?.uploadImage.error);
         }
       } catch (error) {
+        setUploadSuccessfulMessage(null);
         console.error(error);
         closeModal();
       }

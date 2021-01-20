@@ -28,9 +28,7 @@ export class Image extends BaseEntity {
   @Column({ type: 'int', default: 0 })
   likes!: number;
 
-  @Column()
-  comments!: string;
-
+  @Field()
   @Column()
   url!: string;
 

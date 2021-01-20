@@ -16,7 +16,6 @@ import { Image } from './entities/Image';
 import { Like } from './entities/Like';
 import { Comment } from './entities/Comment';
 import { graphqlUploadExpress } from 'graphql-upload';
-import path from 'path';
 
 const main = async () => {
   const app = express();
