@@ -10,7 +10,7 @@ const Container = styled.div`
   background-color: #fff;
   border: 1px solid #dbdbdb;
   border-radius: 3px;
-  margin: 54px 0 16px;
+  margin: 24px 0;
   overflow: hidden;
 `;
 

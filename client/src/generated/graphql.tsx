@@ -187,6 +187,10 @@ export type UploadImageMutation = (
     & { imageData?: Maybe<(
       { __typename?: 'Image' }
       & Pick<Image, 'id' | 'title' | 'likes' | 'url' | 'likeStatu' | 'userId' | 'createdAt' | 'updatedAt'>
+      & { user: (
+        { __typename?: 'User' }
+        & Pick<User, 'id' | 'userName' | 'imageUrl'>
+      ) }
     )>, error?: Maybe<(
       { __typename?: 'ErrorField' }
       & Pick<ErrorField, 'field' | 'message'>
@@ -362,6 +366,11 @@ export const UploadImageDocument = gql`
       likes
       url
       likeStatu
+      user {
+        id
+        userName
+        imageUrl
+      }
       userId
       createdAt
       updatedAt

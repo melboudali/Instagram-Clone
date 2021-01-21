@@ -10,12 +10,12 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin: 24px auto 0;
-  height: 160px;
+  height: 150px;
   /* width: 676px; */
   width: 70%;
   background-color: #fff;
   border: 1px dashed #dbdbdb;
-  border-radius: 5px;
+  border-radius: 10px;
 `;
 
 const SvgContainer = styled.div`
@@ -37,7 +37,7 @@ const ErrorMessage = styled.span`
   color: var(--textErrorColor);
   font-weight: 300;
   display: block;
-  margin-top: 10px;
+  margin-top: 5px;
 `;
 
 const UploadSuccessful = styled.span`
@@ -51,7 +51,7 @@ const UploadSuccessful = styled.span`
     stroke: var(--textColorGreen);
     height: 20px;
     width: 20px;
-    margin-right: 10px;
+    margin-right: 5px;
   }
 `;
 

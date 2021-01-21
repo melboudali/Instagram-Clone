@@ -12,7 +12,7 @@ const Main = styled.div`
   margin: 0 auto 30px;
   max-width: 975px;
   width: 100%;
-  padding: 84px 20px 0;
+  padding: 54px 20px 0;
 `;
 
 const Container = ({ children, data }: ContainerProps) => {

@@ -6,6 +6,11 @@ mutation UploadImage($file: Upload!, $caption: String!) {
       likes
       url
       likeStatu
+      user {
+        id
+        userName
+        imageUrl
+      }
       userId
       createdAt
       updatedAt

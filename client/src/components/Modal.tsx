@@ -188,20 +188,24 @@ const Modal = ({
           update: (cache, { data }) => {
             const newImage = data?.uploadImage.imageData;
             const existingImages = cache.readQuery<GetAllImagesQuery>({
-              query: GetAllImagesDocument
+              query: GetAllImagesDocument,
+              variables: { limit: 10, cursor: null }
             });
 
-            cache.writeQuery<GetAllImagesQuery>({
-              query: GetAllImagesDocument,
-              variables: { limit: 5, cursor: null },
-              data: {
-                getAllImages: {
-                  hasMore: true,
-                  __typename: "PaginatedImages",
-                  images: [...existingImages!.getAllImages.images, data!.uploadImage.imageData]
+            if (newImage && existingImages) {
+              console.log([...existingImages.getAllImages.images, newImage]);
+              cache.writeQuery<GetAllImagesQuery>({
+                query: GetAllImagesDocument,
+                variables: { limit: 10, cursor: null },
+                data: {
+                  getAllImages: {
+                    __typename: existingImages.getAllImages.__typename,
+                    hasMore: existingImages.getAllImages.hasMore,
+                    images: [newImage, ...existingImages.getAllImages.images]
+                  }
                 }
-              }
-            });
+              });
+            }
           }
         });
         if (res.data?.uploadImage) {
