@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MeQuery } from '../generated/graphql';
+import { MeQuery, useMeQuery } from '../generated/graphql';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NavbarMenu from './NavbarMenu';
@@ -130,11 +130,8 @@ const ProfileImage = styled.span`
   }
 `;
 
-type NavbarProps = {
-  data: MeQuery | undefined;
-};
-
-const Navbar = ({ data }: NavbarProps) => {
+const Navbar = () => {
+  const { data } = useMeQuery();
   const ref = useRef<HTMLDivElement>(null);
   const { clickedAway, setClickedAway } = IsClickedAway(ref);
   const [showMenu, setShowMenu] = useState<boolean>(false);

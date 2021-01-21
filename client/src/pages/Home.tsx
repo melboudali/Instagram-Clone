@@ -5,22 +5,21 @@ import ArticlesAndSuggestionsContainer from '../components/ArticlesAndSuggestion
 import { MeQuery, useGetAllImagesQuery } from '../generated/graphql';
 
 type HomeProps = {
-  data: MeQuery | undefined;
-  loading: boolean | undefined;
+  data: MeQuery;
 };
 
-const Home = ({ data, loading }: HomeProps) => {
-  const { data: ImagesData, error, loading: imagesLoading, fetchMore} = useGetAllImagesQuery({
+const Home = ({ data }: HomeProps) => {
+  const { data: ImagesData, error, loading, fetchMore } = useGetAllImagesQuery({
     variables: { limit: 10, cursor: null },
     notifyOnNetworkStatusChange: true
   });
   return (
-    <Container data={data}>
+    <Container>
       <FileUploadInputProps data={data} />
       <Stories />
       <ArticlesAndSuggestionsContainer
         ImagesData={ImagesData}
-        imagesLoading={imagesLoading}
+        imagesLoading={loading}
         error={error}
         fetchMore={fetchMore}
       />

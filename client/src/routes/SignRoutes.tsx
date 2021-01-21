@@ -12,7 +12,9 @@ type SignRoutesProps = {
 const SignRoutes = ({ Component, data, loading, ...rest }: SignRoutesProps) => (
   <Route
     {...rest}
-    render={props => (data?.me && !loading ? <Redirect to='/' /> : <Component {...props} />)}
+    render={props =>
+      data && data?.me && !loading ? <Redirect to='/' /> : <Component {...props} />
+    }
   />
 );
 

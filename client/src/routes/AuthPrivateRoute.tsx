@@ -13,8 +13,8 @@ const AuthPrivateRoute = ({ Component, data, loading, ...rest }: AuthPrivateRout
   <Route
     {...rest}
     render={props =>
-      data?.me && !loading ? (
-        <Component data={data} loading={loading} {...props} />
+      data && data?.me && !loading ? (
+        <Component data={data} {...props} />
       ) : (
         <Redirect to='/accounts/login' />
       )
