@@ -1,5 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
-import { useUploadImageMutation } from '../generated/graphql';
+import {
+  GetAllImagesDocument,
+  GetAllImagesQuery,
+  useUploadImageMutation
+} from '../generated/graphql';
 import Button from './layouts/Button';
 import styled from 'styled-components';
 import { MeQuery } from '../generated/graphql';
@@ -179,18 +183,35 @@ const Modal = ({
 
       // With Apollo-upload-client
       try {
-        const res = await uploadImageFunc({ variables: { file: imageFile, caption: caption } });
+        const res = await uploadImageFunc({
+          variables: { file: imageFile, caption: caption },
+          update: (cache, { data }) => {
+            const newImage = data?.uploadImage.imageData;
+            const existingImages = cache.readQuery<GetAllImagesQuery>({
+              query: GetAllImagesDocument
+            });
+
+            cache.writeQuery<GetAllImagesQuery>({
+              query: GetAllImagesDocument,
+              variables: { limit: 5, cursor: null },
+              data: {
+                getAllImages: {
+                  hasMore: true,
+                  __typename: "PaginatedImages",
+                  images: [...existingImages!.getAllImages.images, data!.uploadImage.imageData]
+                }
+              }
+            });
+          }
+        });
         if (res.data?.uploadImage) {
           closeModal();
           setUploadSuccessfulMessage(`Image has been successfully uploaded!`);
-          console.log(res.data?.uploadImage.imageData);
         } else {
           setUploadSuccessfulMessage(null);
-          console.error(res.data?.uploadImage.error);
         }
       } catch (error) {
         setUploadSuccessfulMessage(null);
-        console.error(error);
         closeModal();
       }
     }

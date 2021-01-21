@@ -11,7 +11,7 @@ type HomeProps = {
 
 const Home = ({ data, loading }: HomeProps) => {
   const { data: ImagesData, error, loading: imagesLoading, fetchMore} = useGetAllImagesQuery({
-    variables: { limit: 15, cursor: null },
+    variables: { limit: 5, cursor: null },
     notifyOnNetworkStatusChange: true
   });
   return (
