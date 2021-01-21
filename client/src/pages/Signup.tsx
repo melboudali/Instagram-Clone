@@ -42,29 +42,33 @@ const Signup = () => {
 
   const signupFunction = async () => {
     setSignupLoading(true);
-    await login({
-      variables: {
-        registerInputs: { email, fullName, userName, password }
-      },
-      update: (cache, { data }) => {
-        cache.writeQuery<MeQuery>({
-          query: MeDocument,
-          data: {
-            __typename: 'Query',
-            me: data?.register.user
-          }
-        });
-      }
-    }).then(({ data }) => {
-      if (data?.register.error) {
-        setSignupError(data?.register.error.message);
+    try {
+      const res = await login({
+        variables: {
+          registerInputs: { email, fullName, userName, password }
+        },
+        update: (cache, { data }) => {
+          cache.writeQuery<MeQuery>({
+            query: MeDocument,
+            data: {
+              __typename: 'Query',
+              me: data?.register.user
+            }
+          });
+        }
+      });
+      if (res.data?.register.error) {
+        setSignupError(res.data?.register.error.message);
         setSignupLoading(false);
       }
-      if (data?.register.user) {
+      if (res.data?.register.user) {
         history.push('/');
         setSignupLoading(false);
       }
-    });
+    } catch (error) {
+      setSignupError(error);
+      setSignupLoading(false);
+    }
   };
 
   return (
