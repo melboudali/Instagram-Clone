@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { MeQuery } from '../../generated/graphql';
+import timeDifference from '../../utils/timeDefference';
 
 const Container = styled.article`
   background-color: #fff;
@@ -90,7 +91,6 @@ const More = styled.div`
 const Image = styled.img`
   width: 100%;
   display: block;
-  
 `;
 
 const Details = styled.div`
@@ -197,6 +197,7 @@ const CreatedTime = styled(Link)`
   font-size: 10px;
   letter-spacing: 0.2px;
   color: #8e8e8e;
+  text-transform: uppercase;
 `;
 
 const CommentContainer = styled.div`
@@ -361,7 +362,7 @@ const Article = ({
             </CommentAndCreatedtimeContainer>
           ))}
           <CommentAndCreatedtimeContainer>
-            <CreatedTime to='/p/articleIdHere'>{createdTime}</CreatedTime>
+            <CreatedTime to='/p/articleIdHere'>{`${timeDifference(createdTime)} ago`}</CreatedTime>
           </CommentAndCreatedtimeContainer>
         </DescriptionAndCommentsContainer>
       </Details>

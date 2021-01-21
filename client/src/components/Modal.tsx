@@ -157,6 +157,7 @@ const Modal = ({
     setLoadingUpload(true);
     if (imageFile) {
       // With vanilla js using FormData can work also with Postman
+      // the problem here is i can't update the cache
       // const formData = new FormData();
       // formData.append(
       //   'operations',

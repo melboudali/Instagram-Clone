@@ -220,7 +220,7 @@ type SuggestionsProps = {
 };
 
 const Suggestions = ({ data, loading }: SuggestionsProps) => {
-  const isSticky = IsSticky(400);
+  const isSticky = IsSticky(337);
 
   const onClick = (buttonName: string) => {
     // TODO: Edit this later
@@ -232,7 +232,7 @@ const Suggestions = ({ data, loading }: SuggestionsProps) => {
       username: 'nike',
       image:
         'https://instagram.fcmn3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/26155970_1584552474997482_4541081815552622592_n.jpg?_nc_ht=instagram.fcmn3-1.fna.fbcdn.net&_nc_ohc=n5hQVJeXrBwAX_1PtsU&tp=1&oh=7704ed0384c985a96539ae3fe48e52d7&oe=602B0ECE',
-      status: 'Follows you'
+      status: 'New to Instagram'
     },
     {
       username: 'converse',
@@ -250,7 +250,7 @@ const Suggestions = ({ data, loading }: SuggestionsProps) => {
       username: 'adidas',
       image:
         'https://instagram.fcmn3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/73385866_483576632365553_2091382961273307136_n.jpg?_nc_ht=instagram.fcmn3-1.fna.fbcdn.net&_nc_ohc=uA7Ohfjb1uMAX-KM9PH&tp=1&oh=24a9739d0bbcb0dce26abb49b6d32766&oe=602D5F5A',
-      status: 'Follows you'
+      status: 'New to Instagram'
     }
   ];
 

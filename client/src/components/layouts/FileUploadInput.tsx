@@ -104,6 +104,7 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
       setUploadErroMessage('Too many files !!');
     }
   };
+
   return (
     <Container>
       {openModal && (
