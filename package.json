@@ -15,8 +15,9 @@
   "license": "MIT",
   "scripts": {
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
-    "build": "cd client && npm run build",
     "watch": "tsc -w",
+    "start": "node build/index.js",
+    "build": "tsc",
     "client": "yarn --cwd client start",
     "server": "nodemon ./dist/index.js",
     "clientBuild": "yarn --cwd client build",
