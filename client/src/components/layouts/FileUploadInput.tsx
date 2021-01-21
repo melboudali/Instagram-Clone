@@ -67,11 +67,7 @@ const FileInput = styled.input`
   cursor: pointer;
 `;
 
-type FileUploadInputProps = {
-  data: MeQuery | undefined;
-};
-
-const FileUploadInput = ({ data }: FileUploadInputProps) => {
+const FileUploadInput = () => {
   const [imageUri, setImageUri] = useState<string | undefined>();
   const [imageFile, setImageFile] = useState<File | undefined>();
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -112,7 +108,6 @@ const FileUploadInput = ({ data }: FileUploadInputProps) => {
           imageUri={imageUri}
           imageFile={imageFile}
           setOpenModal={setOpenModal}
-          data={data}
           setUploadSuccessfulMessage={setUploadSuccessfulMessage}
         />
       )}

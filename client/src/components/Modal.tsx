@@ -6,7 +6,7 @@ import {
 } from '../generated/graphql';
 import Button from './layouts/Button';
 import styled from 'styled-components';
-import { MeQuery } from '../generated/graphql';
+import { useMeQuery } from '../generated/graphql';
 import IsClickedAway from '../Hooks/IsClickedAway';
 
 const Container = styled.div`
@@ -111,20 +111,14 @@ const CaptionArea = styled.textarea`
 `;
 
 type ModalProps = {
-  data: MeQuery | undefined;
   imageUri: string | undefined;
   imageFile: File | undefined;
   setOpenModal: (arg: boolean) => void;
   setUploadSuccessfulMessage: (arg: string | null) => void;
 };
 
-const Modal = ({
-  imageFile,
-  imageUri,
-  setOpenModal,
-  data,
-  setUploadSuccessfulMessage
-}: ModalProps) => {
+const Modal = ({ imageFile, imageUri, setOpenModal, setUploadSuccessfulMessage }: ModalProps) => {
+  const { data } = useMeQuery();
   const [uploadImageFunc] = useUploadImageMutation();
 
   const [caption, setCaption] = useState<string>('');

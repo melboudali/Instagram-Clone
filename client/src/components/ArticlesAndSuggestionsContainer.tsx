@@ -9,30 +9,11 @@ const Container = styled.div`
   width: 100%;
 `;
 
-type ArticlesAndSuggestionsContainerProps = {
-  ImagesData: GetAllImagesQuery | undefined;
-  imagesLoading: boolean;
-  error: ApolloError | undefined;
-  fetchMore: any;
-};
-
-const ArticlesAndSuggestionsContainer = ({
-  ImagesData,
-  imagesLoading,
-  error,
-  fetchMore
-}: ArticlesAndSuggestionsContainerProps) => {
+const ArticlesAndSuggestionsContainer = () => {
   const { data, loading } = useMeQuery();
   return (
     <Container>
-      <Articles
-        data={data}
-        loading={loading}
-        ImagesData={ImagesData}
-        imagesLoading={imagesLoading}
-        error={error}
-        fetchMore={fetchMore}
-      />
+      <Articles data={data} loading={loading} />
       <Suggestion data={data} loading={loading} />
     </Container>
   );

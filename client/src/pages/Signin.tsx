@@ -42,32 +42,33 @@ const Signin = () => {
 
   const loginFunction = async () => {
     setLoginLoading(true);
-    await login({
-      variables: {
-        userNameOrEmail: userName,
-        password
-      },
-      update: (cache, { data }) => {
-        cache.writeQuery<MeQuery>({
-          query: MeDocument,
-          data: {
-            __typename: 'Query',
-            me: data?.login.user
-          }
-        });
+    try {
+      const res = await login({
+        variables: {
+          userNameOrEmail: userName,
+          password
+        },
+        update: (cache, { data }) => {
+          cache.writeQuery<MeQuery>({
+            query: MeDocument,
+            data: {
+              __typename: 'Query',
+              me: data?.login.user
+            }
+          });
+        }
+      });
+      if (res.data?.login.error) {
+        setLoginLoading(false);
+        setLoginError(res.data?.login.error.message);
       }
-    })
-      .then(({ data }) => {
-        if (data?.login.error) {
-          setLoginLoading(false);
-          setLoginError(data?.login.error.message);
-        }
-        if (data?.login.user) {
-          history.push('/');
-          setLoginLoading(false);
-        }
-      })
-      .catch(() => setConnectionError(true));
+      if (res.data?.login.user) {
+        history.push('/');
+        setLoginLoading(false);
+      }
+    } catch (error) {
+      setConnectionError(true);
+    }
   };
 
   return ConnectionError ? (
