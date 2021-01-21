@@ -15,12 +15,14 @@
   "license": "MIT",
   "scripts": {
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
-    "build": "tsc",
+    "build": "cd client && npm run build",
     "watch": "tsc -w",
     "client": "yarn --cwd client start",
     "server": "nodemon ./dist/index.js",
     "clientBuild": "yarn --cwd client build",
-    "all": "concurrently \"yarn server\" \"yarn client\""
+    "all": "concurrently \"yarn server\" \"yarn client\"",
+    "postinstall": "npm run tsc",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "apollo-server-express": "^2.19.0",
