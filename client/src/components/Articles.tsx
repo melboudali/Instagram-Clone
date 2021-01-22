@@ -7,6 +7,9 @@ const Container = styled.div`
   float: left;
   margin-right: 28px;
   width: 100%;
+  @media only screen and (max-width: 1000px) {
+    margin: 0;
+  }
 `;
 
 type ArticleProps = {

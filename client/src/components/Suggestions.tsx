@@ -12,12 +12,29 @@ const Container = styled.div<{ isSticky: boolean }>`
       position: fixed;
       left: 849px;
       top:  72px;
+      @media only screen and (min-width: 1000px) {
+        left: 671px;
+      }
+      @media only screen and (min-width: 1100px) {
+        left: 716px;
+      }
+      @media only screen and (min-width: 1100px) {
+        left: 774.5px;
+      }
+      @media only screen and (min-width: 1200px) {
+        left: 849px;
+      }
         `
       : `
       top: 18px;
       position: absolute;`}
+
   max-width: 293px;
   width: 100%;
+  @media only screen and (max-width: 1000px) {
+    display: none;
+    flex: 0 0 0%;
+  }
 `;
 
 // Current User
