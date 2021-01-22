@@ -16,8 +16,8 @@
   "scripts": {
     "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
     "watch": "tsc -w",
-    "start": "node build/index.js",
-    "build": "tsc",
+    "start": "node dist/index.js",
+    "build": "tsc --sourceMap false",
     "client": "yarn --cwd client start",
     "server": "nodemon ./dist/index.js",
     "clientBuild": "yarn --cwd client build",
