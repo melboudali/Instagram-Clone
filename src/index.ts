@@ -16,6 +16,7 @@ import { Image } from './entities/image';
 import { Like } from './entities/like';
 import { Comment } from './entities/comment';
 import { graphqlUploadExpress } from 'graphql-upload';
+import path from 'path';
 
 const main = async () => {
   const app = express();
@@ -74,6 +75,13 @@ const main = async () => {
   app.use((err: Error, _: Request, res: Response, _2: NextFunction) => {
     res.status(500).json({ message: err.message });
   });
+
+  if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('*', (_, res) => {
+      res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    });
+  }
 
   app.listen(parseInt('5000'), () => console.log(__listenMessage__(parseInt('5000'))));
 };
