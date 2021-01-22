@@ -13,8 +13,8 @@ import {
 } from 'type-graphql';
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
 import { createWriteStream } from 'fs';
-import { Image } from '../entities/Image';
-import { User } from '../entities/User';
+import { Image } from '../entities/image';
+import { User } from '../entities/user';
 import { v4 } from 'uuid';
 import path from 'path';
 import { isAuth } from '../middleware/isAuthenticated';
