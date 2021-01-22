@@ -22,8 +22,9 @@
     "server": "nodemon ./dist/index.js",
     "clientBuild": "yarn --cwd client build",
     "all": "concurrently \"yarn server\" \"yarn client\"",
-    "postinstall": "npm run tsc",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "postinstall": "npm run build",
+    "start:dev": "PORT=5000 node dist/index.js",
+    "dev": "PORT=5000 nodemon --exec ts-node src/index.ts --watch src"
   },
   "dependencies": {
     "apollo-server-express": "^2.19.0",
