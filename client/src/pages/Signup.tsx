@@ -25,11 +25,9 @@ import Button from '../components/layouts/Button';
 import GooglePlay from '../assets/images/e9cd846dc748.png';
 import PlayStore from '../assets/images/180ae7a0bcf7.png';
 import { MeDocument, MeQuery, useRegisterMutation } from '../generated/graphql';
-import { useHistory } from 'react-router-dom';
 import Footer from '../components/layouts/Footer';
 
 const Signup = () => {
-  const history = useHistory();
   const [login] = useRegisterMutation();
 
   const [email, setEmail] = useState('');
@@ -58,16 +56,15 @@ const Signup = () => {
         }
       });
       if (res.data?.register.error) {
-        setSignupError(res.data?.register.error.message);
         setSignupLoading(false);
+        setSignupError(res.data?.register.error.message);
       }
       if (res.data?.register.user) {
-        history.push('/');
         setSignupLoading(false);
       }
     } catch (error) {
+      setSignupLoading(true);
       setSignupError(error);
-      setSignupLoading(false);
     }
   };
 

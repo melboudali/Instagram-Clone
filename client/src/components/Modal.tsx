@@ -115,31 +115,31 @@ type ModalProps = {
   imageFile: File | undefined;
   setOpenModal: (arg: boolean) => void;
   setUploadSuccessfulMessage: (arg: string | null) => void;
+  Scrollbar: (arg: 'show' | 'hide') => void;
 };
 
-const Modal = ({ imageFile, imageUri, setOpenModal, setUploadSuccessfulMessage }: ModalProps) => {
+const Modal = ({
+  imageFile,
+  imageUri,
+  setOpenModal,
+  setUploadSuccessfulMessage,
+  Scrollbar
+}: ModalProps) => {
   const { data } = useMeQuery();
   const [uploadImageFunc] = useUploadImageMutation();
 
   const [caption, setCaption] = useState<string>('');
   const [UploadLoading, setLoadingUpload] = useState<boolean>(false);
 
-  const Scrollbar = (arg: 'show' | 'hide') => {
-    arg === 'show'
-      ? (document.documentElement.style.overflowY = 'visible')
-      : (document.documentElement.style.overflowY = 'hidden');
-  };
-
   const ref = useRef<HTMLDivElement>(null);
   const { clickedAway } = IsClickedAway(ref);
 
   useEffect(() => {
-    Scrollbar('hide');
     if (clickedAway) {
       setOpenModal(false);
       Scrollbar('show');
     }
-  }, [clickedAway, setOpenModal]);
+  }, [clickedAway, setOpenModal, Scrollbar]);
 
   const closeModal = () => {
     setLoadingUpload(false);
@@ -188,7 +188,6 @@ const Modal = ({ imageFile, imageUri, setOpenModal, setUploadSuccessfulMessage }
             });
 
             if (newImage && existingImages) {
-              console.log([...existingImages.getAllImages.images, newImage]);
               cache.writeQuery<GetAllImagesQuery>({
                 query: GetAllImagesDocument,
                 variables: { limit: 10, cursor: null },
@@ -204,10 +203,11 @@ const Modal = ({ imageFile, imageUri, setOpenModal, setUploadSuccessfulMessage }
           }
         });
         if (res.data?.uploadImage) {
-          closeModal();
           setUploadSuccessfulMessage(`Image has been successfully uploaded!`);
+          closeModal();
         } else {
           setUploadSuccessfulMessage(null);
+          closeModal();
         }
       } catch (error) {
         setUploadSuccessfulMessage(null);

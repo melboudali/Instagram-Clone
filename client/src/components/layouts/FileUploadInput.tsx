@@ -74,6 +74,12 @@ const FileUploadInput = () => {
   const [uploadErrorMessage, setUploadErroMessage] = useState<string | null>();
   const [uploadSuccessfulMessage, setUploadSuccessfulMessage] = useState<string | null>();
 
+  const Scrollbar = (arg: 'show' | 'hide') => {
+    arg === 'show'
+      ? (document.documentElement.style.overflowY = 'visible')
+      : (document.documentElement.style.overflowY = 'hidden');
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const Files = e.target.files;
 
@@ -86,11 +92,12 @@ const FileUploadInput = () => {
             setImageUri(fr.result as string);
             setUploadErroMessage(null);
             setUploadSuccessfulMessage(null);
+            setImageFile(Files[0]);
+            Scrollbar('hide');
             setOpenModal(true);
           };
           fr.readAsDataURL(Files[0]);
         }
-        setImageFile(Files[0]);
       } else {
         setUploadSuccessfulMessage(null);
         setUploadErroMessage("We only accept 'jpg', 'jpeg', 'png' files !!");
@@ -109,6 +116,7 @@ const FileUploadInput = () => {
           imageFile={imageFile}
           setOpenModal={setOpenModal}
           setUploadSuccessfulMessage={setUploadSuccessfulMessage}
+          Scrollbar={Scrollbar}
         />
       )}
       <SvgContainer>

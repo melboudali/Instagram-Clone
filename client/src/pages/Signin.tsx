@@ -28,10 +28,8 @@ import GooglePlay from '../assets/images/e9cd846dc748.png';
 import PlayStore from '../assets/images/180ae7a0bcf7.png';
 import Footer from '../components/layouts/Footer';
 import { MeDocument, MeQuery, useLoginMutation } from '../generated/graphql';
-import { useHistory } from 'react-router-dom';
 
 const Signin = () => {
-  const history = useHistory();
   const [login] = useLoginMutation();
 
   const [userName, setUserName] = useState('');
@@ -63,11 +61,11 @@ const Signin = () => {
         setLoginError(res.data?.login.error.message);
       }
       if (res.data?.login.user) {
-        history.push('/');
         setLoginLoading(false);
       }
     } catch (error) {
       setConnectionError(true);
+      setLoginError(error);
     }
   };
 

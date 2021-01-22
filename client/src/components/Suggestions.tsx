@@ -216,10 +216,9 @@ const SignatureContainer = styled.span`
 
 type SuggestionsProps = {
   data: MeQuery | undefined;
-  loading: boolean | undefined;
 };
 
-const Suggestions = ({ data, loading }: SuggestionsProps) => {
+const Suggestions = ({ data }: SuggestionsProps) => {
   const isSticky = IsSticky(337);
 
   const onClick = (buttonName: string) => {

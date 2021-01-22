@@ -11,10 +11,9 @@ const Container = styled.div`
 
 type ArticleProps = {
   data: MeQuery | undefined;
-  loading: boolean | undefined;
 };
 
-const Articles = ({ data, loading }: ArticleProps) => {
+const Articles = ({ data }: ArticleProps) => {
   const { data: ImagesData, loading: imagesLoading, fetchMore } = useGetAllImagesQuery({
     variables: { limit: 10, cursor: null },
     notifyOnNetworkStatusChange: true
@@ -50,7 +49,6 @@ const Articles = ({ data, loading }: ArticleProps) => {
               commentsLength={543}
               createdTime={createdAt}
               data={data}
-              loading={loading}
             />
           )
         )}

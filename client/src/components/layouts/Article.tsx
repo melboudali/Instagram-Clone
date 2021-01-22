@@ -247,7 +247,6 @@ type ArticleProps = {
   commentsLength: number;
   createdTime: string;
   data: MeQuery | undefined;
-  loading: boolean | undefined;
 };
 
 const Article = ({
@@ -259,8 +258,7 @@ const Article = ({
   comments,
   commentsLength,
   createdTime,
-  data,
-  loading
+  data
 }: ArticleProps) => {
   const [textareaValue, setTextAreaValue] = useState<string>('');
   const onClick = (buttonName: string) => {

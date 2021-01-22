@@ -1,8 +1,7 @@
 import Articles from './Articles';
 import Suggestion from './Suggestions';
-import { useMeQuery, GetAllImagesQuery } from '../generated/graphql';
+import { useMeQuery } from '../generated/graphql';
 import styled from 'styled-components';
-import { ApolloError } from '@apollo/client';
 
 const Container = styled.div`
   position: relative;
@@ -10,11 +9,11 @@ const Container = styled.div`
 `;
 
 const ArticlesAndSuggestionsContainer = () => {
-  const { data, loading } = useMeQuery();
+  const { data } = useMeQuery();
   return (
     <Container>
-      <Articles data={data} loading={loading} />
-      <Suggestion data={data} loading={loading} />
+      <Articles data={data} />
+      <Suggestion data={data} />
     </Container>
   );
 };
