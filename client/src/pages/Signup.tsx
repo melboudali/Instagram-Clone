@@ -72,17 +72,20 @@ const Signup = () => {
     }
   };
 
-  return ConnectionError ? (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        width: '100%',
-        height: '100vh'
-      }}>
-      <h1 style={{ alignSelf: 'center', color: '#747474' }}>503 Service Unavailable</h1>
-    </div>
-  ) : (
+  if (ConnectionError)
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
+          height: '100vh'
+        }}>
+        <h1 style={{ alignSelf: 'center', color: '#747474' }}>503 Service Unavailable</h1>
+      </div>
+    );
+
+  return (
     <Fragment>
       <Container>
         <SignupComponent>
