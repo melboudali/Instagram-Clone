@@ -18,6 +18,7 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<User>;
+  suggestedUsers: UsersResponse;
   getAllImages: PaginatedImages;
 };
 
@@ -40,6 +41,11 @@ export type User = {
   imageUrl: Scalars['String'];
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
+};
+
+export type UsersResponse = {
+  __typename?: 'UsersResponse';
+  users?: Maybe<Array<User>>;
 };
 
 export type PaginatedImages = {
@@ -217,6 +223,20 @@ export type GetAllImagesQuery = (
         & Pick<User, 'id' | 'userName' | 'imageUrl'>
       ) }
     )> }
+  ) }
+);
+
+export type GetSuggestedUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetSuggestedUsersQuery = (
+  { __typename?: 'Query' }
+  & { suggestedUsers: (
+    { __typename?: 'UsersResponse' }
+    & { users?: Maybe<Array<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'userName' | 'imageUrl'>
+    )>> }
   ) }
 );
 
@@ -457,6 +477,42 @@ export function useGetAllImagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetAllImagesQueryHookResult = ReturnType<typeof useGetAllImagesQuery>;
 export type GetAllImagesLazyQueryHookResult = ReturnType<typeof useGetAllImagesLazyQuery>;
 export type GetAllImagesQueryResult = Apollo.QueryResult<GetAllImagesQuery, GetAllImagesQueryVariables>;
+export const GetSuggestedUsersDocument = gql`
+    query GetSuggestedUsers {
+  suggestedUsers {
+    users {
+      id
+      userName
+      imageUrl
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetSuggestedUsersQuery__
+ *
+ * To run a query within a React component, call `useGetSuggestedUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSuggestedUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetSuggestedUsersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetSuggestedUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>) {
+        return Apollo.useQuery<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>(GetSuggestedUsersDocument, baseOptions);
+      }
+export function useGetSuggestedUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>) {
+          return Apollo.useLazyQuery<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>(GetSuggestedUsersDocument, baseOptions);
+        }
+export type GetSuggestedUsersQueryHookResult = ReturnType<typeof useGetSuggestedUsersQuery>;
+export type GetSuggestedUsersLazyQueryHookResult = ReturnType<typeof useGetSuggestedUsersLazyQuery>;
+export type GetSuggestedUsersQueryResult = Apollo.QueryResult<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

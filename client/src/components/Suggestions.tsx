@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { MeQuery } from '../generated/graphql';
+import {
+  MeQuery,
+  useGetSuggestedUsersLazyQuery,
+  useGetSuggestedUsersQuery
+} from '../generated/graphql';
 import IsSticky from '../Hooks/IsSticky';
 
 const Container = styled.div<{ isSticky: boolean }>`
@@ -236,39 +240,13 @@ type SuggestionsProps = {
 };
 
 const Suggestions = ({ data }: SuggestionsProps) => {
+  const { data: suggestedUsers } = useGetSuggestedUsersQuery();
   const isSticky = IsSticky(337);
 
   const onClick = (buttonName: string) => {
     // TODO: Edit this later
     console.log(`${buttonName} Button Clicked.`);
   };
-
-  const SuggestionsData: { image: string; username: string; status: string }[] = [
-    {
-      username: 'nike',
-      image:
-        'https://instagram.fcmn3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/26155970_1584552474997482_4541081815552622592_n.jpg?_nc_ht=instagram.fcmn3-1.fna.fbcdn.net&_nc_ohc=n5hQVJeXrBwAX_1PtsU&tp=1&oh=7704ed0384c985a96539ae3fe48e52d7&oe=602B0ECE',
-      status: 'New to Instagram'
-    },
-    {
-      username: 'converse',
-      image:
-        'https://instagram.fcmn3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/19379226_756476704513652_2682917618561581056_a.jpg?_nc_ht=instagram.fcmn3-1.fna.fbcdn.net&_nc_ohc=AeqEAMfAUBQAX9Bw3Y0&tp=1&oh=29bbbf2edffb65ed992715936e60bb05&oe=602D45E0',
-      status: 'New to Instagram'
-    },
-    {
-      username: 'mcdonalds',
-      image:
-        'https://instagram.fcmn3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/128998981_2869279583397396_3819488595063248462_n.jpg?_nc_ht=instagram.fcmn3-1.fna.fbcdn.net&_nc_ohc=Q1l5DlXBDAkAX_W8qG4&tp=1&oh=b66906ba93adf94e13b26ff10fa7c84d&oe=602C3968',
-      status: 'New to Instagram'
-    },
-    {
-      username: 'adidas',
-      image:
-        'https://instagram.fcmn3-1.fna.fbcdn.net/v/t51.2885-19/s150x150/73385866_483576632365553_2091382961273307136_n.jpg?_nc_ht=instagram.fcmn3-1.fna.fbcdn.net&_nc_ohc=uA7Ohfjb1uMAX-KM9PH&tp=1&oh=24a9739d0bbcb0dce26abb49b6d32766&oe=602D5F5A',
-      status: 'New to Instagram'
-    }
-  ];
 
   const LinksData: string[] = [
     'About',
@@ -311,24 +289,26 @@ const Suggestions = ({ data }: SuggestionsProps) => {
           <span>Suggestions For You</span>
           <SeeAllLink to='/fixLater'>See All</SeeAllLink>
         </SuggestionsTitleContainer>
-        {SuggestionsData.map(({ username, image, status }, id) => (
-          <SuggestionContainer key={id}>
-            <SuggestedProfileImage>
-              <Link to={`/${username}`}>
-                <img src={image} alt={`${username}'s profile`} />
-              </Link>
-            </SuggestedProfileImage>
-            <SuggestedProfileName>
-              <SuggestedUserName to={`/${username}`}>{username}</SuggestedUserName>
-              <span>{status}</span>
-            </SuggestedProfileName>
-            <SuggestedSwitchButtonContainer>
-              <SuggestedSwitchButton type='button' onClick={() => onClick('Follow')}>
-                Follow
-              </SuggestedSwitchButton>
-            </SuggestedSwitchButtonContainer>
-          </SuggestionContainer>
-        ))}
+        {suggestedUsers &&
+          suggestedUsers.suggestedUsers.users &&
+          suggestedUsers.suggestedUsers.users.map(({ id, userName, imageUrl }) => (
+            <SuggestionContainer key={id}>
+              <SuggestedProfileImage>
+                <Link to={`/${userName}`}>
+                  <img src={imageUrl} alt={`${userName}'s profile`} />
+                </Link>
+              </SuggestedProfileImage>
+              <SuggestedProfileName>
+                <SuggestedUserName to={`/${userName}`}>{userName}</SuggestedUserName>
+                <span>New to Instagram</span>
+              </SuggestedProfileName>
+              <SuggestedSwitchButtonContainer>
+                <SuggestedSwitchButton type='button' onClick={() => onClick('Follow')}>
+                  Follow
+                </SuggestedSwitchButton>
+              </SuggestedSwitchButtonContainer>
+            </SuggestionContainer>
+          ))}
       </SuggestionsContainer>
       <div>
         <LinksContainer>

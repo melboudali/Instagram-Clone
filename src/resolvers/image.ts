@@ -84,6 +84,7 @@ export class ImageResolver {
   }
 
   @Query(() => PaginatedImages)
+  @UseMiddleware(isAuth)
   async getAllImages(
     @Arg('limit', () => Int) limit: number,
     @Arg('cursor', () => String, { nullable: true }) cursor: string | null,
@@ -119,6 +120,7 @@ export class ImageResolver {
 
     return { images, hasMore: images.length === minLimitPlusOne };
   }
+  
   @FieldResolver(() => User)
   user(@Root() image: Image, @Ctx() { userLoader }: MyContext) {
     return userLoader.load(image.userId);

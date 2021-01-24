@@ -172,7 +172,7 @@ const Signup = () => {
             <Login>
               <p>
                 Have an account?
-                <SignupLink to='/accounts/login'>
+                <SignupLink to='/'>
                   <span>Log in</span>
                 </SignupLink>
               </p>

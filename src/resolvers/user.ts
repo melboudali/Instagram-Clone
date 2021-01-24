@@ -1,9 +1,20 @@
-import { Arg, Ctx, Field, InputType, Mutation, ObjectType, Query, Resolver } from 'type-graphql';
+import {
+  Arg,
+  Ctx,
+  Field,
+  InputType,
+  Mutation,
+  ObjectType,
+  Query,
+  Resolver,
+  UseMiddleware
+} from 'type-graphql';
 import { User } from '../entities/user';
-import { MyContext } from 'src/types';
+import { MyContext } from '../types';
 import argon2 from 'argon2';
 import { cookieName } from '../config/constants';
 import { getConnection } from 'typeorm';
+import { isAuth } from '../middleware/isAuthenticated';
 
 @InputType()
 class registerInputs {
@@ -29,6 +40,12 @@ class UserResponse {
   error?: FieldError;
   @Field(() => User, { nullable: true })
   user?: User;
+}
+
+@ObjectType()
+class UsersResponse {
+  @Field(() => [User], { nullable: true })
+  users?: User[];
 }
 
 @Resolver(User)
@@ -134,5 +151,12 @@ export class UserResolver {
         }
       })
     );
+  }
+
+  @Query(() => UsersResponse)
+  @UseMiddleware(isAuth)
+  async suggestedUsers(): Promise<UsersResponse> {
+    const users = await User.createQueryBuilder().orderBy('id', 'DESC').limit(5).getMany();
+    return { users };
   }
 }

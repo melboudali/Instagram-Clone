@@ -13,7 +13,8 @@ const link = createUploadLink({
 
 const client = new ApolloClient({
   link: (link as unknown) as ApolloLink,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  connectToDevTools: true
 });
 
 ReactDOM.render(

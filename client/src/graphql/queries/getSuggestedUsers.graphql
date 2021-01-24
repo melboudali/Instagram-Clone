@@ -1,0 +1,9 @@
+query GetSuggestedUsers {
+  suggestedUsers {
+    users {
+      id
+      userName
+      imageUrl
+    }
+  }
+}
