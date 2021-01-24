@@ -139,8 +139,8 @@ const Modal = ({
 
   useEffect(() => {
     if (clickedAway) {
-      setOpenModal(false);
       Scrollbar('show');
+      setOpenModal(false);
     }
   }, [clickedAway, setOpenModal, Scrollbar]);
 
@@ -196,6 +196,7 @@ const Modal = ({
                 variables: { limit: 10, cursor: null },
                 data: {
                   getAllImages: {
+                    __typename: existingImages.getAllImages.__typename,
                     hasMore: existingImages.getAllImages.hasMore,
                     images: [newImage, ...existingImages.getAllImages.images]
                   }

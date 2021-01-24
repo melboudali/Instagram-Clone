@@ -52,6 +52,7 @@ const Signup = () => {
           cache.writeQuery<MeQuery>({
             query: MeDocument,
             data: {
+              __typename: 'Query',
               me: data?.register.user
             }
           });

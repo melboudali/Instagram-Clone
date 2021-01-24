@@ -17,7 +17,7 @@ type ArticleProps = {
 };
 
 const Articles = ({ data }: ArticleProps) => {
-  const { data: ImagesData, loading: imagesLoading, fetchMore } = useGetAllImagesQuery({
+  const { data: ImagesData, loading: imagesLoading } = useGetAllImagesQuery({
     variables: { limit: 10, cursor: null },
     notifyOnNetworkStatusChange: true
   });

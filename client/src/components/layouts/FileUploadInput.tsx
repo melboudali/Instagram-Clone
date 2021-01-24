@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Modal from '../Modal';
 import styled from 'styled-components';
-import { MeQuery } from '../../generated/graphql';
 
 const Container = styled.div`
   display: flex;

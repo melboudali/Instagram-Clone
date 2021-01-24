@@ -1,6 +1,5 @@
-import { RefObject, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { MeQuery, useLogoutMutation } from '../generated/graphql';
+import { MeQuery } from '../generated/graphql';
 import LogoutLink from './layouts/LogoutLink';
 import NavbarMenuLink from './layouts/NavbarMenuLink';
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MeQuery, useMeQuery } from '../generated/graphql';
+import { useMeQuery } from '../generated/graphql';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NavbarMenu from './NavbarMenu';

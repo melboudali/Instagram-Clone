@@ -50,6 +50,7 @@ const Signin = () => {
           cache.writeQuery<MeQuery>({
             query: MeDocument,
             data: {
+              __typename: 'Query',
               me: data?.login.user
             }
           });
