@@ -25,6 +25,7 @@ const Main = styled.div`
   display: flex;
   position: absolute;
   border: none;
+  border-radius: 5px;
   width: 700px;
   min-height: 60px;
   top: 50%;
@@ -62,6 +63,8 @@ const ImageContainer = styled.img`
   width: 300px;
   min-height: 300px;
   object-fit: cover;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
 `;
 
 const ImageCaptionContainer = styled.div`
@@ -193,7 +196,6 @@ const Modal = ({
                 variables: { limit: 10, cursor: null },
                 data: {
                   getAllImages: {
-                    __typename: existingImages.getAllImages.__typename,
                     hasMore: existingImages.getAllImages.hasMore,
                     images: [newImage, ...existingImages.getAllImages.images]
                   }

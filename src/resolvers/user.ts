@@ -48,20 +48,20 @@ export class UserResolver {
   ): Promise<UserResponse> {
     if (registerInputs.fullName.length <= 2) {
       return {
-        error: { message: 'Full name length should be greater than 2' }
+        error: { message: 'Full name length should be greater than 2.' }
       };
     }
     if (registerInputs.userName.length <= 2) {
       return {
-        error: { message: 'Username length should be greater than 2' }
+        error: { message: 'Username length should be greater than 2.' }
       };
     }
     if (registerInputs.email.length <= 2 || !registerInputs.email.includes('@')) {
-      return { error: { message: 'Invalid email' } };
+      return { error: { message: 'Invalid email.' } };
     }
     if (registerInputs.password.length <= 2) {
       return {
-        error: { message: 'password length should be greater than 2' }
+        error: { message: 'password length should be greater than 2.' }
       };
     }
     const hashedPassword = await argon2.hash(registerInputs.password);
@@ -82,7 +82,7 @@ export class UserResolver {
       user = result.raw[0];
     } catch (error) {
       if (error.code === '23505') {
-        return { error: { message: 'Username already exist' } };
+        return { error: { message: 'That username or email address is already in use.' } };
       }
     }
     req.session!.userId = user.id;

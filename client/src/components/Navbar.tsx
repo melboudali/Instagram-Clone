@@ -179,8 +179,8 @@ const Navbar = () => {
             </NavbarLink>
             <LinkContainer
               onClick={() => {
-                setShowMenu(!showMenu);
                 if (clickedAway) setClickedAway(false);
+                setShowMenu(!showMenu);
               }}
               ref={ref}>
               <ProfileImageBorder showMenu={showMenu} />

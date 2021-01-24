@@ -1,6 +1,5 @@
 import { Fragment } from 'react';
 import styled from 'styled-components';
-import { MeQuery } from '../generated/graphql';
 import Navbar from './Navbar';
 
 type ContainerProps = {

@@ -32,11 +32,11 @@ import { MeDocument, MeQuery, useLoginMutation } from '../generated/graphql';
 const Signin = () => {
   const [login] = useLoginMutation();
 
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginLoading, setLoginLoading] = useState(false);
-  const [loginError, setLoginError] = useState('');
-  const [ConnectionError, setConnectionError] = useState(false);
+  const [userName, setUserName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [loginLoading, setLoginLoading] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string>('');
+  const [ConnectionError, setConnectionError] = useState<boolean>(false);
 
   const loginFunction = async () => {
     setLoginLoading(true);
@@ -50,22 +50,21 @@ const Signin = () => {
           cache.writeQuery<MeQuery>({
             query: MeDocument,
             data: {
-              __typename: 'Query',
               me: data?.login.user
             }
           });
         }
       });
       if (res.data?.login.error) {
-        setLoginLoading(false);
         setLoginError(res.data?.login.error.message);
+        setLoginLoading(false);
       }
       if (res.data?.login.user) {
+        setLoginError('');
         setLoginLoading(false);
       }
     } catch (error) {
       setConnectionError(true);
-      setLoginError(error);
     }
   };
 

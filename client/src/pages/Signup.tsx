@@ -26,17 +26,20 @@ import GooglePlay from '../assets/images/e9cd846dc748.png';
 import PlayStore from '../assets/images/180ae7a0bcf7.png';
 import { MeDocument, MeQuery, useRegisterMutation } from '../generated/graphql';
 import Footer from '../components/layouts/Footer';
+import { useHistory } from 'react-router-dom';
 
 const Signup = () => {
+  const history = useHistory();
   const [login] = useRegisterMutation();
 
-  const [email, setEmail] = useState('');
-  const [fullName, setFullname] = useState('');
-  const [userName, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [fullName, setFullname] = useState<string>('');
+  const [userName, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [signupError, setSignupError] = useState<string>('');
 
   const [signupLoading, setSignupLoading] = useState(false);
-  const [signupError, setSignupError] = useState('');
+  const [ConnectionError, setConnectionError] = useState<boolean>(false);
 
   const signupFunction = async () => {
     setSignupLoading(true);
@@ -49,26 +52,36 @@ const Signup = () => {
           cache.writeQuery<MeQuery>({
             query: MeDocument,
             data: {
-              __typename: 'Query',
               me: data?.register.user
             }
           });
         }
       });
       if (res.data?.register.error) {
-        setSignupLoading(false);
         setSignupError(res.data?.register.error.message);
+        setSignupLoading(false);
       }
       if (res.data?.register.user) {
+        setSignupError('');
         setSignupLoading(false);
+        history.push('/');
       }
     } catch (error) {
-      setSignupLoading(true);
-      setSignupError(error);
+      setConnectionError(true);
     }
   };
 
-  return (
+  return ConnectionError ? (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100vh'
+      }}>
+      <h1 style={{ alignSelf: 'center', color: '#747474' }}>503 Service Unavailable</h1>
+    </div>
+  ) : (
     <Fragment>
       <Container>
         <SignupComponent>
