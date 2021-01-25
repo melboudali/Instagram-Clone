@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  MeQuery,
-  useGetSuggestedUsersLazyQuery,
-  useGetSuggestedUsersQuery
-} from '../generated/graphql';
+import { MeQuery, useGetSuggestedUsersQuery } from '../generated/graphql';
 import IsSticky from '../Hooks/IsSticky';
 
 const Container = styled.div<{ isSticky: boolean }>`
@@ -63,6 +59,7 @@ const ProfileImage = styled.div`
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
+      box-shadow: 0px 0px 20px -9px rgba(0, 0, 0, 0.452);
     }
   }
 `;
@@ -150,6 +147,7 @@ const SuggestedProfileImage = styled.div`
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
+      box-shadow: 0px 0px 20px -9px rgba(0, 0, 0, 0.75);
     }
   }
 `;
