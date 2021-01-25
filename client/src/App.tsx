@@ -17,7 +17,7 @@ const App = () => {
         <ErrorBoundary>
           <Suspense fallback={<LoadingFullScreen />}>
             {loading && <LoadingFullScreen />}
-            {data && data.me ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+            {!loading && data && data.me ? <AuthenticatedApp /> : <UnauthenticatedApp />}
           </Suspense>
         </ErrorBoundary>
       </React.StrictMode>

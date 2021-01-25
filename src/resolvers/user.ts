@@ -155,8 +155,13 @@ export class UserResolver {
 
   @Query(() => UsersResponse)
   @UseMiddleware(isAuth)
-  async suggestedUsers(): Promise<UsersResponse> {
-    const users = await User.createQueryBuilder().orderBy('id', 'DESC').limit(5).getMany();
+  async suggestedUsers(@Ctx() { req }: MyContext): Promise<UsersResponse> {
+    const id = req.session.userId;
+    const users = await User.createQueryBuilder()
+      .where('id != :id', { id })
+      .orderBy('id', 'DESC')
+      .limit(5)
+      .getMany();
     return { users };
   }
 }
