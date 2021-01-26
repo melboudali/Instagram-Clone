@@ -39,7 +39,6 @@ export class Image extends BaseEntity {
   @Column()
   userId!: number;
 
-  @Field(() => User)
   @ManyToOne(() => User, user => user.images, { onDelete: 'CASCADE' })
   user: User;
 

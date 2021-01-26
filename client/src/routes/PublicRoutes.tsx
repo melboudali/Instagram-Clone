@@ -1,18 +1,9 @@
-import { Route } from "react-router-dom";
-import Profile from "../pages/Profile";
+import { lazy } from 'react';
+import { Route } from 'react-router-dom';
+const Profile = lazy(() => import('../pages/Profile'));
 
-type PublicRoutesProps = { match: { isExact: boolean; path: string; url: string } };
-
-const PublicRoutes = ({ match }: PublicRoutesProps) => {
-  return (
-    <>
-      <Route
-        exact
-        path={`${match.path}/:username`}
-        component={Profile}
-      />
-    </>
-  );
+const PublicRoutes = () => {
+  return <Route exact path='/:username' component={Profile} />;
 };
 
 export default PublicRoutes;

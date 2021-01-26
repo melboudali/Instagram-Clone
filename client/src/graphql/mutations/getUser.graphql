@@ -1,0 +1,10 @@
+mutation GetUser($username: String!) {
+  getUser(username: $username) {
+    user {
+      ...userFragment
+    }
+    error {
+      ...userErrorFragment
+    }
+  }
+}

@@ -30,7 +30,7 @@ const main = async () => {
     database: 'instagram',
     entities: [User, Image, Like, Comment],
     synchronize: !__prod__,
-    logging: false
+    logging: true
   }).catch(error => console.log(error));
 
   const RedisStore = connectRedis(session);

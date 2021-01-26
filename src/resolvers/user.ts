@@ -2,6 +2,7 @@ import {
   Arg,
   Ctx,
   Field,
+  FieldResolver,
   InputType,
   Mutation,
   ObjectType,
@@ -13,8 +14,9 @@ import { User } from '../entities/user';
 import { MyContext } from '../types';
 import argon2 from 'argon2';
 import { cookieName } from '../config/constants';
-import { getConnection } from 'typeorm';
+import { createQueryBuilder, getConnection } from 'typeorm';
 import { isAuth } from '../middleware/isAuthenticated';
+import { Image } from '../entities/image';
 
 @InputType()
 class registerInputs {
@@ -50,6 +52,7 @@ class UsersResponse {
 
 @Resolver(User)
 export class UserResolver {
+  // Select connected user
   @Query(() => User, { nullable: true })
   async me(@Ctx() { req }: MyContext) {
     if (!req.session!.userId) {
@@ -58,6 +61,7 @@ export class UserResolver {
     return await User.findOne(req.session.userId);
   }
 
+  // Register Mutation
   @Mutation(() => UserResponse)
   async register(
     @Arg('registerInputs') registerInputs: registerInputs,
@@ -106,6 +110,7 @@ export class UserResolver {
     return { user };
   }
 
+  // Login Mutation
   @Mutation(() => UserResponse)
   async login(
     @Arg('userNameOrEmail') userNameOrEmail: string,
@@ -137,6 +142,39 @@ export class UserResolver {
     return { user };
   }
 
+  // Select user by username
+  @Mutation(() => UserResponse)
+  async getUser(@Arg('userName') userName: string): Promise<UserResponse> {
+    const user = await User.createQueryBuilder('i')
+      .leftJoinAndSelect('i.images', 'image')
+      .where('"userName" = :username', { username: userName })
+      .getOne();
+
+    if (user) {
+      return { user };
+    } else {
+      return {
+        error: {
+          message: 'User not found!'
+        }
+      };
+    }
+  }
+
+  // Select 5 last users Query
+  @Query(() => UsersResponse)
+  @UseMiddleware(isAuth)
+  async suggestedUsers(@Ctx() { req }: MyContext): Promise<UsersResponse> {
+    const id = req.session.userId;
+    const users = await User.createQueryBuilder()
+      .where('id != :id', { id })
+      .orderBy('id', 'DESC')
+      .limit(5)
+      .getMany();
+    return { users };
+  }
+
+  // Logout Mutation
   @Mutation(() => Boolean)
   logout(@Ctx() { req, res }: MyContext) {
     return new Promise(resolve =>
@@ -151,17 +189,5 @@ export class UserResolver {
         }
       })
     );
-  }
-
-  @Query(() => UsersResponse)
-  @UseMiddleware(isAuth)
-  async suggestedUsers(@Ctx() { req }: MyContext): Promise<UsersResponse> {
-    const id = req.session.userId;
-    const users = await User.createQueryBuilder()
-      .where('id != :id', { id })
-      .orderBy('id', 'DESC')
-      .limit(5)
-      .getMany();
-    return { users };
   }
 }
