@@ -1,9 +1,9 @@
 import { lazy } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
-const Signup = lazy(() => import('./Signup'));
-const Signin = lazy(() => import('./Signin'));
-const NotFound = lazy(() => import('./NotFound'));
+const Signup = lazy(() => import('../pages/Signup'));
+const Signin = lazy(() => import('../pages/Signin'));
+const NotFound = lazy(() => import('../pages/NotFound'));
 
 const UnauthenticatedApp = () => {
   return (

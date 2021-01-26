@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 const NotFoundContainer = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content:center;
   width: 100%;
-  min-height: 100%;
-  text-align: center;
+  height: 100vh;
 `;
 
 const ErrorNumber = styled.h1`
-  position: relative;
   font-size: 12rem;
   color: rgba(66, 66, 66, 0.158);
   font-weight: 700;
