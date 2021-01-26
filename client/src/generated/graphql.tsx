@@ -18,8 +18,14 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<User>;
+  getUser: UserResponse;
   suggestedUsers: UsersResponse;
   getAllImages: PaginatedImages;
+};
+
+
+export type QueryGetUserArgs = {
+  userName: Scalars['String'];
 };
 
 
@@ -39,8 +45,33 @@ export type User = {
   phoneNumber: Scalars['Float'];
   gender: Scalars['String'];
   imageUrl: Scalars['String'];
+  images?: Maybe<Array<Image>>;
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
+};
+
+export type Image = {
+  __typename?: 'Image';
+  id: Scalars['Float'];
+  title: Scalars['String'];
+  likes: Scalars['Float'];
+  url: Scalars['String'];
+  likeStatu?: Maybe<Scalars['Int']>;
+  userId: Scalars['Float'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+  user: User;
+};
+
+export type UserResponse = {
+  __typename?: 'UserResponse';
+  error?: Maybe<FieldError>;
+  user?: Maybe<User>;
+};
+
+export type FieldError = {
+  __typename?: 'FieldError';
+  message: Scalars['String'];
 };
 
 export type UsersResponse = {
@@ -52,19 +83,6 @@ export type PaginatedImages = {
   __typename?: 'PaginatedImages';
   images: Array<Image>;
   hasMore: Scalars['Boolean'];
-};
-
-export type Image = {
-  __typename?: 'Image';
-  id: Scalars['Float'];
-  title: Scalars['String'];
-  likes: Scalars['Float'];
-  url: Scalars['String'];
-  likeStatu?: Maybe<Scalars['Int']>;
-  userId: Scalars['Float'];
-  user: User;
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
 };
 
 export type Mutation = {
@@ -90,17 +108,6 @@ export type MutationLoginArgs = {
 export type MutationUploadImageArgs = {
   caption: Scalars['String'];
   file: Scalars['Upload'];
-};
-
-export type UserResponse = {
-  __typename?: 'UserResponse';
-  error?: Maybe<FieldError>;
-  user?: Maybe<User>;
-};
-
-export type FieldError = {
-  __typename?: 'FieldError';
-  message: Scalars['String'];
 };
 
 export type RegisterInputs = {
@@ -131,6 +138,29 @@ export type UserErrorFragmentFragment = (
 export type UserFragmentFragment = (
   { __typename?: 'User' }
   & Pick<User, 'id' | 'userName' | 'email' | 'fullName' | 'website' | 'bio' | 'phoneNumber' | 'gender' | 'imageUrl' | 'createdAt' | 'updatedAt'>
+);
+
+export type GetUserQueryVariables = Exact<{
+  userName: Scalars['String'];
+}>;
+
+
+export type GetUserQuery = (
+  { __typename?: 'Query' }
+  & { getUser: (
+    { __typename?: 'UserResponse' }
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & { images?: Maybe<Array<(
+        { __typename?: 'Image' }
+        & Pick<Image, 'id' | 'title' | 'likes' | 'url' | 'likeStatu' | 'userId' | 'createdAt' | 'updatedAt'>
+      )>> }
+      & UserFragmentFragment
+    )>, error?: Maybe<(
+      { __typename?: 'FieldError' }
+      & UserErrorFragmentFragment
+    )> }
+  ) }
 );
 
 export type LoginMutationVariables = Exact<{
@@ -271,6 +301,55 @@ export const UserFragmentFragmentDoc = gql`
   updatedAt
 }
     `;
+export const GetUserDocument = gql`
+    query GetUser($userName: String!) {
+  getUser(userName: $userName) {
+    user {
+      ...userFragment
+      images {
+        id
+        title
+        likes
+        url
+        likeStatu
+        userId
+        createdAt
+        updatedAt
+      }
+    }
+    error {
+      ...userErrorFragment
+    }
+  }
+}
+    ${UserFragmentFragmentDoc}
+${UserErrorFragmentFragmentDoc}`;
+
+/**
+ * __useGetUserQuery__
+ *
+ * To run a query within a React component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserQuery({
+ *   variables: {
+ *      userName: // value for 'userName'
+ *   },
+ * });
+ */
+export function useGetUserQuery(baseOptions: Apollo.QueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+        return Apollo.useQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, baseOptions);
+      }
+export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserQuery, GetUserQueryVariables>) {
+          return Apollo.useLazyQuery<GetUserQuery, GetUserQueryVariables>(GetUserDocument, baseOptions);
+        }
+export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
+export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
+export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($userNameOrEmail: String!, $password: String!) {
   login(userNameOrEmail: $userNameOrEmail, password: $password) {

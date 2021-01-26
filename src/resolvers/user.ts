@@ -143,11 +143,11 @@ export class UserResolver {
   }
 
   // Select user by username
-  @Mutation(() => UserResponse)
+  @Query(() => UserResponse)
   async getUser(@Arg('userName') userName: string): Promise<UserResponse> {
     const user = await User.createQueryBuilder('i')
       .leftJoinAndSelect('i.images', 'image')
-      .where('"userName" = :username', { username: userName })
+      .where('"userName" = :userName', { userName })
       .getOne();
 
     if (user) {

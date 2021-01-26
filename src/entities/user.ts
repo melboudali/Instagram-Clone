@@ -54,7 +54,7 @@ export class User extends BaseEntity {
   @Column({ default: 'https://searchusers.xyz/img/userb.png' })
   imageUrl!: string;
 
-  @Field(() => [Image])
+  @Field(() => [Image], { nullable: true })
   @OneToMany(() => Image, image => image.user)
   images: Image[];
 

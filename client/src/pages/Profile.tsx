@@ -1,3 +1,4 @@
+import { useGetUserQuery } from '../generated/graphql';
 import styled from 'styled-components';
 import Container from '../components/Container';
 
@@ -32,27 +33,30 @@ type ProfileProps = {
 };
 
 const Profile = ({ match }: ProfileProps) => {
-  const username = match.params.username;
+  const userName = match.params.username;
+  const { data, loading } = useGetUserQuery({ variables: { userName: userName } });
 
   return (
     <Container>
-      <Main>
-        <ProfileData>
-          <ProfileImage />
-          <ProfileInformations>
-            <UsernameContainer>
-              <Username></Username>
-              <EditButton></EditButton>
-              <OptionsButton></OptionsButton>
-            </UsernameContainer>
-            <PostsFollowersFollowingContainer>
-              <PostsCount></PostsCount>
-              <FollowesCount></FollowesCount>
-              <FollowingCount></FollowingCount>
-            </PostsFollowersFollowingContainer>
-          </ProfileInformations>
-        </ProfileData>
-      </Main>
+      {data && !loading && (
+        <Main>
+          <ProfileData>
+            <ProfileImage src={data.getUser.user?.imageUrl} />
+            <ProfileInformations>
+              <UsernameContainer>
+                <Username>{data.getUser.user?.userName}</Username>
+                <EditButton>edit profile</EditButton>
+                <OptionsButton>.</OptionsButton>
+              </UsernameContainer>
+              <PostsFollowersFollowingContainer>
+                <PostsCount>{data.getUser.user?.images?.length} posts</PostsCount>
+                <FollowesCount></FollowesCount>
+                <FollowingCount></FollowingCount>
+              </PostsFollowersFollowingContainer>
+            </ProfileInformations>
+          </ProfileData>
+        </Main>
+      )}
     </Container>
   );
 };

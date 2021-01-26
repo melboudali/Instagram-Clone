@@ -1,7 +1,17 @@
-mutation GetUser($username: String!) {
-  getUser(username: $username) {
+query GetUser($userName: String!) {
+  getUser(userName: $userName) {
     user {
       ...userFragment
+      images {
+        id
+        title
+        likes
+        url
+        likeStatu
+        userId
+        createdAt
+        updatedAt
+      }
     }
     error {
       ...userErrorFragment
