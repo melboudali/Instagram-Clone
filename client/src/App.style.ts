@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   :root{
@@ -16,6 +16,8 @@ export const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   };
 
   *:focus {
@@ -28,12 +30,6 @@ export const GlobalStyle = createGlobalStyle`
     overflow-y: auto;
     scroll-behavior: smooth;
   }; 
-
-
-  body {
-    margin: 0;
-    padding: 0;
-  };
 
   body, button, input, textarea {
     margin: 0;

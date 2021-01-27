@@ -1,121 +1,189 @@
-import { useGetUserQuery } from '../generated/graphql';
-import styled from 'styled-components';
-import Container from '../components/Container';
-import { Link } from 'react-router-dom';
+import { useGetUserQuery } from "../generated/graphql";
+import styled from "styled-components";
+import Container from "../components/Container";
+import { Link } from "react-router-dom";
 
 const Main = styled.div`
-  margin: 30px auto 0;
+	margin: 30px auto 0;
 `;
 
-const ProfileData = styled.div`
-  display: flex;
-  justify-content: center;
+const ProfileData = styled.header`
+	display: flex;
+	justify-content: center;
+	margin-bottom: 44px;
 `;
 
 const ProfileImage = styled.div`
-  display: flex;
-  justify-content: center;
-  flex: 1 1 0;
-  margin-right: 30px;
-  img {
-    height: 150px;
-    width: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
+	display: flex;
+	justify-content: center;
+	flex: 1 1 0;
+	margin-right: 30px;
+	img {
+		height: 150px;
+		width: 150px;
+		object-fit: cover;
+		border-radius: 50%;
+		border: 4px solid rgba(0, 0, 0, 0.02);
+		box-sizing: content-box;
+	}
 `;
 
 const ProfileInformations = styled.section`
-  flex: 2 2 30px;
+	flex: 2 2 30px;
 `;
 
 const UsernameContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
 `;
 
 const Username = styled.h2`
-  font-weight: 300;
-  font-size: 28px;
-  line-height: 32px;
-  color: #262626;
-  margin: 0;
-  text-align: left;
+	font-weight: 300;
+	font-size: 28px;
+	line-height: 32px;
+	color: #262626;
+	margin: 0;
+	text-align: left;
 `;
 
 const EditButton = styled(Link)`
-  text-decoration: none;
-  margin-left: 20px;
-  border: 1px solid #dbdbdb;
-  color: #262626;
-  border-radius: 4px;
-  font-weight: 600;
-  padding: 5px 9px;
-  text-align: center;
+	text-decoration: none;
+	margin-left: 20px;
+	border: 1px solid #dbdbdb;
+	color: #262626;
+	border-radius: 4px;
+	font-weight: 600;
+	padding: 5px 9px;
+	text-align: center;
 `;
 
 const OptionsButton = styled.button`
-  margin-left: 5px;
-  cursor: pointer;
-  padding: 0;
-  background: 0 0;
-  border: 0;
-  outline: 0;
-  display: flex;
-  align-items: center;
+	margin-left: 5px;
+	cursor: pointer;
+	padding: 0;
+	background: 0 0;
+	border: 0;
+	outline: 0;
+	display: flex;
+	align-items: center;
 `;
 
-const PostsFollowersFollowingContainer = styled.div``;
+const PostsFollowersFollowingContainer = styled.div`
+	display: flex;
+	align-items: center;
+	width: 100%;
+	color: #262626;
+	font-size: 16px;
+	margin-bottom: 20px;
+`;
 
-const PostsCount = styled.div``;
+const PostsFollowersFollowingCount = styled.div`
+	&:nth-child(1),
+	&:nth-child(2) {
+		margin-right: 40px;
+	}
+	span {
+		font-weight: 600;
+		margin-right: 5px;
+	}
+`;
 
-const FollowesCount = styled.div``;
+const Fullname = styled.h1`
+	display: block;
+	font-size: 16px;
+	font-weight: 600;
+	color: #262626;
+	margin: 0 0 2px 0;
+`;
 
-const FollowingCount = styled.div``;
+const Bio = styled.p`
+	display: block;
+	font-size: 16px;
+	color: #262626;
+`;
+
+const PostAndTaggedMenu = styled.div`
+	width: 100%;
+	border-top: 1px solid #dbdbdb;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
+const PostsMenu = styled(Link)`
+	text-decoration: none;
+	&:nth-child(1) {
+		margin-right: 60px;
+	}
+`;
 
 type ProfileProps = {
-  match: { params: { username: string } };
+	match: { params: { username: string } };
 };
 
 const Profile = ({ match }: ProfileProps) => {
-  const userName = match.params.username.toLowerCase();
-  const { data, loading } = useGetUserQuery({ variables: { userName: userName } });
-
-  return (
-    <Container>
-      {data?.getUser.user && !loading ? (
-        <Main>
-          <ProfileData>
-            <ProfileImage>
-              <img src={data.getUser.user?.imageUrl} alt='profile' />
-            </ProfileImage>
-            <ProfileInformations>
-              <UsernameContainer>
-                <Username>{data.getUser.user?.userName}</Username>
-                <EditButton to='/accounts/edit'>Edit Profile</EditButton>
-                <OptionsButton type='button'>
-                  <svg fill='#262626' height='24' viewBox='0 0 48 48' width='24'>
-                    <path
-                      clipRule='evenodd'
-                      d='M46.7 20.6l-2.1-1.1c-.4-.2-.7-.5-.8-1-.5-1.6-1.1-3.2-1.9-4.7-.2-.4-.3-.8-.1-1.2l.8-2.3c.2-.5 0-1.1-.4-1.5l-2.9-2.9c-.4-.4-1-.5-1.5-.4l-2.3.8c-.4.1-.8.1-1.2-.1-1.4-.8-3-1.5-4.6-1.9-.4-.1-.8-.4-1-.8l-1.1-2.2c-.3-.5-.8-.8-1.3-.8h-4.1c-.6 0-1.1.3-1.3.8l-1.1 2.2c-.2.4-.5.7-1 .8-1.6.5-3.2 1.1-4.6 1.9-.4.2-.8.3-1.2.1l-2.3-.8c-.5-.2-1.1 0-1.5.4L5.9 8.8c-.4.4-.5 1-.4 1.5l.8 2.3c.1.4.1.8-.1 1.2-.8 1.5-1.5 3-1.9 4.7-.1.4-.4.8-.8 1l-2.1 1.1c-.5.3-.8.8-.8 1.3V26c0 .6.3 1.1.8 1.3l2.1 1.1c.4.2.7.5.8 1 .5 1.6 1.1 3.2 1.9 4.7.2.4.3.8.1 1.2l-.8 2.3c-.2.5 0 1.1.4 1.5L8.8 42c.4.4 1 .5 1.5.4l2.3-.8c.4-.1.8-.1 1.2.1 1.4.8 3 1.5 4.6 1.9.4.1.8.4 1 .8l1.1 2.2c.3.5.8.8 1.3.8h4.1c.6 0 1.1-.3 1.3-.8l1.1-2.2c.2-.4.5-.7 1-.8 1.6-.5 3.2-1.1 4.6-1.9.4-.2.8-.3 1.2-.1l2.3.8c.5.2 1.1 0 1.5-.4l2.9-2.9c.4-.4.5-1 .4-1.5l-.8-2.3c-.1-.4-.1-.8.1-1.2.8-1.5 1.5-3 1.9-4.7.1-.4.4-.8.8-1l2.1-1.1c.5-.3.8-.8.8-1.3v-4.1c.4-.5.1-1.1-.4-1.3zM24 41.5c-9.7 0-17.5-7.8-17.5-17.5S14.3 6.5 24 6.5 41.5 14.3 41.5 24 33.7 41.5 24 41.5z'
-                      fillRule='evenodd'></path>
-                  </svg>
-                </OptionsButton>
-              </UsernameContainer>
-              <PostsFollowersFollowingContainer>
-                <PostsCount>{data.getUser.user?.images?.length} posts</PostsCount>
-                <FollowesCount></FollowesCount>
-                <FollowingCount></FollowingCount>
-              </PostsFollowersFollowingContainer>
-            </ProfileInformations>
-          </ProfileData>
-        </Main>
-      ) : (
-        <> {data?.getUser.error?.message}</>
-      )}
-    </Container>
-  );
+	const userName = match.params.username.toLowerCase();
+	const { data, loading } = useGetUserQuery({ variables: { userName: userName } });
+	return (
+		<Container>
+			{data?.getUser.user && !loading ? (
+				<Main>
+					<ProfileData>
+						<ProfileImage>
+							<img src={data.getUser.user?.imageUrl} alt="profile" />
+						</ProfileImage>
+						<ProfileInformations>
+							<UsernameContainer>
+								<Username>{data.getUser.user?.userName}</Username>
+								<EditButton to="/accounts/edit">Edit Profile</EditButton>
+								<OptionsButton type="button">
+									<svg fill="#262626" height="24" viewBox="0 0 48 48" width="24">
+										<path
+											clipRule="evenodd"
+											d="M46.7 20.6l-2.1-1.1c-.4-.2-.7-.5-.8-1-.5-1.6-1.1-3.2-1.9-4.7-.2-.4-.3-.8-.1-1.2l.8-2.3c.2-.5 0-1.1-.4-1.5l-2.9-2.9c-.4-.4-1-.5-1.5-.4l-2.3.8c-.4.1-.8.1-1.2-.1-1.4-.8-3-1.5-4.6-1.9-.4-.1-.8-.4-1-.8l-1.1-2.2c-.3-.5-.8-.8-1.3-.8h-4.1c-.6 0-1.1.3-1.3.8l-1.1 2.2c-.2.4-.5.7-1 .8-1.6.5-3.2 1.1-4.6 1.9-.4.2-.8.3-1.2.1l-2.3-.8c-.5-.2-1.1 0-1.5.4L5.9 8.8c-.4.4-.5 1-.4 1.5l.8 2.3c.1.4.1.8-.1 1.2-.8 1.5-1.5 3-1.9 4.7-.1.4-.4.8-.8 1l-2.1 1.1c-.5.3-.8.8-.8 1.3V26c0 .6.3 1.1.8 1.3l2.1 1.1c.4.2.7.5.8 1 .5 1.6 1.1 3.2 1.9 4.7.2.4.3.8.1 1.2l-.8 2.3c-.2.5 0 1.1.4 1.5L8.8 42c.4.4 1 .5 1.5.4l2.3-.8c.4-.1.8-.1 1.2.1 1.4.8 3 1.5 4.6 1.9.4.1.8.4 1 .8l1.1 2.2c.3.5.8.8 1.3.8h4.1c.6 0 1.1-.3 1.3-.8l1.1-2.2c.2-.4.5-.7 1-.8 1.6-.5 3.2-1.1 4.6-1.9.4-.2.8-.3 1.2-.1l2.3.8c.5.2 1.1 0 1.5-.4l2.9-2.9c.4-.4.5-1 .4-1.5l-.8-2.3c-.1-.4-.1-.8.1-1.2.8-1.5 1.5-3 1.9-4.7.1-.4.4-.8.8-1l2.1-1.1c.5-.3.8-.8.8-1.3v-4.1c.4-.5.1-1.1-.4-1.3zM24 41.5c-9.7 0-17.5-7.8-17.5-17.5S14.3 6.5 24 6.5 41.5 14.3 41.5 24 33.7 41.5 24 41.5z"
+											fillRule="evenodd"></path>
+									</svg>
+								</OptionsButton>
+							</UsernameContainer>
+							<PostsFollowersFollowingContainer>
+								<PostsFollowersFollowingCount>
+									<span>{data.getUser.user?.images?.length}</span>posts
+								</PostsFollowersFollowingCount>
+								<PostsFollowersFollowingCount>
+									<span>0</span>followers
+								</PostsFollowersFollowingCount>
+								<PostsFollowersFollowingCount>
+									<span>0</span>following
+								</PostsFollowersFollowingCount>
+							</PostsFollowersFollowingContainer>
+							<Fullname>{data.getUser.user.fullName}</Fullname>
+							<Bio>{data.getUser.user.bio}</Bio>
+						</ProfileInformations>
+					</ProfileData>
+					<PostAndTaggedMenu>
+						<PostsMenu to={`/${data.getUser.user.userName}`}>
+							<svg fill="#262626" height="12" viewBox="0 0 48 48" width="12">
+								<path
+									clipRule="evenodd"
+									d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z"
+									fillRule="evenodd"></path>
+							</svg>
+							<span>Posts</span>
+						</PostsMenu>
+						<PostsMenu to={`/${data.getUser.user.userName}/tagged`}>
+							<svg fill="#8e8e8e" height="12" viewBox="0 0 48 48" width="12">
+								<path d="M41.5 5.5H30.4c-.5 0-1-.2-1.4-.6l-4-4c-.6-.6-1.5-.6-2.1 0l-4 4c-.4.4-.9.6-1.4.6h-11c-3.3 0-6 2.7-6 6v30c0 3.3 2.7 6 6 6h35c3.3 0 6-2.7 6-6v-30c0-3.3-2.7-6-6-6zm-29.4 39c-.6 0-1.1-.6-1-1.2.7-3.2 3.5-5.6 6.8-5.6h12c3.4 0 6.2 2.4 6.8 5.6.1.6-.4 1.2-1 1.2H12.1zm32.4-3c0 1.7-1.3 3-3 3h-.6c-.5 0-.9-.4-1-.9-.6-5-4.8-8.9-9.9-8.9H18c-5.1 0-9.4 3.9-9.9 8.9-.1.5-.5.9-1 .9h-.6c-1.7 0-3-1.3-3-3v-30c0-1.7 1.3-3 3-3h11.1c1.3 0 2.6-.5 3.5-1.5L24 4.1 26.9 7c.9.9 2.2 1.5 3.5 1.5h11.1c1.7 0 3 1.3 3 3v30zM24 12.5c-5.3 0-9.6 4.3-9.6 9.6s4.3 9.6 9.6 9.6 9.6-4.3 9.6-9.6-4.3-9.6-9.6-9.6zm0 16.1c-3.6 0-6.6-2.9-6.6-6.6 0-3.6 2.9-6.6 6.6-6.6s6.6 2.9 6.6 6.6c0 3.6-3 6.6-6.6 6.6z"></path>
+							</svg>
+							<span>Tagged</span>
+						</PostsMenu>
+					</PostAndTaggedMenu>
+				</Main>
+			) : (
+				<> {data?.getUser.error?.message}</>
+			)}
+		</Container>
+	);
 };
 
 export default Profile;
