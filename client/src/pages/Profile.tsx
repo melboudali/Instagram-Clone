@@ -112,9 +112,28 @@ const PostAndTaggedMenu = styled.div`
 `;
 
 const PostsMenu = styled(Link)`
+	display: flex;
+	align-items: center;
 	text-decoration: none;
+	color: #262626;
+	margin-top: -1px;
+	height: 52px;
 	&:nth-child(1) {
 		margin-right: 60px;
+		border-top: 1px solid #262626;
+	}
+	&:nth-child(2) {
+		span {
+			color: #8e8e8e;
+		}
+	}
+	span {
+		margin-left: 6px;
+		letter-spacing: 1px;
+		text-align: center;
+		font-size: 12px;
+		font-weight: 600;
+		text-transform: uppercase;
 	}
 `;
 
