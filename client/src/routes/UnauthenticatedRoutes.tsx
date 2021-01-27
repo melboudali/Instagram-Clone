@@ -10,8 +10,8 @@ const UnauthenticatedApp = () => {
   return (
     <Switch>
       <Route exact path='/' component={Signin} />
-      <PublicRoutes />
       <Route exact path='/accounts/emailsignup' component={Signup} />
+      <PublicRoutes />
       <Route exact path='*' component={NotFound} />
     </Switch>
   );

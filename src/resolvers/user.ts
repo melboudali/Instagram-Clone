@@ -67,25 +67,21 @@ export class UserResolver {
     @Arg('registerInputs') registerInputs: registerInputs,
     @Ctx() { req }: MyContext
   ): Promise<UserResponse> {
-    if (registerInputs.fullName.length <= 2) {
+    const fullname = registerInputs.fullName;
+    const username = registerInputs.userName.toLowerCase().replace(' ', '.');
+    const email = registerInputs.email;
+    const password = registerInputs.password;
+    const hashedPassword = await argon2.hash(registerInputs.password);
+
+    if (fullname.length <= 5 || username.length <= 5 || password.length <= 5) {
       return {
-        error: { message: 'Full name length should be greater than 2.' }
+        error: { message: 'Full name or Username or Password length should be greater than 5.' }
       };
     }
-    if (registerInputs.userName.length <= 2) {
-      return {
-        error: { message: 'Username length should be greater than 2.' }
-      };
-    }
-    if (registerInputs.email.length <= 2 || !registerInputs.email.includes('@')) {
+    if (email.length <= 5 || !email.includes('@')) {
       return { error: { message: 'Invalid email.' } };
     }
-    if (registerInputs.password.length <= 2) {
-      return {
-        error: { message: 'password length should be greater than 2.' }
-      };
-    }
-    const hashedPassword = await argon2.hash(registerInputs.password);
+
     let user;
     try {
       const result = await getConnection()
