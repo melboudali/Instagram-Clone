@@ -2,6 +2,7 @@ import { useGetUserQuery } from "../generated/graphql";
 import styled from "styled-components";
 import Container from "../components/Container";
 import { Link } from "react-router-dom";
+import Posts from "../components/Posts";
 
 const Main = styled.div`
 	margin: 30px auto 0;
@@ -197,6 +198,7 @@ const Profile = ({ match }: ProfileProps) => {
 							<span>Tagged</span>
 						</PostsMenu>
 					</PostAndTaggedMenu>
+					<Posts></Posts>
 				</Main>
 			) : (
 				<> {data?.getUser.error?.message}</>

@@ -31,6 +31,7 @@ export const GlobalStyle = createGlobalStyle`
     scroll-behavior: smooth;
   }; 
 
+
   body, button, input, textarea {
     margin: 0;
     padding: 0;
