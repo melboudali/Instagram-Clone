@@ -73,7 +73,7 @@ export class UserResolver {
     const password = registerInputs.password;
     const hashedPassword = await argon2.hash(registerInputs.password);
 
-    if (fullname.length <= 5 || username.length <= 5 || password.length <= 5) {
+    if (fullname.length <= 5 || username.length <= 4 || password.length <= 4) {
       return {
         error: { message: 'Full name or Username or Password length should be greater than 5.' }
       };
