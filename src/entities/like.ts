@@ -1,21 +1,18 @@
-import { Entity, Column, BaseEntity, ManyToOne, PrimaryColumn } from 'typeorm';
-import { User } from './user';
-import { Image } from './image';
+import { Entity, BaseEntity, ManyToOne, PrimaryColumn } from "typeorm";
+import { User } from "./user";
+import { Image } from "./image";
 
 @Entity()
 export class Like extends BaseEntity {
-  @Column({ type: 'int' })
-  value: number;
+	@PrimaryColumn()
+	user_id: number;
 
-  @PrimaryColumn()
-  userId: number;
+	@ManyToOne(() => User, user => user.likes)
+	user: User;
 
-  @ManyToOne(() => User, user => user.likes)
-  user: User;
+	@PrimaryColumn()
+	image_id: number;
 
-  @PrimaryColumn()
-  imageId: number;
-
-  @ManyToOne(() => Image, image => image.likes, { onDelete: 'CASCADE' })
-  image: Image;
+	@ManyToOne(() => Image, image => image.likes, { onDelete: "CASCADE" })
+	image: Image;
 }

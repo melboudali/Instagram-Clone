@@ -135,7 +135,6 @@ const ProfileImage = styled.span`
 
 const LoginButton = styled.button`
 	cursor: pointer;
-	padding: 0;
 	background: var(--buttonLightBlue);
 	border: 0;
 	outline: 0;

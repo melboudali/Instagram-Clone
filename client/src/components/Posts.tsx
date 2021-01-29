@@ -88,8 +88,8 @@ const Posts = ({}: PostsProps) => {
 	];
 	return (
 		<Container>
-			{Images.map(image => (
-				<ImageContainer>
+			{Images.map((image, id) => (
+				<ImageContainer key={id}>
 					<Image src={image} alt="post" />
 					<ImageAndCommentsCount>
 						<LikesContainer>
@@ -104,8 +104,8 @@ const Posts = ({}: PostsProps) => {
 									fill="white"
 								/>
 								<path
-									fill-rule="evenodd"
-									clip-rule="evenodd"
+									fillRule="evenodd"
+									clipRule="evenodd"
 									d="M17.75 5.33341C17.75 2.70841 15.7917 0.541748 13.4167 0.541748C11.6667 0.541748 10.7083 1.37508 10.0417 2.33341C9.25 3.41675 9.125 3.95841 9 3.95841C8.875 3.95841 8.75 3.41675 7.95833 2.33341C7.29167 1.37508 6.33333 0.541748 4.58333 0.541748C2.20833 0.541748 0.25 2.70841 0.25 5.33341C0.25 8.16675 2.66667 9.91675 5.04167 12.0001C7.04167 13.7917 8.54167 15.1667 9 15.4584C9.41667 15.2084 10.625 14.0834 12.9583 12.0001C15.2917 9.91675 17.75 8.16675 17.75 5.33341Z"
 									fill="white"
 								/>
@@ -124,8 +124,8 @@ const Posts = ({}: PostsProps) => {
 									fill="white"
 								/>
 								<path
-									fill-rule="evenodd"
-									clip-rule="evenodd"
+									fillRule="evenodd"
+									clipRule="evenodd"
 									d="M16.25 12.9583C16.9167 11.7083 17.3333 10.4583 17.3333 8.79167C17.3333 4.08333 13.5 0.25 8.79167 0.25C4.08333 0.25 0.25 4.08333 0.25 8.79167C0.25 13.5 4.08333 17.3333 8.83333 17.3333C10.8333 17.3333 12.25 16.6667 13 16.25C13.1667 16.125 13.375 16.125 13.5833 16.1667L17.0417 17.0417L16.1667 13.5417C16.125 13.3333 16.1667 13.125 16.25 12.9583Z"
 									fill="white"
 								/>

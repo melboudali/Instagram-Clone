@@ -2,7 +2,6 @@ import {
 	Arg,
 	Ctx,
 	Field,
-	FieldResolver,
 	InputType,
 	Mutation,
 	ObjectType,
@@ -14,9 +13,8 @@ import { User } from "../entities/user";
 import { MyContext } from "../types";
 import argon2 from "argon2";
 import { cookieName } from "../config/constants";
-import { createQueryBuilder, getConnection } from "typeorm";
+import { getConnection } from "typeorm";
 import { isAuth } from "../middleware/isAuthenticated";
-import { Image } from "../entities/image";
 
 @InputType()
 class registerInputs {
@@ -55,10 +53,10 @@ export class UserResolver {
 	// Select connected user
 	@Query(() => User, { nullable: true })
 	async me(@Ctx() { req }: MyContext) {
-		if (!req.session!.userId) {
+		if (!req.session!.user_id) {
 			return null;
 		}
-		return await User.findOne(req.session.userId);
+		return await User.findOne(req.session.user_id);
 	}
 
 	// Register Mutation
@@ -89,9 +87,9 @@ export class UserResolver {
 				.insert()
 				.into(User)
 				.values({
-					userName: username,
-					fullName: fullname,
-					email: email,
+					username,
+					fullname,
+					email,
 					password: hashedPassword
 				})
 				.returning("*")
@@ -102,7 +100,7 @@ export class UserResolver {
 				return { error: { message: "That username or email address is already in use." } };
 			}
 		}
-		req.session!.userId = user.id;
+		req.session!.user_id = user.id;
 		return { user };
 	}
 
@@ -115,7 +113,7 @@ export class UserResolver {
 	): Promise<UserResponse> {
 		const isEmail: boolean = !!userNameOrEmail.includes("@");
 		const user = await User.findOne({
-			where: isEmail ? { email: userNameOrEmail } : { userName: userNameOrEmail }
+			where: isEmail ? { email: userNameOrEmail } : { username: userNameOrEmail }
 		});
 
 		if (!user) {
@@ -134,16 +132,16 @@ export class UserResolver {
 				}
 			};
 		}
-		req.session.userId = user.id;
+		req.session.user_id = user.id;
 		return { user };
 	}
 
 	// Select user by username
 	@Query(() => UserResponse)
-	async getUser(@Arg("userName") userName: string): Promise<UserResponse> {
+	async getUser(@Arg("userName") username: string): Promise<UserResponse> {
 		const user = await User.createQueryBuilder("i")
 			.leftJoinAndSelect("i.images", "image")
-			.where('"userName" = :userName', { userName })
+			.where('"username" = :username', { username })
 			.getOne();
 
 		if (user) {
@@ -161,7 +159,7 @@ export class UserResolver {
 	@Query(() => UsersResponse)
 	@UseMiddleware(isAuth)
 	async suggestedUsers(@Ctx() { req }: MyContext): Promise<UsersResponse> {
-		const id = req.session.userId;
+		const id = req.session.user_id;
 		const users = await User.createQueryBuilder()
 			.where("id != :id", { id })
 			.orderBy("id", "DESC")
