@@ -46,6 +46,12 @@ const Username = styled.h2`
 	color: #262626;
 	margin: 0;
 	text-align: left;
+	@media only screen and (max-width: 763px) {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 170px;
+	}
 `;
 
 const EditButton = styled(Link)`

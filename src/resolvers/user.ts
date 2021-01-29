@@ -68,7 +68,7 @@ export class UserResolver {
 		@Ctx() { req }: MyContext
 	): Promise<UserResponse> {
 		const fullname = registerInputs.fullName;
-		const username = registerInputs.userName.toLowerCase().replace(" ", ".");
+		const username = registerInputs.userName.toLowerCase().split(" ").join(".");
 		const email = registerInputs.email;
 		const password = registerInputs.password;
 		const hashedPassword = await argon2.hash(registerInputs.password);
@@ -78,7 +78,7 @@ export class UserResolver {
 				error: { message: "Full name or Username or Password length should be greater than 5." }
 			};
 		}
-		if (email.length <= 5 || !email.includes("@")) {
+		if (email.length <= 3 || !email.includes("@")) {
 			return { error: { message: "Invalid email." } };
 		}
 
@@ -89,9 +89,9 @@ export class UserResolver {
 				.insert()
 				.into(User)
 				.values({
-					userName: registerInputs.userName,
-					fullName: registerInputs.fullName,
-					email: registerInputs.email,
+					userName: username,
+					fullName: fullname,
+					email: email,
 					password: hashedPassword
 				})
 				.returning("*")
