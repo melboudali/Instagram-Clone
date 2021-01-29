@@ -168,7 +168,7 @@ const Profile = ({ match }: ProfileProps) => {
 							</UsernameContainer>
 							<PostsFollowersFollowingContainer>
 								<PostsFollowersFollowingCount>
-									<span>{data.getUser.user?.images?.length}</span>posts
+									<span>24</span>posts
 								</PostsFollowersFollowingCount>
 								<PostsFollowersFollowingCount>
 									<span>0</span>followers
