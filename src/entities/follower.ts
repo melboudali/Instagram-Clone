@@ -1,6 +1,8 @@
-import { Entity, BaseEntity, PrimaryColumn, ManyToMany } from "typeorm";
+import { ObjectType } from "type-graphql";
+import { Entity, BaseEntity, PrimaryColumn, ManyToOne } from "typeorm";
 import { User } from "./user";
 
+@ObjectType()
 @Entity()
 export class Follower extends BaseEntity {
 	@PrimaryColumn()
@@ -9,6 +11,6 @@ export class Follower extends BaseEntity {
 	@PrimaryColumn()
 	follower_id: number;
 
-	@ManyToMany(() => User, user => user.followers)
-	user: User;
+	@ManyToOne(() => User, user => user.followers, { onDelete: "CASCADE" })
+	user: User[];
 }

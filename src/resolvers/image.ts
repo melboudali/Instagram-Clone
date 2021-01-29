@@ -32,7 +32,7 @@ class ErrorField {
 @ObjectType()
 class UploadImageResponse {
 	@Field(() => Image, { nullable: true })
-	imageData?: Image;
+	image?: Image;
 	@Field(() => ErrorField, { nullable: true })
 	error?: ErrorField;
 }
@@ -75,7 +75,7 @@ export class ImageResolver {
 						caption,
 						image_url: `http://localhost:5000/images/${imageFileName}`
 					}).save();
-					resolve({ imageData: post });
+					resolve({ image: post });
 				})
 				.on("error", err => {
 					reject({ error: { field: "error", message: err.message } });

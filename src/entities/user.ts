@@ -59,13 +59,12 @@ export class User extends BaseEntity {
 	@OneToMany(() => Image, image => image.user)
 	images: Image[];
 
-	@Field(() => [Follower], { nullable: true })
 	@OneToMany(() => Follower, follower => follower.user)
 	followers: Follower[];
 
-	@Field(() => [Follower], { nullable: true })
-	@OneToMany(() => Follower, follower => follower.user)
-	following: Follower[];
+	// @Field(() => [Follower], { nullable: true })
+	// @ManyToMany(() => Follower, follower => follower.user)
+	// following: Follower[];
 
 	@OneToMany(() => Like, like => like.user)
 	likes: Like[];

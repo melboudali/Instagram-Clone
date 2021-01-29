@@ -1,9 +1,9 @@
 query GetSuggestedUsers {
-  suggestedUsers {
-    users {
-      id
-      userName
-      imageUrl
-    }
-  }
+	suggestedUsers {
+		users {
+			id
+			username
+			image_link
+		}
+	}
 }

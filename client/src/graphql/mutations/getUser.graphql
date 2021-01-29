@@ -1,20 +1,20 @@
 query GetUser($userName: String!) {
-  getUser(userName: $userName) {
-    user {
-      ...userFragment
-      images {
-        id
-        title
-        likes
-        url
-        likeStatu
-        userId
-        createdAt
-        updatedAt
-      }
-    }
-    error {
-      ...userErrorFragment
-    }
-  }
+	getUser(userName: $userName) {
+		user {
+			...userFragment
+			images {
+				id
+				caption
+				image_url
+				likes
+				like_status
+				user_id
+				created_at
+				updated_at
+			}
+		}
+		error {
+			...userErrorFragment
+		}
+	}
 }

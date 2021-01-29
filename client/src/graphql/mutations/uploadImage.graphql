@@ -1,23 +1,23 @@
 mutation UploadImage($file: Upload!, $caption: String!) {
-  uploadImage(file: $file, caption: $caption) {
-    imageData {
-      id
-      title
-      likes
-      url
-      likeStatu
-      user {
-        id
-        userName
-        imageUrl
-      }
-      userId
-      createdAt
-      updatedAt
-    }
-    error {
-      field
-      message
-    }
-  }
+	uploadImage(file: $file, caption: $caption) {
+		image {
+			id
+			caption
+			image_url
+			likes
+			like_status
+			user_id
+			created_at
+			updated_at
+			user {
+				id
+				username
+				image_link
+			}
+		}
+		error {
+			field
+			message
+		}
+	}
 }

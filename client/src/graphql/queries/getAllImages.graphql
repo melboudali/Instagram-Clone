@@ -1,20 +1,20 @@
 query GetAllImages($limit: Int!, $cursor: String) {
-  getAllImages(limit: $limit, cursor: $cursor) {
-    hasMore
-    images {
-      id
-      title
-      url
-      likes
-      likeStatu
-      userId
-      user {
-        id
-        userName
-        imageUrl
-      }
-      createdAt
-      updatedAt
-    }
-  }
+	getAllImages(limit: $limit, cursor: $cursor) {
+		hasMore
+		images {
+			id
+			caption
+			image_url
+			likes
+			like_status
+			user_id
+			created_at
+			updated_at
+			user {
+				id
+				username
+				image_link
+			}
+		}
+	}
 }

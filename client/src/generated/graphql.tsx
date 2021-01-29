@@ -37,29 +37,29 @@ export type QueryGetAllImagesArgs = {
 export type User = {
   __typename?: 'User';
   id: Scalars['Float'];
-  userName: Scalars['String'];
+  username: Scalars['String'];
   email: Scalars['String'];
-  fullName: Scalars['String'];
+  fullname: Scalars['String'];
   website: Scalars['String'];
   bio: Scalars['String'];
-  phoneNumber: Scalars['Float'];
-  gender: Scalars['String'];
-  imageUrl: Scalars['String'];
+  phone_number: Scalars['Float'];
+  image_link: Scalars['String'];
+  private: Scalars['Boolean'];
   images?: Maybe<Array<Image>>;
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
+  created_at: Scalars['String'];
+  updated_at: Scalars['String'];
 };
 
 export type Image = {
   __typename?: 'Image';
-  id: Scalars['Float'];
-  title: Scalars['String'];
+  id: Scalars['String'];
+  caption: Scalars['String'];
+  image_url: Scalars['String'];
   likes: Scalars['Float'];
-  url: Scalars['String'];
-  likeStatu?: Maybe<Scalars['Int']>;
-  userId: Scalars['Float'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
+  like_status?: Maybe<Scalars['Int']>;
+  user_id: Scalars['Float'];
+  created_at: Scalars['String'];
+  updated_at: Scalars['String'];
   user: User;
 };
 
@@ -119,7 +119,7 @@ export type RegisterInputs = {
 
 export type UploadImageResponse = {
   __typename?: 'UploadImageResponse';
-  imageData?: Maybe<Image>;
+  image?: Maybe<Image>;
   error?: Maybe<ErrorField>;
 };
 
@@ -137,7 +137,7 @@ export type UserErrorFragmentFragment = (
 
 export type UserFragmentFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'userName' | 'email' | 'fullName' | 'website' | 'bio' | 'phoneNumber' | 'gender' | 'imageUrl' | 'createdAt' | 'updatedAt'>
+  & Pick<User, 'id' | 'username' | 'email' | 'fullname' | 'website' | 'bio' | 'phone_number' | 'image_link' | 'private' | 'created_at' | 'updated_at'>
 );
 
 export type GetUserQueryVariables = Exact<{
@@ -153,7 +153,7 @@ export type GetUserQuery = (
       { __typename?: 'User' }
       & { images?: Maybe<Array<(
         { __typename?: 'Image' }
-        & Pick<Image, 'id' | 'title' | 'likes' | 'url' | 'likeStatu' | 'userId' | 'createdAt' | 'updatedAt'>
+        & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'user_id' | 'created_at' | 'updated_at'>
       )>> }
       & UserFragmentFragment
     )>, error?: Maybe<(
@@ -220,12 +220,12 @@ export type UploadImageMutation = (
   { __typename?: 'Mutation' }
   & { uploadImage: (
     { __typename?: 'UploadImageResponse' }
-    & { imageData?: Maybe<(
+    & { image?: Maybe<(
       { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'title' | 'likes' | 'url' | 'likeStatu' | 'userId' | 'createdAt' | 'updatedAt'>
+      & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'user_id' | 'created_at' | 'updated_at'>
       & { user: (
         { __typename?: 'User' }
-        & Pick<User, 'id' | 'userName' | 'imageUrl'>
+        & Pick<User, 'id' | 'username' | 'image_link'>
       ) }
     )>, error?: Maybe<(
       { __typename?: 'ErrorField' }
@@ -247,10 +247,10 @@ export type GetAllImagesQuery = (
     & Pick<PaginatedImages, 'hasMore'>
     & { images: Array<(
       { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'title' | 'url' | 'likes' | 'likeStatu' | 'userId' | 'createdAt' | 'updatedAt'>
+      & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'user_id' | 'created_at' | 'updated_at'>
       & { user: (
         { __typename?: 'User' }
-        & Pick<User, 'id' | 'userName' | 'imageUrl'>
+        & Pick<User, 'id' | 'username' | 'image_link'>
       ) }
     )> }
   ) }
@@ -265,7 +265,7 @@ export type GetSuggestedUsersQuery = (
     { __typename?: 'UsersResponse' }
     & { users?: Maybe<Array<(
       { __typename?: 'User' }
-      & Pick<User, 'id' | 'userName' | 'imageUrl'>
+      & Pick<User, 'id' | 'username' | 'image_link'>
     )>> }
   ) }
 );
@@ -289,16 +289,16 @@ export const UserErrorFragmentFragmentDoc = gql`
 export const UserFragmentFragmentDoc = gql`
     fragment userFragment on User {
   id
-  userName
+  username
   email
-  fullName
+  fullname
   website
   bio
-  phoneNumber
-  gender
-  imageUrl
-  createdAt
-  updatedAt
+  phone_number
+  image_link
+  private
+  created_at
+  updated_at
 }
     `;
 export const GetUserDocument = gql`
@@ -308,13 +308,13 @@ export const GetUserDocument = gql`
       ...userFragment
       images {
         id
-        title
+        caption
+        image_url
         likes
-        url
-        likeStatu
-        userId
-        createdAt
-        updatedAt
+        like_status
+        user_id
+        created_at
+        updated_at
       }
     }
     error {
@@ -459,20 +459,20 @@ export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutatio
 export const UploadImageDocument = gql`
     mutation UploadImage($file: Upload!, $caption: String!) {
   uploadImage(file: $file, caption: $caption) {
-    imageData {
+    image {
       id
-      title
+      caption
+      image_url
       likes
-      url
-      likeStatu
+      like_status
+      user_id
+      created_at
+      updated_at
       user {
         id
-        userName
-        imageUrl
+        username
+        image_link
       }
-      userId
-      createdAt
-      updatedAt
     }
     error {
       field
@@ -513,18 +513,18 @@ export const GetAllImagesDocument = gql`
     hasMore
     images {
       id
-      title
-      url
+      caption
+      image_url
       likes
-      likeStatu
-      userId
+      like_status
+      user_id
+      created_at
+      updated_at
       user {
         id
-        userName
-        imageUrl
+        username
+        image_link
       }
-      createdAt
-      updatedAt
     }
   }
 }
@@ -561,8 +561,8 @@ export const GetSuggestedUsersDocument = gql`
   suggestedUsers {
     users {
       id
-      userName
-      imageUrl
+      username
+      image_link
     }
   }
 }
