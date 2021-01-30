@@ -128,6 +128,7 @@ const Website = styled.a`
 	font-weight: 600;
 	color: #00376b;
 	text-decoration: none;
+	font-size: 16px;
 `;
 
 const PostAndTaggedMenu = styled.div`
