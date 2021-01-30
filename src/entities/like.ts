@@ -10,8 +10,8 @@ export class Like extends BaseEntity {
 	@ManyToOne(() => User, user => user.likes)
 	user: User;
 
-	@PrimaryColumn()
-	image_id: number;
+	@PrimaryColumn("uuid")
+	image_id: string;
 
 	@ManyToOne(() => Image, image => image.likes, { onDelete: "CASCADE" })
 	image: Image;

@@ -8,6 +8,7 @@ fragment userFragment on User {
 	phone_number
 	image_link
 	private
+	verified
 	created_at
 	updated_at
 }

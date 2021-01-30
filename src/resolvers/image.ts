@@ -105,7 +105,7 @@ export class ImageResolver {
 		const images = await getConnection().query(
 			`
       select i.*, 
-      (select user_id from like where user_id = $2 and image_id = i.id) like_status
+      (select image_id from "like" where user_id = $2 and image_id = i.id) like_status
       from image i
       ${cursor ? `where i.created_at < $${cursorId}` : ""}
       order by i.created_at DESC

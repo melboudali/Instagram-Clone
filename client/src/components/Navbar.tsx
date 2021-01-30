@@ -215,7 +215,7 @@ const Navbar = () => {
 									ref={ref}>
 									<ProfileImageBorder showMenu={showMenu} />
 									<ProfileImage>
-										<img src={data?.me?.imageUrl} alt={`${data?.me?.fullName}'s profile`} />
+										<img src={data?.me?.image_link} alt={`${data?.me?.fullname}'s profile`} />
 									</ProfileImage>
 									<NavbarMenu data={data} showMenu={showMenu} />
 								</LinkContainer>

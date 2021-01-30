@@ -25,7 +25,7 @@ export type Query = {
 
 
 export type QueryGetUserArgs = {
-  userName: Scalars['String'];
+  username: Scalars['String'];
 };
 
 
@@ -44,6 +44,7 @@ export type User = {
   bio: Scalars['String'];
   phone_number: Scalars['Float'];
   image_link: Scalars['String'];
+  verified: Scalars['Boolean'];
   private: Scalars['Boolean'];
   images?: Maybe<Array<Image>>;
   created_at: Scalars['String'];
@@ -137,11 +138,11 @@ export type UserErrorFragmentFragment = (
 
 export type UserFragmentFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'id' | 'username' | 'email' | 'fullname' | 'website' | 'bio' | 'phone_number' | 'image_link' | 'private' | 'created_at' | 'updated_at'>
+  & Pick<User, 'id' | 'username' | 'email' | 'fullname' | 'website' | 'bio' | 'phone_number' | 'image_link' | 'private' | 'verified' | 'created_at' | 'updated_at'>
 );
 
 export type GetUserQueryVariables = Exact<{
-  userName: Scalars['String'];
+  username: Scalars['String'];
 }>;
 
 
@@ -297,13 +298,14 @@ export const UserFragmentFragmentDoc = gql`
   phone_number
   image_link
   private
+  verified
   created_at
   updated_at
 }
     `;
 export const GetUserDocument = gql`
-    query GetUser($userName: String!) {
-  getUser(userName: $userName) {
+    query GetUser($username: String!) {
+  getUser(username: $username) {
     user {
       ...userFragment
       images {
@@ -337,7 +339,7 @@ ${UserErrorFragmentFragmentDoc}`;
  * @example
  * const { data, loading, error } = useGetUserQuery({
  *   variables: {
- *      userName: // value for 'userName'
+ *      username: // value for 'username'
  *   },
  * });
  */

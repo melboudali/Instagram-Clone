@@ -62,6 +62,7 @@ const ProfileImage = styled.div`
 	a {
 		text-decoration: none;
 		img {
+			border: 1px solid rgba(0, 0, 0, 0.0975);
 			width: 100%;
 			height: 100%;
 			border-radius: 50%;
@@ -153,6 +154,7 @@ const SuggestedProfileImage = styled.div`
 	a {
 		text-decoration: none;
 		img {
+			border: 1px solid rgba(0, 0, 0, 0.0975);
 			width: 100%;
 			height: 100%;
 			border-radius: 50%;
@@ -276,13 +278,13 @@ const Suggestions = ({ data }: SuggestionsProps) => {
 			<CurrentUserContainer>
 				<CurrentUser>
 					<ProfileImage>
-						<Link to={`/${data?.me?.userName}`}>
-							<img src={data?.me?.imageUrl} alt={`${data?.me?.imageUrl}'s profile`} />
+						<Link to={`/${data?.me?.username}`}>
+							<img src={data?.me?.image_link} alt={`${data?.me?.image_link}'s profile`} />
 						</Link>
 					</ProfileImage>
 					<ProfileName>
-						<UserName to={`/${data?.me?.userName}`}>{data?.me?.userName}</UserName>
-						<span>{data?.me?.fullName}</span>
+						<UserName to={`/${data?.me?.username}`}>{data?.me?.username}</UserName>
+						<span>{data?.me?.fullname}</span>
 					</ProfileName>
 					<SwitchButtonContainer>
 						<SwitchButtonContainer>
@@ -300,15 +302,15 @@ const Suggestions = ({ data }: SuggestionsProps) => {
 				</SuggestionsTitleContainer>
 				{suggestedUsers &&
 					suggestedUsers.suggestedUsers.users &&
-					suggestedUsers.suggestedUsers.users.map(({ id, userName, imageUrl }) => (
+					suggestedUsers.suggestedUsers.users.map(({ id, username, image_link }) => (
 						<SuggestionContainer key={id}>
 							<SuggestedProfileImage>
-								<Link to={`/${userName}`}>
-									<img src={imageUrl} alt={`${userName}'s profile`} />
+								<Link to={`/${username}`}>
+									<img src={image_link} alt={`${username}'s profile`} />
 								</Link>
 							</SuggestedProfileImage>
 							<SuggestedProfileName>
-								<SuggestedUserName to={`/${userName}`}>{userName}</SuggestedUserName>
+								<SuggestedUserName to={`/${username}`}>{username}</SuggestedUserName>
 								<span>New to Instagram</span>
 							</SuggestedProfileName>
 							<SuggestedSwitchButtonContainer>

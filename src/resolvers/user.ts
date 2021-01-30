@@ -138,7 +138,7 @@ export class UserResolver {
 
 	// Select user by username
 	@Query(() => UserResponse)
-	async getUser(@Arg("userName") username: string): Promise<UserResponse> {
+	async getUser(@Arg("username") username: string): Promise<UserResponse> {
 		const user = await User.createQueryBuilder("i")
 			.leftJoinAndSelect("i.images", "image")
 			.where('"username" = :username', { username })
