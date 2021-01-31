@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { MeQuery, useGetSuggestedUsersQuery } from "../generated/graphql";
-import IsSticky from "../Hooks/IsSticky";
+import useSticky from "../Hooks/useSticky";
 
 const EllipsisText = css`
 	white-space: nowrap;
@@ -10,11 +10,11 @@ const EllipsisText = css`
 	max-width: 174px;
 `;
 
-const Container = styled.div<{ isSticky: boolean }>`
+const Container = styled.div<{ sticky: boolean }>`
 	right: 0;
 	top: 0;
-	${({ isSticky }) =>
-		isSticky
+	${({ sticky }) =>
+		sticky
 			? `
       position: fixed;
       left: 849px;
@@ -252,7 +252,7 @@ type SuggestionsProps = {
 
 const Suggestions = ({ data }: SuggestionsProps) => {
 	const { data: suggestedUsers } = useGetSuggestedUsersQuery();
-	const isSticky = IsSticky(337);
+	const sticky = useSticky(337);
 
 	const onClick = (buttonName: string) => {
 		// TODO: Edit this later
@@ -274,7 +274,7 @@ const Suggestions = ({ data }: SuggestionsProps) => {
 	];
 
 	return (
-		<Container isSticky={isSticky}>
+		<Container sticky={sticky}>
 			<CurrentUserContainer>
 				<CurrentUser>
 					<ProfileImage>
