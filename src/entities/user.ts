@@ -35,16 +35,16 @@ export class User extends BaseEntity {
 	@Column()
 	fullname!: string;
 
-	@Field()
-	@Column({ default: "" })
+	@Field({ nullable: true })
+	@Column({ nullable: true })
 	website: string;
 
-	@Field()
-	@Column({ default: "" })
+	@Field({ nullable: true })
+	@Column({ nullable: true })
 	bio: string;
 
-	@Field()
-	@Column({ default: 0 })
+	@Field({ nullable: true })
+	@Column({ nullable: true })
 	phone_number: number;
 
 	@Field()
@@ -64,7 +64,7 @@ export class User extends BaseEntity {
 
 	@Field(() => [Image], { nullable: true })
 	@OneToMany(() => Image, image => image.user)
-	images: Image[];
+	images: Image[] | null;
 
 	@OneToMany(() => Follower, follower => follower.user)
 	followers: Follower[];

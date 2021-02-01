@@ -29,11 +29,11 @@ export class Image extends BaseEntity {
 	image_url!: string;
 
 	@Field()
-	@Column({ type: "int", default: 0 })
-	likes!: number;
+	@Column({ default: 0 })
+	likes: number;
 
-	@Field(() => Int, { nullable: true })
-	like_status: number | null;
+	@Field(() => Boolean, { defaultValue: false })
+	like_status: boolean;
 
 	@Field()
 	@Column()

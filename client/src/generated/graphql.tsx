@@ -40,9 +40,9 @@ export type User = {
   username: Scalars['String'];
   email: Scalars['String'];
   fullname: Scalars['String'];
-  website: Scalars['String'];
-  bio: Scalars['String'];
-  phone_number: Scalars['Float'];
+  website?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  phone_number?: Maybe<Scalars['Float']>;
   image_link: Scalars['String'];
   verified: Scalars['Boolean'];
   private: Scalars['Boolean'];
