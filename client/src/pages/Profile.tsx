@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Container from "../components/Container";
 import { Link } from "react-router-dom";
 import Posts from "../components/Posts";
+import UnauthFooter from "../components/UnauthFooter";
 
 const Main = styled.div`
 	margin: 30px auto 0;
@@ -238,6 +239,7 @@ const Profile = ({ match }: ProfileProps) => {
 						</PostsMenu>
 					</PostAndTaggedMenu>
 					<Posts posts={data.getUser.user.images} />
+					{!logedinUserData?.me && <UnauthFooter />}
 				</Main>
 			) : (
 				<> {data?.getUser.error?.message}</>
