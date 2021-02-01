@@ -57,7 +57,7 @@ export type Image = {
   caption: Scalars['String'];
   image_url: Scalars['String'];
   likes: Scalars['Float'];
-  like_status?: Maybe<Scalars['Int']>;
+  like_status?: Maybe<Scalars['Boolean']>;
   user_id: Scalars['Float'];
   created_at: Scalars['String'];
   updated_at: Scalars['String'];
