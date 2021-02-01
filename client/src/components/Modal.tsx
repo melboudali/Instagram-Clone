@@ -1,11 +1,11 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, SetStateAction } from "react";
 import {
 	GetAllImagesDocument,
 	GetAllImagesQuery,
 	useUploadImageMutation
 } from "../generated/graphql";
 import Button from "./layouts/Button";
-import styled from "styled-components";
+import styled, { StyledComponent } from "styled-components";
 import { useMeQuery } from "../generated/graphql";
 import IsClickedAway from "../Hooks/IsClickedAway";
 
