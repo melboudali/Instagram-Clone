@@ -8,7 +8,7 @@ import {
 	ManyToOne,
 	OneToMany
 } from "typeorm";
-import { Field, Int, ObjectType } from "type-graphql";
+import { Field, ObjectType } from "type-graphql";
 import { User } from "./user";
 import { Like } from "./like";
 import { Comment } from "./comment";
