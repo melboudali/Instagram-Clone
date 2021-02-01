@@ -64,7 +64,7 @@ export class User extends BaseEntity {
 
 	@Field(() => [Image], { nullable: true })
 	@OneToMany(() => Image, image => image.user)
-	images: Image[] | null;
+	images: Image[];
 
 	@OneToMany(() => Follower, follower => follower.user)
 	followers: Follower[];

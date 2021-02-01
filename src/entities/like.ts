@@ -5,13 +5,13 @@ import { Image } from "./image";
 @Entity()
 export class Like extends BaseEntity {
 	@PrimaryColumn()
-	user_id: number;
+	userId: number;
 
 	@ManyToOne(() => User, user => user.likes)
 	user: User;
 
 	@PrimaryColumn("uuid")
-	image_id: string;
+	imageId: string;
 
 	@ManyToOne(() => Image, image => image.likes, { onDelete: "CASCADE" })
 	image: Image;

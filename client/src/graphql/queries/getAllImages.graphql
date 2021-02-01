@@ -7,7 +7,7 @@ query GetAllImages($limit: Int!, $cursor: String) {
 			image_url
 			likes
 			like_status
-			user_id
+			userId
 			created_at
 			updated_at
 			user {

@@ -202,7 +202,7 @@ const Profile = ({ match }: ProfileProps) => {
 							</UsernameContainer>
 							<PostsFollowersFollowingContainer>
 								<PostsFollowersFollowingCount>
-									<span>24</span>posts
+									<span>{data.getUser.user.images?.length}</span>posts
 								</PostsFollowersFollowingCount>
 								<PostsFollowersFollowingCount>
 									<span>0</span>followers
@@ -212,8 +212,8 @@ const Profile = ({ match }: ProfileProps) => {
 								</PostsFollowersFollowingCount>
 							</PostsFollowersFollowingContainer>
 							<Fullname>{data.getUser.user.fullname}</Fullname>
-							<Bio>{data.getUser.user.bio}</Bio>
-							{data.getUser.user.website !== "https://" && (
+							{data.getUser.user.bio && <Bio>{data.getUser.user.bio}</Bio>}
+							{data.getUser.user.website && (
 								<Website target="_blank" href={data.getUser.user.website}>
 									{data.getUser.user.website}
 								</Website>
@@ -237,7 +237,7 @@ const Profile = ({ match }: ProfileProps) => {
 							<span>Tagged</span>
 						</PostsMenu>
 					</PostAndTaggedMenu>
-					<Posts></Posts>
+					<Posts posts={data.getUser.user.images} />
 				</Main>
 			) : (
 				<> {data?.getUser.error?.message}</>

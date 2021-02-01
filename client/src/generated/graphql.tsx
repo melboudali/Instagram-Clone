@@ -58,7 +58,7 @@ export type Image = {
   image_url: Scalars['String'];
   likes: Scalars['Float'];
   like_status?: Maybe<Scalars['Boolean']>;
-  user_id: Scalars['Float'];
+  userId: Scalars['Float'];
   created_at: Scalars['String'];
   updated_at: Scalars['String'];
   user: User;
@@ -154,7 +154,7 @@ export type GetUserQuery = (
       { __typename?: 'User' }
       & { images?: Maybe<Array<(
         { __typename?: 'Image' }
-        & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'user_id' | 'created_at' | 'updated_at'>
+        & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'userId' | 'created_at' | 'updated_at'>
       )>> }
       & UserFragmentFragment
     )>, error?: Maybe<(
@@ -223,7 +223,7 @@ export type UploadImageMutation = (
     { __typename?: 'UploadImageResponse' }
     & { image?: Maybe<(
       { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'user_id' | 'created_at' | 'updated_at'>
+      & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'userId' | 'created_at' | 'updated_at'>
       & { user: (
         { __typename?: 'User' }
         & Pick<User, 'id' | 'username' | 'image_link'>
@@ -248,7 +248,7 @@ export type GetAllImagesQuery = (
     & Pick<PaginatedImages, 'hasMore'>
     & { images: Array<(
       { __typename?: 'Image' }
-      & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'user_id' | 'created_at' | 'updated_at'>
+      & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'userId' | 'created_at' | 'updated_at'>
       & { user: (
         { __typename?: 'User' }
         & Pick<User, 'id' | 'username' | 'image_link'>
@@ -314,7 +314,7 @@ export const GetUserDocument = gql`
         image_url
         likes
         like_status
-        user_id
+        userId
         created_at
         updated_at
       }
@@ -467,7 +467,7 @@ export const UploadImageDocument = gql`
       image_url
       likes
       like_status
-      user_id
+      userId
       created_at
       updated_at
       user {
@@ -519,7 +519,7 @@ export const GetAllImagesDocument = gql`
       image_url
       likes
       like_status
-      user_id
+      userId
       created_at
       updated_at
       user {

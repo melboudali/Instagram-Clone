@@ -57,8 +57,7 @@ export class ImageResolver {
 		return new Promise((resolve, reject) => {
 			const { ext, name } = path.parse(filename);
 			const imageFileName = `${name}-${v4()}-${Number(new Date())}${ext}`;
-
-			const user_id = req.session.user_id;
+			const userId = req.session.user_id;
 			if (!caption || caption.length <= 3) {
 				reject({ error: { field: "caption", message: "Title should be greater than 3!" } });
 			}
@@ -71,7 +70,7 @@ export class ImageResolver {
 				)
 				.on("finish", async () => {
 					const post = await Image.create({
-						user_id,
+						userId,
 						caption,
 						image_url: `http://localhost:5000/images/${imageFileName}`
 					}).save();
@@ -105,7 +104,7 @@ export class ImageResolver {
 		const images = await getConnection().query(
 			`
       select i.*, 
-      (select image_id from "like" where user_id = $2 and image_id = i.id) like_status
+      (select "imageId" from "like" where "userId" = $2 and "imageId" = i.id) like_status
       from image i
       ${cursor ? `where i.created_at < $${cursorId}` : ""}
       order by i.created_at DESC
@@ -119,6 +118,6 @@ export class ImageResolver {
 
 	@FieldResolver(() => User)
 	user(@Root() image: Image, @Ctx() { userLoader }: MyContext) {
-		return userLoader.load(image.user_id);
+		return userLoader.load(image.userId);
 	}
 }

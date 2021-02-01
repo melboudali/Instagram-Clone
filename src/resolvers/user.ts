@@ -139,9 +139,9 @@ export class UserResolver {
 	// Select user by username
 	@Query(() => UserResponse)
 	async getUser(@Arg("username") username: string): Promise<UserResponse> {
-		const user = await User.createQueryBuilder("i")
-			.leftJoinAndSelect("i.images", "image")
-			.where('"username" = :username', { username })
+		const user = await User.createQueryBuilder("u")
+			.leftJoinAndSelect("u.images", "image")
+			.where("username = :username", { username })
 			.getOne();
 
 		if (user) {
@@ -149,7 +149,7 @@ export class UserResolver {
 		} else {
 			return {
 				error: {
-					message: "User not found!"
+					message: `User '${username}' not found!`
 				}
 			};
 		}

@@ -33,7 +33,7 @@ const Articles = ({ data }: ArticleProps) => {
 						likes,
 						image_url,
 						like_status,
-						user_id,
+						userId,
 						user: { id: uid, image_link, username },
 						created_at,
 						updated_at
