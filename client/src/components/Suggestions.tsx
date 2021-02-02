@@ -88,7 +88,6 @@ const ProfileName = styled.div`
 const UserName = styled(Link)`
 	color: #262626;
 	font-weight: 600;
-	text-decoration: none;
 	margin: -3px 0 -2px;
 	${EllipsisText}
 `;
@@ -136,7 +135,6 @@ const SuggestionsTitleContainer = styled.div`
 
 const SeeAllLink = styled(Link)`
 	color: #262626;
-	text-decoration: none;
 	font-weight: 600;
 `;
 
@@ -181,7 +179,6 @@ const SuggestedProfileName = styled.div`
 const SuggestedUserName = styled(Link)`
 	color: #262626;
 	font-weight: 600;
-	text-decoration: none;
 	margin: -3px 0 -2px;
 	${EllipsisText}
 `;

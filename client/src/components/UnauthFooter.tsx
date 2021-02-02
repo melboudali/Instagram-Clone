@@ -80,7 +80,6 @@ const FooterButtons = styled.div`
 
 const ButtonsCss = css`
 	display: block;
-	text-decoration: none;
 	font-weight: 600;
 	width: 100%;
 	text-align: center;

@@ -57,7 +57,6 @@ const Username = styled.h2`
 `;
 
 const FollowButton = styled(Link)`
-	text-decoration: none;
 	background: var(--buttonLightBlue);
 	color: #fff;
 	font-weight: 600;
@@ -68,7 +67,6 @@ const FollowButton = styled(Link)`
 `;
 
 const EditButton = styled(Link)`
-	text-decoration: none;
 	margin-left: 20px;
 	border: 1px solid #dbdbdb;
 	color: #262626;
@@ -143,7 +141,6 @@ const PostAndTaggedMenu = styled.div`
 const PostsMenu = styled(Link)`
 	display: flex;
 	align-items: center;
-	text-decoration: none;
 	color: #262626;
 	margin-top: -1px;
 	height: 52px;

@@ -56,7 +56,6 @@ const Name = styled(Link)`
 	display: inline;
 	padding: 0;
 	position: relative;
-	text-decoration: none;
 	user-select: auto;
 	box-sizing: border-box;
 	cursor: pointer;
@@ -132,7 +131,6 @@ const LikesContainer = styled.section`
 `;
 
 const LikesLink = styled(Link)`
-	text-decoration: none;
 	${LikesCss}
 `;
 

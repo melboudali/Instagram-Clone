@@ -28,7 +28,6 @@ export const GlobalStyle = createGlobalStyle`
     position: relative;
     min-height: 100%;
     overflow-y: auto;
-    scroll-behavior: smooth;
   }; 
 
 
