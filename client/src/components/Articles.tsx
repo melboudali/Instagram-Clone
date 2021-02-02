@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { MeQuery, useGetAllImagesQuery } from "../generated/graphql";
 
 const Container = styled.div`
+	--ArticleMargin: 28px;
 	max-width: 614px;
 	float: left;
-	margin-right: 28px;
-	width: 100%;
+	margin-right: var(--ArticleMargin);
 	@media only screen and (max-width: 1000px) {
-		margin: 0;
+		--ArticleMargin: 0;
 	}
 `;
 

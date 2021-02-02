@@ -16,25 +16,26 @@ const Container = styled.div<{ sticky: boolean }>`
 	${({ sticky }) =>
 		sticky
 			? `
-      position: fixed;
-      left: 849px;
-      top:  72px;
-      @media only screen and (min-width: 1000px) {
-        left: 671px;
-      }
-      @media only screen and (min-width: 1100px) {
-        left: 716px;
-      }
-      @media only screen and (min-width: 1100px) {
-        left: 774.5px;
-      }
-      @media only screen and (min-width: 1200px) {
-        left: 849px;
-      }
+		--SuggestionsLeft: 849px;
+		position: fixed;
+		left: var(--SuggestionsLeft);
+		top:  72px;
+		@media only screen and (min-width: 1000px) {
+		--SuggestionsLeft: 671px;
+		}
+		@media only screen and (min-width: 1035px) {
+		--SuggestionsLeft: 716px;
+		}
+		@media only screen and (min-width: 1100px) {
+		--SuggestionsLeft: 774.5px;
+		}
+		@media only screen and (min-width: 1200px) {
+		--SuggestionsLeft: 849px;
+		}
         `
 			: `
-      top: 18px;
-      position: absolute;`}
+		top: 18px;
+		position: absolute;`}
 
 	max-width: 293px;
 	width: 100%;
