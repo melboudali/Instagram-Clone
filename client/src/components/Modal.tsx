@@ -115,7 +115,7 @@ const CaptionArea = styled.textarea`
 
 type ModalProps = {
 	imageUri: string | undefined;
-	imageFile: File | undefined;
+	imageFile: File | null;
 	setOpenModal: (arg: boolean) => void;
 	setUploadSuccessfulMessage: (arg: string | null) => void;
 	Scrollbar: (arg: "show" | "hide") => void;

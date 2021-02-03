@@ -38,7 +38,7 @@ const Signup = () => {
 	const [password, setPassword] = useState<string>("");
 	const [signupError, setSignupError] = useState<string>("");
 
-	const [signupLoading, setSignupLoading] = useState(false);
+	const [signupLoading, setSignupLoading] = useState<boolean>(false);
 	const [ConnectionError, setConnectionError] = useState<boolean>(false);
 
 	const signupFunction = async () => {
