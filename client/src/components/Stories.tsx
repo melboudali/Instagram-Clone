@@ -5,7 +5,6 @@ import Assets from "../assets/images/798b49104da7.png";
 
 const Container = styled.div`
 	position: relative;
-	width: 100%;
 	height: 116px;
 	background-color: #fff;
 	border: 1px solid #dbdbdb;

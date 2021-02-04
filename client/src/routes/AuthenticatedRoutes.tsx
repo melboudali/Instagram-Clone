@@ -10,6 +10,7 @@ const AuthenticatedApp = () => {
 		<Switch>
 			<Route exact path="/" component={Home} />
 			<Route exact path="/:username" component={Profile} />;
+			<Route exact path="/:username/tagged" component={Profile} />;
 			<Route exact path="*" component={NotFound} />
 		</Switch>
 	);

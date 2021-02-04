@@ -33,7 +33,6 @@ const LogoContainer = styled.div`
 
 const LogoBackground = styled.div`
 	background: #fff;
-	width: 100%;
 	height: 100%;
 	border-radius: 50%;
 	padding: 2px;
@@ -201,7 +200,6 @@ const CreatedTime = styled(Link)`
 const CommentContainer = styled.div`
 	display: flex;
 	align-items: center;
-	width: 100%;
 	border-top: 1px solid #efefef;
 	font-size: 14px;
 	line-height: 18px;

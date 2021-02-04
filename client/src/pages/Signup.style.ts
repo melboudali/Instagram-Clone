@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Assets from "../assets/images/32f0a4f27407.png";
 
 export const Container = styled.section`
-	width: 100%;
 	margin: 32px auto 0;
 	max-width: 935px;
 	padding-bottom: 32px;

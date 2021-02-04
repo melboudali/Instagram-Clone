@@ -12,7 +12,6 @@ import useClickOutside from "../Hooks/useClickOutside";
 const Container = styled.div`
 	background-color: rgba(0, 0, 0, 0.87);
 	position: fixed;
-	width: 100%;
 	height: 100vh;
 	left: 0;
 	right: 0;
@@ -82,7 +81,8 @@ const Title = styled.h1`
 `;
 
 const CaptionContainer = styled.div`
-	width: 100%;
+	display: flex;
+	justify-content: center;
 	position: absolute;
 	top: 50%;
 	left: 50%;

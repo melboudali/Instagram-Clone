@@ -105,13 +105,13 @@ const ProfileImageBorder = styled.div<{ showMenu: boolean }>`
 	${({ showMenu }) => {
 		if (showMenu) {
 			return `border: 1px solid #262626;
-  border-radius: 50%;
-  height: 28px;
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 28px;`;
+			border-radius: 50%;
+			height: 28px;
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 28px;`;
 		}
 	}}
 `;
