@@ -1,23 +1,24 @@
 import { useGetUserQuery, useMeQuery } from "../generated/graphql";
 import styled from "styled-components";
 import Container from "../components/Container";
-import ProfilePosts from "../components/ProfilePosts";
+import { Link } from "react-router-dom";
 import UnauthFooter from "../components/UnauthFooter";
 import ProfileEmptyPostsOrPrivate from "../components/ProfileEmptyPostsOrPrivate";
-import ProfileHeader from "../components/ProfileHeader";
-import ProfileMenu from "../components/ProfileMenu";
-import ProfileNotFound from "../components/ProfileNotFound";
 import LoadingFullScreen from "../components/layouts/LoadingFullScreen";
+import ProfileHeader from "../components/ProfileHeader";
+import ProfilePosts from "../components/ProfilePosts";
+import ProfileNotFound from "../components/ProfileNotFound";
+import ProfileMenu from "../components/ProfileMenu";
 
 const Main = styled.div`
 	margin: 30px auto 0;
 `;
 
-type ProfileProps = {
+type TaggedProps = {
 	match: { params: { username: string } };
 };
 
-const Profile = ({ match }: ProfileProps) => {
+const Tagged = ({ match }: TaggedProps) => {
 	const { data: loggedinUserData } = useMeQuery();
 	const username = match.params.username.toLowerCase();
 	const { data, loading } = useGetUserQuery({ variables: { username } });
@@ -35,11 +36,11 @@ const Profile = ({ match }: ProfileProps) => {
 			{data?.getUser.user && !data.getUser.error ? (
 				<Main>
 					<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
-					{!data.getUser.user.private && <ProfileMenu data={data} page="profile" />}
+					{!data.getUser.user.private && <ProfileMenu data={data} page="tagged" />}
 					{!!data.getUser.user.images?.length ? (
 						<ProfilePosts posts={data.getUser.user.images} />
 					) : (
-						<ProfileEmptyPostsOrPrivate type="emptyImages" />
+						<ProfileEmptyPostsOrPrivate type="emptyTagged" />
 					)}
 					{!loggedinUserData?.me && <UnauthFooter />}
 				</Main>
@@ -50,4 +51,4 @@ const Profile = ({ match }: ProfileProps) => {
 	);
 };
 
-export default Profile;
+export default Tagged;

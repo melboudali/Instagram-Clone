@@ -58,11 +58,11 @@ const CommentsContainer = styled.div`
 	${LikesAndComments}
 `;
 
-type PostsProps = {
+type ProfilePostsProps = {
 	posts: any[] | null | undefined;
 };
 
-const Posts = ({ posts }: PostsProps) => {
+const ProfilePosts = ({ posts }: ProfilePostsProps) => {
 	return (
 		<Container>
 			{posts &&
@@ -118,4 +118,4 @@ const Posts = ({ posts }: PostsProps) => {
 	);
 };
 
-export default Posts;
+export default ProfilePosts;

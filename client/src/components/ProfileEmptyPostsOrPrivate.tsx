@@ -69,11 +69,11 @@ const Message = styled.h1`
 	color: #262626;
 `;
 
-type EmptyAndPrivateProfileProps = {
+type ProfileEmptyPostsOrPrivateProps = {
 	type: "private" | "emptyImages" | "emptyTagged";
 };
 
-const EmptyAndPrivateProfile = ({ type }: EmptyAndPrivateProfileProps) => {
+const ProfileEmptyPostsOrPrivate = ({ type }: ProfileEmptyPostsOrPrivateProps) => {
 	if (type === "private") {
 		return (
 			<>
@@ -108,4 +108,4 @@ const EmptyAndPrivateProfile = ({ type }: EmptyAndPrivateProfileProps) => {
 	);
 };
 
-export default EmptyAndPrivateProfile;
+export default ProfileEmptyPostsOrPrivate;
