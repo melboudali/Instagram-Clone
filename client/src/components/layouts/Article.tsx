@@ -258,7 +258,7 @@ const Article = ({
 	createdTime,
 	data
 }: ArticleProps) => {
-	const [textareaValue, setTextAreaValue] = useState<string>("");
+	const [textareaValue, setTextAreaValue] = useState<string | null>(null);
 	const onClick = (buttonName: string) => {
 		// TODO: Edit this later
 		console.log(`${buttonName} Button Clicked.`);
@@ -371,7 +371,7 @@ const Article = ({
 						onChange={e => setTextAreaValue(e.target.value)}
 					/>
 					<SubmitButton
-						Active={!!textareaValue.length}
+						Active={!!textareaValue}
 						onClick={e => {
 							e.preventDefault();
 							onClick("Submit");

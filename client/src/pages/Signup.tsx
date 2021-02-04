@@ -36,7 +36,8 @@ const Signup = () => {
 	const [fullName, setFullname] = useState<string>("");
 	const [userName, setUsername] = useState<string>("");
 	const [password, setPassword] = useState<string>("");
-	const [signupError, setSignupError] = useState<string>("");
+
+	const [signupError, setSignupError] = useState<string | null>(null);
 
 	const [signupLoading, setSignupLoading] = useState<boolean>(false);
 	const [ConnectionError, setConnectionError] = useState<boolean>(false);
@@ -44,7 +45,7 @@ const Signup = () => {
 	const signupFunction = async () => {
 		if ((email.length > 0, fullName.length > 0, userName.length > 0, password.length > 0)) {
 			setSignupLoading(true);
-			setSignupError("");
+			setSignupError(null);
 			try {
 				const res = await login({
 					variables: {
@@ -149,7 +150,7 @@ const Signup = () => {
 									type="submit">
 									Sign up
 								</Button>
-								{signupError.length > 0 && (
+								{signupError && (
 									<ErrorContainer>
 										<p>{signupError}</p>
 									</ErrorContainer>
