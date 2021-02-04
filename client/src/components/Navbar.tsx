@@ -6,7 +6,7 @@ import NavbarMenu from "./NavbarMenu";
 import NavbarLink from "./NavbarLink";
 import Logo from "../assets/images/735145cfe0a4.png";
 import Assets from "../assets/images/32f0a4f27407.png";
-import IsClickedAway from "../Hooks/IsClickedAway";
+import useClickOutside from "../Hooks/useClickOutside";
 
 const Container = styled.div`
 	position: fixed;
@@ -161,12 +161,12 @@ const Navbar = () => {
 	const history = useHistory();
 	const { data } = useMeQuery();
 	const ref = useRef<HTMLDivElement>(null);
-	const { clickedAway, setClickedAway } = IsClickedAway(ref);
+	const { clickOutside, setClickOutside } = useClickOutside(ref);
 	const [showMenu, setShowMenu] = useState<boolean>(false);
 
 	useEffect(() => {
-		if (clickedAway) setShowMenu(false);
-	}, [clickedAway]);
+		if (clickOutside) setShowMenu(false);
+	}, [clickOutside]);
 
 	return (
 		<Container>
@@ -209,7 +209,7 @@ const Navbar = () => {
 								</NavbarLink>
 								<LinkContainer
 									onClick={() => {
-										if (clickedAway) setClickedAway(false);
+										if (clickOutside) setClickOutside(false);
 										setShowMenu(!showMenu);
 									}}
 									ref={ref}>

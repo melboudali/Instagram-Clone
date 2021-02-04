@@ -1,13 +1,13 @@
-import { useRef, useState, useEffect, SetStateAction } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
 	GetAllImagesDocument,
 	GetAllImagesQuery,
 	useUploadImageMutation
 } from "../generated/graphql";
 import Button from "./layouts/Button";
-import styled, { StyledComponent } from "styled-components";
+import styled from "styled-components";
 import { useMeQuery } from "../generated/graphql";
-import IsClickedAway from "../Hooks/IsClickedAway";
+import useClickOutside from "../Hooks/useClickOutside";
 
 const Container = styled.div`
 	background-color: rgba(0, 0, 0, 0.87);
@@ -135,14 +135,14 @@ const Modal = ({
 	const [UploadLoading, setLoadingUpload] = useState<boolean>(false);
 
 	const ref = useRef<HTMLDivElement>(null);
-	const { clickedAway } = IsClickedAway(ref);
+	const { clickOutside } = useClickOutside(ref);
 
 	useEffect(() => {
-		if (clickedAway) {
+		if (clickOutside) {
 			Scrollbar("show");
 			setOpenModal(false);
 		}
-	}, [clickedAway, setOpenModal, Scrollbar]);
+	}, [clickOutside, setOpenModal, Scrollbar]);
 
 	const closeModal = () => {
 		setLoadingUpload(false);
