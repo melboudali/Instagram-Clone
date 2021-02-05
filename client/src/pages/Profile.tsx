@@ -31,7 +31,6 @@ const Profile = ({ match }: ProfileProps) => {
 			{data?.getUser.user && !data.getUser.error ? (
 				<Main>
 					<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
-
 					{data?.getUser.user?.private ? (
 						<ProfileEmptyPostsOrPrivate type="private" />
 					) : (

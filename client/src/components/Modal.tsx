@@ -82,6 +82,8 @@ const Title = styled.h1`
 
 const CaptionContainer = styled.div`
 	display: flex;
+	width: 100%;
+	flex-direction: column;
 	justify-content: center;
 	position: absolute;
 	top: 50%;
