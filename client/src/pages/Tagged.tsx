@@ -37,11 +37,7 @@ const Tagged = ({ match }: TaggedProps) => {
 				<Main>
 					<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
 					{!data.getUser.user.private && <ProfileMenu data={data} page="tagged" />}
-					{!!data.getUser.user.images?.length ? (
-						<ProfilePosts posts={data.getUser.user.images} />
-					) : (
-						<ProfileEmptyPostsOrPrivate type="emptyTagged" />
-					)}
+					<ProfileEmptyPostsOrPrivate type="emptyTagged" />
 					{!loggedinUserData?.me && <UnauthFooter />}
 				</Main>
 			) : (

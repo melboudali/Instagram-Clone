@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 const FooterContainer = styled.footer`
 	padding: 0 16px;
+	bottom: 0;
 `;
 
 const LinksContainer = styled.div`
