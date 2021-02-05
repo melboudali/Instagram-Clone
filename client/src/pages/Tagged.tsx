@@ -1,12 +1,10 @@
 import { useGetUserQuery, useMeQuery } from "../generated/graphql";
 import styled from "styled-components";
 import Container from "../components/Container";
-import { Link } from "react-router-dom";
 import UnauthFooter from "../components/UnauthFooter";
 import ProfileEmptyPostsOrPrivate from "../components/ProfileEmptyPostsOrPrivate";
 import LoadingFullScreen from "../components/layouts/LoadingFullScreen";
 import ProfileHeader from "../components/ProfileHeader";
-import ProfilePosts from "../components/ProfilePosts";
 import ProfileNotFound from "../components/ProfileNotFound";
 import ProfileMenu from "../components/ProfileMenu";
 
@@ -27,17 +25,20 @@ const Tagged = ({ match }: TaggedProps) => {
 		return <LoadingFullScreen />;
 	}
 
-	if (data?.getUser.user?.private) {
-		return <ProfileEmptyPostsOrPrivate type="private" />;
-	}
-
 	return (
 		<Container>
 			{data?.getUser.user && !data.getUser.error ? (
 				<Main>
 					<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
-					{!data.getUser.user.private && <ProfileMenu data={data} page="tagged" />}
-					<ProfileEmptyPostsOrPrivate type="emptyTagged" />
+
+					{data?.getUser.user?.private ? (
+						<ProfileEmptyPostsOrPrivate type="private" />
+					) : (
+						<>
+							<ProfileMenu data={data} page="tagged" />
+							<ProfileEmptyPostsOrPrivate type="emptyTagged" />
+						</>
+					)}
 					{!loggedinUserData?.me && <UnauthFooter />}
 				</Main>
 			) : (

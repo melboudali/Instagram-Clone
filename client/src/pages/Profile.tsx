@@ -26,20 +26,23 @@ const Profile = ({ match }: ProfileProps) => {
 		return <LoadingFullScreen />;
 	}
 
-	if (data?.getUser.user?.private) {
-		return <ProfileEmptyPostsOrPrivate type="private" />;
-	}
-
 	return (
 		<Container>
 			{data?.getUser.user && !data.getUser.error ? (
 				<Main>
 					<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
-					{!data.getUser.user.private && <ProfileMenu data={data} page="profile" />}
-					{!!data.getUser.user.images?.length ? (
-						<ProfilePosts posts={data.getUser.user.images} />
+
+					{data?.getUser.user?.private ? (
+						<ProfileEmptyPostsOrPrivate type="private" />
 					) : (
-						<ProfileEmptyPostsOrPrivate type="emptyImages" />
+						<>
+							<ProfileMenu data={data} page="profile" />
+							{!!data.getUser.user.images?.length ? (
+								<ProfilePosts posts={data.getUser.user.images} />
+							) : (
+								<ProfileEmptyPostsOrPrivate type="emptyImages" />
+							)}
+						</>
 					)}
 					{!loggedinUserData?.me && <UnauthFooter />}
 				</Main>
