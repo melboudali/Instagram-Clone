@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import styled from "styled-components";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/Navbar";
 
 type ContainerProps = {
 	children: React.ReactNode;

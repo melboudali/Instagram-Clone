@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import Assets from "../assets/images/9813fcc3aa16.png";
+import Assets from "../../../assets/images/9813fcc3aa16.png";
 
 const Container = styled.div<{ closed: boolean }>`
 	${({ closed }) => (closed ? "display: none;" : "display: block;")}

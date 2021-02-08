@@ -20,13 +20,13 @@ import {
 	GetTheAppContainer,
 	AppsButtons
 } from "./Signin.style";
-import Carousel from "../components/layouts/Carousel";
-import FormINput from "../components/layouts/FormInput";
-import Button from "../components/layouts/Button";
-import Divider from "../components/layouts/Divider";
+import Carousel from "../components/Signin_Signup/Carousel";
+import FormINput from "../components/Signin_Signup/FormInput";
+import Button from "../components/Signin_Signup/Button";
+import Divider from "../components/Signin_Signup/Divider";
 import GooglePlay from "../assets/images/e9cd846dc748.png";
 import PlayStore from "../assets/images/180ae7a0bcf7.png";
-import Footer from "../components/layouts/Footer";
+import Footer from "../components/Common/Footer/Footer";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 
 const Signin = () => {

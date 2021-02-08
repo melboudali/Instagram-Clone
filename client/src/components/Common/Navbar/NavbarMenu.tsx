@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { MeQuery } from "../generated/graphql";
-import LogoutLink from "./layouts/LogoutLink";
-import NavbarMenuLink from "./layouts/NavbarMenuLink";
+import { MeQuery } from "../../../generated/graphql";
+import LogoutLink from "./LogoutLink";
+import NavbarMenuLink from "./NavbarMenuLink";
 
 const MenuContainer = styled.div`
 	margin-left: -180px;

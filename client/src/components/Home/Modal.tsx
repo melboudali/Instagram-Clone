@@ -3,11 +3,11 @@ import {
 	GetAllImagesDocument,
 	GetAllImagesQuery,
 	useUploadImageMutation
-} from "../generated/graphql";
-import Button from "./layouts/Button";
+} from "../../generated/graphql";
+import Button from "../Signin_Signup/Button";
 import styled from "styled-components";
-import { useMeQuery } from "../generated/graphql";
-import useClickOutside from "../Hooks/useClickOutside";
+import { useMeQuery } from "../../generated/graphql";
+import useClickOutside from "../../Hooks/useClickOutside";
 
 const Container = styled.div`
 	background-color: rgba(0, 0, 0, 0.87);

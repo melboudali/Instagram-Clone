@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "../Modal";
+import Modal from "./Modal";
 import styled from "styled-components";
 
 const Container = styled.div`

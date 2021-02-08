@@ -1,9 +1,9 @@
 import { useGetUserQuery, useMeQuery } from "../generated/graphql";
 import styled from "styled-components";
-import Container from "../components/Container";
-import UnauthFooter from "../components/UnauthFooter";
+import Container from "../components/Common/Container";
+import UnauthFooter from "../components/Common/Footer/UnauthFooter";
 import ProfileEmptyPostsOrPrivate from "../components/Profile/ProfileEmptyPostsOrPrivate";
-import LoadingFullScreen from "../components/layouts/LoadingFullScreen";
+import LoadingFullScreen from "../components/Common/LoadingFullScreen";
 import ProfileHeader from "../components/Profile/ProfileHeader";
 import ProfileNotFound from "../components/Profile/ProfileNotFound";
 import ProfileMenu from "../components/Profile/ProfileMenu";

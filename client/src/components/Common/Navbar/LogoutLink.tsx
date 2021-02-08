@@ -1,4 +1,4 @@
-import { MeDocument, MeQuery, useLogoutMutation } from "../../generated/graphql";
+import { MeDocument, MeQuery, useLogoutMutation } from "../../../generated/graphql";
 import styled from "styled-components";
 
 const LogoutContainer = styled.div`

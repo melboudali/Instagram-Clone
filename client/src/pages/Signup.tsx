@@ -19,13 +19,13 @@ import {
 	GetTheAppContainer,
 	AppsButtons
 } from "./Signin.style";
-import Divider from "../components/layouts/Divider";
-import FormINput from "../components/layouts/FormInput";
-import Button from "../components/layouts/Button";
+import Divider from "../components/Signin_Signup/Divider";
+import FormINput from "../components/Signin_Signup/FormInput";
+import Button from "../components/Signin_Signup/Button";
 import GooglePlay from "../assets/images/e9cd846dc748.png";
 import PlayStore from "../assets/images/180ae7a0bcf7.png";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
-import Footer from "../components/layouts/Footer";
+import Footer from "../components/Common/Footer/Footer";
 import { useHistory } from "react-router-dom";
 
 const Signup = () => {

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Footer from "../layouts/Footer";
+import Footer from "../Common/Footer/Footer";
 
 const Container = styled.div`
 	text-align: center;

@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { useMeQuery } from "../generated/graphql";
+import { useMeQuery } from "../../../generated/graphql";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import NavbarMenu from "./NavbarMenu";
 import NavbarLink from "./NavbarLink";
-import Logo from "../assets/images/735145cfe0a4.png";
-import Assets from "../assets/images/32f0a4f27407.png";
-import useClickOutside from "../Hooks/useClickOutside";
+import Logo from "../../../assets/images/735145cfe0a4.png";
+import Assets from "../../../assets/images/32f0a4f27407.png";
+import useClickOutside from "../../../Hooks/useClickOutside";
 
 const Container = styled.div`
 	position: fixed;

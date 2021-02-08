@@ -1,4 +1,4 @@
-import Container from "../components/Container";
+import Container from "../components/Common/Container";
 import FileUploadInputProps from "../components/Home/FileUploadInput";
 import Stories from "../components/Home/Stories/Stories";
 import ArticlesAndSuggestionsContainer from "../components/Home/ArticlesAndSuggestionsContainer";

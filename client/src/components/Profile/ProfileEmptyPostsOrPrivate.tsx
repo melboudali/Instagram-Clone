@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Assets from "../../assets/images/9813fcc3aa16.png";
 import OtherAssets from "../../assets/images/32f0a4f27407.png";
-import Footer from "../layouts/Footer";
+import Footer from "../Common/Footer/Footer";
 
 const Private = styled.div`
 	background-color: #fff;
