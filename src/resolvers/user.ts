@@ -50,7 +50,6 @@ class UsersResponse {
 
 @Resolver(User)
 export class UserResolver {
-	// Select connected user
 	@Query(() => User, { nullable: true })
 	async me(@Ctx() { req }: MyContext) {
 		if (!req.session!.user_id) {
@@ -59,7 +58,6 @@ export class UserResolver {
 		return await User.findOne(req.session.user_id);
 	}
 
-	// Register Mutation
 	@Mutation(() => UserResponse)
 	async register(
 		@Arg("registerInputs") registerInputs: registerInputs,
@@ -104,7 +102,6 @@ export class UserResolver {
 		return { user };
 	}
 
-	// Login Mutation
 	@Mutation(() => UserResponse)
 	async login(
 		@Arg("userNameOrEmail") userNameOrEmail: string,
@@ -136,7 +133,6 @@ export class UserResolver {
 		return { user };
 	}
 
-	// Select user by username
 	@Query(() => UserResponse)
 	async getUser(@Arg("username") username: string): Promise<UserResponse> {
 		const user = await User.createQueryBuilder("user")
@@ -156,7 +152,6 @@ export class UserResolver {
 		}
 	}
 
-	// Select 5 last users Query
 	@Query(() => UsersResponse)
 	@UseMiddleware(isAuth)
 	async suggestedUsers(@Ctx() { req }: MyContext): Promise<UsersResponse> {
@@ -169,7 +164,6 @@ export class UserResolver {
 		return { users };
 	}
 
-	// Logout Mutation
 	@Mutation(() => Boolean)
 	logout(@Ctx() { req, res }: MyContext) {
 		return new Promise(resolve =>
