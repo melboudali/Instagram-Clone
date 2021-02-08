@@ -1,34 +1,34 @@
-import { Component, ReactNode, ErrorInfo } from 'react';
-import NotFound from './NotFound';
+import { Component, ReactNode, ErrorInfo } from "react";
+import NotFound from "./404";
 
 interface Props {
-  children: ReactNode;
+	children: ReactNode;
 }
 
 interface State {
-  hasError: boolean;
+	hasError: boolean;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  state: State = {
-    hasError: false
-  };
+	state: State = {
+		hasError: false
+	};
 
-  static getDerivedStateFromError(_: Error): State {
-    return { hasError: true };
-  }
+	static getDerivedStateFromError(_: Error): State {
+		return { hasError: true };
+	}
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
-  }
+	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+		console.error("Uncaught error:", error, errorInfo);
+	}
 
-  render() {
-    if (this.state.hasError) {
-      return <NotFound />;
-    }
+	render() {
+		if (this.state.hasError) {
+			return <NotFound />;
+		}
 
-    return this.props.children;
-  }
+		return this.props.children;
+	}
 }
 
 export default ErrorBoundary;

@@ -4,7 +4,7 @@ import Tagged from "../pages/Tagged";
 
 const Home = lazy(() => import("../pages/Home"));
 const Profile = lazy(() => import("../pages/Profile"));
-const NotFound = lazy(() => import("../pages/NotFound"));
+const NotFound = lazy(() => import("../pages/404"));
 
 const AuthenticatedApp = () => {
 	return (

@@ -66,9 +66,7 @@ const Prev = styled.div`
 	background-position: -294px -226px;
 `;
 
-type StoriesProps = {};
-
-const Stories = ({}: StoriesProps) => {
+const Stories = () => {
 	const StoriesData: { name: string; image: string }[] = [
 		{
 			name: "versace",
@@ -185,14 +183,14 @@ const Stories = ({}: StoriesProps) => {
 	const SliderRef = useRef<HTMLDivElement>(null);
 	const ContainerRef = useRef<HTMLDivElement>(null);
 
-	const [currentIndex, setCurrentIndex] = useState<number>(4);
-	const [translateValue, setTranslateValue] = useState<number>(0);
-	const [keepSliding, setKeepSliding] = useState<{ right: boolean; left: boolean }>({
+	const [currentIndex, setCurrentIndex] = useState(4);
+	const [translateValue, setTranslateValue] = useState(0);
+	const [keepSliding, setKeepSliding] = useState({
 		right: true,
 		left: false
 	});
-	const [LeftItems, setLeftItems] = useState<number>(StoriesData.length - 4);
-	const [slideButtons, setSlideButtons] = useState<{ leftButton: boolean; rightButton: boolean }>({
+	const [LeftItems, setLeftItems] = useState(StoriesData.length - 4);
+	const [slideButtons, setSlideButtons] = useState({
 		leftButton: false,
 		rightButton: true
 	});

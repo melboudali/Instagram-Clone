@@ -45,7 +45,6 @@ const Container = styled.div<{ sticky: boolean }>`
 	}
 `;
 
-// Current User
 const CurrentUserContainer = styled.div`
 	height: auto;
 	margin-bottom: 10px;
@@ -113,7 +112,6 @@ const SwitchButton = styled.button`
 	margin: -2px 0 -3px;
 `;
 
-// Suggestions
 const SuggestionsContainer = styled.div`
 	background-color: #fafafa;
 	margin: 0 0 12px -16px;
@@ -139,7 +137,6 @@ const SeeAllLink = styled(Link)`
 	font-weight: 600;
 `;
 
-// Suggested
 const SuggestionContainer = styled.div`
 	padding: 8px 16px;
 	display: flex;
@@ -203,7 +200,6 @@ const SuggestedSwitchButton = styled.button`
 	margin: -2px 0 -3px;
 `;
 
-// Links
 const LinksContainer = styled.nav`
 	margin-bottom: 16px;
 `;

@@ -1,4 +1,4 @@
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment } from "react";
 import {
 	Container,
 	LeftComponent,
@@ -34,9 +34,9 @@ const Signin = () => {
 
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
-	const [loginLoading, setLoginLoading] = useState<boolean>(false);
+	const [loginLoading, setLoginLoading] = useState(false);
 	const [loginError, setLoginError] = useState<string | null>(null);
-	const [ConnectionError, setConnectionError] = useState<boolean>(false);
+	const [ConnectionError, setConnectionError] = useState(false);
 
 	const loginFunction = async () => {
 		setLoginLoading(true);

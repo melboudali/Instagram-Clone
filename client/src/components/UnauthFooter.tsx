@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Assets from "../assets/images/9813fcc3aa16.png";
 
-const Container = styled.div`
+const Container = styled.div<{ closed: boolean }>`
+	${({ closed }) => (closed ? "display: none;" : "display: block;")}
 	position: fixed;
 	width: 100%;
 	padding: 20px 16px;
@@ -100,12 +102,15 @@ const SignUpButton = styled(Link)`
 `;
 
 const UnauthFooter = () => {
+	const [closed, setClosed] = useState(false);
+
 	const onClose = () => {
-		// TODO: change this later.
-		console.log("Close Footer");
+		// Works for now
+		// TODO: i need to remove this later then add useReducer and useContext
+		setClosed(!closed);
 	};
 	return (
-		<Container>
+		<Container closed={closed}>
 			<CloseButton onClick={onClose}>
 				<CloseImage />
 			</CloseButton>

@@ -4,13 +4,13 @@ export const GlobalStyle = createGlobalStyle`
   :root{
     --backgroudColor: #FAFAFA;
     --borderColor: #DBDBDB;
+    --borderDarkColor: #A8A8A8;
     --textColorGray: #8e8e8e;
     --textColorDarkGray: #262626;
     --buttonLightBlue: #0095f6;
     --linkColor: #385185;
     --linkColorTwo: #00376b;
     --textErrorColor: #ed4956;
-    --borderDarkColor: #A8A8A8;
     --textColorGreen: #37bf6e
   }
 
