@@ -133,7 +133,7 @@ const Modal = ({
 	const { data } = useMeQuery();
 	const [uploadImageFunc] = useUploadImageMutation();
 
-	const [caption, setCaption] = useState<string>("");
+	const [caption, setCaption] = useState("");
 	const [UploadLoading, setLoadingUpload] = useState<boolean>(false);
 
 	const ref = useRef<HTMLDivElement>(null);

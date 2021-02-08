@@ -32,8 +32,8 @@ import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 const Signin = () => {
 	const [login] = useLoginMutation();
 
-	const [userName, setUserName] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const [userName, setUserName] = useState("");
+	const [password, setPassword] = useState("");
 	const [loginLoading, setLoginLoading] = useState<boolean>(false);
 	const [loginError, setLoginError] = useState<string | null>(null);
 	const [ConnectionError, setConnectionError] = useState<boolean>(false);

@@ -32,10 +32,10 @@ const Signup = () => {
 	const history = useHistory();
 	const [login] = useRegisterMutation();
 
-	const [email, setEmail] = useState<string>("");
-	const [fullName, setFullname] = useState<string>("");
-	const [userName, setUsername] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
+	const [email, setEmail] = useState("");
+	const [fullName, setFullname] = useState("");
+	const [userName, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 
 	const [signupError, setSignupError] = useState<string | null>(null);
 
