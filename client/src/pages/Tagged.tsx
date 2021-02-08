@@ -5,8 +5,8 @@ import UnauthFooter from "../components/Common/Footer/UnauthFooter";
 import ProfileEmptyPostsOrPrivate from "../components/Profile/ProfileEmptyPostsOrPrivate";
 import LoadingFullScreen from "../components/Common/LoadingFullScreen";
 import ProfileHeader from "../components/Profile/ProfileHeader";
-import ProfileNotFound from "../components/Profile/ProfileNotFound";
 import ProfileMenu from "../components/Profile/ProfileMenu";
+import ErrorPage from "./ErrorPage";
 
 const Main = styled.div`
 	margin: 30px auto 0;
@@ -26,25 +26,27 @@ const Tagged = ({ match }: TaggedProps) => {
 	}
 
 	return (
-		<Container>
+		<>
 			{data?.getUser.user && !data.getUser.error ? (
-				<Main>
-					<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
+				<Container>
+					<Main>
+						<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
 
-					{data?.getUser.user?.private ? (
-						<ProfileEmptyPostsOrPrivate type="private" />
-					) : (
-						<>
-							<ProfileMenu data={data} page="tagged" />
-							<ProfileEmptyPostsOrPrivate type="emptyTagged" />
-						</>
-					)}
-					{!loggedinUserData?.me && <UnauthFooter />}
-				</Main>
+						{data?.getUser.user?.private ? (
+							<ProfileEmptyPostsOrPrivate type="private" />
+						) : (
+							<>
+								<ProfileMenu data={data} page="tagged" />
+								<ProfileEmptyPostsOrPrivate type="emptyTagged" />
+							</>
+						)}
+						{!loggedinUserData?.me && <UnauthFooter />}
+					</Main>
+				</Container>
 			) : (
-				<ProfileNotFound />
+				<ErrorPage />
 			)}
-		</Container>
+		</>
 	);
 };
 

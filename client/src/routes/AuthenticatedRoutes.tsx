@@ -1,10 +1,10 @@
 import { lazy } from "react";
 import { Switch, Route } from "react-router-dom";
-import Tagged from "../pages/Tagged";
 
 const Home = lazy(() => import("../pages/Home"));
 const Profile = lazy(() => import("../pages/Profile"));
-const NotFound = lazy(() => import("../pages/404"));
+const Tagged = lazy(() => import("../pages/Tagged"));
+const ErrorPage = lazy(() => import("../pages/ErrorPage"));
 
 const AuthenticatedApp = () => {
 	return (
@@ -12,7 +12,7 @@ const AuthenticatedApp = () => {
 			<Route exact path="/" component={Home} />
 			<Route exact path="/:username" component={Profile} />;
 			<Route exact path="/:username/tagged" component={Tagged} />;
-			<Route exact path="*" component={NotFound} />
+			<Route exact path="*" component={ErrorPage} />
 		</Switch>
 	);
 };

@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Footer from "../Common/Footer/Footer";
+import Container from "../components/Common/Container";
+import Footer from "../components/Common/Footer/Footer";
+import UnauthFooter from "../components/Common/Footer/UnauthFooter";
+import { useMeQuery } from "../generated/graphql";
 
-const Container = styled.div`
+const Main = styled.div`
 	text-align: center;
 	height: 70vh;
 	padding: 40px 0;
@@ -25,19 +28,21 @@ const GoBackLink = styled(Link)`
 	margin-left: 5px;
 `;
 
-const ProfileNotFound = () => {
+const ErroPage = () => {
+	const { data, loading } = useMeQuery();
 	return (
-		<>
-			<Container>
+		<Container>
+			<Main>
 				<Title>Sorry, this page isn't available.</Title>
 				<Message>
 					The link you followed may be broken, or the page may have been removed.
 					<GoBackLink to="/">Go back to Instagram.</GoBackLink>
 				</Message>
-			</Container>
+			</Main>
 			<Footer />
-		</>
+			{!data?.me && !loading && <UnauthFooter />}
+		</Container>
 	);
 };
 
-export default ProfileNotFound;
+export default ErroPage;

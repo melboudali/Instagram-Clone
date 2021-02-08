@@ -1,5 +1,5 @@
 import { Component, ReactNode, ErrorInfo } from "react";
-import NotFound from "./404";
+import ErrorPage from "./ErrorPage";
 
 interface Props {
 	children: ReactNode;
@@ -24,7 +24,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
 	render() {
 		if (this.state.hasError) {
-			return <NotFound />;
+			return <ErrorPage />;
 		}
 
 		return this.props.children;

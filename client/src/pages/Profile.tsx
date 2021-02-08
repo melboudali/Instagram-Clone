@@ -6,8 +6,8 @@ import UnauthFooter from "../components/Common/Footer/UnauthFooter";
 import ProfileEmptyPostsOrPrivate from "../components/Profile/ProfileEmptyPostsOrPrivate";
 import ProfileHeader from "../components/Profile/ProfileHeader";
 import ProfileMenu from "../components/Profile/ProfileMenu";
-import ProfileNotFound from "../components/Profile/ProfileNotFound";
 import LoadingFullScreen from "../components/Common/LoadingFullScreen";
+import ErrorPage from "./ErrorPage";
 
 const Main = styled.div`
 	margin: 30px auto 0;
@@ -27,28 +27,30 @@ const Profile = ({ match }: ProfileProps) => {
 	}
 
 	return (
-		<Container>
+		<>
 			{data?.getUser.user && !data.getUser.error ? (
-				<Main>
-					<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
-					{data?.getUser.user?.private ? (
-						<ProfileEmptyPostsOrPrivate type="private" />
-					) : (
-						<>
-							<ProfileMenu data={data} page="profile" />
-							{!!data.getUser.user.images?.length ? (
-								<ProfilePosts posts={data.getUser.user.images} />
-							) : (
-								<ProfileEmptyPostsOrPrivate type="emptyImages" />
-							)}
-						</>
-					)}
-					{!loggedinUserData?.me && <UnauthFooter />}
-				</Main>
+				<Container>
+					<Main>
+						<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
+						{data?.getUser.user?.private ? (
+							<ProfileEmptyPostsOrPrivate type="private" />
+						) : (
+							<>
+								<ProfileMenu data={data} page="profile" />
+								{!!data.getUser.user.images?.length ? (
+									<ProfilePosts posts={data.getUser.user.images} />
+								) : (
+									<ProfileEmptyPostsOrPrivate type="emptyImages" />
+								)}
+							</>
+						)}
+						{!loggedinUserData?.me && <UnauthFooter />}
+					</Main>
+				</Container>
 			) : (
-				<ProfileNotFound />
+				<ErrorPage />
 			)}
-		</Container>
+		</>
 	);
 };
 

@@ -18,6 +18,7 @@ import { Comment } from "./entities/comment";
 import { Follower } from "./entities/follower";
 import { graphqlUploadExpress } from "graphql-upload";
 import path from "path";
+import fs from "fs";
 
 const main = async () => {
 	const app = express();
@@ -70,7 +71,15 @@ const main = async () => {
 	app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 1 }));
 
 	apolloServer.applyMiddleware({ app, cors: false });
-
+	app.get("/simo", async (req, res) => {
+		// const file = fs.statSync("path/to/file1");
+		res.sendFile(
+			path.join(
+				__dirname,
+				"public/images/83109033_1618440354960356_5527593302420009628_n-70a67511-b2ad-4fe9-8568-5e9f56137b20-1612542291812.jpg"
+			)
+		);
+	});
 	app.use(express.static("public"));
 
 	app.use((err: Error, _: Request, res: Response, _2: NextFunction) => {

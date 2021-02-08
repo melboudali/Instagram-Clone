@@ -5,7 +5,7 @@ import Tagged from "../pages/Tagged";
 const Signup = lazy(() => import("../pages/Signup"));
 const Profile = lazy(() => import("../pages/Profile"));
 const Signin = lazy(() => import("../pages/Signin"));
-const NotFound = lazy(() => import("../pages/404"));
+const ErrorPage = lazy(() => import("../pages/ErrorPage"));
 
 const UnauthenticatedApp = () => {
 	return (
@@ -14,7 +14,7 @@ const UnauthenticatedApp = () => {
 			<Route exact path="/:username" component={Profile} />;
 			<Route exact path="/:username/tagged" component={Tagged} />;
 			<Route exact path="/accounts/emailsignup" component={Signup} />
-			<Route exact path="*" component={NotFound} />
+			<Route exact path="*" component={ErrorPage} />
 		</Switch>
 	);
 };
