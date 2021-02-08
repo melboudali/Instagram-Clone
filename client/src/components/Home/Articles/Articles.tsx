@@ -1,6 +1,6 @@
-import Article from "./layouts/Article";
+import Article from "./Article";
 import styled from "styled-components";
-import { MeQuery, useGetAllImagesQuery } from "../generated/graphql";
+import { MeQuery, useGetAllImagesQuery } from "../../../generated/graphql";
 
 const Container = styled.div`
 	--ArticleMargin: 28px;

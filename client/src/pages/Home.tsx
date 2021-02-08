@@ -1,16 +1,16 @@
-import Container from '../components/Container';
-import FileUploadInputProps from '../components/layouts/FileUploadInput';
-import Stories from '../components/Stories';
-import ArticlesAndSuggestionsContainer from '../components/ArticlesAndSuggestionsContainer';
+import Container from "../components/Container";
+import FileUploadInputProps from "../components/Home/FileUploadInput";
+import Stories from "../components/Home/Stories/Stories";
+import ArticlesAndSuggestionsContainer from "../components/Home/ArticlesAndSuggestionsContainer";
 
 const Home = () => {
-  return (
-    <Container>
-      <FileUploadInputProps />
-      <Stories />
-      <ArticlesAndSuggestionsContainer />
-    </Container>
-  );
+	return (
+		<Container>
+			<FileUploadInputProps />
+			<Stories />
+			<ArticlesAndSuggestionsContainer />
+		</Container>
+	);
 };
 
 export default Home;

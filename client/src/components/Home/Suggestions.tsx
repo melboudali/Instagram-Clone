@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { MeQuery, useGetSuggestedUsersQuery } from "../generated/graphql";
-import useSticky from "../Hooks/useSticky";
+import { MeQuery, useGetSuggestedUsersQuery } from "../../generated/graphql";
+import useSticky from "../../Hooks/useSticky";
 
 const EllipsisText = css`
 	white-space: nowrap;

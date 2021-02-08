@@ -1,12 +1,12 @@
 import { useGetUserQuery, useMeQuery } from "../generated/graphql";
 import styled from "styled-components";
 import Container from "../components/Container";
-import ProfilePosts from "../components/ProfilePosts";
+import ProfilePosts from "../components/Profile/ProfilePosts";
 import UnauthFooter from "../components/UnauthFooter";
-import ProfileEmptyPostsOrPrivate from "../components/ProfileEmptyPostsOrPrivate";
-import ProfileHeader from "../components/ProfileHeader";
-import ProfileMenu from "../components/ProfileMenu";
-import ProfileNotFound from "../components/ProfileNotFound";
+import ProfileEmptyPostsOrPrivate from "../components/Profile/ProfileEmptyPostsOrPrivate";
+import ProfileHeader from "../components/Profile/ProfileHeader";
+import ProfileMenu from "../components/Profile/ProfileMenu";
+import ProfileNotFound from "../components/Profile/ProfileNotFound";
 import LoadingFullScreen from "../components/layouts/LoadingFullScreen";
 
 const Main = styled.div`

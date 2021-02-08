@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { Image } from "../generated/graphql";
 
 const LikesAndComments = css`
 	display: flex;

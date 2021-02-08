@@ -1,6 +1,6 @@
-import Articles from "./Articles";
+import Articles from "./Articles/Articles";
 import Suggestion from "./Suggestions";
-import { useMeQuery } from "../generated/graphql";
+import { useMeQuery } from "../../generated/graphql";
 import styled from "styled-components";
 
 const Container = styled.div`

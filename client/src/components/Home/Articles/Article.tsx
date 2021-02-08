@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { MeQuery } from "../../generated/graphql";
-import timeDifference from "../../utils/timeDefference";
+import { MeQuery } from "../../../generated/graphql";
+import timeDifference from "../../../utils/timeDefference";
 
 const Container = styled.article`
 	background-color: #fff;

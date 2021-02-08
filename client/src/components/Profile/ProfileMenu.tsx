@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { GetUserQuery } from "../generated/graphql";
+import { GetUserQuery } from "../../generated/graphql";
 
 const PostAndTaggedMenu = styled.div`
 	border-top: 1px solid #dbdbdb;

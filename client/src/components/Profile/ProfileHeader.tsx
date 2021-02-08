@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { GetUserQuery, MeQuery } from "../generated/graphql";
+import { GetUserQuery, MeQuery } from "../../generated/graphql";
 
 const ProfileData = styled.header`
 	display: flex;
@@ -128,7 +128,7 @@ type ProfileHeaderProps = {
 	loggedinUserData: MeQuery | undefined;
 };
 
-const ProfileHeader = ({ data,loggedinUserData }: ProfileHeaderProps) => {
+const ProfileHeader = ({ data, loggedinUserData }: ProfileHeaderProps) => {
 	return (
 		<ProfileData>
 			<ProfileImage>
