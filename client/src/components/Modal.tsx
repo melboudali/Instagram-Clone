@@ -182,7 +182,7 @@ const Modal = ({
 			// }
 
 			// With Apollo-upload-client :)
-			// Hello World
+			//
 			try {
 				const res = await uploadImageFunc({
 					variables: { file: imageFile, caption: caption },
