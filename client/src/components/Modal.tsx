@@ -181,7 +181,8 @@ const Modal = ({
 			//   Scrollbar('show');
 			// }
 
-			// With Apollo-upload-client
+			// With Apollo-upload-client :)
+			// Hello World
 			try {
 				const res = await uploadImageFunc({
 					variables: { file: imageFile, caption: caption },
