@@ -1,3 +1,4 @@
+import "dotenv/config";
 import {
 	Resolver,
 	Mutation,
@@ -12,14 +13,12 @@ import {
 	Root
 } from "type-graphql";
 import { GraphQLUpload, FileUpload } from "graphql-upload";
-import { createWriteStream } from "fs";
 import { Image } from "../entities/image";
 import { User } from "../entities/user";
-import { v4 } from "uuid";
-import path from "path";
 import { isAuth } from "../middleware/isAuthenticated";
 import { MyContext } from "../types";
 import { getConnection } from "typeorm";
+import { v2 as cloudinary } from "cloudinary";
 
 @ObjectType()
 class ErrorField {
@@ -50,35 +49,37 @@ export class ImageResolver {
 	@Mutation(() => UploadImageResponse)
 	@UseMiddleware(isAuth)
 	async uploadImage(
-		@Arg("file", () => GraphQLUpload) { createReadStream, filename }: FileUpload,
+		@Arg("file", () => GraphQLUpload) { createReadStream }: FileUpload,
 		@Arg("caption") caption: string,
 		@Ctx() { req }: MyContext
-	): Promise<UploadImageResponse> {
+	): Promise<any> {
 		return new Promise((resolve, reject) => {
-			const { ext, name } = path.parse(filename);
-			const imageFileName = `${name}-${v4()}-${Number(new Date())}${ext}`;
-			const userId = req.session.user_id;
 			if (!caption || caption.length <= 3) {
 				reject({ error: { field: "caption", message: "Title should be greater than 3!" } });
 			}
 
-			createReadStream()
-				.pipe(
-					createWriteStream(`${__dirname}/../../public/images/${imageFileName}`, {
-						autoClose: true
-					})
-				)
-				.on("finish", async () => {
+			const userId = req.session.user_id;
+
+			cloudinary.config({
+				cloud_name: process.env.CLOUD_NAME,
+				api_key: process.env.API_KEY,
+				api_secret: process.env.API_SECRET
+			});
+
+			createReadStream().pipe(
+				cloudinary.uploader.upload_stream(async (error, result) => {
+					if (error) {
+						reject({ error: { field: "error", message: error.message } });
+					}
+					const image_url = result?.secure_url;
 					const post = await Image.create({
 						userId,
 						caption,
-						image_url: `http://localhost:5000/images/${imageFileName}`
+						image_url
 					}).save();
 					resolve({ image: post });
 				})
-				.on("error", err => {
-					reject({ error: { field: "error", message: err.message } });
-				});
+			);
 		});
 	}
 

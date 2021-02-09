@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
@@ -26,9 +27,9 @@ const main = async () => {
 		type: "postgres",
 		host: "localhost",
 		port: 5432,
-		username: "postgres",
-		password: "postgres",
-		database: "instagram",
+		username: process.env.DB_USERNAME,
+		password: process.env.DB_PASSWORD,
+		database: process.env.DB_NAME,
 		entities: [User, Image, Like, Comment, Follower],
 		synchronize: !__prod__,
 		logging: true
@@ -48,10 +49,10 @@ const main = async () => {
 				httpOnly: true,
 				sameSite: "lax",
 				secure: __prod__,
-				domain: __prod__ ? ".domain.com" : undefined
+				domain: __prod__ ? process.env.SESSION_DOMAIN : undefined
 			},
 			saveUninitialized: false,
-			secret: "fzefzcefevcczgjnkukjgscercqzgsevhevcg",
+			secret: process.env.SESSION_SECRET!,
 			resave: false
 		})
 	);
