@@ -4,7 +4,7 @@ import express, { Request, Response, NextFunction } from "express";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { cookieName, __listenMessage__, __prod__ } from "./config/constants";
+import { cookieName, serverMessage, isProd, serverPort } from "./config/constants";
 import { UserResolver } from "./resolvers/user";
 import { ImageResolver } from "./resolvers/image";
 import { createUserLoader } from "./utils/createUserLoader";
@@ -31,7 +31,7 @@ const main = async () => {
 		password: process.env.DB_PASSWORD,
 		database: process.env.DB_NAME,
 		entities: [User, Image, Like, Comment, Follower],
-		synchronize: !__prod__,
+		synchronize: !isProd,
 		logging: true
 	}).catch(error => console.log(error));
 
@@ -48,8 +48,8 @@ const main = async () => {
 				maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
 				httpOnly: true,
 				sameSite: "lax",
-				secure: __prod__,
-				domain: __prod__ ? process.env.SESSION_DOMAIN : undefined
+				secure: isProd,
+				domain: isProd ? process.env.SESSION_DOMAIN : undefined
 			},
 			saveUninitialized: false,
 			secret: process.env.SESSION_SECRET!,
@@ -85,7 +85,7 @@ const main = async () => {
 		});
 	}
 
-	app.listen(parseInt("5000"), () => console.log(__listenMessage__(parseInt("5000"))));
+	app.listen(serverPort, () => console.log(serverMessage));
 };
 
 main().catch(err => console.log(err));

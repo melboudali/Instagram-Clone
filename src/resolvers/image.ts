@@ -67,18 +67,21 @@ export class ImageResolver {
 			});
 
 			createReadStream().pipe(
-				cloudinary.uploader.upload_stream(async (error, result) => {
-					if (error) {
-						reject({ error: { field: "error", message: error.message } });
+				cloudinary.uploader.upload_stream(
+					{ folder: process.env.CLOUDINARY_FOLDER },
+					async (error, result) => {
+						if (error) {
+							reject({ error: { field: "error", message: error.message } });
+						}
+						const image_url = result?.secure_url;
+						const post = await Image.create({
+							userId,
+							caption,
+							image_url
+						}).save();
+						resolve({ image: post });
 					}
-					const image_url = result?.secure_url;
-					const post = await Image.create({
-						userId,
-						caption,
-						image_url
-					}).save();
-					resolve({ image: post });
-				})
+				)
 			);
 		});
 	}

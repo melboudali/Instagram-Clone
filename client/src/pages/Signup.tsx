@@ -1,24 +1,4 @@
 import { Fragment, useState } from "react";
-import {
-	Container,
-	SignupComponent,
-	SignupTitle,
-	FBButtonContainer,
-	FBButton,
-	Terms,
-	TermsLink
-} from "./Signup.style";
-import {
-	LoginContainer,
-	Logo,
-	FormContainer,
-	Form,
-	Signup as Login,
-	ErrorContainer,
-	SignupLink,
-	GetTheAppContainer,
-	AppsButtons
-} from "./Signin.style";
 import Divider from "../components/Signin_Signup/Divider";
 import FormINput from "../components/Signin_Signup/FormInput";
 import Button from "../components/Signin_Signup/Button";
@@ -27,6 +7,154 @@ import PlayStore from "../assets/images/180ae7a0bcf7.png";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
 import Footer from "../components/Common/Footer/Footer";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Assets from "../assets/images/32f0a4f27407.png";
+
+const Container = styled.section`
+	margin: 32px auto 0;
+	max-width: 935px;
+	padding-bottom: 32px;
+`;
+
+const LoginContainer = styled.div`
+	background-color: #fff;
+	border: 1px solid var(--borderColor);
+	border-radius: 1px;
+	margin: 0 0 10px;
+	padding: 10px 0;
+`;
+
+const Logo = styled.h1`
+	margin: 22px auto 12px;
+	background: url(${Assets});
+	background-repeat: no-repeat;
+	background-position: 0 -130px;
+	height: 51px;
+	width: 175px;
+`;
+
+const FormContainer = styled.div`
+	margin-bottom: 10px;
+	max-width: 350px;
+`;
+
+const Form = styled.form`
+	display: flex;
+	flex-direction: column;
+`;
+
+const SignupComponent = styled.div`
+	color: var(--textColorDarkGray);
+	margin-top: 12px;
+	max-width: 350px;
+	margin: 0 auto;
+`;
+
+const SignupTitle = styled.h2`
+	color: var(--textColorGray);
+	font-size: 17px;
+	font-weight: 600;
+	line-height: 20px;
+	margin: 0 40px 10px;
+	text-align: center;
+`;
+
+const FBButtonContainer = styled.div`
+	margin: 8px 40px;
+`;
+
+const FBButton = styled.button`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+	border: 1px solid transparent;
+	background-color: var(--buttonLightBlue);
+	border-radius: 4px;
+	color: #fff;
+	cursor: pointer;
+	font-weight: 600;
+	padding: 5px 9px;
+	text-align: center;
+	text-overflow: ellipsis;
+	user-select: none;
+	width: 100%;
+	span {
+		align-self: center;
+		background: url(${Assets});
+		margin-right: 8px;
+		background-position: -414px -300px;
+		background-repeat: no-repeat;
+		height: 16px;
+		width: 16px;
+	}
+`;
+
+const ErrorContainer = styled.div`
+	margin: 10px 40px;
+	p {
+		color: var(--textErrorColor);
+		font-size: 14px;
+		line-height: 18px;
+		text-align: center;
+		margin: 0;
+	}
+`;
+
+const Terms = styled.p`
+	color: var(--textColorGray);
+	font-size: 12px;
+	line-height: 16px;
+	margin: 10px 40px;
+	text-align: center;
+`;
+
+const TermsLink = styled(Link)`
+	color: var(--textColorGray);
+	font-weight: 600;
+	margin: 0px 3px;
+`;
+
+const Login = styled.div`
+	margin: -3px 0 -4px;
+	p {
+		color: var(--textColorDarkGray);
+		font-size: 14px;
+		margin: 15px;
+		text-align: center;
+	}
+`;
+const LoginLink = styled(Link)`
+	span {
+		font-weight: 600;
+		color: var(--buttonLightBlue);
+		margin-left: 5px;
+	}
+`;
+const GetTheAppContainer = styled.div`
+	position: relative;
+	overflow: auto;
+	text-align: center;
+	p {
+		color: var(--textColorDarkGray);
+		font-size: 14px;
+		line-height: 18px;
+		margin: 10px 20px;
+	}
+`;
+const AppsButtons = styled.div`
+	display: inline-flex;
+	margin: 10px 0;
+	a {
+		&:nth-child(1) {
+			margin-right: 8px;
+		}
+		img {
+			height: 40px;
+		}
+	}
+`;
 
 const Signup = () => {
 	const history = useHistory();
@@ -177,9 +305,9 @@ const Signup = () => {
 						<Login>
 							<p>
 								Have an account?
-								<SignupLink to="/">
+								<LoginLink to="/">
 									<span>Log in</span>
-								</SignupLink>
+								</LoginLink>
 							</p>
 						</Login>
 					</LoginContainer>
