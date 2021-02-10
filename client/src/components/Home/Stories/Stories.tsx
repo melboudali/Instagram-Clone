@@ -86,7 +86,7 @@ const Stories = () => {
 		{
 			name: "pullandbear",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/119967716_168469141494754_1912290642671596029_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=xVXj9KZleKQAX_sBAH5&tp=1&oh=293f0d86a158dead8247ab2da6aaefdc&oe=60232E38"
+				"https://instagram.fcmn2-1.fna.fbcdn.net/v/t51.2885-19/s150x150/147677253_1420137645006770_8729859082877570250_n.jpg?_nc_ht=instagram.fcmn2-1.fna.fbcdn.net&_nc_ohc=3o8654UPCq0AX9D0sPg&tp=1&oh=abe1f83dd418a582185037f030e3f802&oe=604D9455"
 		},
 		{
 			name: "porsche",
@@ -141,7 +141,7 @@ const Stories = () => {
 		{
 			name: "pullandbear",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/119967716_168469141494754_1912290642671596029_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=xVXj9KZleKQAX_sBAH5&tp=1&oh=293f0d86a158dead8247ab2da6aaefdc&oe=60232E38"
+				"https://instagram.fcmn2-1.fna.fbcdn.net/v/t51.2885-19/s150x150/147677253_1420137645006770_8729859082877570250_n.jpg?_nc_ht=instagram.fcmn2-1.fna.fbcdn.net&_nc_ohc=3o8654UPCq0AX9D0sPg&tp=1&oh=abe1f83dd418a582185037f030e3f802&oe=604D9455"
 		},
 		{
 			name: "porsche",

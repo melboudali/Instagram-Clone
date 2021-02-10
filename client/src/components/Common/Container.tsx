@@ -6,7 +6,7 @@ type ContainerProps = {
 	children: React.ReactNode;
 };
 
-const Main = styled.div`
+const Main = styled.main`
 	margin: 0 auto 30px;
 	max-width: 975px;
 	padding: 54px 20px 0;

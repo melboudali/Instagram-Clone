@@ -8,7 +8,7 @@ import Logo from "../../../assets/images/735145cfe0a4.png";
 import Assets from "../../../assets/images/32f0a4f27407.png";
 import useClickOutside from "../../../Hooks/useClickOutside";
 
-const Container = styled.div`
+const Container = styled.header`
 	position: fixed;
 	width: 100%;
 	height: 54px;

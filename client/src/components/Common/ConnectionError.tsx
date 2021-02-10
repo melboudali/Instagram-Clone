@@ -8,13 +8,18 @@ const Main = styled.div`
 	height: calc(100vh - 84px);
 `;
 
+const Message = styled.h1`
+	align-self: "center";
+	color: "#747474";
+`;
+
 type ConnectionErrorProps = {};
 
 const ConnectionError = ({}: ConnectionErrorProps) => {
 	return (
 		<Container>
 			<Main>
-				<h1 style={{ alignSelf: "center", color: "#747474" }}>503 Service Unavailable</h1>
+				<Message>503 Service Unavailable</Message>
 			</Main>
 		</Container>
 	);
