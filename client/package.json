@@ -54,7 +54,7 @@
 		"@graphql-codegen/typescript-react-apollo": "^2.2.1",
 		"@types/apollo-upload-client": "^14.1.0",
 		"@types/react-router-dom": "^5.1.6",
-		"@types/styled-components": "^5.1.7"
+		"@types/styled-components": "^5.1.6"
 	},
 	"proxy": "http://localhost:5000"
 }
