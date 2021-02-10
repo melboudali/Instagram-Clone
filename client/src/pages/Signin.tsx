@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BackgroundImage from "../assets/images/43cc71bb1b43.png";
 import Assets from "../assets/images/32f0a4f27407.png";
+import ConnectionErrorComponent from "../components/Common/ConnectionError";
 import { lessThan768px } from "../config/MediaQueries";
 
 const Container = styled.section`
@@ -217,18 +218,7 @@ const Signin = () => {
 		}
 	};
 
-	if (ConnectionError)
-		return (
-			<div
-				style={{
-					display: "flex",
-					justifyContent: "center",
-					width: "100%",
-					height: "100vh"
-				}}>
-				<h1 style={{ alignSelf: "center", color: "#747474" }}>503 Service Unavailable</h1>
-			</div>
-		);
+	if (ConnectionError) return <ConnectionErrorComponent />;
 
 	return (
 		<Fragment>

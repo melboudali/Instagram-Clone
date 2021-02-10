@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Assets from "../assets/images/32f0a4f27407.png";
+import ConnectionErrorComponent from "../components/Common/ConnectionError";
 
 const Container = styled.section`
 	margin: 32px auto 0;
@@ -205,18 +206,7 @@ const Signup = () => {
 		}
 	};
 
-	if (ConnectionError)
-		return (
-			<div
-				style={{
-					display: "flex",
-					justifyContent: "center",
-					width: "100%",
-					height: "100vh"
-				}}>
-				<h1 style={{ alignSelf: "center", color: "#747474" }}>503 Service Unavailable</h1>
-			</div>
-		);
+	if (ConnectionError) return <ConnectionErrorComponent />;
 
 	return (
 		<Fragment>
