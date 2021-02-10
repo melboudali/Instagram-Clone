@@ -14,12 +14,14 @@
 	"homepage": "https://github.com/MedElBoudali/Instagram-Clone#readme",
 	"license": "MIT",
 	"scripts": {
+		"postinstall": "tsc",
 		"gen-env": "gen-env-types .env -o src/env.d.ts -e .",
 		"watch": "tsc -w",
-		"start": "ts-node src/index.ts",
+		"start": "node dist/index.js",
 		"client": "yarn --cwd client start",
 		"server": "nodemon ./dist/index.js",
-		"all": "concurrently \"yarn server\" \"yarn client\""
+		"all": "concurrently \"yarn server\" \"yarn client\"",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"dependencies": {
 		"apollo-server-express": "^2.19.0",
