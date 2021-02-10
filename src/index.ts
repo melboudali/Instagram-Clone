@@ -74,12 +74,12 @@ const main = async () => {
 		res.status(500).json({ message: err.message });
 	});
 
-	if (process.env.NODE_ENV === "production") {
-		app.use(express.static(path.join(__dirname, "client/build")));
-		app.get("*", (_, res) => {
-			res.sendFile(path.join(__dirname, "client/build", "index.html"));
-		});
-	}
+	// if (process.env.NODE_ENV === "production") {
+	// 	app.use(express.static(path.join(__dirname, "client/build")));
+	// 	app.get("*", (_, res) => {
+	// 		res.sendFile(path.join(__dirname, "client/build", "index.html"));
+	// 	});
+	// }
 
 	app.listen(serverPort, () => console.log(serverMessage));
 };
