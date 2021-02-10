@@ -18,7 +18,8 @@ import { Like } from "./entities/like";
 import { Comment } from "./entities/comment";
 import { Follower } from "./entities/follower";
 import { graphqlUploadExpress } from "graphql-upload";
-// import path from "path";
+import path from "path";
+
 const PORT = process.env.PORT || 5000;
 
 const main = async () => {
@@ -75,12 +76,12 @@ const main = async () => {
 		res.status(500).json({ message: err.message });
 	});
 
-	// if (process.env.NODE_ENV === "production") {
-	// 	app.use(express.static(path.join(__dirname, "client/build")));
-	// 	app.get("*", (_, res) => {
-	// 		res.sendFile(path.join(__dirname, "client/build", "index.html"));
-	// 	});
-	// }
+	if (process.env.NODE_ENV === "production") {
+		app.use(express.static(path.join(__dirname, "client/build")));
+		app.get("*", (_, res) => {
+			res.sendFile(path.join(__dirname, "client/build", "index.html"));
+		});
+	}
 
 	app.listen(PORT, () =>
 		console.log(
