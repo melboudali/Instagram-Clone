@@ -1,62 +1,58 @@
 {
-  "name": "instagram-clone",
-  "version": "1.0.0",
-  "description": "instagram-clone",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MedElBoudali/Instagram-Clone.git"
-  },
-  "author": "med",
-  "bugs": {
-    "url": "https://github.com/MedElBoudali/Instagram-Clone/issues"
-  },
-  "homepage": "https://github.com/MedElBoudali/Instagram-Clone#readme",
-  "license": "MIT",
-  "scripts": {
-    "gen-env": "gen-env-types .env -o src/env.d.ts -e .",
-    "watch": "tsc -w",
-    "start": "ts-node src/index.ts",
-    "tsc": "tsc --sourceMap false",
-    "client": "yarn --cwd client start",
-    "server": "nodemon ./dist/index.js",
-    "clientBuild": "yarn --cwd client build",
-    "all": "concurrently \"yarn server\" \"yarn client\"",
-    "postinstall": "tsc",
-    "start:dev": "PORT=5000 node dist/index.js",
-    "dev": "PORT=5000 nodemon --exec ts-node src/index.ts --watch src"
-  },
-  "dependencies": {
-    "apollo-server-express": "^2.19.0",
-    "argon2": "^0.27.1",
-    "cloudinary": "^1.24.0",
-    "concurrently": "^5.3.0",
-    "connect-redis": "^5.0.0",
-    "cors": "^2.8.5",
-    "dataloader": "^2.0.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "graphql": "^15.4.0",
-    "graphql-upload": "^11.0.0",
-    "ioredis": "^4.19.4",
-    "pg": "^8.5.1",
-    "reflect-metadata": "^0.1.13",
-    "ts-node": "^9.1.1",
-    "type-graphql": "^1.1.1",
-    "typeorm": "^0.2.29",
-    "typescript": "^4.1.3",
-    "uuid": "^8.3.2"
-  },
-  "resolutions": {
-    "graphql-upload": "^11.0.0"
-  },
-  "devDependencies": {
-    "@types/apollo-upload-client": "^14.1.0",
-    "@types/connect-redis": "^0.0.16",
-    "@types/cors": "^2.8.9",
-    "@types/express": "^4.17.9",
-    "@types/express-session": "^1.17.3",
-    "@types/uuid": "^8.3.0"
-  }
+	"name": "instagram-clone",
+	"version": "1.0.0",
+	"description": "instagram-clone",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MedElBoudali/Instagram-Clone.git"
+	},
+	"author": "med",
+	"bugs": {
+		"url": "https://github.com/MedElBoudali/Instagram-Clone/issues"
+	},
+	"homepage": "https://github.com/MedElBoudali/Instagram-Clone#readme",
+	"license": "MIT",
+	"scripts": {
+		"gen-env": "gen-env-types .env -o src/env.d.ts -e .",
+		"watch": "tsc -w",
+		"start": "ts-node src/index.ts",
+		"client": "yarn --cwd client start",
+		"server": "nodemon ./dist/index.js",
+		"all": "concurrently \"yarn server\" \"yarn client\""
+	},
+	"dependencies": {
+		"apollo-server-express": "^2.19.0",
+		"argon2": "^0.27.1",
+		"cloudinary": "^1.24.0",
+		"concurrently": "^5.3.0",
+		"connect-redis": "^5.0.0",
+		"cors": "^2.8.5",
+		"dataloader": "^2.0.0",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"express-session": "^1.17.1",
+		"graphql": "^15.4.0",
+		"graphql-upload": "^11.0.0",
+		"ioredis": "^4.19.4",
+		"pg": "^8.5.1",
+		"reflect-metadata": "^0.1.13",
+		"ts-node": "^9.1.1",
+		"type-graphql": "^1.1.1",
+		"typeorm": "^0.2.29",
+		"typescript": "^4.1.3",
+		"uuid": "^8.3.2"
+	},
+	"resolutions": {
+		"graphql-upload": "^11.0.0"
+	},
+	"devDependencies": {
+		"@types/apollo-upload-client": "^14.1.0",
+		"@types/connect-redis": "^0.0.16",
+		"@types/cors": "^2.8.9",
+		"@types/express": "^4.17.9",
+		"@types/express-session": "^1.17.3",
+		"@types/ioredis": "^4.19.3",
+		"@types/uuid": "^8.3.0"
+	}
 }
