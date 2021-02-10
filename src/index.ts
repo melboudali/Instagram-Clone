@@ -27,7 +27,8 @@ const main = async () => {
 		type: "postgres",
 		url: process.env.DATABASE_URL,
 		entities: [User, Image, Like, Comment, Follower],
-		synchronize: !isProd
+		synchronize: !isProd,
+		logging: true
 	}).catch(error => console.log(error));
 
 	const RedisStore = connectRedis(session);
