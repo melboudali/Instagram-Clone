@@ -25,18 +25,13 @@ const main = async () => {
 
 	await createConnection({
 		type: "postgres",
-		host: "localhost",
-		port: 5432,
-		username: process.env.DB_USERNAME,
-		password: process.env.DB_PASSWORD,
-		database: process.env.DB_NAME,
+		url: process.env.DATABASE_URL,
 		entities: [User, Image, Like, Comment, Follower],
-		synchronize: !isProd,
-		logging: true
+		synchronize: !isProd
 	}).catch(error => console.log(error));
 
 	const RedisStore = connectRedis(session);
-	const redis = new Redis("127.0.0.1:6379");
+	const redis = new Redis(process.env.REDIS_URL);
 
 	app.set("trust proxy", 1);
 	app.use(cors({ origin: "http://localhost:3000", credentials: true }));
