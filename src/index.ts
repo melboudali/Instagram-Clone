@@ -70,16 +70,14 @@ const main = async () => {
 
 	apolloServer.applyMiddleware({ app, cors: false });
 
-	app.use(express.static("public"));
-
 	app.use((err: Error, _: Request, res: Response, _2: NextFunction) => {
 		res.status(500).json({ message: err.message });
 	});
 
-	if (process.env.NODE_ENV === "production") {
+	if (isProd) {
 		app.use(express.static(path.join(__dirname, "client/build")));
 		app.get("*", (_, res) => {
-			res.sendFile(path.join(__dirname, "client/build", "index.html"));
+			res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 		});
 	}
 
