@@ -115,6 +115,13 @@ const CaptionArea = styled.textarea`
 	margin: 0 0 10px 10px;
 `;
 
+const ErrorMessage = styled.p`
+	color: var(--textErrorColor);
+	font-size: 14px;
+	text-align: center;
+	margin: 0;
+`;
+
 type ModalProps = {
 	imageUri: string | undefined;
 	imageFile: File | null;
@@ -133,11 +140,12 @@ const Modal = ({
 	const { data } = useMeQuery();
 	const [uploadImageFunc] = useUploadImageMutation();
 
-	const [caption, setCaption] = useState("");
-	const [UploadLoading, setLoadingUpload] = useState<boolean>(false);
-
 	const ref = useRef<HTMLDivElement>(null);
 	const { clickOutside } = useClickOutside(ref);
+
+	const [caption, setCaption] = useState("");
+	const [UploadLoading, setLoadingUpload] = useState(false);
+	const [connectionError, setConnectionError] = useState(false);
 
 	useEffect(() => {
 		if (clickOutside) {
@@ -153,6 +161,7 @@ const Modal = ({
 	};
 
 	const UploadFile = async () => {
+		if (connectionError) setConnectionError(false);
 		setLoadingUpload(true);
 		if (imageFile) {
 			try {
@@ -184,12 +193,13 @@ const Modal = ({
 					setUploadSuccessfulMessage(`Image has been successfully uploaded!`);
 					closeModal();
 				} else {
+					setConnectionError(true);
 					setUploadSuccessfulMessage(null);
 					closeModal();
 				}
 			} catch (error) {
-				setUploadSuccessfulMessage(null);
-				closeModal();
+				setConnectionError(true);
+				setLoadingUpload(false);
 			}
 		}
 	};
@@ -239,6 +249,7 @@ const Modal = ({
 							onClickFunction={UploadFile}>
 							Post
 						</Button>
+						{connectionError && <ErrorMessage>503 Service Unavailable</ErrorMessage>}
 					</CaptionContainer>
 				</ImageCaptionContainer>
 			</Main>
