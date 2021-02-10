@@ -4,7 +4,7 @@ import express, { Request, Response, NextFunction } from "express";
 import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { cookieName, serverMessage, isProd, serverPort } from "./config/constants";
+import { cookieName, isProd } from "./config/constants";
 import { UserResolver } from "./resolvers/user";
 import { ImageResolver } from "./resolvers/image";
 import { createUserLoader } from "./utils/createUserLoader";
@@ -19,6 +19,7 @@ import { Comment } from "./entities/comment";
 import { Follower } from "./entities/follower";
 import { graphqlUploadExpress } from "graphql-upload";
 // import path from "path";
+const PORT = process.env.PORT || 5000;
 
 const main = async () => {
 	const app = express();
@@ -81,7 +82,11 @@ const main = async () => {
 	// 	});
 	// }
 
-	app.listen(serverPort, () => console.log(serverMessage));
+	app.listen(PORT, () =>
+		console.log(
+			`⚡️[server] => Server is running: \n - Home: http://localhost:${PORT} \n - Graphql: http://localhost:${PORT}/graphql`
+		)
+	);
 };
 
 main().catch(err => console.log(err));
