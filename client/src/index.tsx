@@ -7,7 +7,10 @@ import reportWebVitals from "./reportWebVitals";
 import { createUploadLink } from "apollo-upload-client";
 
 const link = createUploadLink({
-	uri: "http://localhost:5000/graphql",
+	uri:
+		process.env.NODE_ENV === "production"
+			? process.env.GRAPHQL_URL
+			: process.env.REACT_APP_GRAPHQL_URL,
 	credentials: "include"
 });
 
