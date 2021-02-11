@@ -29,7 +29,7 @@ const main = async () => {
 		type: "postgres",
 		url: process.env.DATABASE_URL,
 		entities: [User, Image, Like, Comment, Follower],
-		synchronize: true,
+		synchronize: !isProd,
 		logging: true
 	}).catch(error => console.log(error));
 
@@ -37,7 +37,7 @@ const main = async () => {
 	const redis = new Redis(process.env.REDIS_URL);
 
 	app.set("trust proxy", 1);
-	app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+	app.use(cors({ origin: process.env.ALLOWED_DOMAIN, credentials: true }));
 	app.use(
 		session({
 			name: cookieName,
