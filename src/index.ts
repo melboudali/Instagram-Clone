@@ -70,6 +70,8 @@ const main = async () => {
 
 	apolloServer.applyMiddleware({ app, cors: false });
 
+	app.use(express.static("public"));
+
 	app.use((err: Error, _: Request, res: Response, _2: NextFunction) => {
 		res.status(500).json({ message: err.message });
 	});
