@@ -37,7 +37,7 @@ const main = async () => {
 	const redis = new Redis(process.env.REDIS_URL);
 
 	app.set("trust proxy", 1);
-	app.use(cors({ origin: "https://instagram-med.herokuapp.com", credentials: true }));
+	app.use(cors({ origin: process.env.CORS_DOMAIN, credentials: true }));
 	app.use(
 		session({
 			name: cookieName,
