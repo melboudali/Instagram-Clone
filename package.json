@@ -1,6 +1,7 @@
 {
 	"name": "instagram-clone",
 	"version": "1.0.0",
+	"homepage": ".",
 	"description": "instagram-clone",
 	"main": "index.js",
 	"repository": {
