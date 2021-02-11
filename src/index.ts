@@ -29,7 +29,7 @@ const main = async () => {
 		type: "postgres",
 		url: process.env.DATABASE_URL,
 		entities: [User, Image, Like, Comment, Follower],
-		synchronize: !isProd,
+		synchronize: true,
 		logging: true
 	}).catch(error => console.log(error));
 
@@ -77,7 +77,7 @@ const main = async () => {
 	if (isProd) {
 		app.use(express.static(path.join(__dirname, "client/build")));
 		app.get("*", (_, res) => {
-			res.sendFile(path.join(__dirname, "client/build/index.html"));
+			res.sendFile(path.join(__dirname, "../client/build/index.html"));
 		});
 	}
 
