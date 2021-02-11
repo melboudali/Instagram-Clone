@@ -1,7 +1,6 @@
 {
 	"name": "instagram-clone",
 	"version": "1.0.0",
-	"homepage": ".",
 	"description": "instagram-clone",
 	"main": "index.js",
 	"repository": {
@@ -12,7 +11,6 @@
 	"bugs": {
 		"url": "https://github.com/MedElBoudali/Instagram-Clone/issues"
 	},
-	"homepage": "https://github.com/MedElBoudali/Instagram-Clone#readme",
 	"license": "MIT",
 	"scripts": {
 		"postinstall": "tsc",
@@ -22,7 +20,7 @@
 		"client": "yarn --cwd client start",
 		"server": "nodemon ./dist/index.js",
 		"all": "concurrently \"yarn server\" \"yarn client\"",
-		"heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
 	},
 	"dependencies": {
 		"apollo-server-express": "^2.19.0",
