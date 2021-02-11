@@ -1,6 +1,7 @@
 {
 	"name": "instagram-clone",
 	"version": "1.0.0",
+	"homepage": "https://instagram-med.herokuapp.com/",
 	"description": "instagram-clone",
 	"main": "index.js",
 	"repository": {
