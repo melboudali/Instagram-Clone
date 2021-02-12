@@ -43,27 +43,17 @@ export type User_Response = {
   website?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   private: Scalars['Boolean'];
-  images: Array<Image>;
+  images: Array<User_Image_Data>;
 };
 
-export type Image = {
-  __typename?: 'Image';
+export type User_Image_Data = {
+  __typename?: 'user_image_data';
   id: Scalars['String'];
   caption: Scalars['String'];
   image_url: Scalars['String'];
   likes: Scalars['Float'];
   like_status?: Maybe<Scalars['String']>;
-  userId: Scalars['Float'];
   created_at: Scalars['String'];
-  updated_at: Scalars['String'];
-  user: Image_Author;
-};
-
-export type Image_Author = {
-  __typename?: 'image_author';
-  id: Scalars['Float'];
-  username: Scalars['String'];
-  image_link: Scalars['String'];
 };
 
 export type Response = {
@@ -99,6 +89,13 @@ export type Image_Data = {
   created_at: Scalars['String'];
   updated_at: Scalars['String'];
   user: Image_Author;
+};
+
+export type Image_Author = {
+  __typename?: 'image_author';
+  id: Scalars['Float'];
+  username: Scalars['String'];
+  image_link: Scalars['String'];
 };
 
 export type Mutation = {
@@ -178,8 +175,8 @@ export type GetUserQuery = (
       { __typename?: 'user_response' }
       & Pick<User_Response, 'website' | 'bio' | 'private'>
       & { images: Array<(
-        { __typename?: 'Image' }
-        & Pick<Image, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'userId' | 'created_at' | 'updated_at'>
+        { __typename?: 'user_image_data' }
+        & Pick<User_Image_Data, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'created_at'>
       )> }
       & UserFragmentFragment
     )>, error?: Maybe<(
@@ -341,9 +338,7 @@ export const GetUserDocument = gql`
         image_url
         likes
         like_status
-        userId
         created_at
-        updated_at
       }
     }
     error {

@@ -11,9 +11,7 @@ query GetUser($username: String!) {
 				image_url
 				likes
 				like_status
-				userId
 				created_at
-				updated_at
 			}
 		}
 		error {

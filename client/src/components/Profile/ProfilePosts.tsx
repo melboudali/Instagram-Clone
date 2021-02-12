@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { User_Image_Data } from "../../generated/graphql";
 
 const LikesAndComments = css`
 	display: flex;
@@ -58,7 +59,7 @@ const CommentsContainer = styled.div`
 `;
 
 type ProfilePostsProps = {
-	posts: any[] | null | undefined;
+	posts: User_Image_Data[];
 };
 
 const ProfilePosts = ({ posts }: ProfilePostsProps) => {
