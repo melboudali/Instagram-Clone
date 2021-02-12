@@ -71,7 +71,7 @@ const Stories = () => {
 		{
 			name: "versace",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=bN4uaYUUoU8AX9ZrIjd&tp=1&oh=b09096258865e3f8df8d6711ae40f90c&oe=602684FB"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=y1sPy_l3b7UAX9qQEj6&tp=1&oh=fe58de46cd50c7828d9177fecfbee1dd&oe=6052067B"
 		},
 		{
 			name: "ferrari",
@@ -91,7 +91,7 @@ const Stories = () => {
 		{
 			name: "porsche",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/72477687_2436503716627621_3330394547002802176_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=eTheBcKg3FUAX_L6A7g&tp=1&oh=00baefb9e0abdb1779d2eeb63a9d5252&oe=6025F6C8"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/72477687_2436503716627621_3330394547002802176_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=NHuzxocQPAYAX99oa_6&tp=1&oh=49af85b3b0018818ff5aabdb98bf6db0&oe=60517848"
 		},
 		{
 			name: "dior",
@@ -101,12 +101,12 @@ const Stories = () => {
 		{
 			name: "louisvuitton",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/914335_653223868059486_1434031198_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=U6vgVx_e8o4AX833F7W&oh=0339da54381d42d4f923b0c15c373397&oe=60266A46"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/914335_653223868059486_1434031198_a.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=nJbyF-z95BQAX_8EP27&oh=c7e142399119708370470c160f676d00&oe=6051EBC6"
 		},
 		{
 			name: "voguemagazine",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/25024975_1053395324802105_3204556493470826496_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=42hUmjDaErAAX_rQGos&tp=1&oh=99e131336e1f9be396ce30c13775c2f9&oe=6025D940"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/25024975_1053395324802105_3204556493470826496_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=utGkHfH2D38AX-wRQpr&tp=1&oh=7f04793190ea7693a64ddaa404ac82a3&oe=60515AC0"
 		},
 		{
 			name: "chanelofficial",
@@ -116,17 +116,17 @@ const Stories = () => {
 		{
 			name: "mercedes",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=6eukZvzDplAAX8SPuqu&tp=1&oh=e80692a5b919db2d9a3ee11dba33e643&oe=602692DC"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=ujFqrl_VzjwAX_ALIHn&tp=1&oh=11e2aa56644d3e1eca0da5bb2c079ae9&oe=6052145C"
 		},
 		{
 			name: "dolcegabbana",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/110186591_652942011965204_3898636332437750301_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=GEJ9i7G2bpsAX_Y9nJm&tp=1&oh=6ca512147fa1f182a965f31ae4bdb573&oe=6025FBD9"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/110186591_652942011965204_3898636332437750301_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=Ne33IpHXqVEAX-wDfPm&tp=1&oh=ab2fae4f93c2624696fd23da9b60dbce&oe=60517D59"
 		},
 		{
 			name: "versace",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=bN4uaYUUoU8AX9ZrIjd&tp=1&oh=b09096258865e3f8df8d6711ae40f90c&oe=602684FB"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/64887406_2419362201457012_4649003460253974528_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=y1sPy_l3b7UAX9qQEj6&tp=1&oh=fe58de46cd50c7828d9177fecfbee1dd&oe=6052067B"
 		},
 		{
 			name: "ferrari",
@@ -146,7 +146,7 @@ const Stories = () => {
 		{
 			name: "porsche",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/72477687_2436503716627621_3330394547002802176_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=eTheBcKg3FUAX_L6A7g&tp=1&oh=00baefb9e0abdb1779d2eeb63a9d5252&oe=6025F6C8"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/72477687_2436503716627621_3330394547002802176_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=NHuzxocQPAYAX99oa_6&tp=1&oh=49af85b3b0018818ff5aabdb98bf6db0&oe=60517848"
 		},
 		{
 			name: "dior",
@@ -156,12 +156,12 @@ const Stories = () => {
 		{
 			name: "louisvuitton",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/914335_653223868059486_1434031198_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=U6vgVx_e8o4AX833F7W&oh=0339da54381d42d4f923b0c15c373397&oe=60266A46"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/914335_653223868059486_1434031198_a.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=nJbyF-z95BQAX_8EP27&oh=c7e142399119708370470c160f676d00&oe=6051EBC6"
 		},
 		{
 			name: "voguemagazine",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/25024975_1053395324802105_3204556493470826496_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=42hUmjDaErAAX_rQGos&tp=1&oh=99e131336e1f9be396ce30c13775c2f9&oe=6025D940"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/25024975_1053395324802105_3204556493470826496_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=utGkHfH2D38AX-wRQpr&tp=1&oh=7f04793190ea7693a64ddaa404ac82a3&oe=60515AC0"
 		},
 		{
 			name: "chanelofficial",
@@ -171,12 +171,12 @@ const Stories = () => {
 		{
 			name: "mercedes",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=6eukZvzDplAAX8SPuqu&tp=1&oh=e80692a5b919db2d9a3ee11dba33e643&oe=602692DC"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/128444312_195044392220087_2626476807974979382_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=ujFqrl_VzjwAX_ALIHn&tp=1&oh=11e2aa56644d3e1eca0da5bb2c079ae9&oe=6052145C"
 		},
 		{
 			name: "dolcegabbana",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/110186591_652942011965204_3898636332437750301_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=GEJ9i7G2bpsAX_Y9nJm&tp=1&oh=6ca512147fa1f182a965f31ae4bdb573&oe=6025FBD9"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/110186591_652942011965204_3898636332437750301_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=Ne33IpHXqVEAX-wDfPm&tp=1&oh=ab2fae4f93c2624696fd23da9b60dbce&oe=60517D59"
 		}
 	];
 
