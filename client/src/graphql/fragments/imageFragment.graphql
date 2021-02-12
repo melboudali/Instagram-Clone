@@ -1,0 +1,13 @@
+fragment imageFragment on image_data {
+	id
+	caption
+	image_url
+	likes
+	like_status
+	created_at
+	user {
+		id
+		username
+		image_link
+	}
+}

@@ -2,8 +2,10 @@ query GetSuggestedUsers {
 	suggestedUsers {
 		users {
 			id
-			username
-			image_link
+			...userFragment
+			website
+			bio
+			private
 		}
 	}
 }

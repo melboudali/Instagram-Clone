@@ -1,10 +1,10 @@
-mutation Register($registerInputs: registerInputs!) {
-  register(registerInputs: $registerInputs) {
-    user {
-      ...userFragment
-    }
-    error {
-      ...userErrorFragment
-    }
-  }
+mutation Register($registerInputs: register_inputs!) {
+	register(registerInputs: $registerInputs) {
+		user {
+			...userFragment
+		}
+		error {
+			...userErrorFragment
+		}
+	}
 }

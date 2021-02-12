@@ -1,14 +1,5 @@
-fragment userFragment on User {
-	id
+fragment userFragment on user_response {
 	username
-	email
 	fullname
-	website
-	bio
-	phone_number
 	image_link
-	private
-	verified
-	created_at
-	updated_at
 }

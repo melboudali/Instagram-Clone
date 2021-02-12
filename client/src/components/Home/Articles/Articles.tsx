@@ -32,10 +32,8 @@ const Articles = ({ data }: ArticleProps) => {
 						likes,
 						image_url,
 						like_status,
-						userId,
 						user: { id: uid, image_link, username },
-						created_at,
-						updated_at
+						created_at
 					}) => (
 						<Article
 							key={id}

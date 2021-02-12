@@ -2,6 +2,9 @@ query GetUser($username: String!) {
 	getUser(username: $username) {
 		user {
 			...userFragment
+			website
+			bio
+			private
 			images {
 				id
 				caption

@@ -182,8 +182,7 @@ const Comment = styled.div`
 
 const LikeComment = styled.button`
 	display: inline-block;
-	margin-left: auto;
-	margin-right: 0px;
+	margin: 0 0 0 auto;
 	border: 0;
 	padding: 0;
 	background: none;

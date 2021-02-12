@@ -6,11 +6,11 @@ import thirdImage from "../../assets/images/f0c687aa6ec2.jpg";
 import forthImage from "../../assets/images/842fe5699220.jpg";
 
 const ImagesContainer = styled.img<{ New: boolean; Old: boolean }>`
+	width: 240px;
 	height: 427px;
 	left: 0;
 	position: absolute;
 	top: 0;
-	width: 240px;
 	margin: 99px 0 0 151px;
 	opacity: 0;
 	visibility: hidden;
