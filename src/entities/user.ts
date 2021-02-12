@@ -62,7 +62,7 @@ export class User extends BaseEntity {
 	@Column({ default: false })
 	private: boolean;
 
-	@Field(() => [Image], { nullable: true })
+	@Field(() => [Image])
 	@OneToMany(() => Image, image => image.user)
 	images: Image[];
 

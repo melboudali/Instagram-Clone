@@ -32,8 +32,8 @@ export class Image extends BaseEntity {
 	@Column({ default: 0 })
 	likes: number;
 
-	@Field(() => Boolean, { defaultValue: false })
-	like_status: boolean;
+	@Field(() => String, { nullable: true })
+	like_status: string;
 
 	@Field()
 	@Column()

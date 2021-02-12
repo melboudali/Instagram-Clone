@@ -14,14 +14,39 @@ import {
 } from "type-graphql";
 import { GraphQLUpload, FileUpload } from "graphql-upload";
 import { Image } from "../entities/image";
-import { User } from "../entities/user";
 import { isAuth } from "../middleware/isAuthenticated";
 import { MyContext } from "../types";
 import { getConnection } from "typeorm";
 import { v2 as cloudinary } from "cloudinary";
 
 @ObjectType()
-class ErrorField {
+class image_author {
+	@Field()
+	id: number;
+	@Field()
+	username: string;
+	@Field()
+	image_link: string;
+}
+
+@ObjectType()
+class image_data extends Image {
+	@Field()
+	id: string;
+	@Field()
+	caption: string;
+	@Field()
+	image_url: string;
+	@Field()
+	likes: number;
+	@Field({ nullable: true })
+	like_status: string;
+	@Field(() => String)
+	created_at: Date;
+}
+
+@ObjectType()
+class image_error {
 	@Field()
 	field: string;
 	@Field()
@@ -29,24 +54,24 @@ class ErrorField {
 }
 
 @ObjectType()
-class UploadImageResponse {
-	@Field(() => Image, { nullable: true })
-	image?: Image;
-	@Field(() => ErrorField, { nullable: true })
-	error?: ErrorField;
+class image_upload_response {
+	@Field(() => image_data, { nullable: true })
+	image?: image_data;
+	@Field(() => image_error, { nullable: true })
+	error?: image_error;
 }
 
 @ObjectType()
 class PaginatedImages {
-	@Field(() => [Image])
-	images: Image[];
+	@Field(() => [image_data])
+	images: image_data[];
 	@Field()
 	hasMore: boolean;
 }
 
 @Resolver(Image)
 export class ImageResolver {
-	@Mutation(() => UploadImageResponse)
+	@Mutation(() => image_upload_response)
 	@UseMiddleware(isAuth)
 	async uploadImage(
 		@Arg("file", () => GraphQLUpload) { createReadStream }: FileUpload,
@@ -55,7 +80,7 @@ export class ImageResolver {
 	): Promise<any> {
 		return new Promise((resolve, reject) => {
 			if (!caption || caption.length <= 3) {
-				reject({ error: { field: "caption", message: "Title should be greater than 3!" } });
+				reject({ error: { message: "Title should be greater than 3!" } });
 			}
 
 			const userId = req.session.user_id;
@@ -71,7 +96,7 @@ export class ImageResolver {
 					{ folder: process.env.CLOUDINARY_FOLDER },
 					async (error, result) => {
 						if (error) {
-							reject({ error: { field: "error", message: error.message } });
+							reject({ error: { message: error.message } });
 						}
 						const image_url = result?.secure_url;
 						const post = await Image.create({
@@ -96,7 +121,7 @@ export class ImageResolver {
 		const minLimit = Math.min(50, limit);
 		const minLimitPlusOne = minLimit + 1;
 		const userId = req.session.user_id;
-		const queryParams: any[] = [minLimitPlusOne];
+		const queryParams: (number | Date)[] = [minLimitPlusOne];
 		if (userId) {
 			queryParams.push(userId);
 		}
@@ -120,7 +145,7 @@ export class ImageResolver {
 		return { images, hasMore: images.length === minLimitPlusOne };
 	}
 
-	@FieldResolver(() => User)
+	@FieldResolver(() => image_author)
 	user(@Root() image: Image, @Ctx() { userLoader }: MyContext) {
 		return userLoader.load(image.userId);
 	}

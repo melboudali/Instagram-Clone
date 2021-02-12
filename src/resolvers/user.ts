@@ -17,7 +17,7 @@ import { getConnection } from "typeorm";
 import { isAuth } from "../middleware/isAuthenticated";
 
 @InputType()
-class registerInputs {
+class register_inputs {
 	@Field()
 	userName: string;
 	@Field()
@@ -29,28 +29,64 @@ class registerInputs {
 }
 
 @ObjectType()
-class FieldError {
+class user_image_data {
+	@Field()
+	id: string;
+	@Field()
+	caption: string;
+	@Field()
+	image_url: string;
+	@Field()
+	likes: number;
+	@Field({ nullable: true })
+	like_status: string;
+	@Field(() => String)
+	created_at: Date;
+}
+
+@ObjectType()
+class user_response {
+	@Field()
+	id: number;
+	@Field()
+	username: string;
+	@Field()
+	fullname: string;
+	@Field()
+	image_link: string;
+	@Field({ nullable: true })
+	website: string;
+	@Field({ nullable: true })
+	bio: string;
+	@Field()
+	private: boolean;
+	@Field(() => [user_image_data])
+	images: user_image_data[];
+}
+
+@ObjectType()
+class error {
 	@Field()
 	message: string;
 }
 
 @ObjectType()
-class UserResponse {
-	@Field(() => FieldError, { nullable: true })
-	error?: FieldError;
-	@Field(() => User, { nullable: true })
-	user?: User;
+class response {
+	@Field(() => error, { nullable: true })
+	error?: error;
+	@Field(() => user_response, { nullable: true })
+	user?: user_response;
 }
 
 @ObjectType()
-class UsersResponse {
-	@Field(() => [User], { nullable: true })
-	users?: User[];
+class responses {
+	@Field(() => [user_response], { nullable: true })
+	users?: user_response[];
 }
 
 @Resolver(User)
 export class UserResolver {
-	@Query(() => User, { nullable: true })
+	@Query(() => user_response, { nullable: true })
 	async me(@Ctx() { req }: MyContext) {
 		if (!req.session!.user_id) {
 			return null;
@@ -58,11 +94,11 @@ export class UserResolver {
 		return await User.findOne(req.session.user_id);
 	}
 
-	@Mutation(() => UserResponse)
+	@Mutation(() => response)
 	async register(
-		@Arg("registerInputs") registerInputs: registerInputs,
+		@Arg("registerInputs") registerInputs: register_inputs,
 		@Ctx() { req }: MyContext
-	): Promise<UserResponse> {
+	): Promise<response> {
 		const fullname = registerInputs.fullName;
 		const username = registerInputs.userName.toLowerCase().split(" ").join(".");
 		const email = registerInputs.email;
@@ -99,15 +135,26 @@ export class UserResolver {
 			}
 		}
 		req.session!.user_id = user.id;
-		return { user };
+		return {
+			user: {
+				id: user.id,
+				username: user.username,
+				fullname: user.fullname,
+				image_link: user.image_link,
+				website: user.website,
+				bio: user.bio,
+				private: user.private,
+				images: user.images
+			}
+		};
 	}
 
-	@Mutation(() => UserResponse)
+	@Mutation(() => response)
 	async login(
 		@Arg("userNameOrEmail") userNameOrEmail: string,
 		@Arg("password") password: string,
 		@Ctx() { req }: MyContext
-	): Promise<UserResponse> {
+	): Promise<response> {
 		const isEmail: boolean = !!userNameOrEmail.includes("@");
 		const user = await User.findOne({
 			where: isEmail ? { email: userNameOrEmail } : { username: userNameOrEmail }
@@ -130,11 +177,22 @@ export class UserResolver {
 			};
 		}
 		req.session.user_id = user.id;
-		return { user };
+		return {
+			user: {
+				id: user.id,
+				username: user.username,
+				fullname: user.fullname,
+				image_link: user.image_link,
+				website: user.website,
+				bio: user.bio,
+				private: user.private,
+				images: user.images
+			}
+		};
 	}
 
-	@Query(() => UserResponse)
-	async getUser(@Arg("username") username: string): Promise<UserResponse> {
+	@Query(() => response)
+	async getUser(@Arg("username") username: string): Promise<response> {
 		const user = await User.createQueryBuilder("user")
 			.leftJoinAndSelect("user.images", "image")
 			.where("username = :username", { username })
@@ -142,7 +200,18 @@ export class UserResolver {
 			.getOne();
 
 		if (user) {
-			return { user };
+			return {
+				user: {
+					id: user.id,
+					username: user.username,
+					fullname: user.fullname,
+					image_link: user.image_link,
+					website: user.website,
+					bio: user.bio,
+					private: user.private,
+					images: user.images
+				}
+			};
 		} else {
 			return {
 				error: {
@@ -152,16 +221,18 @@ export class UserResolver {
 		}
 	}
 
-	@Query(() => UsersResponse)
+	@Query(() => responses)
 	@UseMiddleware(isAuth)
-	async suggestedUsers(@Ctx() { req }: MyContext): Promise<UsersResponse> {
+	async suggestedUsers(@Ctx() { req }: MyContext): Promise<responses> {
 		const id = req.session.user_id;
 		const users = await User.createQueryBuilder()
 			.where("id != :id", { id })
 			.orderBy("id", "DESC")
 			.limit(4)
 			.getMany();
-		return { users };
+		return {
+			users
+		};
 	}
 
 	@Mutation(() => Boolean)
@@ -170,7 +241,6 @@ export class UserResolver {
 			req.session?.destroy(err => {
 				res.clearCookie(cookieName);
 				if (err) {
-					console.log(err.message);
 					resolve(false);
 					return;
 				} else {
