@@ -19,7 +19,7 @@
 		"client": "yarn --cwd client start",
 		"server": "nodemon ./dist/index.js",
 		"all": "concurrently \"yarn server\" \"yarn client\"",
-		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build && npx typeorm migration:run"
 	},
 	"dependencies": {
 		"apollo-server-express": "^2.21.0",
