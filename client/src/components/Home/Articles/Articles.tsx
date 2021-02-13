@@ -31,7 +31,7 @@ const Articles = ({ data }: ArticleProps) => {
 						caption,
 						likes,
 						image_url,
-						like_status,
+						like_status: liked,
 						user: { id: uid, image_link, username },
 						created_at
 					}) => (
@@ -41,7 +41,7 @@ const Articles = ({ data }: ArticleProps) => {
 							logo={image_link}
 							image={image_url}
 							description={caption}
-							liked={"MedEL"}
+							likes={"MedEL"}
 							comments={[
 								{ user: "brown.julianna", comment: "❤️❤️❤️" },
 								{ user: "faybrookepracht", comment: "😍" }
@@ -49,6 +49,7 @@ const Articles = ({ data }: ArticleProps) => {
 							commentsLength={543}
 							createdTime={created_at}
 							data={data}
+							liked={!!liked}
 						/>
 					)
 				)}
