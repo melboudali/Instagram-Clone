@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import "dotenv/config";
 import express, { Request, Response, NextFunction } from "express";
-import { Connection, createConnection } from "typeorm";
+import { createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { cookieName, isProd } from "./config/constants";
@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 5000;
 const main = async () => {
 	const app = express();
 
-	const connection: Connection = await createConnection({
+	await createConnection({
 		type: "postgres",
 		url: process.env.DATABASE_URL,
 		synchronize: false,
@@ -33,8 +33,6 @@ const main = async () => {
 		entities: [User, Image, Like, Comment, Follower],
 		migrations: [path.join(__dirname, "migrations/*.js")]
 	});
-
-	await connection.runMigrations();
 
 	const RedisStore = connectRedis(session);
 	const redis = new Redis(process.env.REDIS_URL);
