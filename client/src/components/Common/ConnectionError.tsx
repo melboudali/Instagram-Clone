@@ -13,9 +13,7 @@ const Message = styled.h1`
 	color: #747474;
 `;
 
-type ConnectionErrorProps = {};
-
-const ConnectionError = ({}: ConnectionErrorProps) => {
+const ConnectionError = () => {
 	return (
 		<Container>
 			<Main>
