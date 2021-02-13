@@ -28,10 +28,11 @@ const main = async () => {
 	await createConnection({
 		type: "postgres",
 		url: process.env.DATABASE_URL,
+		synchronize: false,
+		logging: !isProd,
 		entities: [User, Image, Like, Comment, Follower],
-		synchronize: !isProd,
-		logging: true
-	}).catch(error => console.log(error));
+		migrations: [path.join(__dirname, "./migrations/*")]
+	});
 
 	const RedisStore = connectRedis(session);
 	const redis = new Redis(process.env.REDIS_URL);

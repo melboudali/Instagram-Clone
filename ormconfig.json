@@ -1,13 +1,14 @@
 {
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "postgres",
-  "password": "postgres",
-  "database": "instagram",
-  "synchronize": true,
-  "logging": false,
-  "entities": ["src/entity/**/*.ts"],
-  "migrations": ["src/migration/**/*.ts"],
-  "subscribers": ["src/subscriber/**/*.ts"]
+	"type": "postgres",
+	"host": "localhost",
+	"port": 5432,
+	"username": "postgres",
+	"password": "postgres",
+	"database": "instagram2",
+	"entities": ["dist/entities/*.js"],
+	"migrations": ["dist/migrations/*.js"],
+	"cli": {
+		"entitiesDir": "src/entities",
+		"migrationsDir": "src/migrations"
+	}
 }
