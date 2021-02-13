@@ -31,7 +31,7 @@ const main = async () => {
 		synchronize: false,
 		logging: !isProd,
 		entities: [User, Image, Like, Comment, Follower],
-		migrations: [path.join(__dirname, "./migrations/*")]
+		migrations: [path.join(__dirname, "migrations/*.js")]
 	});
 
 	await connection.runMigrations();
