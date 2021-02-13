@@ -4,7 +4,7 @@
 	"port": 5432,
 	"username": "postgres",
 	"password": "postgres",
-	"database": "instagram2",
+	"database": "instagram",
 	"entities": ["dist/entities/*.js"],
 	"migrations": ["dist/migrations/*.js"],
 	"cli": {
