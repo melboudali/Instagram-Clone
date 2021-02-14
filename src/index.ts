@@ -45,6 +45,7 @@ const main = async () => {
 	app.use(
 		session({
 			name: cookieName,
+			proxy: isProd,
 			store: new RedisStore({ client: redis, disableTouch: true }),
 			cookie: {
 				maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
