@@ -45,14 +45,12 @@ const main = async () => {
 	app.use(
 		session({
 			name: cookieName,
-			proxy: isProd,
 			store: new RedisStore({ client: redis, disableTouch: true }),
 			cookie: {
 				maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
 				httpOnly: true,
 				sameSite: "lax",
-				secure: isProd,
-				domain: isProd ? process.env.SESSION_DOMAIN : undefined
+				secure: isProd
 			},
 			saveUninitialized: false,
 			secret: process.env.SESSION_SECRET!,
