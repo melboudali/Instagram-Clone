@@ -44,10 +44,10 @@ const PostsMenu = styled(Link)<{ page: "profile" | "tagged" }>`
 	}
 `;
 
-type ProfileMenuProps = {
+interface ProfileMenuProps {
 	data: GetUserQuery | undefined;
 	page: "profile" | "tagged";
-};
+}
 
 const ProfileMenu = ({ data, page }: ProfileMenuProps) => {
 	return (

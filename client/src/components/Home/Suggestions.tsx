@@ -240,9 +240,9 @@ const SignatureContainer = styled.span`
 	color: #8e8e8e;
 `;
 
-type SuggestionsProps = {
+interface SuggestionsProps {
 	data: MeQuery | undefined;
-};
+}
 
 const Suggestions = ({ data }: SuggestionsProps) => {
 	const { data: suggestedUsers } = useGetSuggestedUsersQuery();

@@ -12,9 +12,9 @@ const Container = styled.div`
 	}
 `;
 
-type ArticleProps = {
+interface ArticleProps {
 	data: MeQuery | undefined;
-};
+}
 
 const Articles = ({ data }: ArticleProps) => {
 	const { data: images, loading: imagesLoading } = useGetAllImagesQuery({

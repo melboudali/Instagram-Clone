@@ -51,9 +51,9 @@ const LogoutName = styled.div`
 	}
 `;
 
-type LogoutLinkProps = {
+interface LogoutLinkProps {
 	children: React.ReactNode;
-};
+}
 
 const LogoutLink = ({ children }: LogoutLinkProps) => {
 	const [logout] = useLogoutMutation();

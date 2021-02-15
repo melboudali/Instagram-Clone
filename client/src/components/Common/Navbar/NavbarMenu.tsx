@@ -57,10 +57,10 @@ const Hr = styled.hr`
 	width: 100%;
 `;
 
-type NavbarMenuProps = {
+interface NavbarMenuProps {
 	data: MeQuery | undefined;
 	showMenu: boolean;
-};
+}
 
 const NavbarMenu = ({ data, showMenu }: NavbarMenuProps) => {
 	return (

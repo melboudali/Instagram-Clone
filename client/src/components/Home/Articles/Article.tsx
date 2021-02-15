@@ -232,7 +232,7 @@ const SubmitButton = styled.button<{ Active: boolean }>`
 	${({ Active }) => !Active && "opacity:0.3"}
 `;
 
-type ArticleProps = {
+interface ArticleProps {
 	name: string;
 	logo: string;
 	image: string;
@@ -243,7 +243,7 @@ type ArticleProps = {
 	createdTime: string;
 	data: MeQuery | undefined;
 	liked: boolean;
-};
+}
 
 const Article = ({
 	name,

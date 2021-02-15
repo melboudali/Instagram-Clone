@@ -49,10 +49,10 @@ const Name = styled.h1`
 	white-space: nowrap;
 `;
 
-type StoryProps = {
+interface StoryProps {
 	name: string;
 	image: string;
-};
+}
 
 const Story = ({ name, image }: StoryProps) => {
 	return (

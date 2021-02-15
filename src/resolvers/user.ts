@@ -99,10 +99,8 @@ export class UserResolver {
 		@Arg("registerInputs") registerInputs: register_inputs,
 		@Ctx() { req }: MyContext
 	): Promise<response> {
-		const fullname = registerInputs.fullName;
+		const { email, fullName: fullname, password } = registerInputs;
 		const username = registerInputs.userName.toLowerCase().split(" ").join(".");
-		const email = registerInputs.email;
-		const password = registerInputs.password;
 		const hashedPassword = await argon2.hash(registerInputs.password);
 
 		if (fullname.length <= 3 || username.length <= 3 || password.length <= 3) {
@@ -114,7 +112,7 @@ export class UserResolver {
 			return { error: { message: "Invalid email." } };
 		}
 
-		let user;
+		let user: user_response | null = null;
 		try {
 			const result = await getConnection()
 				.createQueryBuilder()
@@ -134,17 +132,17 @@ export class UserResolver {
 				return { error: { message: "That username or email address is already in use." } };
 			}
 		}
-		req.session!.user_id = user.id;
+		req.session.user_id = user!.id;
 		return {
 			user: {
-				id: user.id,
-				username: user.username,
-				fullname: user.fullname,
-				image_link: user.image_link,
-				website: user.website,
-				bio: user.bio,
-				private: user.private,
-				images: user.images
+				id: user!.id,
+				username: user!.username,
+				fullname: user!.fullname,
+				image_link: user!.image_link,
+				website: user!.website,
+				bio: user!.bio,
+				private: user!.private,
+				images: user!.images
 			}
 		};
 	}
@@ -155,7 +153,7 @@ export class UserResolver {
 		@Arg("password") password: string,
 		@Ctx() { req }: MyContext
 	): Promise<response> {
-		const isEmail: boolean = !!userNameOrEmail.includes("@");
+		const isEmail = !!userNameOrEmail.includes("@");
 		const user = await User.findOne({
 			where: isEmail ? { email: userNameOrEmail } : { username: userNameOrEmail }
 		});
@@ -199,26 +197,37 @@ export class UserResolver {
 			.orderBy("image.created_at", "DESC")
 			.getOne();
 
-		if (user) {
-			return {
-				user: {
-					id: user.id,
-					username: user.username,
-					fullname: user.fullname,
-					image_link: user.image_link,
-					website: user.website,
-					bio: user.bio,
-					private: user.private,
-					images: user.images
-				}
-			};
-		} else {
+		if (!user) {
 			return {
 				error: {
 					message: `User '${username}' not found!`
 				}
 			};
 		}
+
+		const {
+			id,
+			username: userName,
+			fullname,
+			image_link,
+			website,
+			bio,
+			private: isPrivate,
+			images
+		} = user;
+
+		return {
+			user: {
+				id,
+				username: userName,
+				fullname,
+				image_link,
+				website,
+				bio,
+				private: isPrivate,
+				images
+			}
+		};
 	}
 
 	@Query(() => responses)

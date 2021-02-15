@@ -50,11 +50,11 @@ const MenuListName = styled.div`
 	}
 `;
 
-type NavbarMenuLinkProps = {
+interface NavbarMenuLinkProps {
 	LinkName: string;
 	to: string;
 	children: React.ReactNode;
-};
+}
 
 const NavbarMenuLink = ({ LinkName, to, children }: NavbarMenuLinkProps) => {
 	return (

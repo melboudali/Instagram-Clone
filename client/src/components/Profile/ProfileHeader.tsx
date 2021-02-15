@@ -123,10 +123,10 @@ const Website = styled.a`
 	font-size: 16px;
 `;
 
-type ProfileHeaderProps = {
+interface ProfileHeaderProps {
 	data: GetUserQuery | undefined;
 	loggedinUserData: MeQuery | undefined;
-};
+}
 
 const ProfileHeader = ({ data, loggedinUserData }: ProfileHeaderProps) => {
 	return (

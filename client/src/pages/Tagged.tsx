@@ -12,9 +12,9 @@ const Main = styled.div`
 	margin: 30px auto 0;
 `;
 
-type TaggedProps = {
+interface TaggedProps {
 	match: { params: { username: string } };
-};
+}
 
 const Tagged = ({ match }: TaggedProps) => {
 	const { data: loggedinUserData } = useMeQuery();

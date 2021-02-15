@@ -13,9 +13,9 @@ const Main = styled.div`
 	margin: 30px auto 0;
 `;
 
-type ProfileProps = {
+interface ProfileProps {
 	match: { params: { username: string } };
-};
+}
 
 const Profile = ({ match }: ProfileProps) => {
 	const { data: loggedinUserData } = useMeQuery();

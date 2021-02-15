@@ -58,9 +58,9 @@ const CommentsContainer = styled.div`
 	${LikesAndComments}
 `;
 
-type ProfilePostsProps = {
+interface ProfilePostsProps {
 	posts: User_Image_Data[];
-};
+}
 
 const ProfilePosts = ({ posts }: ProfilePostsProps) => {
 	return (

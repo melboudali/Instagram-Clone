@@ -2,9 +2,9 @@ import { Fragment } from "react";
 import styled from "styled-components";
 import Navbar from "./Navbar/Navbar";
 
-type ContainerProps = {
+interface ContainerProps {
 	children: React.ReactNode;
-};
+}
 
 const Main = styled.main`
 	margin: 0 auto 30px;

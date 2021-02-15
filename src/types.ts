@@ -3,9 +3,9 @@ import { Session } from "express-session";
 import { Redis } from "ioredis";
 import { createUserLoader } from "./utils/createUserLoader";
 
-export type MyContext = {
+export interface MyContext {
 	req: Request & { session: Session & { user_id: number } };
 	res: Response;
 	redis: Redis;
 	userLoader: ReturnType<typeof createUserLoader>;
-};
+}

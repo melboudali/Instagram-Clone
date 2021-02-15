@@ -50,8 +50,8 @@ const main = async () => {
 				maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
 				httpOnly: true,
 				sameSite: "lax",
-				secure: false //default should be true (HTTPS only) but im using custom domain withour https
-				// domain: isProd ? process.env.SESSION_DOMAIN : undefined //keep this line if the app is deployed on heroku
+				secure: false //default should be true (HTTPS only) but im using custom domain without https
+				// domain: isProd ? process.env.SESSION_DOMAIN : undefined //keep this line commented if the app is deployed on heroku
 			},
 			saveUninitialized: false,
 			secret: process.env.SESSION_SECRET!,

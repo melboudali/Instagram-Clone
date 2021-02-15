@@ -122,13 +122,13 @@ const ErrorMessage = styled.p`
 	margin: 0;
 `;
 
-type ModalProps = {
+interface ModalProps {
 	imageUri: string | undefined;
 	imageFile: File | null;
 	setOpenModal: (arg: boolean) => void;
 	setUploadSuccessfulMessage: (arg: string | null) => void;
 	Scrollbar: (arg: "show" | "hide") => void;
-};
+}
 
 const Modal = ({
 	imageFile,

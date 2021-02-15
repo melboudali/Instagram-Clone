@@ -72,7 +72,7 @@ const ShowButton = styled.button`
 	text-transform: capitalize;
 `;
 
-type FormInputProps = {
+interface FormInputProps {
 	LabelText: string;
 	Required: boolean;
 	Maxlength?: number;
@@ -80,7 +80,7 @@ type FormInputProps = {
 	Type: string;
 	inputValue: string;
 	setInputValue: Function;
-};
+}
 
 const FromInput = ({
 	LabelText,
