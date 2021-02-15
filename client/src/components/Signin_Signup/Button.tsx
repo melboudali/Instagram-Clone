@@ -37,11 +37,13 @@ const LoadingContainer = styled.div`
 	}
 `;
 
+type buttonType = "submit" | "reset" | "button";
+
 interface ButtonProps {
 	active: boolean;
 	loading: boolean;
 	children: React.ReactNode;
-	type: "submit" | "reset" | "button";
+	type: buttonType;
 	onClickFunction: Function;
 }
 

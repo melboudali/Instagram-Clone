@@ -17,7 +17,7 @@ const LinkContainer = styled.div`
 
 interface NavbarLinkProps {
 	path: string;
-	children: React.ReactNode;
+	children: React.ReactNode & React.SVGProps<SVGSVGElement>;
 }
 
 const NavbarLink = ({ path, children }: NavbarLinkProps) => {
