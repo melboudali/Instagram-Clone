@@ -98,11 +98,14 @@ interface SuggestionsListProps {
 }
 
 const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
-	const { data, loading } = useGetSuggestedUsersQuery();
+	const { data, loading, error } = useGetSuggestedUsersQuery();
 
 	if (loading) return <LoadingSpinner />;
 
-	if ((!data?.suggestedUsers.users || data?.suggestedUsers.users.length === 1) && !loading)
+	if (
+		((!data?.suggestedUsers.users || data?.suggestedUsers.users.length === 0) && !loading) ||
+		error
+	)
 		return <SuggestionsError />;
 
 	return (

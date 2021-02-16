@@ -76,12 +76,12 @@ const Stories = () => {
 		{
 			name: "ferrari",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/13256976_998954483525291_2088181491_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=_HwKzaGtBFoAX_aYplU&tp=1&oh=c9b497fd527f4df09e45683e29ab82a3&oe=6027E16C"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/13256976_998954483525291_2088181491_a.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=8Pggkl5ZMUMAX8XzVOE&tp=1&oh=10d2642a8e598547ca932194ed93915e&oe=6057576C"
 		},
 		{
 			name: "lamborghini",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/10914351_445156875637393_373836994_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=68MQfFBzrRMAX9yDrPp&oh=059b8ece9522801147ce86c81d25631a&oe=602881EC"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/10914351_445156875637393_373836994_a.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=oNc9mQeUYdYAX89Yghr&oh=b937faf56b7b4e9cb071005e821afb14&oe=6054036C"
 		},
 		{
 			name: "pullandbear",
@@ -96,7 +96,7 @@ const Stories = () => {
 		{
 			name: "dior",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/42633985_1927008894059358_8334422696888631296_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=M7zS9McaNOcAX88S_VE&tp=1&oh=a5b071a63b71536b8eff464beaf0e10a&oe=602935F0"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/42633985_1927008894059358_8334422696888631296_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=gJ38AXys7vsAX-nlQZt&tp=1&oh=7d89efb4147ec9827b0fc136d1cff885&oe=6054B770"
 		},
 		{
 			name: "louisvuitton",
@@ -111,7 +111,7 @@ const Stories = () => {
 		{
 			name: "chanelofficial",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/66505567_684858381987599_4049279537282809856_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=JlK4jzw1zM8AX9FMHuU&tp=1&oh=5eb83b40f465669d993bb6602752d4d7&oe=60271462"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/66505567_684858381987599_4049279537282809856_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=Tr8raHRvQXUAX_6TYO9&tp=1&oh=771c70bf057f6b353a83eb161fe28878&oe=60568A62"
 		},
 		{
 			name: "mercedes",
@@ -131,12 +131,12 @@ const Stories = () => {
 		{
 			name: "ferrari",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/13256976_998954483525291_2088181491_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=_HwKzaGtBFoAX_aYplU&tp=1&oh=c9b497fd527f4df09e45683e29ab82a3&oe=6027E16C"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/13256976_998954483525291_2088181491_a.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=8Pggkl5ZMUMAX8XzVOE&tp=1&oh=10d2642a8e598547ca932194ed93915e&oe=6057576C"
 		},
 		{
 			name: "lamborghini",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/10914351_445156875637393_373836994_a.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=68MQfFBzrRMAX9yDrPp&oh=059b8ece9522801147ce86c81d25631a&oe=602881EC"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/10914351_445156875637393_373836994_a.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=oNc9mQeUYdYAX89Yghr&oh=b937faf56b7b4e9cb071005e821afb14&oe=6054036C"
 		},
 		{
 			name: "pullandbear",
@@ -151,7 +151,7 @@ const Stories = () => {
 		{
 			name: "dior",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/42633985_1927008894059358_8334422696888631296_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=M7zS9McaNOcAX88S_VE&tp=1&oh=a5b071a63b71536b8eff464beaf0e10a&oe=602935F0"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/42633985_1927008894059358_8334422696888631296_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=gJ38AXys7vsAX-nlQZt&tp=1&oh=7d89efb4147ec9827b0fc136d1cff885&oe=6054B770"
 		},
 		{
 			name: "louisvuitton",
@@ -166,7 +166,7 @@ const Stories = () => {
 		{
 			name: "chanelofficial",
 			image:
-				"https://instagram.fcmn3-2.fna.fbcdn.net/v/t51.2885-19/s150x150/66505567_684858381987599_4049279537282809856_n.jpg?_nc_ht=instagram.fcmn3-2.fna.fbcdn.net&_nc_ohc=JlK4jzw1zM8AX9FMHuU&tp=1&oh=5eb83b40f465669d993bb6602752d4d7&oe=60271462"
+				"https://instagram.fcmn2-2.fna.fbcdn.net/v/t51.2885-19/s150x150/66505567_684858381987599_4049279537282809856_n.jpg?_nc_ht=instagram.fcmn2-2.fna.fbcdn.net&_nc_ohc=Tr8raHRvQXUAX_6TYO9&tp=1&oh=771c70bf057f6b353a83eb161fe28878&oe=60568A62"
 		},
 		{
 			name: "mercedes",
