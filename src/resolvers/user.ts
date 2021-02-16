@@ -239,7 +239,7 @@ export class UserResolver {
 			.orderBy("id", "DESC")
 			.limit(4)
 			.getMany();
-		if (!users) return { users: [] };
+
 		return {
 			users
 		};
