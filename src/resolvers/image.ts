@@ -63,10 +63,10 @@ class image_upload_response {
 
 @ObjectType()
 class PaginatedImages {
-	@Field(() => [image_data], { nullable: true })
-	images?: image_data[];
+	@Field(() => [image_data])
+	images!: image_data[];
 	@Field(() => Boolean, { nullable: true })
-	hasMore?: boolean;
+	hasMore!: boolean;
 }
 
 @Resolver(Image)

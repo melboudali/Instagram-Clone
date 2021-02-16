@@ -1,8 +1,9 @@
 import Article from "./Article";
 import styled from "styled-components";
 import { MeQuery, useGetAllImagesQuery } from "../../../generated/graphql";
+import ArticlesError from "../../Common/Errors/ArticlesError";
 
-const Container = styled.div`
+const Container = styled.main`
 	--ArticleMargin: 28px;
 	max-width: 614px;
 	float: left;
@@ -10,6 +11,12 @@ const Container = styled.div`
 	@media only screen and (max-width: 1000px) {
 		--ArticleMargin: 0;
 	}
+`;
+
+const ArticlesErrorContainer = styled.div`
+	width: 614px;
+	margin: 100px 0;
+	text-align: center;
 `;
 
 interface ArticleProps {
@@ -23,9 +30,8 @@ const Articles = ({ data }: ArticleProps) => {
 
 	return (
 		<Container>
-			{images &&
-				!imagesLoading &&
-				images.getAllImages.images.map(
+			{images && !imagesLoading ? (
+				images.getAllImages.images?.map(
 					({
 						id,
 						caption,
@@ -52,7 +58,12 @@ const Articles = ({ data }: ArticleProps) => {
 							liked={!!liked}
 						/>
 					)
-				)}
+				)
+			) : (
+				<ArticlesErrorContainer>
+					<ArticlesError />
+				</ArticlesErrorContainer>
+			)}
 		</Container>
 	);
 };

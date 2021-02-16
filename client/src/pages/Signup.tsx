@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Assets from "../assets/images/32f0a4f27407.png";
-import ConnectionErrorComponent from "../components/Common/ConnectionError";
+import ConnectionErrorComponent from "../components/Common/Errors/ConnectionError";
 
 const Container = styled.section`
 	margin: 32px auto 0;

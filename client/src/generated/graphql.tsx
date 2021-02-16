@@ -75,7 +75,7 @@ export type Responses = {
 export type PaginatedImages = {
   __typename?: 'PaginatedImages';
   images: Array<Image_Data>;
-  hasMore: Scalars['Boolean'];
+  hasMore?: Maybe<Scalars['Boolean']>;
 };
 
 export type Image_Data = {

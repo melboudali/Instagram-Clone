@@ -11,7 +11,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BackgroundImage from "../assets/images/43cc71bb1b43.png";
 import Assets from "../assets/images/32f0a4f27407.png";
-import ConnectionErrorComponent from "../components/Common/ConnectionError";
+import ConnectionErrorComponent from "../components/Common/Errors/ConnectionError";
 import { lessThan768px } from "../config/MediaQueries";
 
 const Container = styled.section`

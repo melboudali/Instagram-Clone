@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { MeQuery, useGetSuggestedUsersQuery } from "../../generated/graphql";
 import useSticky from "../../Hooks/useSticky";
+import SuggestionsError from "../Common/Errors/SuggestionsError";
 
 const EllipsisText = css`
 	white-space: nowrap;
@@ -290,30 +291,34 @@ const Suggestions = ({ data }: SuggestionsProps) => {
 				</CurrentUser>
 			</CurrentUserContainer>
 			<SuggestionsContainer>
-				<SuggestionsTitleContainer>
-					<span>Suggestions For You</span>
-					<SeeAllLink to="/fixLater">See All</SeeAllLink>
-				</SuggestionsTitleContainer>
-				{suggestedUsers &&
-					suggestedUsers.suggestedUsers.users &&
-					suggestedUsers.suggestedUsers.users.map(({ id, username, image_link }) => (
-						<SuggestionContainer key={id}>
-							<SuggestedProfileImage>
-								<Link to={`/${username}`}>
-									<img src={image_link} alt={`${username}'s profile`} />
-								</Link>
-							</SuggestedProfileImage>
-							<SuggestedProfileName>
-								<SuggestedUserName to={`/${username}`}>{username}</SuggestedUserName>
-								<span>New to Instagram</span>
-							</SuggestedProfileName>
-							<SuggestedSwitchButtonContainer>
-								<SuggestedSwitchButton type="button" onClick={() => onClick("Follow")}>
-									Follow
-								</SuggestedSwitchButton>
-							</SuggestedSwitchButtonContainer>
-						</SuggestionContainer>
-					))}
+				{suggestedUsers!.suggestedUsers.users ? (
+					<>
+						<SuggestionsTitleContainer>
+							<span>Suggestions For You</span>
+							<SeeAllLink to="/fixLater">See All</SeeAllLink>
+						</SuggestionsTitleContainer>
+						{suggestedUsers!.suggestedUsers.users.map(({ id, username, image_link }) => (
+							<SuggestionContainer key={id}>
+								<SuggestedProfileImage>
+									<Link to={`/${username}`}>
+										<img src={image_link} alt={`${username}'s profile`} />
+									</Link>
+								</SuggestedProfileImage>
+								<SuggestedProfileName>
+									<SuggestedUserName to={`/${username}`}>{username}</SuggestedUserName>
+									<span>New to Instagram</span>
+								</SuggestedProfileName>
+								<SuggestedSwitchButtonContainer>
+									<SuggestedSwitchButton type="button" onClick={() => onClick("Follow")}>
+										Follow
+									</SuggestedSwitchButton>
+								</SuggestedSwitchButtonContainer>
+							</SuggestionContainer>
+						))}
+					</>
+				) : (
+					<SuggestionsError />
+				)}
 			</SuggestionsContainer>
 			<div>
 				<LinksContainer>

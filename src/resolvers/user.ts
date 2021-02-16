@@ -81,7 +81,7 @@ class response {
 @ObjectType()
 class responses {
 	@Field(() => [user_response], { nullable: true })
-	users?: user_response[];
+	users!: user_response[];
 }
 
 @Resolver(User)
@@ -239,6 +239,7 @@ export class UserResolver {
 			.orderBy("id", "DESC")
 			.limit(4)
 			.getMany();
+		if (!users) return { users: [] };
 		return {
 			users
 		};

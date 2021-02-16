@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Assets from "../../assets/images/9813fcc3aa16.png";
+import ArticlesError from "../Common/Errors/ArticlesError";
 import OtherAssets from "../../assets/images/32f0a4f27407.png";
 import Footer from "../Common/Footer/Footer";
 
@@ -21,25 +21,6 @@ const Main = styled.div`
 	align-items: center;
 	justify-content: center;
 	margin: 80px 0 100px 0;
-`;
-
-const NoPostsLogoContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 62px;
-	height: 62px;
-	margin-bottom: 32px;
-	border: 2px solid #262626;
-	border-radius: 50%;
-`;
-
-const NoPostsLogo = styled.span`
-	background: url(${Assets});
-	background-position: -440px 0;
-	background-repeat: no-repeat;
-	height: 24px;
-	width: 24px;
 `;
 
 const NoTaggedLogoContainer = styled.div`
@@ -90,12 +71,7 @@ const ProfileEmptyPostsOrPrivate = ({ type }: ProfileEmptyPostsOrPrivateProps) =
 		<>
 			<Main>
 				{type === "emptyImages" ? (
-					<>
-						<NoPostsLogoContainer>
-							<NoPostsLogo />
-						</NoPostsLogoContainer>
-						<Message>No Posts Yet</Message>
-					</>
+					<ArticlesError />
 				) : (
 					<>
 						<NoTaggedLogoContainer />
