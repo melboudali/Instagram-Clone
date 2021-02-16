@@ -157,6 +157,7 @@ const SignatureContainer = styled.span`
 	font-weight: 400;
 	line-height: 13px;
 	color: #8e8e8e;
+	padding-bottom: 50px;
 `;
 
 interface SuggestionsProps {

@@ -2,6 +2,7 @@ import Article from "./Article";
 import styled from "styled-components";
 import { MeQuery, useGetAllImagesQuery } from "../../../generated/graphql";
 import ArticlesError from "../../Common/Errors/ArticlesError";
+import LoadingSpinner from "../../Common/LoadingSpinner";
 
 const Container = styled.main`
 	--ArticleMargin: 28px;
@@ -19,6 +20,12 @@ const ArticlesErrorContainer = styled.div`
 	text-align: center;
 `;
 
+const LoadingSpinnerContainer = styled.div`
+	width: 614px;
+	padding: 130px 0;
+	text-align: center;
+`;
+
 interface ArticleProps {
 	data: MeQuery | undefined;
 }
@@ -28,9 +35,16 @@ const Articles = ({ data }: ArticleProps) => {
 		variables: { limit: 3, cursor: null }
 	});
 
+	if (imagesLoading)
+		return (
+			<LoadingSpinnerContainer>
+				<LoadingSpinner margin="0 auto" />
+			</LoadingSpinnerContainer>
+		);
+
 	return (
 		<Container>
-			{images && !imagesLoading ? (
+			{images && images?.getAllImages.images.length > 0 && !imagesLoading ? (
 				images.getAllImages.images?.map(
 					({
 						id,

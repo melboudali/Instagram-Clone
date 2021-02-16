@@ -69,13 +69,13 @@ export type Error = {
 
 export type Responses = {
   __typename?: 'responses';
-  users?: Maybe<Array<User_Response>>;
+  users: Array<User_Response>;
 };
 
 export type PaginatedImages = {
   __typename?: 'PaginatedImages';
   images: Array<Image_Data>;
-  hasMore?: Maybe<Scalars['Boolean']>;
+  hasMore: Scalars['Boolean'];
 };
 
 export type Image_Data = {
@@ -278,11 +278,11 @@ export type GetSuggestedUsersQuery = (
   { __typename?: 'Query' }
   & { suggestedUsers: (
     { __typename?: 'responses' }
-    & { users?: Maybe<Array<(
+    & { users: Array<(
       { __typename?: 'user_response' }
       & Pick<User_Response, 'id' | 'website' | 'bio' | 'private'>
       & UserFragmentFragment
-    )>> }
+    )> }
   ) }
 );
 

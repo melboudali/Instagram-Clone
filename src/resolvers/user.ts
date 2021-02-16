@@ -80,7 +80,7 @@ class response {
 
 @ObjectType()
 class responses {
-	@Field(() => [user_response], { nullable: true })
+	@Field(() => [user_response])
 	users!: user_response[];
 }
 

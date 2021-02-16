@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-const LoadingContainer = styled.div`
-	margin: 60px 0;
+const LoadingContainer = styled.div<{ margin: string }>`
+	margin: ${({ margin }) => margin};
 	width: 100%;
 	text-align: center;
 	svg {
-		width: 10%;
+		width: 25px;
 		margin: 0 auto;
-		animation: IGCoreSpinnerSpin12 1.2s steps(12) infinite;
-		@keyframes IGCoreSpinnerSpin12 {
+		animation: SpinnerAnimation 1.2s steps(12) infinite;
+		@keyframes SpinnerAnimation {
 			0% {
 				transform: rotate(0deg);
 			}
@@ -19,11 +19,13 @@ const LoadingContainer = styled.div`
 	}
 `;
 
-interface LoadingSpinnerProps {}
+interface LoadingSpinnerProps {
+	margin: string;
+}
 
-const LoadingSpinner = ({}: LoadingSpinnerProps) => {
+const LoadingSpinner = ({ margin }: LoadingSpinnerProps) => {
 	return (
-		<LoadingContainer>
+		<LoadingContainer margin={margin}>
 			<svg aria-label="Loading..." viewBox="0 0 100 100">
 				<rect
 					fill="#555555"
