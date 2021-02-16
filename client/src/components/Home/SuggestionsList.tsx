@@ -102,7 +102,8 @@ const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
 
 	if (loading) return <LoadingSpinner />;
 
-	if (!data?.suggestedUsers.users && !loading) return <SuggestionsError />;
+	if ((!data?.suggestedUsers.users || data?.suggestedUsers.users.length === 1) && !loading)
+		return <SuggestionsError />;
 
 	return (
 		<>
