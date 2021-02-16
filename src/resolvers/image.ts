@@ -22,35 +22,35 @@ import { v2 as cloudinary } from "cloudinary";
 @ObjectType()
 class image_author {
 	@Field()
-	id: number;
+	id!: number;
 	@Field()
-	username: string;
+	username!: string;
 	@Field()
-	image_link: string;
+	image_link!: string;
 }
 
 @ObjectType()
 class image_data extends Image {
 	@Field()
-	id: string;
+	id!: string;
 	@Field()
-	caption: string;
+	caption!: string;
 	@Field()
-	image_url: string;
+	image_url!: string;
 	@Field()
-	likes: number;
+	likes!: number;
 	@Field({ nullable: true })
-	like_status: string;
+	like_status!: string;
 	@Field(() => String)
-	created_at: Date;
+	created_at!: Date;
 }
 
 @ObjectType()
 class image_error {
 	@Field()
-	field: string;
+	field!: string;
 	@Field()
-	message: string;
+	message!: string;
 }
 
 @ObjectType()
@@ -121,6 +121,7 @@ export class ImageResolver {
 		const minLimit = Math.min(50, limit);
 		const minLimitPlusOne = minLimit + 1;
 		const userId = req.session.user_id;
+
 		const queryParams: (number | Date)[] = [minLimitPlusOne];
 		if (userId) {
 			queryParams.push(userId);
@@ -132,17 +133,17 @@ export class ImageResolver {
 		}
 		const images = await getConnection().query(
 			`
-      select i.*, 
-      (select "imageId" from "like" where "userId" = $2 and "imageId" = i.id) like_status
-      from image i
-      ${cursor ? `where i.created_at < $${cursorId}` : ""}
-      order by i.created_at DESC
-      limit $1
-    `,
+		select i.*, 
+		(select "imageId" from "like" where "userId" = $2 and "imageId" = i.id) like_status
+		from image i
+		${cursor ? `where i.created_at < $${cursorId}` : ""}
+		order by i.created_at DESC
+		limit $1
+		`,
 			queryParams
 		);
 
-		return { images, hasMore: images.length === minLimitPlusOne };
+		return { images: images.slice(0, minLimit), hasMore: images.length === minLimitPlusOne };
 	}
 
 	@FieldResolver(() => image_author)

@@ -238,7 +238,7 @@ interface ArticleProps {
 	image: string;
 	description: string;
 	likes: string;
-	comments: { user: string; comment: string | boolean }[];
+	comments: { user: string; comment: string }[];
 	commentsLength: number;
 	createdTime: string;
 	data: MeQuery | undefined;

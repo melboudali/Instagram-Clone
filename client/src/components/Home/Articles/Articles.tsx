@@ -18,7 +18,7 @@ interface ArticleProps {
 
 const Articles = ({ data }: ArticleProps) => {
 	const { data: images, loading: imagesLoading } = useGetAllImagesQuery({
-		variables: { limit: 10, cursor: null }
+		variables: { limit: 3, cursor: null }
 	});
 
 	return (

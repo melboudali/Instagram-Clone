@@ -37,53 +37,53 @@ export class User extends BaseEntity {
 
 	@Field({ nullable: true })
 	@Column({ nullable: true })
-	website: string;
+	website!: string;
 
 	@Field({ nullable: true })
 	@Column({ nullable: true })
-	bio: string;
+	bio!: string;
 
 	@Field({ nullable: true })
 	@Column({ nullable: true })
-	phone_number: number;
+	phone_number!: number;
 
 	@Field()
 	@Column({
 		default:
 			"https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_ohc=zSwWVl1-uFkAX8fS1DA&oh=f6f65eb2966cd097b66316043fd1c6be&oe=603C4E0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2"
 	})
-	image_link: string;
+	image_link!: string;
 
 	@Field()
 	@Column({ default: false })
-	verified: boolean;
+	verified!: boolean;
 
 	@Field()
 	@Column({ default: false })
-	private: boolean;
+	private!: boolean;
 
 	@Field(() => [Image])
 	@OneToMany(() => Image, image => image.user)
-	images: Image[];
+	images!: Image[];
 
 	@OneToMany(() => Follower, follower => follower.user)
-	followers: Follower[];
+	followers!: Follower[];
 
 	// @Field(() => [Follower], { nullable: true })
 	// @ManyToMany(() => Follower, follower => follower.user)
 	// following: Follower[];
 
 	@OneToMany(() => Like, like => like.user)
-	likes: Like[];
+	likes!: Like[];
 
 	@OneToMany(() => Comment, comment => comment.user)
-	comments: Comment[];
+	comments!: Comment[];
 
 	@Field(() => String)
 	@CreateDateColumn()
-	created_at: Date;
+	created_at!: Date;
 
 	@Field(() => String)
 	@UpdateDateColumn()
-	updated_at: Date;
+	updated_at!: Date;
 }

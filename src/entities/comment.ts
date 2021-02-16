@@ -32,17 +32,17 @@ export class Comment extends BaseEntity {
 
 	@Field(() => User)
 	@ManyToOne(() => User, user => user.comments, { onDelete: "CASCADE" })
-	user: User;
+	user!: User;
 
 	@Field(() => Image)
 	@ManyToOne(() => Image, image => image.comment, { onDelete: "CASCADE" })
-	image: User;
+	image!: User;
 
 	@Field(() => String)
 	@CreateDateColumn()
-	created_at: Date;
+	created_at!: Date;
 
 	@Field(() => String)
 	@UpdateDateColumn()
-	updated_at: Date;
+	updated_at!: Date;
 }

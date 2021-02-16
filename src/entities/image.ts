@@ -30,29 +30,29 @@ export class Image extends BaseEntity {
 
 	@Field()
 	@Column({ default: 0 })
-	likes: number;
+	likes!: number;
 
 	@Field(() => String, { nullable: true })
-	like_status: string;
+	like_status!: string;
 
 	@Field()
 	@Column()
 	userId!: number;
 
 	@ManyToOne(() => User, user => user.images, { onDelete: "CASCADE" })
-	user: User;
+	user!: User;
 
 	@OneToMany(() => Like, like => like.image)
-	like: Like[];
+	like!: Like[];
 
 	@OneToMany(() => Comment, comment => comment.image)
-	comment: Comment[];
+	comment!: Comment[];
 
 	@Field(() => String)
 	@CreateDateColumn()
-	created_at: Date;
+	created_at!: Date;
 
 	@Field(() => String)
 	@UpdateDateColumn()
-	updated_at: Date;
+	updated_at!: Date;
 }

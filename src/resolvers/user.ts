@@ -19,55 +19,55 @@ import { isAuth } from "../middleware/isAuthenticated";
 @InputType()
 class register_inputs {
 	@Field()
-	userName: string;
+	userName!: string;
 	@Field()
-	email: string;
+	email!: string;
 	@Field()
-	password: string;
+	password!: string;
 	@Field()
-	fullName: string;
+	fullName!: string;
 }
 
 @ObjectType()
 class user_image_data {
 	@Field()
-	id: string;
+	id!: string;
 	@Field()
-	caption: string;
+	caption!: string;
 	@Field()
-	image_url: string;
+	image_url!: string;
 	@Field()
-	likes: number;
+	likes!: number;
 	@Field({ nullable: true })
-	like_status: string;
+	like_status!: string;
 	@Field(() => String)
-	created_at: Date;
+	created_at!: Date;
 }
 
 @ObjectType()
 class user_response {
 	@Field()
-	id: number;
+	id!: number;
 	@Field()
-	username: string;
+	username!: string;
 	@Field()
-	fullname: string;
+	fullname!: string;
 	@Field()
-	image_link: string;
+	image_link!: string;
 	@Field({ nullable: true })
-	website: string;
+	website!: string;
 	@Field({ nullable: true })
-	bio: string;
+	bio!: string;
 	@Field()
-	private: boolean;
+	private!: boolean;
 	@Field(() => [user_image_data])
-	images: user_image_data[];
+	images!: user_image_data[];
 }
 
 @ObjectType()
 class error {
 	@Field()
-	message: string;
+	message!: string;
 }
 
 @ObjectType()

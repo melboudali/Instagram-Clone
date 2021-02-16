@@ -162,7 +162,7 @@ const Navbar = () => {
 	const { data } = useMeQuery();
 	const ref = useRef<HTMLDivElement>(null);
 	const { clickOutside, setClickOutside } = useClickOutside(ref);
-	const [showMenu, setShowMenu] = useState<boolean>(false);
+	const [showMenu, setShowMenu] = useState(false);
 
 	useEffect(() => {
 		if (clickOutside) setShowMenu(false);

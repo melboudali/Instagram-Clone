@@ -6,11 +6,11 @@ import { User } from "./user";
 @Entity()
 export class Follower extends BaseEntity {
 	@PrimaryColumn()
-	userId: number;
+	userId!: number;
 
 	@PrimaryColumn()
-	followerId: number;
+	followerId!: number;
 
 	@ManyToOne(() => User, user => user.followers, { onDelete: "CASCADE" })
-	user: User[];
+	user!: User[];
 }

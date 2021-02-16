@@ -28,7 +28,7 @@ const main = async () => {
 	const connection: Connection = await createConnection({
 		type: "postgres",
 		url: process.env.DATABASE_URL,
-		synchronize: false,
+		synchronize: !isProd,
 		logging: true,
 		ssl: isProd ? { rejectUnauthorized: false } : false,
 		entities: [User, Image, Like, Comment, Follower],
