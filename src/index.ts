@@ -47,7 +47,7 @@ const main = async () => {
 			name: cookieName,
 			store: new RedisStore({ client: redis, disableTouch: true }),
 			cookie: {
-				maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+				maxAge: 1000 * 60 * 60 * 24 * 10,
 				httpOnly: true,
 				sameSite: "lax",
 				secure: false //default should be true (HTTPS only) but im using custom domain without https
