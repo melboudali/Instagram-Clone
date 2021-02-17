@@ -16,13 +16,13 @@ const Container = styled.main`
 
 const ArticlesErrorContainer = styled.div`
 	width: 614px;
-	margin: 100px 0;
+	padding: 100px 0;
 	text-align: center;
 `;
 
 const LoadingSpinnerContainer = styled.div`
 	width: 614px;
-	padding: 130px 0;
+	padding: 135px 0;
 	text-align: center;
 `;
 
@@ -31,7 +31,7 @@ interface ArticleProps {
 }
 
 const Articles = ({ data }: ArticleProps) => {
-	const { data: images, loading: imagesLoading } = useGetAllImagesQuery({
+	const { data: images, loading: imagesLoading, error } = useGetAllImagesQuery({
 		variables: { limit: 3, cursor: null }
 	});
 
@@ -42,41 +42,42 @@ const Articles = ({ data }: ArticleProps) => {
 			</LoadingSpinnerContainer>
 		);
 
+	if (images == null || images.getAllImages.images.length === 0 || error)
+		return (
+			<ArticlesErrorContainer>
+				<ArticlesError />
+			</ArticlesErrorContainer>
+		);
+
 	return (
 		<Container>
-			{images && images?.getAllImages.images.length > 0 && !imagesLoading ? (
-				images.getAllImages.images?.map(
-					({
-						id,
-						caption,
-						likes,
-						image_url,
-						like_status: liked,
-						user: { id: uid, image_link, username },
-						created_at
-					}) => (
-						<Article
-							key={id}
-							name={username}
-							logo={image_link}
-							image={image_url}
-							description={caption}
-							likes={"MedEL"}
-							comments={[
-								{ user: "brown.julianna", comment: "❤️❤️❤️" },
-								{ user: "faybrookepracht", comment: "😍" }
-							]}
-							commentsLength={543}
-							createdTime={created_at}
-							data={data}
-							liked={!!liked}
-						/>
-					)
+			{images.getAllImages.images?.map(
+				({
+					id,
+					caption,
+					likes,
+					image_url,
+					like_status: liked,
+					user: { image_link, username },
+					created_at
+				}) => (
+					<Article
+						key={id}
+						name={username}
+						logo={image_link}
+						image={image_url}
+						description={caption}
+						likes={`MedEL and ${likes} persons.`}
+						comments={[
+							{ user: "brown.julianna", comment: "❤️❤️❤️" },
+							{ user: "faybrookepracht", comment: "😍" }
+						]}
+						commentsLength={543}
+						createdTime={created_at}
+						data={data}
+						liked={!!liked}
+					/>
 				)
-			) : (
-				<ArticlesErrorContainer>
-					<ArticlesError />
-				</ArticlesErrorContainer>
 			)}
 		</Container>
 	);

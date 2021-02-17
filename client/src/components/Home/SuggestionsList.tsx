@@ -102,8 +102,7 @@ const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
 
 	if (loading) return <LoadingSpinner margin="60px 0" />;
 
-	if (((!data || data?.suggestedUsers.users.length === 0) && !loading) || error)
-		return <SuggestionsError />;
+	if (data == null || data.suggestedUsers.users.length === 0 || error) return <SuggestionsError />;
 
 	return (
 		<>
@@ -112,25 +111,24 @@ const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
 					<span>Suggestions For You</span>
 					<SeeAllLink to="/fixLater">See All</SeeAllLink>
 				</SuggestionsTitleContainer>
-				{data?.suggestedUsers.users &&
-					data?.suggestedUsers.users.map(({ id, username, image_link }) => (
-						<SuggestionContainer key={id}>
-							<SuggestedProfileImage>
-								<Link to={`/${username}`}>
-									<img src={image_link} alt={`${username}'s profile`} />
-								</Link>
-							</SuggestedProfileImage>
-							<SuggestedProfileName>
-								<SuggestedUserName to={`/${username}`}>{username}</SuggestedUserName>
-								<span>New to Instagram</span>
-							</SuggestedProfileName>
-							<SuggestedSwitchButtonContainer>
-								<SuggestedSwitchButton type="button" onClick={() => onClickFunction("Follow")}>
-									Follow
-								</SuggestedSwitchButton>
-							</SuggestedSwitchButtonContainer>
-						</SuggestionContainer>
-					))}
+				{data.suggestedUsers.users.map(({ id, username, image_link }) => (
+					<SuggestionContainer key={id}>
+						<SuggestedProfileImage>
+							<Link to={`/${username}`}>
+								<img src={image_link} alt={`${username}'s profile`} />
+							</Link>
+						</SuggestedProfileImage>
+						<SuggestedProfileName>
+							<SuggestedUserName to={`/${username}`}>{username}</SuggestedUserName>
+							<span>New to Instagram</span>
+						</SuggestedProfileName>
+						<SuggestedSwitchButtonContainer>
+							<SuggestedSwitchButton type="button" onClick={() => onClickFunction("Follow")}>
+								Follow
+							</SuggestedSwitchButton>
+						</SuggestedSwitchButtonContainer>
+					</SuggestionContainer>
+				))}
 			</>
 		</>
 	);

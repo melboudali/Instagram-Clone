@@ -18,38 +18,43 @@ interface ProfileProps {
 }
 
 const Profile = ({ match }: ProfileProps) => {
-	const { data: loggedinUserData } = useMeQuery();
+	const { data: loggedinUserData, error: loggedInError } = useMeQuery();
 	const username = match.params.username.toLowerCase();
-	const { data, loading } = useGetUserQuery({ variables: { username } });
+	const { data, loading, error } = useGetUserQuery({ variables: { username } });
 
 	if (loading) {
 		return <LoadingFullScreen />;
 	}
 
+	if (
+		data == null ||
+		data.getUser.user == null ||
+		loggedinUserData == null ||
+		loggedInError ||
+		error
+	)
+		return <ErrorPage />;
+
 	return (
 		<>
-			{data?.getUser.user && !data.getUser.error ? (
-				<Container>
-					<Main>
-						<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
-						{data?.getUser.user?.private ? (
-							<ProfileEmptyPostsOrPrivate type="private" />
-						) : (
-							<>
-								<ProfileMenu data={data} page="profile" />
-								{!!data.getUser.user.images?.length ? (
-									<ProfilePosts posts={data.getUser.user.images} />
-								) : (
-									<ProfileEmptyPostsOrPrivate type="emptyImages" />
-								)}
-							</>
-						)}
-						{!loggedinUserData?.me && <UnauthFooter />}
-					</Main>
-				</Container>
-			) : (
-				<ErrorPage />
-			)}
+			<Container>
+				<Main>
+					<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
+					{data?.getUser.user?.private ? (
+						<ProfileEmptyPostsOrPrivate type="private" />
+					) : (
+						<>
+							<ProfileMenu data={data} page="profile" />
+							{data.getUser.user.images.length > 0 ? (
+								<ProfilePosts posts={data.getUser.user.images} />
+							) : (
+								<ProfileEmptyPostsOrPrivate type="emptyImages" />
+							)}
+						</>
+					)}
+					{!loggedinUserData?.me && <UnauthFooter />}
+				</Main>
+			</Container>
 		</>
 	);
 };
