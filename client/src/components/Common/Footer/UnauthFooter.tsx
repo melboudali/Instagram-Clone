@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Assets from "../../../assets/images/9813fcc3aa16.png";
+import { showFooterValue } from "../../../graphql/cache/cache";
 
 const Container = styled.div<{ closed: boolean }>`
 	${({ closed }) => (closed ? "display: none;" : "display: block;")}
@@ -102,15 +104,23 @@ const SignUpButton = styled(Link)`
 `;
 
 const UnauthFooter = () => {
-	const [closed, setClosed] = useState(false);
+	const { data } = useQuery(gql`
+		query GetShowUnauthFooter {
+			showFooter @client {
+				showUnauthFooter
+			}
+		}
+	`);
 
 	const onClose = () => {
-		// Works for now
-		// TODO: i need to remove this later then add useReducer and useContext
-		setClosed(!closed);
+		showFooterValue([
+			{
+				showUnauthFooter: true
+			}
+		]);
 	};
 	return (
-		<Container closed={closed}>
+		<Container closed={data.showFooter[0].showUnauthFooter}>
 			<CloseButton onClick={onClose}>
 				<CloseImage />
 			</CloseButton>

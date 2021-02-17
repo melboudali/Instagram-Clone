@@ -5,6 +5,7 @@ import App from "./App";
 import UseScrollTop from "./Hooks/useScrollTop";
 import reportWebVitals from "./reportWebVitals";
 import { createUploadLink } from "apollo-upload-client";
+import { showFooterValue } from "./graphql/cache/cache";
 
 const link = createUploadLink({
 	uri:
@@ -16,7 +17,19 @@ const link = createUploadLink({
 
 const client = new ApolloClient({
 	link: (link as unknown) as ApolloLink,
-	cache: new InMemoryCache(),
+	cache: new InMemoryCache({
+		typePolicies: {
+			Query: {
+				fields: {
+					showFooter: {
+						read() {
+							return showFooterValue();
+						}
+					}
+				}
+			}
+		}
+	}),
 	connectToDevTools: true
 });
 
