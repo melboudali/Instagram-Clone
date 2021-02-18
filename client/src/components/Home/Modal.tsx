@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { useMeQuery } from "../../generated/graphql";
 import useClickOutside from "../../Hooks/useClickOutside";
 
-const Container = styled.div`
+const ModalContainer = styled.div`
 	background-color: rgba(0, 0, 0, 0.87);
 	position: fixed;
 	height: 100vh;
@@ -20,7 +20,7 @@ const Container = styled.div`
 	z-index: 2;
 `;
 
-const Main = styled.div`
+const ModalMain = styled.div`
 	display: flex;
 	position: absolute;
 	border: none;
@@ -42,7 +42,7 @@ const Main = styled.div`
 	}
 `;
 
-const Close = styled.button`
+const ModalClose = styled.button`
 	cursor: pointer;
 	padding: 0;
 	background: 0 0;
@@ -57,7 +57,7 @@ const Close = styled.button`
 	}
 `;
 
-const ImageContainer = styled.img`
+const ModalImageContainer = styled.img`
 	display: block;
 	width: 300px;
 	min-height: 300px;
@@ -66,12 +66,12 @@ const ImageContainer = styled.img`
 	border-top-left-radius: 8px;
 `;
 
-const ImageCaptionContainer = styled.div`
+const ModalImageCaptionContainer = styled.div`
 	flex: 1 1 100%;
 	position: relative;
 `;
 
-const Title = styled.h1`
+const ModalTitle = styled.h1`
 	font-weight: 600;
 	font-size: 14px;
 	color: var(--textColorDarkGray);
@@ -80,7 +80,7 @@ const Title = styled.h1`
 	margin: 0;
 `;
 
-const CaptionContainer = styled.div`
+const ModalCaptionContainer = styled.div`
 	display: flex;
 	width: 100%;
 	flex-direction: column;
@@ -92,18 +92,18 @@ const CaptionContainer = styled.div`
 	padding: 0 20px;
 `;
 
-const Caption = styled.div`
+const ModalCaption = styled.div`
 	display: flex;
 `;
 
-const UserImage = styled.img`
+const ModalUserImage = styled.img`
 	height: 35px;
 	width: 35px;
 	border-radius: 50%;
 	object-fit: cover;
 `;
 
-const CaptionArea = styled.textarea`
+const ModalCaptionArea = styled.textarea`
 	height: 120px;
 	background: none;
 	border: 0;
@@ -115,7 +115,7 @@ const CaptionArea = styled.textarea`
 	margin: 0 0 10px 10px;
 `;
 
-const ErrorMessage = styled.p`
+const ModalErrorMessage = styled.p`
 	color: var(--textErrorColor);
 	font-size: 14px;
 	text-align: center;
@@ -207,9 +207,9 @@ const Modal = ({
 	if (error) setConnectionError(true);
 
 	return (
-		<Container>
-			<Main ref={ref}>
-				<Close
+		<ModalContainer>
+			<ModalMain ref={ref}>
+				<ModalClose
 					type="button"
 					onClick={() => {
 						setOpenModal(false);
@@ -227,14 +227,14 @@ const Modal = ({
 						<line x1="18" y1="6" x2="6" y2="18" />
 						<line x1="6" y1="6" x2="18" y2="18" />
 					</svg>
-				</Close>
-				<ImageContainer src={imageUri!} alt="Uploaded Image" />
-				<ImageCaptionContainer>
-					<Title>New Post</Title>
-					<CaptionContainer>
-						<Caption>
-							<UserImage src={data?.me?.image_link} alt="profile" />
-							<CaptionArea
+				</ModalClose>
+				<ModalImageContainer src={imageUri!} alt="Uploaded Image" />
+				<ModalImageCaptionContainer>
+					<ModalTitle>New Post</ModalTitle>
+					<ModalCaptionContainer>
+						<ModalCaption>
+							<ModalUserImage src={data?.me?.image_link} alt="profile" />
+							<ModalCaptionArea
 								placeholder="Write a caption..."
 								autoComplete="off"
 								autoCorrect="off"
@@ -243,7 +243,7 @@ const Modal = ({
 								maxLength={200}
 								onChange={e => setCaption(e.target.value)}
 							/>
-						</Caption>
+						</ModalCaption>
 						<Button
 							active={!!caption}
 							loading={UploadLoading}
@@ -251,11 +251,11 @@ const Modal = ({
 							onClickFunction={UploadFile}>
 							Post
 						</Button>
-						{connectionError && <ErrorMessage>503 Service Unavailable</ErrorMessage>}
-					</CaptionContainer>
-				</ImageCaptionContainer>
-			</Main>
-		</Container>
+						{connectionError && <ModalErrorMessage>503 Service Unavailable</ModalErrorMessage>}
+					</ModalCaptionContainer>
+				</ModalImageCaptionContainer>
+			</ModalMain>
+		</ModalContainer>
 	);
 };
 

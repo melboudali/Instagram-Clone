@@ -7,12 +7,6 @@ const LinkContainer = styled.div`
 	margin: 0 0 0 22px;
 	width: 22px;
 	height: 22px;
-	Link {
-		svg {
-			height: 100%;
-			width: 100%;
-		}
-	}
 `;
 
 interface NavbarLinkProps {

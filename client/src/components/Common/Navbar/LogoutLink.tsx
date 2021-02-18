@@ -1,7 +1,7 @@
 import { MeDocument, MeQuery, useLogoutMutation } from "../../../generated/graphql";
 import styled from "styled-components";
 
-const LogoutContainer = styled.div`
+const LogoutLinkContainer = styled.div`
 	cursor: pointer;
 	outline: 0;
 	&:hover > div {
@@ -9,7 +9,7 @@ const LogoutContainer = styled.div`
 	}
 `;
 
-const Main = styled.div`
+const LogoutLinkMain = styled.div`
 	padding: 8px 16px;
 	& > div {
 		display: flex;
@@ -19,7 +19,7 @@ const Main = styled.div`
 	}
 `;
 
-const IconContainer = styled.div`
+const LogoutLinkIconContainer = styled.div`
 	margin-right: 12px;
 	width: 16px;
 	height: 16px;
@@ -29,7 +29,7 @@ const IconContainer = styled.div`
 	}
 `;
 
-const LogoutNameContainer = styled.div`
+const LogoutLinkNameContainer = styled.div`
 	display: flex;
 	flex: 1 1 auto;
 	min-height: 0;
@@ -37,7 +37,7 @@ const LogoutNameContainer = styled.div`
 	justify-content: center;
 `;
 
-const LogoutName = styled.div`
+const LogoutLinkName = styled.div`
 	display: flex;
 	height: 28px;
 	width: 170px;
@@ -72,18 +72,18 @@ const LogoutLink = ({ children }: LogoutLinkProps) => {
 		});
 
 	return (
-		<LogoutContainer role="button" onClick={logoutFunc}>
-			<Main>
+		<LogoutLinkContainer role="button" onClick={logoutFunc}>
+			<LogoutLinkMain>
 				<div>
-					<IconContainer>{children}</IconContainer>
-					<LogoutNameContainer>
-						<LogoutName>
+					<LogoutLinkIconContainer>{children}</LogoutLinkIconContainer>
+					<LogoutLinkNameContainer>
+						<LogoutLinkName>
 							<div>log out</div>
-						</LogoutName>
-					</LogoutNameContainer>
+						</LogoutLinkName>
+					</LogoutLinkNameContainer>
 				</div>
-			</Main>
-		</LogoutContainer>
+			</LogoutLinkMain>
+		</LogoutLinkContainer>
 	);
 };
 

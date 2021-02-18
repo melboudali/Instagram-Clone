@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Story from "./Story";
 import Assets from "../../../assets/images/798b49104da7.png";
 
-const Container = styled.div`
+const StoriesContainer = styled.div`
 	position: relative;
 	height: 116px;
 	background-color: #fff;
@@ -13,7 +13,7 @@ const Container = styled.div`
 	overflow: hidden;
 `;
 
-const Main = styled.div<{ translateValue: number }>`
+const StoriesMain = styled.div<{ translateValue: number }>`
 	height: 100%;
 	width: fit-content;
 	display: flex;
@@ -23,7 +23,7 @@ const Main = styled.div<{ translateValue: number }>`
 	transition: transform 500ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
 `;
 
-const NextBtn = styled.button`
+const NextButton = styled.button`
 	right: 0;
 	cursor: pointer;
 	background: 0 0;
@@ -36,7 +36,7 @@ const NextBtn = styled.button`
 	transform: translateY(-50%);
 `;
 
-const Next = styled.div`
+const NextClickable = styled.div`
 	height: 45px;
 	width: 45px;
 	background-image: url(${Assets});
@@ -44,7 +44,7 @@ const Next = styled.div`
 	background-position: -294px -273px;
 `;
 
-const PrevBtn = styled.button`
+const PrevButton = styled.button`
 	left: 0;
 	cursor: pointer;
 	padding: 0;
@@ -58,7 +58,7 @@ const PrevBtn = styled.button`
 	transform: translateY(-50%);
 `;
 
-const Prev = styled.div`
+const PrevClickable = styled.div`
 	height: 45px;
 	width: 45px;
 	background-image: url(${Assets});
@@ -235,23 +235,23 @@ const Stories = () => {
 	};
 
 	return (
-		<Container ref={ContainerRef}>
-			<Main translateValue={translateValue} ref={SliderRef}>
+		<StoriesContainer ref={ContainerRef}>
+			<StoriesMain translateValue={translateValue} ref={SliderRef}>
 				{StoriesData.map(({ name, image }, i) => (
 					<Story key={i} name={name} image={image} />
 				))}
-			</Main>
+			</StoriesMain>
 			{slideButtons.leftButton && (
-				<PrevBtn>
-					<Prev onClick={PrevSlide} />
-				</PrevBtn>
+				<PrevButton>
+					<PrevClickable onClick={PrevSlide} />
+				</PrevButton>
 			)}
 			{slideButtons.rightButton && (
-				<NextBtn>
-					<Next onClick={NextSlide} />
-				</NextBtn>
+				<NextButton>
+					<NextClickable onClick={NextSlide} />
+				</NextButton>
 			)}
-		</Container>
+		</StoriesContainer>
 	);
 };
 

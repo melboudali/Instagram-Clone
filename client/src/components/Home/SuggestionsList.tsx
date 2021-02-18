@@ -40,16 +40,17 @@ const SuggestedProfileImage = styled.div`
 	margin-right: 12px;
 	width: 32px;
 	height: 32px;
-	a {
-		text-decoration: none;
-		img {
-			border: 1px solid rgba(0, 0, 0, 0.0975);
-			width: 100%;
-			height: 100%;
-			border-radius: 50%;
-			object-fit: cover;
-			box-shadow: 0px 0px 20px -9px rgba(0, 0, 0, 0.75);
-		}
+`;
+
+const SuggestedProfileImageLink = styled(Link)`
+	text-decoration: none;
+	img {
+		/* border: 1px solid rgba(0, 0, 0, 0.0975); */
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		object-fit: cover;
+		box-shadow: 0px 0px 20px -9px rgba(0, 0, 0, 0.75);
 	}
 `;
 
@@ -114,9 +115,9 @@ const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
 				{data.suggestedUsers.users.map(({ id, username, image_link }) => (
 					<SuggestionContainer key={id}>
 						<SuggestedProfileImage>
-							<Link to={`/${username}`}>
+							<SuggestedProfileImageLink to={`/${username}`}>
 								<img src={image_link} alt={`${username}'s profile`} />
-							</Link>
+							</SuggestedProfileImageLink>
 						</SuggestedProfileImage>
 						<SuggestedProfileName>
 							<SuggestedUserName to={`/${username}`}>{username}</SuggestedUserName>

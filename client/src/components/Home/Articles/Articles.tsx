@@ -1,10 +1,10 @@
 import Article from "./Article";
 import styled from "styled-components";
-import { MeQuery, useGetAllImagesQuery, User_Response } from "../../../generated/graphql";
+import { useGetAllImagesQuery, User_Response } from "../../../generated/graphql";
 import ArticlesError from "../../Common/Errors/ArticlesError";
 import LoadingSpinner from "../../Common/LoadingSpinner";
 
-const Container = styled.main`
+const ArticlesContainer = styled.main`
 	--ArticleMargin: 28px;
 	max-width: 614px;
 	float: left;
@@ -20,7 +20,7 @@ const ArticlesErrorContainer = styled.div`
 	text-align: center;
 `;
 
-const LoadingSpinnerContainer = styled.div`
+const ArticlesLoadingSpinner = styled.div`
 	width: 614px;
 	padding: 135px 0;
 	text-align: center;
@@ -37,9 +37,9 @@ const Articles = ({ meData }: ArticleProps) => {
 
 	if (imagesLoading)
 		return (
-			<LoadingSpinnerContainer>
+			<ArticlesLoadingSpinner>
 				<LoadingSpinner margin="0 auto" />
-			</LoadingSpinnerContainer>
+			</ArticlesLoadingSpinner>
 		);
 
 	if (images == null || images.getAllImages.images.length === 0 || error)
@@ -50,7 +50,7 @@ const Articles = ({ meData }: ArticleProps) => {
 		);
 
 	return (
-		<Container>
+		<ArticlesContainer>
 			{images.getAllImages.images?.map(
 				({
 					id,
@@ -79,7 +79,7 @@ const Articles = ({ meData }: ArticleProps) => {
 					/>
 				)
 			)}
-		</Container>
+		</ArticlesContainer>
 	);
 };
 

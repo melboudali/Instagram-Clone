@@ -18,7 +18,7 @@ const MenuListContainer = styled.div`
 	}
 `;
 
-const IconContainer = styled.div`
+const MenuIconContainer = styled.div`
 	margin-right: 12px;
 	width: 16px;
 	height: 16px;
@@ -61,7 +61,7 @@ const NavbarMenuLink = ({ LinkName, to, children }: NavbarMenuLinkProps) => {
 		<MenuListLink to={to}>
 			<MenuListContainer>
 				<div>
-					<IconContainer>{children}</IconContainer>
+					<MenuIconContainer>{children}</MenuIconContainer>
 					<MenuListNameContainer>
 						<MenuListName>
 							<div>{LinkName}</div>

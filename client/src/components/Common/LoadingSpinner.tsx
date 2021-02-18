@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const LoadingContainer = styled.div<{ margin: string }>`
+const LoadingSpinnerContainer = styled.div<{ margin: string }>`
 	margin: ${({ margin }) => margin};
 	width: 100%;
 	text-align: center;
@@ -25,7 +25,7 @@ interface LoadingSpinnerProps {
 
 const LoadingSpinner = ({ margin }: LoadingSpinnerProps) => {
 	return (
-		<LoadingContainer margin={margin}>
+		<LoadingSpinnerContainer margin={margin}>
 			<svg viewBox="0 0 100 100">
 				<rect
 					fill="#555555"
@@ -148,7 +148,7 @@ const LoadingSpinner = ({ margin }: LoadingSpinnerProps) => {
 					x="72"
 					y="47"></rect>
 			</svg>
-		</LoadingContainer>
+		</LoadingSpinnerContainer>
 	);
 };
 

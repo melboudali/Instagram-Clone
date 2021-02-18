@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import Assets from "../../../assets/images/9813fcc3aa16.png";
 import { showFooterValue } from "../../../graphql/cache/cache";
 
-const Container = styled.div<{ closed: boolean }>`
+const UnauthFooterContainer = styled.div<{ closed: boolean }>`
 	${({ closed }) => (closed ? "display: none;" : "display: block;")}
 	position: fixed;
 	width: 100%;
@@ -16,7 +16,7 @@ const Container = styled.div<{ closed: boolean }>`
 	right: 0;
 `;
 
-const CloseButton = styled.button`
+const UnauthFooterCloseButton = styled.button`
 	cursor: pointer;
 	position: absolute;
 	background: none;
@@ -28,7 +28,7 @@ const CloseButton = styled.button`
 	width: 40px;
 `;
 
-const CloseImage = styled.span`
+const UnauthFooterCloseImage = styled.span`
 	display: block;
 	height: 9px;
 	width: 9px;
@@ -37,7 +37,7 @@ const CloseImage = styled.span`
 	background-position: -480px -442px;
 `;
 
-const Main = styled.div`
+const UnauthFooterMain = styled.div`
 	display: flex;
 	max-width: 903px;
 	margin: 0 auto;
@@ -53,7 +53,7 @@ const Main = styled.div`
 	}
 `;
 
-const Logo = styled.div`
+const UnauthFooterLogo = styled.div`
 	height: 56px;
 	width: 56px;
 	background-image: url(${Assets});
@@ -61,7 +61,7 @@ const Logo = styled.div`
 	background-position: -189px -324px;
 `;
 
-const LoginMessage = styled.div`
+const UnauthFooterLoginMessage = styled.div`
 	flex: 1 1 auto;
 	margin-left: 12px;
 	div {
@@ -76,7 +76,7 @@ const LoginMessage = styled.div`
 	}
 `;
 
-const FooterButtons = styled.div`
+const UnauthFooterButtons = styled.div`
 	width: 112px;
 	margin-left: 12px;
 `;
@@ -89,7 +89,7 @@ const ButtonsCss = css`
 	margin-top: 12px;
 `;
 
-const LoginButton = styled(Link)`
+const UnauthFooterLoginButton = styled(Link)`
 	${ButtonsCss}
 	background: var(--buttonLightBlue);
 	color: #fff;
@@ -97,7 +97,7 @@ const LoginButton = styled(Link)`
 	padding: 6px 10px;
 `;
 
-const SignUpButton = styled(Link)`
+const UnauthFooterSignUpButton = styled(Link)`
 	${ButtonsCss}
 	color: var(--buttonLightBlue);
 `;
@@ -120,24 +120,24 @@ const UnauthFooter = () => {
 	};
 
 	return (
-		<Container closed={data.showFooter[0].showUnauthFooter}>
-			<CloseButton onClick={onClose}>
-				<CloseImage />
-			</CloseButton>
-			<Main>
-				<Logo />
-				<LoginMessage>
+		<UnauthFooterContainer closed={data.showFooter[0].showUnauthFooter}>
+			<UnauthFooterCloseButton onClick={onClose}>
+				<UnauthFooterCloseImage />
+			</UnauthFooterCloseButton>
+			<UnauthFooterMain>
+				<UnauthFooterLogo />
+				<UnauthFooterLoginMessage>
 					<div>Log In to Instagram</div>
 					<div>
 						Log in to see photos and videos from friends and discover other accounts you'll love.
 					</div>
-				</LoginMessage>
-				<FooterButtons>
-					<LoginButton to="/">Log In</LoginButton>
-					<SignUpButton to="/accounts/emailsignup">Sign Up</SignUpButton>
-				</FooterButtons>
-			</Main>
-		</Container>
+				</UnauthFooterLoginMessage>
+				<UnauthFooterButtons>
+					<UnauthFooterLoginButton to="/">Log In</UnauthFooterLoginButton>
+					<UnauthFooterSignUpButton to="/accounts/emailsignup">Sign Up</UnauthFooterSignUpButton>
+				</UnauthFooterButtons>
+			</UnauthFooterMain>
+		</UnauthFooterContainer>
 	);
 };
 

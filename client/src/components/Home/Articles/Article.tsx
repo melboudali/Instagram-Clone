@@ -1,17 +1,17 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { MeQuery, User_Response } from "../../../generated/graphql";
+import { User_Response } from "../../../generated/graphql";
 import timeDifference from "../../../utils/timeDefference";
 
-const Container = styled.article`
+const ArticleContainer = styled.article`
 	background-color: #fff;
 	border: 1px solid #dbdbdb;
 	border-radius: 3px;
 	margin-bottom: 60px;
 `;
 
-const Header = styled.header`
+const ArticleHeader = styled.header`
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -21,7 +21,7 @@ const Header = styled.header`
 	border-bottom: 1px solid #efefef;
 `;
 
-const LogoContainer = styled.div`
+const ArticleLogoContainer = styled.div`
 	display: block;
 	position: relative;
 	height: 40px;
@@ -31,25 +31,25 @@ const LogoContainer = styled.div`
 	padding: 2px;
 `;
 
-const LogoBackground = styled.div`
+const ArticleLogoBackground = styled.div`
 	background: #fff;
 	height: 100%;
 	border-radius: 50%;
 	padding: 2px;
 `;
 
-const Logo = styled.img`
+const ArticleLogo = styled.img`
 	height: 100%;
 	width: 100%;
 	border-radius: 50%;
 	object-fit: cover;
 `;
 
-const NameContainer = styled.div`
+const ArticleNameContainer = styled.div`
 	margin-left: 14px;
 `;
 
-const Name = styled(Link)`
+const ArticleName = styled(Link)`
 	color: #262626;
 	border: 0;
 	display: inline;
@@ -65,7 +65,7 @@ const Name = styled(Link)`
 	width: auto;
 `;
 
-const More = styled.div`
+const ArticleMore = styled.div`
 	position: absolute;
 	display: flex;
 	justify-content: center;
@@ -86,16 +86,16 @@ const More = styled.div`
 	}
 `;
 
-const Image = styled.img`
+const ArticleImage = styled.img`
 	width: 100%;
 	display: block;
 `;
 
-const Details = styled.div`
+const ArticleDetails = styled.div`
 	padding: 0 16px;
 `;
 
-const IconsContainer = styled.section`
+const ArticleIconsContainer = styled.section`
 	margin-top: 4px;
 	display: flex;
 	span {
@@ -125,62 +125,65 @@ const LikesCss = css`
 	font-weight: 600;
 	cursor: pointer;
 `;
-const LikesContainer = styled.section`
+const ArticleLikesContainer = styled.section`
 	margin-bottom: 8px;
 `;
 
-const LikesLink = styled(Link)`
+const ArticleLikesLink = styled(Link)`
 	${LikesCss}
 `;
 
-const OtherButton = styled.button`
+const ArticleOtherButton = styled.button`
 	border: 0;
 	padding: 0;
 	background: none;
 	${LikesCss}
 `;
 
-const DescriptionAndCommentsContainer = styled.div``;
+const ArticleDescriptionAndCommentsContainer = styled.div``;
 
-const Description = styled.div`
+const ArticleDescription = styled.div`
 	display: flex;
 	margin-bottom: 4px;
 	color: #262626;
-	a {
-		color: #262626;
-		text-decoration: none;
-		font-weight: 600;
-		margin-right: 4px;
-	}
 `;
 
-const CommentsCount = styled.div`
+const ArticleDescriptionLink = styled(Link)`
+	color: #262626;
+	text-decoration: none;
+	font-weight: 600;
+	margin-right: 4px;
+`;
+
+const ArticleCommentsCount = styled.div`
 	margin-bottom: 4px;
-	a {
-		color: #8e8e8e;
-		text-decoration: none;
-	}
 `;
 
-const CommentAndCreatedtimeContainer = styled.div`
+const ArticleCommentsCountLink = styled(Link)`
+	color: #8e8e8e;
+	text-decoration: none;
+`;
+
+const ArticleCommentAndCreatedtimeContainer = styled.div`
 	margin-bottom: 4px;
 	&:last-child {
 		margin-bottom: 8px;
 	}
 `;
 
-const Comment = styled.div`
+const ArticleComment = styled.div`
 	display: flex;
 	align-items: center;
-	a {
-		color: #262626;
-		text-decoration: none;
-		font-weight: 600;
-		margin-right: 4px;
-	}
 `;
 
-const LikeComment = styled.button`
+const ArticleCommentLink = styled(Link)`
+	color: #262626;
+	text-decoration: none;
+	font-weight: 600;
+	margin-right: 4px;
+`;
+
+const ArticleLikeComment = styled.button`
 	display: inline-block;
 	margin: 0 0 0 auto;
 	border: 0;
@@ -189,14 +192,14 @@ const LikeComment = styled.button`
 	cursor: pointer;
 `;
 
-const CreatedTime = styled(Link)`
+const ArticleCreatedTime = styled(Link)`
 	font-size: 10px;
 	letter-spacing: 0.2px;
 	color: #8e8e8e;
 	text-transform: uppercase;
 `;
 
-const CommentContainer = styled.div`
+const ArticleCommentContainer = styled.div`
 	display: flex;
 	align-items: center;
 	border-top: 1px solid #efefef;
@@ -206,12 +209,12 @@ const CommentContainer = styled.div`
 	padding: 0 16px;
 `;
 
-const CommentForm = styled.form`
+const ArticleCommentForm = styled.form`
 	display: flex;
 	flex: 1 1 100%;
 `;
 
-const CommentTextArea = styled.textarea`
+const ArticleCommentTextArea = styled.textarea`
 	height: 18px;
 	background: none;
 	border: 0;
@@ -222,7 +225,7 @@ const CommentTextArea = styled.textarea`
 	resize: none;
 `;
 
-const SubmitButton = styled.button<{ Active: boolean }>`
+const ArticleSubmitButton = styled.button<{ Active: boolean }>`
 	cursor: pointer;
 	background: 0 0;
 	outline: 0;
@@ -264,17 +267,17 @@ const Article = ({
 	};
 
 	return (
-		<Container>
-			<Header>
-				<LogoContainer>
-					<LogoBackground>
-						<Logo src={logo} alt="logo" />
-					</LogoBackground>
-				</LogoContainer>
-				<NameContainer>
-					<Name to={`/${name}`}>{name}</Name>
-				</NameContainer>
-				<More>
+		<ArticleContainer>
+			<ArticleHeader>
+				<ArticleLogoContainer>
+					<ArticleLogoBackground>
+						<ArticleLogo src={logo} alt="logo" />
+					</ArticleLogoBackground>
+				</ArticleLogoContainer>
+				<ArticleNameContainer>
+					<ArticleName to={`/${name}`}>{name}</ArticleName>
+				</ArticleNameContainer>
+				<ArticleMore>
 					<button type="button">
 						<svg fill="#262626" height="16" viewBox="0 0 48 48" width="16">
 							<circle clipRule="evenodd" cx="8" cy="24" fillRule="evenodd" r="4.5" />
@@ -282,11 +285,11 @@ const Article = ({
 							<circle clipRule="evenodd" cx="40" cy="24" fillRule="evenodd" r="4.5" />
 						</svg>
 					</button>
-				</More>
-			</Header>
-			<Image src={image} alt={`Photo by ${name}`} />
-			<Details>
-				<IconsContainer>
+				</ArticleMore>
+			</ArticleHeader>
+			<ArticleImage src={image} alt={`Photo by ${name}`} />
+			<ArticleDetails>
+				<ArticleIconsContainer>
 					<span>
 						<button type="button" onClick={() => onClick("Like")}>
 							{liked ? (
@@ -324,68 +327,70 @@ const Article = ({
 							</svg>
 						</button>
 					</span>
-				</IconsContainer>
-				<LikesContainer>
+				</ArticleIconsContainer>
+				<ArticleLikesContainer>
 					<div>
 						Liked by
 						<span>
-							<LikesLink to={`/${meData.username === likes ? "/profile" : likes}`}>
+							<ArticleLikesLink to={`/${meData.username === likes ? "/profile" : likes}`}>
 								{likes}
-							</LikesLink>
+							</ArticleLikesLink>
 						</span>
 						and
-						<OtherButton type="button" onClick={() => onClick("Others")}>
+						<ArticleOtherButton type="button" onClick={() => onClick("Others")}>
 							others.
-						</OtherButton>
+						</ArticleOtherButton>
 					</div>
-				</LikesContainer>
-				<DescriptionAndCommentsContainer>
-					<Description>
+				</ArticleLikesContainer>
+				<ArticleDescriptionAndCommentsContainer>
+					<ArticleDescription>
 						<span>
-							<Link to={`/${name}`}>{name}</Link>
+							<ArticleDescriptionLink to={`/${name}`}>{name}</ArticleDescriptionLink>
 							{description}
 						</span>
-					</Description>
-					<CommentsCount>
-						<Link to="/p/articleIdHere">{`View all ${commentsLength.toString()} comments`}</Link>
-					</CommentsCount>
+					</ArticleDescription>
+					<ArticleCommentsCount>
+						<ArticleCommentsCountLink to="/p/articleIdHere">{`View all ${commentsLength.toString()} comments`}</ArticleCommentsCountLink>
+					</ArticleCommentsCount>
 					{comments.map(({ user, comment }, id) => (
-						<CommentAndCreatedtimeContainer key={id}>
-							<Comment>
-								<Link to={`/${user}`}>{user}</Link>
+						<ArticleCommentAndCreatedtimeContainer key={id}>
+							<ArticleComment>
+								<ArticleCommentLink to={`/${user}`}>{user}</ArticleCommentLink>
 								<span>{comment}</span>
-								<LikeComment type="button" onClick={() => onClick("Comment Like")}>
+								<ArticleLikeComment type="button" onClick={() => onClick("Comment Like")}>
 									<svg fill="#262626" height="12" viewBox="0 0 48 48" width="12">
 										<path d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>
 									</svg>
-								</LikeComment>
-							</Comment>
-						</CommentAndCreatedtimeContainer>
+								</ArticleLikeComment>
+							</ArticleComment>
+						</ArticleCommentAndCreatedtimeContainer>
 					))}
-					<CommentAndCreatedtimeContainer>
-						<CreatedTime to="/p/articleIdHere">{`${timeDifference(createdTime)} ago`}</CreatedTime>
-					</CommentAndCreatedtimeContainer>
-				</DescriptionAndCommentsContainer>
-			</Details>
-			<CommentContainer>
-				<CommentForm>
-					<CommentTextArea
+					<ArticleCommentAndCreatedtimeContainer>
+						<ArticleCreatedTime to="/p/articleIdHere">{`${timeDifference(
+							createdTime
+						)} ago`}</ArticleCreatedTime>
+					</ArticleCommentAndCreatedtimeContainer>
+				</ArticleDescriptionAndCommentsContainer>
+			</ArticleDetails>
+			<ArticleCommentContainer>
+				<ArticleCommentForm>
+					<ArticleCommentTextArea
 						placeholder="Add a comment…"
 						autoComplete="off"
 						autoCorrect="off"
 						onChange={e => setTextAreaValue(e.target.value)}
 					/>
-					<SubmitButton
+					<ArticleSubmitButton
 						Active={!!textareaValue}
 						onClick={e => {
 							e.preventDefault();
 							onClick("Submit");
 						}}>
 						Post
-					</SubmitButton>
-				</CommentForm>
-			</CommentContainer>
-		</Container>
+					</ArticleSubmitButton>
+				</ArticleCommentForm>
+			</ArticleCommentContainer>
+		</ArticleContainer>
 	);
 };
 

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { MeQuery, User_Response } from "../../generated/graphql";
+import { User_Response } from "../../generated/graphql";
 import useSticky from "../../Hooks/useSticky";
 import SuggestionsList from "./SuggestionsList";
 
@@ -11,7 +11,7 @@ const EllipsisText = css`
 	max-width: 174px;
 `;
 
-const Container = styled.div<{ sticky: boolean }>`
+const SuggestionsContainer = styled.div<{ sticky: boolean }>`
 	right: 0;
 	top: 0;
 	${({ sticky }) =>
@@ -51,34 +51,36 @@ const CurrentUserContainer = styled.div`
 	margin-bottom: 10px;
 `;
 
-const CurrentUser = styled.div`
+const CurrentUserSubContainer = styled.div`
 	display: flex;
 	align-items: center;
 `;
 
-const ProfileImage = styled.div`
+const CurrentUserProfileImage = styled.div`
 	margin-right: 12px;
 	width: 56px;
 	height: 56px;
 	a {
-		text-decoration: none;
-		img {
-			border: 1px solid rgba(0, 0, 0, 0.0975);
-			width: 100%;
-			height: 100%;
-			border-radius: 50%;
-			object-fit: cover;
-			box-shadow: 0px 0px 20px -9px rgba(0, 0, 0, 0.452);
-		}
 	}
 `;
 
-const ProfileName = styled.div`
+const CurrentUserProfileImageLink = styled(Link)`
+	text-decoration: none;
+	img {
+		/* border: 1px solid rgba(0, 0, 0, 0.0975); */
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		object-fit: cover;
+		box-shadow: 0px 0px 20px -9px rgba(0, 0, 0, 0.452);
+	}
+`;
+
+const CurrentUser = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	flex: 1 1 auto;
-
 	span {
 		color: #8e8e8e;
 		font-weight: 400;
@@ -86,21 +88,21 @@ const ProfileName = styled.div`
 	}
 `;
 
-const UserName = styled(Link)`
+const CurrentUserUsername = styled(Link)`
 	color: #262626;
 	font-weight: 600;
 	margin: -3px 0 -2px;
 	${EllipsisText}
 `;
 
-const SwitchButtonContainer = styled.div`
+const SwitchUserContainer = styled.div`
 	margin-left: 8px;
 	display: flex;
 	align-items: center;
 	flex: 0 0 auto;
 `;
 
-const SwitchButton = styled.button`
+const SwitchUserSwitchButton = styled.button`
 	cursor: pointer;
 	color: #0095f6;
 	font-weight: 600;
@@ -113,29 +115,29 @@ const SwitchButton = styled.button`
 	margin: -2px 0 -3px;
 `;
 
-const SuggestionsContainer = styled.div`
+const SuggestionsMain = styled.div`
 	background-color: #fafafa;
 	margin: 0 0 12px -16px;
 	width: calc(100% + 32px);
 `;
 
-const LinksContainer = styled.nav`
+const SuggestionsLinksContainer = styled.nav`
 	margin-bottom: 16px;
 `;
 
-const LinksList = styled.ul`
+const SuggestionsLinksList = styled.ul`
 	list-style: none;
 	width: 100%;
 	padding: 0;
 	margin: 0 3px 0 0;
 `;
 
-const LinkItem = styled.li`
+const SuggestionsLinkItem = styled.li`
 	display: inline-block;
 	margin: 0;
 `;
 
-const ListLink = styled(Link)`
+const SuggestionsListLink = styled(Link)`
 	color: #c7c7c7;
 	font-size: 11px;
 	font-weight: 400;
@@ -187,43 +189,43 @@ const Suggestions = ({ meData }: SuggestionsProps) => {
 	];
 
 	return (
-		<Container sticky={sticky}>
+		<SuggestionsContainer sticky={sticky}>
 			<CurrentUserContainer>
-				<CurrentUser>
-					<ProfileImage>
-						<Link to={`/${meData.username}`}>
+				<CurrentUserSubContainer>
+					<CurrentUserProfileImage>
+						<CurrentUserProfileImageLink to={`/${meData.username}`}>
 							<img src={meData.image_link} alt={`${meData.image_link}'s profile`} />
-						</Link>
-					</ProfileImage>
-					<ProfileName>
-						<UserName to={`/${meData.username}`}>{meData.username}</UserName>
+						</CurrentUserProfileImageLink>
+					</CurrentUserProfileImage>
+					<CurrentUser>
+						<CurrentUserUsername to={`/${meData.username}`}>{meData.username}</CurrentUserUsername>
 						<span>{meData.fullname}</span>
-					</ProfileName>
-					<SwitchButtonContainer>
-						<SwitchButtonContainer>
-							<SwitchButton type="button" onClick={() => onClick("Switch Account")}>
+					</CurrentUser>
+					<SwitchUserContainer>
+						<SwitchUserContainer>
+							<SwitchUserSwitchButton type="button" onClick={() => onClick("Switch Account")}>
 								Switch
-							</SwitchButton>
-						</SwitchButtonContainer>
-					</SwitchButtonContainer>
-				</CurrentUser>
+							</SwitchUserSwitchButton>
+						</SwitchUserContainer>
+					</SwitchUserContainer>
+				</CurrentUserSubContainer>
 			</CurrentUserContainer>
-			<SuggestionsContainer>
+			<SuggestionsMain>
 				<SuggestionsList onClickFunction={onClick} />
-			</SuggestionsContainer>
+			</SuggestionsMain>
 			<div>
-				<LinksContainer>
-					<LinksList>
+				<SuggestionsLinksContainer>
+					<SuggestionsLinksList>
 						{LinksData.map((theLink, id) => (
-							<LinkItem key={id}>
-								<ListLink to={`/${theLink}`}>{theLink}</ListLink>
-							</LinkItem>
+							<SuggestionsLinkItem key={id}>
+								<SuggestionsListLink to={`/${theLink}`}>{theLink}</SuggestionsListLink>
+							</SuggestionsLinkItem>
 						))}
-					</LinksList>
-				</LinksContainer>
+					</SuggestionsLinksList>
+				</SuggestionsLinksContainer>
 				<SignatureContainer>© 2021 Instagram from Facebook</SignatureContainer>
 			</div>
-		</Container>
+		</SuggestionsContainer>
 	);
 };
 

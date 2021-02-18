@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import Container from "../../../Containers/Container";
 
-const Main = styled.div`
+const ConnectionErrorMain = styled.div`
 	display: flex;
 	justify-content: center;
 	width: 100%;
 	height: calc(100vh - 84px);
 `;
 
-const Message = styled.h1`
+const ConnectionErrorMessage = styled.h1`
 	align-self: center;
 	color: #747474;
 `;
@@ -16,9 +16,9 @@ const Message = styled.h1`
 const ConnectionError = () => {
 	return (
 		<Container>
-			<Main>
-				<Message>503 Service Unavailable</Message>
-			</Main>
+			<ConnectionErrorMain>
+				<ConnectionErrorMessage>503 Service Unavailable</ConnectionErrorMessage>
+			</ConnectionErrorMain>
 		</Container>
 	);
 };

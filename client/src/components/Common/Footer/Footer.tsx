@@ -5,11 +5,11 @@ const FooterContainer = styled.footer`
 	bottom: 0;
 `;
 
-const LinksContainer = styled.div`
+const FooterLinksContainer = styled.div`
 	margin-bottom: 52px;
 `;
 
-export const Links = styled.div`
+export const FooterLinks = styled.div`
 	margin-top: 24px;
 	div {
 		display: flex;
@@ -19,7 +19,7 @@ export const Links = styled.div`
 	}
 `;
 
-const Lang = styled.div`
+const FooterLang = styled.div`
 	display: flex;
 	margin: 12px 0;
 	justify-content: center;
@@ -42,11 +42,11 @@ const Lang = styled.div`
 	}
 `;
 
-const Link = styled.div`
+const FooterLink = styled.div`
 	margin: 0 8px 12px;
 `;
 
-const LinkTag = styled.a`
+const FooterLinkTag = styled.a`
 	color: var(--textColorGray);
 	div {
 		font-size: 12px;
@@ -59,94 +59,94 @@ const LinkTag = styled.a`
 const Footer = () => {
 	return (
 		<FooterContainer>
-			<LinksContainer>
-				<Links>
+			<FooterLinksContainer>
+				<FooterLinks>
 					<div>
-						<Link>
-							<LinkTag href="/about">
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>about</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>blog</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>jobs</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>aPI</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>privacy</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>terms</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>top accounts</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>hashtags</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>locations</div>
-							</LinkTag>
-						</Link>
+							</FooterLinkTag>
+						</FooterLink>
 					</div>
 					<div>
-						<Link>
-							<LinkTag href="/about">
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>beauty</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>dance & performance</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>fitness</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>food & drink</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>home & garden</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>music</div>
-							</LinkTag>
-						</Link>
-						<Link>
-							<LinkTag href="/about">
+							</FooterLinkTag>
+						</FooterLink>
+						<FooterLink>
+							<FooterLinkTag href="/about">
 								<div>visual arts</div>
-							</LinkTag>
-						</Link>
+							</FooterLinkTag>
+						</FooterLink>
 					</div>
-				</Links>
-				<Lang>
+				</FooterLinks>
+				<FooterLang>
 					<div>
 						English
 						<span>
@@ -166,8 +166,8 @@ const Footer = () => {
 						</span>
 					</div>
 					<div>© 2020 Instagram from Facebook</div>
-				</Lang>
-			</LinksContainer>
+				</FooterLang>
+			</FooterLinksContainer>
 		</FooterContainer>
 	);
 };

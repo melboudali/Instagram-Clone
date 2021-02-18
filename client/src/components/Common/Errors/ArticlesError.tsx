@@ -20,7 +20,7 @@ const NoPostsLogo = styled.span`
 	width: 24px;
 `;
 
-const Message = styled.h1`
+const NoPostsMessage = styled.h1`
 	font-size: 28px;
 	font-weight: 300;
 	color: #262626;
@@ -32,7 +32,7 @@ const ArticlesError = () => {
 			<NoPostsLogoContainer>
 				<NoPostsLogo />
 			</NoPostsLogoContainer>
-			<Message>No Posts Yet</Message>
+			<NoPostsMessage>No Posts Yet</NoPostsMessage>
 		</>
 	);
 };

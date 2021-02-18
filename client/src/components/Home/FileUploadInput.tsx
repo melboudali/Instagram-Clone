@@ -2,7 +2,7 @@ import { useState } from "react";
 import Modal from "./Modal";
 import styled from "styled-components";
 
-const Container = styled.div`
+const FileUploadContainer = styled.div`
 	display: flex;
 	position: relative;
 	flex-direction: column;
@@ -17,11 +17,11 @@ const Container = styled.div`
 	border-radius: 10px;
 `;
 
-const SvgContainer = styled.div`
+const FileUploadSvgContainer = styled.div`
 	flex-wrap: 1;
 `;
 
-const UploadText = styled.div`
+const FileUploadText = styled.div`
 	flex-wrap: 1;
 	color: #8e8e8e;
 	margin-top: 15px;
@@ -32,14 +32,14 @@ const UploadText = styled.div`
 	}
 `;
 
-const ErrorMessage = styled.span`
+const FileUploadErrorMessage = styled.span`
 	color: var(--textErrorColor);
 	font-weight: 300;
 	display: block;
 	margin-top: 5px;
 `;
 
-const UploadSuccessful = styled.span`
+const FileUploadSuccessful = styled.span`
 	color: var(--textColorGreen);
 	font-weight: 300;
 	display: block;
@@ -108,7 +108,7 @@ const FileUploadInput = () => {
 	};
 
 	return (
-		<Container>
+		<FileUploadContainer>
 			{openModal && (
 				<Modal
 					imageUri={imageUri}
@@ -118,7 +118,7 @@ const FileUploadInput = () => {
 					Scrollbar={Scrollbar}
 				/>
 			)}
-			<SvgContainer>
+			<FileUploadSvgContainer>
 				<svg width="131" height="67" viewBox="0 0 131 67" fill="none">
 					<path
 						fillRule="evenodd"
@@ -131,13 +131,15 @@ const FileUploadInput = () => {
 						fill="#E5E5E5"
 					/>
 				</svg>
-			</SvgContainer>
-			<UploadText>
+			</FileUploadSvgContainer>
+			<FileUploadText>
 				<span>Choose {uploadSuccessfulMessage != null ? `another` : `an`} image</span> or drag it
 				here.
-				{uploadErrorMessage != null && <ErrorMessage>{uploadErrorMessage}</ErrorMessage>}
+				{uploadErrorMessage != null && (
+					<FileUploadErrorMessage>{uploadErrorMessage}</FileUploadErrorMessage>
+				)}
 				{uploadSuccessfulMessage != null && (
-					<UploadSuccessful>
+					<FileUploadSuccessful>
 						<svg
 							viewBox="0 0 24 24"
 							strokeWidth="1.5"
@@ -150,11 +152,11 @@ const FileUploadInput = () => {
 							<line x1="12" y1="12" x2="12" y2="21" />
 						</svg>
 						{uploadSuccessfulMessage}
-					</UploadSuccessful>
+					</FileUploadSuccessful>
 				)}
-			</UploadText>
+			</FileUploadText>
 			<FileInput type="file" title="Choose a file or drag it here." multiple onChange={onChange} />
-		</Container>
+		</FileUploadContainer>
 	);
 };
 

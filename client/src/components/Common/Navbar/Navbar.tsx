@@ -8,7 +8,7 @@ import Logo from "../../../assets/images/735145cfe0a4.png";
 import Assets from "../../../assets/images/32f0a4f27407.png";
 import useClickOutside from "../../../Hooks/useClickOutside";
 
-const Container = styled.header`
+const NavbarContainer = styled.header`
 	position: fixed;
 	width: 100%;
 	height: 54px;
@@ -17,7 +17,7 @@ const Container = styled.header`
 	z-index: 2;
 `;
 
-const NavbarContainer = styled.div`
+const NavbarMain = styled.div`
 	margin: 0 auto;
 	padding: 0 20px;
 	max-width: 975px;
@@ -33,10 +33,7 @@ const NavbarContainer = styled.div`
 const LeftNav = styled.div`
 	flex: 1 9999 0%;
 	min-width: 40px;
-	a {
-		display: flex;
-		align-items: center;
-	}
+
 	img {
 		align-self: center;
 		margin-top: 7px;
@@ -44,6 +41,11 @@ const LeftNav = styled.div`
 		max-width: 100%;
 		object-fit: contain;
 	}
+`;
+
+const LeftNavLink = styled(Link)`
+	display: flex;
+	align-items: center;
 `;
 
 const MidNav = styled.div`
@@ -93,7 +95,7 @@ const RightNav = styled.div`
 	}
 `;
 
-const LinkContainer = styled.div`
+const NavbarLinkContainer = styled.div`
 	position: relative;
 	cursor: pointer;
 	margin: 0 0 0 22px;
@@ -101,7 +103,7 @@ const LinkContainer = styled.div`
 	height: 22px;
 `;
 
-const ProfileImageBorder = styled.div<{ showMenu: boolean }>`
+const NavbarProfileImageBorder = styled.div<{ showMenu: boolean }>`
 	${({ showMenu }) => {
 		if (showMenu) {
 			return `border: 1px solid #262626;
@@ -116,7 +118,7 @@ const ProfileImageBorder = styled.div<{ showMenu: boolean }>`
 	}}
 `;
 
-const ProfileImage = styled.span`
+const NavbarProfileImage = styled.span`
 	background-color: none;
 	border-radius: 50%;
 	box-sizing: border-box;
@@ -133,7 +135,7 @@ const ProfileImage = styled.span`
 	}
 `;
 
-const LoginButton = styled.button`
+const NavbarLoginButton = styled.button`
 	cursor: pointer;
 	background: var(--buttonLightBlue);
 	border: 0;
@@ -145,7 +147,7 @@ const LoginButton = styled.button`
 	padding: 6px 10px;
 `;
 
-const SignUpButton = styled.button`
+const NavbarSignUpButton = styled.button`
 	cursor: pointer;
 	padding: 0;
 	background: 0 0;
@@ -169,12 +171,12 @@ const Navbar = () => {
 	}, [clickOutside]);
 
 	return (
-		<Container>
-			<NavbarContainer>
+		<NavbarContainer>
+			<NavbarMain>
 				<LeftNav>
-					<Link to="/">
+					<LeftNavLink to="/">
 						<img src={Logo} alt="dd" />
-					</Link>
+					</LeftNavLink>
 				</LeftNav>
 				<MidNav>
 					<span></span>
@@ -207,33 +209,35 @@ const Navbar = () => {
 										<path d="M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>
 									</svg>
 								</NavbarLink>
-								<LinkContainer
+								<NavbarLinkContainer
 									onClick={() => {
 										if (clickOutside) setClickOutside(false);
 										setShowMenu(!showMenu);
 									}}
 									ref={ref}>
-									<ProfileImageBorder showMenu={showMenu} />
-									<ProfileImage>
+									<NavbarProfileImageBorder showMenu={showMenu} />
+									<NavbarProfileImage>
 										<img src={data.me.image_link} alt={`${data.me.fullname}'s profile`} />
-									</ProfileImage>
+									</NavbarProfileImage>
 									<NavbarMenu meData={data.me} showMenu={showMenu} />
-								</LinkContainer>
+								</NavbarLinkContainer>
 							</>
 						) : (
 							<>
-								<LoginButton type="button" onClick={() => history.push("/")}>
+								<NavbarLoginButton type="button" onClick={() => history.push("/")}>
 									Log In
-								</LoginButton>
-								<SignUpButton type="button" onClick={() => history.push("/accounts/emailsignup")}>
+								</NavbarLoginButton>
+								<NavbarSignUpButton
+									type="button"
+									onClick={() => history.push("/accounts/emailsignup")}>
 									Sign Up
-								</SignUpButton>
+								</NavbarSignUpButton>
 							</>
 						)}
 					</div>
 				</RightNav>
-			</NavbarContainer>
-		</Container>
+			</NavbarMain>
+		</NavbarContainer>
 	);
 };
 
