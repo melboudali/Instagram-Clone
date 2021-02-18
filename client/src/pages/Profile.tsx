@@ -1,6 +1,6 @@
 import { useGetUserQuery, useMeQuery } from "../generated/graphql";
 import styled from "styled-components";
-import Container from "../components/Common/Container";
+import Container from "../Containers/Container";
 import ProfilePosts from "../components/Profile/ProfilePosts";
 import UnauthFooter from "../components/Common/Footer/UnauthFooter";
 import ProfileEmptyPostsOrPrivate from "../components/Profile/ProfileEmptyPostsOrPrivate";

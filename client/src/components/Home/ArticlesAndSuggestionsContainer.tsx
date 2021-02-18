@@ -12,7 +12,10 @@ const Container = styled.div`
 `;
 
 const ArticlesAndSuggestionsContainer = () => {
-	const { data } = useMeQuery();
+	const { data, error } = useMeQuery();
+
+	if (error) return null;
+
 	return (
 		<Container>
 			<Articles data={data} />

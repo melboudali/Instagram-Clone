@@ -159,7 +159,7 @@ const SignUpButton = styled.button`
 
 const Navbar = () => {
 	const history = useHistory();
-	const { data } = useMeQuery();
+	const { data, error } = useMeQuery();
 	const ref = useRef<HTMLDivElement>(null);
 	const { clickOutside, setClickOutside } = useClickOutside(ref);
 	const [showMenu, setShowMenu] = useState(false);
@@ -182,7 +182,7 @@ const Navbar = () => {
 				</MidNav>
 				<RightNav>
 					<div>
-						{!!data?.me ? (
+						{error == null && data != null && data.me != null ? (
 							<>
 								<NavbarLink path="/">
 									<svg fill="#262626" viewBox="0 0 48 48">
@@ -215,9 +215,9 @@ const Navbar = () => {
 									ref={ref}>
 									<ProfileImageBorder showMenu={showMenu} />
 									<ProfileImage>
-										<img src={data?.me?.image_link} alt={`${data?.me?.fullname}'s profile`} />
+										<img src={data.me.image_link} alt={`${data.me.fullname}'s profile`} />
 									</ProfileImage>
-									<NavbarMenu data={data} showMenu={showMenu} />
+									<NavbarMenu meData={data.me} showMenu={showMenu} />
 								</LinkContainer>
 							</>
 						) : (

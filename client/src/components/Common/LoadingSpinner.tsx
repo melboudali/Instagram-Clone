@@ -26,7 +26,7 @@ interface LoadingSpinnerProps {
 const LoadingSpinner = ({ margin }: LoadingSpinnerProps) => {
 	return (
 		<LoadingContainer margin={margin}>
-			<svg aria-label="Loading..." viewBox="0 0 100 100">
+			<svg viewBox="0 0 100 100">
 				<rect
 					fill="#555555"
 					height="6"

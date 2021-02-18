@@ -123,7 +123,7 @@ const ErrorMessage = styled.p`
 `;
 
 interface ModalProps {
-	imageUri: string | undefined;
+	imageUri: string;
 	imageFile: File | null;
 	setOpenModal: (arg: boolean) => void;
 	setUploadSuccessfulMessage: (arg: string | null) => void;
@@ -137,7 +137,7 @@ const Modal = ({
 	setUploadSuccessfulMessage,
 	Scrollbar
 }: ModalProps) => {
-	const { data } = useMeQuery();
+	const { data, error } = useMeQuery();
 	const [uploadImageFunc] = useUploadImageMutation();
 
 	const ref = useRef<HTMLDivElement>(null);
@@ -159,6 +159,8 @@ const Modal = ({
 		setOpenModal(false);
 		Scrollbar("show");
 	};
+
+	if (error) setConnectionError(true);
 
 	const UploadFile = async () => {
 		if (connectionError) setConnectionError(false);

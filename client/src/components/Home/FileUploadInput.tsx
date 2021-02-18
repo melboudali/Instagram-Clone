@@ -67,11 +67,11 @@ const FileInput = styled.input`
 `;
 
 const FileUploadInput = () => {
-	const [imageUri, setImageUri] = useState<string | undefined>();
+	const [imageUri, setImageUri] = useState("");
 	const [imageFile, setImageFile] = useState<File | null>(null);
-	const [openModal, setOpenModal] = useState<boolean>(false);
-	const [uploadErrorMessage, setUploadErroMessage] = useState<string | null>();
-	const [uploadSuccessfulMessage, setUploadSuccessfulMessage] = useState<string | null>();
+	const [openModal, setOpenModal] = useState(false);
+	const [uploadErrorMessage, setUploadErroMessage] = useState<string | null>(null);
+	const [uploadSuccessfulMessage, setUploadSuccessfulMessage] = useState<string | null>(null);
 
 	const Scrollbar = (arg: "show" | "hide") => {
 		arg === "show"
@@ -138,9 +138,10 @@ const FileUploadInput = () => {
 				</svg>
 			</SvgContainer>
 			<UploadText>
-				<span>Choose {uploadSuccessfulMessage ? `another` : `an`} image</span> or drag it here.
-				{uploadErrorMessage && <ErrorMessage>{uploadErrorMessage}</ErrorMessage>}
-				{uploadSuccessfulMessage && (
+				<span>Choose {uploadSuccessfulMessage != null ? `another` : `an`} image</span> or drag it
+				here.
+				{uploadErrorMessage != null && <ErrorMessage>{uploadErrorMessage}</ErrorMessage>}
+				{uploadSuccessfulMessage != null && (
 					<UploadSuccessful>
 						<svg
 							viewBox="0 0 24 24"

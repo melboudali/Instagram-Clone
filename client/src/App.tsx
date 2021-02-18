@@ -1,11 +1,8 @@
-import React, { Fragment, lazy, Suspense } from "react";
-import { useMeQuery } from "./generated/graphql";
+import React, { Fragment, Suspense } from "react";
 import { createGlobalStyle } from "styled-components";
 import ErrorBoundary from "./pages/ErrorBoundary";
 import LoadingFullScreen from "./components/Common/LoadingFullScreen";
-
-const AuthenticatedApp = lazy(() => import("./routes/AuthenticatedRoutes"));
-const UnauthenticatedApp = lazy(() => import("./routes/UnauthenticatedRoutes"));
+import AppContainer from "./Containers/AppContainer";
 
 const GlobalStyle = createGlobalStyle`
   :root{
@@ -43,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     background-color: var(--backgroudColor);
-    color: #262626;
+    color: var(--textColorDarkGray);
     font-size: 14px;
     line-height: 18px;
   };
@@ -54,21 +51,13 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () => {
-	const { data, loading } = useMeQuery();
-
 	return (
 		<Fragment>
 			<React.StrictMode>
 				<GlobalStyle />
 				<ErrorBoundary>
 					<Suspense fallback={<LoadingFullScreen />}>
-						{loading ? (
-							<LoadingFullScreen />
-						) : data && data.me ? (
-							<AuthenticatedApp />
-						) : (
-							<UnauthenticatedApp />
-						)}
+						<AppContainer />
 					</Suspense>
 				</ErrorBoundary>
 			</React.StrictMode>

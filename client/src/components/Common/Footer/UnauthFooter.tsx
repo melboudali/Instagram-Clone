@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
@@ -119,6 +118,7 @@ const UnauthFooter = () => {
 			}
 		]);
 	};
+
 	return (
 		<Container closed={data.showFooter[0].showUnauthFooter}>
 			<CloseButton onClick={onClose}>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Container from "../components/Common/Container";
+import Container from "../Containers/Container";
 import Footer from "../components/Common/Footer/Footer";
 import UnauthFooter from "../components/Common/Footer/UnauthFooter";
 import { useMeQuery } from "../generated/graphql";
