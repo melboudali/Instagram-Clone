@@ -169,44 +169,48 @@ const Signup = () => {
 	const [signupError, setSignupError] = useState<string | null>(null);
 
 	const [signupLoading, setSignupLoading] = useState(false);
-	const [ConnectionError, setConnectionError] = useState(false);
 
 	const signupFunction = async () => {
-		if ((email.length > 0, fullName.length > 0, userName.length > 0, password.length > 0)) {
-			setSignupLoading(true);
-			setSignupError(null);
-			try {
-				const res = await login({
-					variables: {
-						registerInputs: { email, fullName, userName, password }
-					},
-					update: (cache, { data }) => {
-						cache.writeQuery<MeQuery>({
-							query: MeDocument,
-							data: {
-								__typename: "Query",
-								me: data?.register.user
-							}
-						});
-					}
-				});
-				if (res.data?.register.error) {
-					setSignupError(res.data?.register.error.message);
-					setSignupLoading(false);
-				}
-				if (res.data?.register.user) {
-					setSignupLoading(false);
-					history.push("/");
-				}
-			} catch (error) {
-				setConnectionError(true);
-			}
-		} else {
+		if (
+			email.length === 0 ||
+			fullName.length === 0 ||
+			userName.length === 0 ||
+			password.length === 0
+		) {
 			setSignupError("Please fill in all fields!");
+			return;
+		}
+
+		setSignupError(null);
+		setSignupLoading(true);
+		try {
+			const res = await login({
+				variables: {
+					registerInputs: { email, fullName, userName, password }
+				},
+				update: (cache, { data }) => {
+					cache.writeQuery<MeQuery>({
+						query: MeDocument,
+						data: {
+							__typename: "Query",
+							me: data?.register.user
+						}
+					});
+				}
+			});
+			if (res.data?.register.error) {
+				setSignupLoading(false);
+				setSignupError(res.data?.register.error.message);
+			}
+			if (res.data?.register.user) {
+				setSignupLoading(false);
+				history.push("/");
+			}
+		} catch (error) {
+			setSignupLoading(false);
+			setSignupError("503 Service Unavailable");
 		}
 	};
-
-	if (ConnectionError) return <ConnectionErrorComponent />;
 
 	return (
 		<Fragment>

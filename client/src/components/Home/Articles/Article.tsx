@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { MeQuery } from "../../../generated/graphql";
+import { MeQuery, User_Response } from "../../../generated/graphql";
 import timeDifference from "../../../utils/timeDefference";
 
 const Container = styled.article`
@@ -241,7 +241,7 @@ interface ArticleProps {
 	comments: { user: string; comment: string }[];
 	commentsLength: number;
 	createdTime: string;
-	data: MeQuery | undefined;
+	meData: Partial<User_Response>;
 	liked: boolean;
 }
 
@@ -254,7 +254,7 @@ const Article = ({
 	comments,
 	commentsLength,
 	createdTime,
-	data,
+	meData,
 	liked
 }: ArticleProps) => {
 	const [textareaValue, setTextAreaValue] = useState<string | null>(null);
@@ -329,7 +329,7 @@ const Article = ({
 					<div>
 						Liked by
 						<span>
-							<LikesLink to={`/${data?.me?.username === likes ? "/profile" : likes}`}>
+							<LikesLink to={`/${meData.username === likes ? "/profile" : likes}`}>
 								{likes}
 							</LikesLink>
 						</span>

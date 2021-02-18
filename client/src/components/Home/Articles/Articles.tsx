@@ -1,6 +1,6 @@
 import Article from "./Article";
 import styled from "styled-components";
-import { MeQuery, useGetAllImagesQuery } from "../../../generated/graphql";
+import { MeQuery, useGetAllImagesQuery, User_Response } from "../../../generated/graphql";
 import ArticlesError from "../../Common/Errors/ArticlesError";
 import LoadingSpinner from "../../Common/LoadingSpinner";
 
@@ -27,10 +27,10 @@ const LoadingSpinnerContainer = styled.div`
 `;
 
 interface ArticleProps {
-	data: MeQuery | undefined;
+	meData: Partial<User_Response>;
 }
 
-const Articles = ({ data }: ArticleProps) => {
+const Articles = ({ meData }: ArticleProps) => {
 	const { data: images, loading: imagesLoading, error } = useGetAllImagesQuery({
 		variables: { limit: 3, cursor: null }
 	});
@@ -74,7 +74,7 @@ const Articles = ({ data }: ArticleProps) => {
 						]}
 						commentsLength={543}
 						createdTime={created_at}
-						data={data}
+						meData={meData}
 						liked={!!liked}
 					/>
 				)

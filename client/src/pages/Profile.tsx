@@ -39,12 +39,12 @@ const Profile = ({ match }: ProfileProps) => {
 		<>
 			<Container>
 				<Main>
-					<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
-					{data?.getUser.user?.private ? (
+					<ProfileHeader user={data.getUser.user} loggedinUserData={loggedinUserData} />
+					{data.getUser.user.private ? (
 						<ProfileEmptyPostsOrPrivate type="private" />
 					) : (
 						<>
-							<ProfileMenu data={data} page="profile" />
+							<ProfileMenu user={data.getUser.user} page="profile" />
 							{data.getUser.user.images.length > 0 ? (
 								<ProfilePosts posts={data.getUser.user.images} />
 							) : (
@@ -52,7 +52,7 @@ const Profile = ({ match }: ProfileProps) => {
 							)}
 						</>
 					)}
-					{!loggedinUserData?.me && <UnauthFooter />}
+					{loggedinUserData.me == null && <UnauthFooter />}
 				</Main>
 			</Container>
 		</>

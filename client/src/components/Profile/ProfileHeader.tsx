@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { GetUserQuery, MeQuery } from "../../generated/graphql";
+import { GetUserQuery, MeQuery, User_Response } from "../../generated/graphql";
 
 const ProfileData = styled.header`
 	display: flex;
@@ -124,20 +124,23 @@ const Website = styled.a`
 `;
 
 interface ProfileHeaderProps {
-	data: GetUserQuery | undefined;
-	loggedinUserData: MeQuery | undefined;
+	user: Pick<
+		User_Response,
+		"image_link" | "username" | "images" | "private" | "fullname" | "bio" | "website"
+	>;
+	loggedinUserData: MeQuery;
 }
 
-const ProfileHeader = ({ data, loggedinUserData }: ProfileHeaderProps) => {
+const ProfileHeader = ({ user, loggedinUserData }: ProfileHeaderProps) => {
 	return (
 		<ProfileData>
 			<ProfileImage>
-				<img src={data?.getUser.user?.image_link} alt="profile" />
+				<img src={user.image_link} alt="profile" />
 			</ProfileImage>
 			<ProfileInformations>
 				<UsernameContainer>
-					<Username>{data?.getUser.user?.username}</Username>
-					{loggedinUserData?.me ? (
+					<Username>{user.username}</Username>
+					{loggedinUserData.me ? (
 						<>
 							<EditButton to="/accounts/edit">Edit Profile</EditButton>
 							<OptionsButton type="button">
@@ -155,7 +158,7 @@ const ProfileHeader = ({ data, loggedinUserData }: ProfileHeaderProps) => {
 				</UsernameContainer>
 				<PostsFollowersFollowingContainer>
 					<PostsFollowersFollowingCount>
-						<span>{data?.getUser.user?.images?.length}</span>posts
+						<span>{user.images?.length}</span>posts
 					</PostsFollowersFollowingCount>
 					<PostsFollowersFollowingCount>
 						<span>0</span>followers
@@ -164,11 +167,11 @@ const ProfileHeader = ({ data, loggedinUserData }: ProfileHeaderProps) => {
 						<span>0</span>following
 					</PostsFollowersFollowingCount>
 				</PostsFollowersFollowingContainer>
-				<Fullname>{data?.getUser.user?.fullname}</Fullname>
-				{data?.getUser.user?.bio && <Bio>{data?.getUser.user.bio}</Bio>}
-				{data?.getUser.user?.website && (
-					<Website target="_blank" href={data?.getUser.user.website}>
-						{data?.getUser.user.website}
+				<Fullname>{user.fullname}</Fullname>
+				{user.bio && <Bio>{user.bio}</Bio>}
+				{user.website && (
+					<Website target="_blank" href={user.website}>
+						{user.website}
 					</Website>
 				)}
 			</ProfileInformations>

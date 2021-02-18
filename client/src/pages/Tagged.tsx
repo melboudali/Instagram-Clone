@@ -17,30 +17,39 @@ interface TaggedProps {
 }
 
 const Tagged = ({ match }: TaggedProps) => {
-	const { data: loggedinUserData } = useMeQuery();
+	const { data: loggedinUserData, error: loggedInError } = useMeQuery();
 	const username = match.params.username.toLowerCase();
-	const { data, loading } = useGetUserQuery({ variables: { username } });
+	const { data, loading, error } = useGetUserQuery({ variables: { username } });
 
 	if (loading) {
 		return <LoadingFullScreen />;
 	}
+
+	if (
+		data == null ||
+		data.getUser.user == null ||
+		loggedinUserData == null ||
+		loggedInError ||
+		error
+	)
+		return <ErrorPage />;
 
 	return (
 		<>
 			{data?.getUser.user && !data.getUser.error ? (
 				<Container>
 					<Main>
-						<ProfileHeader data={data} loggedinUserData={loggedinUserData} />
+						<ProfileHeader user={data.getUser.user} loggedinUserData={loggedinUserData} />
 
-						{data?.getUser.user?.private ? (
+						{data.getUser.user.private ? (
 							<ProfileEmptyPostsOrPrivate type="private" />
 						) : (
 							<>
-								<ProfileMenu data={data} page="tagged" />
+								<ProfileMenu user={data.getUser.user} page="tagged" />
 								<ProfileEmptyPostsOrPrivate type="emptyTagged" />
 							</>
 						)}
-						{!loggedinUserData?.me && <UnauthFooter />}
+						{loggedinUserData.me == null && <UnauthFooter />}
 					</Main>
 				</Container>
 			) : (

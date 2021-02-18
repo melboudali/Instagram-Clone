@@ -24,7 +24,7 @@ const Main = styled.div`
 	display: flex;
 	position: absolute;
 	border: none;
-	border-radius: 5px;
+	border-radius: 10px;
 	width: 700px;
 	min-height: 60px;
 	top: 50%;
@@ -62,8 +62,8 @@ const ImageContainer = styled.img`
 	width: 300px;
 	min-height: 300px;
 	object-fit: cover;
-	border-bottom-left-radius: 5px;
-	border-top-left-radius: 5px;
+	border-bottom-left-radius: 8px;
+	border-top-left-radius: 8px;
 `;
 
 const ImageCaptionContainer = styled.div`
@@ -123,7 +123,7 @@ const ErrorMessage = styled.p`
 `;
 
 interface ModalProps {
-	imageUri: string;
+	imageUri: string | undefined;
 	imageFile: File | null;
 	setOpenModal: (arg: boolean) => void;
 	setUploadSuccessfulMessage: (arg: string | null) => void;
@@ -159,8 +159,6 @@ const Modal = ({
 		setOpenModal(false);
 		Scrollbar("show");
 	};
-
-	if (error) setConnectionError(true);
 
 	const UploadFile = async () => {
 		if (connectionError) setConnectionError(false);
@@ -206,6 +204,8 @@ const Modal = ({
 		}
 	};
 
+	if (error) setConnectionError(true);
+
 	return (
 		<Container>
 			<Main ref={ref}>
@@ -228,7 +228,7 @@ const Modal = ({
 						<line x1="6" y1="6" x2="18" y2="18" />
 					</svg>
 				</Close>
-				<ImageContainer src={imageUri} alt="Uploaded Image" />
+				<ImageContainer src={imageUri!} alt="Uploaded Image" />
 				<ImageCaptionContainer>
 					<Title>New Post</Title>
 					<CaptionContainer>

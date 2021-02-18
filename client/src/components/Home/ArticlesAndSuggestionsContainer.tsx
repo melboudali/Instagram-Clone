@@ -14,12 +14,12 @@ const Container = styled.div`
 const ArticlesAndSuggestionsContainer = () => {
 	const { data, error } = useMeQuery();
 
-	if (error) return null;
+	if (error || data == null || data.me == null) return null;
 
 	return (
 		<Container>
-			<Articles data={data} />
-			<Suggestion data={data} />
+			<Articles meData={data.me} />
+			<Suggestion meData={data.me} />
 		</Container>
 	);
 };

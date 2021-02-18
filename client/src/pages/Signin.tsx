@@ -185,7 +185,6 @@ const Signin = () => {
 	const [password, setPassword] = useState("");
 	const [loginLoading, setLoginLoading] = useState(false);
 	const [loginError, setLoginError] = useState<string | null>(null);
-	const [ConnectionError, setConnectionError] = useState(false);
 
 	const loginFunction = async () => {
 		setLoginLoading(true);
@@ -214,11 +213,10 @@ const Signin = () => {
 				setLoginLoading(false);
 			}
 		} catch (error) {
-			setConnectionError(true);
+			setLoginError("503 Service Unavailable");
+			setLoginLoading(false);
 		}
 	};
-
-	if (ConnectionError) return <ConnectionErrorComponent />;
 
 	return (
 		<Fragment>

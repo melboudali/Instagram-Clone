@@ -67,7 +67,7 @@ const FileInput = styled.input`
 `;
 
 const FileUploadInput = () => {
-	const [imageUri, setImageUri] = useState("");
+	const [imageUri, setImageUri] = useState<string | undefined>();
 	const [imageFile, setImageFile] = useState<File | null>(null);
 	const [openModal, setOpenModal] = useState(false);
 	const [uploadErrorMessage, setUploadErroMessage] = useState<string | null>(null);
@@ -87,15 +87,15 @@ const FileUploadInput = () => {
 			if (FileType === "image/jpeg" || FileType === "image/png") {
 				if (FileReader) {
 					const fr = new FileReader();
-					fr.onload = function () {
-						setImageUri(fr.result as string);
+					fr.readAsDataURL(Files[0]);
+					fr.onload = () => {
 						setUploadErroMessage(null);
 						setUploadSuccessfulMessage(null);
+						setImageUri(fr.result as string);
 						setImageFile(Files[0]);
 						Scrollbar("hide");
 						setOpenModal(true);
 					};
-					fr.readAsDataURL(Files[0]);
 				}
 			} else {
 				setUploadSuccessfulMessage(null);
@@ -119,12 +119,7 @@ const FileUploadInput = () => {
 				/>
 			)}
 			<SvgContainer>
-				<svg
-					width="131"
-					height="67"
-					viewBox="0 0 131 67"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg">
+				<svg width="131" height="67" viewBox="0 0 131 67" fill="none">
 					<path
 						fillRule="evenodd"
 						clipRule="evenodd"

@@ -30,6 +30,7 @@ const GoBackLink = styled(Link)`
 
 const ErroPage = () => {
 	const { data, loading } = useMeQuery();
+
 	return (
 		<Container>
 			<Main>

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { GetUserQuery } from "../../generated/graphql";
+import { GetUserQuery, User_Response } from "../../generated/graphql";
 
 const PostAndTaggedMenu = styled.div`
 	border-top: 1px solid #dbdbdb;
@@ -47,14 +47,14 @@ const PostsMenu = styled(Link)<{ page: "profile" | "tagged" }>`
 type pageType = "profile" | "tagged";
 
 interface ProfileMenuProps {
-	data: GetUserQuery | undefined;
+	user: Pick<User_Response, "username">;
 	page: pageType;
 }
 
-const ProfileMenu = ({ data, page }: ProfileMenuProps) => {
+const ProfileMenu = ({ user, page }: ProfileMenuProps) => {
 	return (
 		<PostAndTaggedMenu>
-			<PostsMenu to={`/${data?.getUser.user?.username}`} page={page}>
+			<PostsMenu to={`/${user.username}`} page={page}>
 				<svg
 					fill={page === "profile" ? "#262626" : "#8e8e8e"}
 					height="12"
@@ -67,7 +67,7 @@ const ProfileMenu = ({ data, page }: ProfileMenuProps) => {
 				</svg>
 				<span>Posts</span>
 			</PostsMenu>
-			<PostsMenu to={`/${data?.getUser.user?.username}/tagged`} page={page}>
+			<PostsMenu to={`/${user.username}/tagged`} page={page}>
 				<svg
 					fill={page === "tagged" ? "#262626" : "#8e8e8e"}
 					height="12"

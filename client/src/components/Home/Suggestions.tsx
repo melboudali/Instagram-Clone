@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { MeQuery } from "../../generated/graphql";
+import { MeQuery, User_Response } from "../../generated/graphql";
 import useSticky from "../../Hooks/useSticky";
 import SuggestionsList from "./SuggestionsList";
 
@@ -161,10 +161,10 @@ const SignatureContainer = styled.span`
 `;
 
 interface SuggestionsProps {
-	data: MeQuery | undefined;
+	meData: Partial<User_Response>;
 }
 
-const Suggestions = ({ data }: SuggestionsProps) => {
+const Suggestions = ({ meData }: SuggestionsProps) => {
 	const sticky = useSticky(337);
 
 	const onClick = (buttonName: string) => {
@@ -191,13 +191,13 @@ const Suggestions = ({ data }: SuggestionsProps) => {
 			<CurrentUserContainer>
 				<CurrentUser>
 					<ProfileImage>
-						<Link to={`/${data?.me?.username}`}>
-							<img src={data?.me?.image_link} alt={`${data?.me?.image_link}'s profile`} />
+						<Link to={`/${meData.username}`}>
+							<img src={meData.image_link} alt={`${meData.image_link}'s profile`} />
 						</Link>
 					</ProfileImage>
 					<ProfileName>
-						<UserName to={`/${data?.me?.username}`}>{data?.me?.username}</UserName>
-						<span>{data?.me?.fullname}</span>
+						<UserName to={`/${meData.username}`}>{meData.username}</UserName>
+						<span>{meData.fullname}</span>
 					</ProfileName>
 					<SwitchButtonContainer>
 						<SwitchButtonContainer>
