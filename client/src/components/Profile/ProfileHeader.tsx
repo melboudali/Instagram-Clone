@@ -170,7 +170,13 @@ const ProfileHeader = ({ user, loggedinUserData }: ProfileHeaderProps) => {
 				<ProfileHeaderFullname>{user.fullname}</ProfileHeaderFullname>
 				{user.bio && <ProfileHeaderBio>{user.bio}</ProfileHeaderBio>}
 				{user.website && (
-					<ProfileHeaderWebsite target="_blank" href={user.website}>
+					<ProfileHeaderWebsite
+						target="_blank"
+						href={
+							!user.website.includes("https") || !user.website.includes("http")
+								? `https://${user.website}`
+								: user.website
+						}>
 						{user.website}
 					</ProfileHeaderWebsite>
 				)}
