@@ -20,7 +20,7 @@ const StoriesMain = styled.div<{ translateValue: number }>`
 	flex-grow: 1;
 	align-items: center;
 	transform: ${({ translateValue }) => `translateX(-${translateValue}px)`};
-	transition: transform 500ms cubic-bezier(0.215, 0.61, 0.355, 1) 0s;
+	transition: transform 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
 `;
 
 const NextButton = styled.button`
@@ -67,7 +67,7 @@ const PrevClickable = styled.div`
 `;
 
 const Stories = () => {
-	const StoriesData: { name: string; image: string }[] = [
+	const storiesData: { name: string; image: string }[] = [
 		{
 			name: "versace",
 			image:
@@ -180,64 +180,51 @@ const Stories = () => {
 		}
 	];
 
-	const SliderRef = useRef<HTMLDivElement>(null);
-	const ContainerRef = useRef<HTMLDivElement>(null);
+	const sliderRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const slideBy = useRef(4);
+	const currentIndex = useRef(0);
+	const leftItems = useRef(storiesData.length);
 
-	const [currentIndex, setCurrentIndex] = useState(4);
 	const [translateValue, setTranslateValue] = useState(0);
-	const [keepSliding, setKeepSliding] = useState({
-		right: true,
-		left: false
-	});
-	const [LeftItems, setLeftItems] = useState(StoriesData.length - 4);
+
 	const [slideButtons, setSlideButtons] = useState({
 		leftButton: false,
 		rightButton: true
 	});
 
 	const NextSlide = () => {
-		if (LeftItems > currentIndex) {
-			if (keepSliding.right) {
-				setLeftItems(LeftItems - 4);
-				setCurrentIndex(currentIndex + 4);
-				setTranslateValue(currentIndex * 88);
-				setSlideButtons({ leftButton: true, rightButton: true });
-			}
+		if (currentIndex.current < leftItems.current / slideBy.current) {
+			currentIndex.current += slideBy.current;
+			leftItems.current -= slideBy.current;
+			setTranslateValue(currentIndex.current * 88);
+			setSlideButtons({ ...slideButtons, leftButton: true });
 		} else {
-			if (keepSliding.right) {
-				setKeepSliding({ ...keepSliding, right: true });
-				if (SliderRef.current && ContainerRef.current) {
-					setTranslateValue(SliderRef.current?.clientWidth - ContainerRef.current?.clientWidth);
-				}
-				setSlideButtons({ leftButton: true, rightButton: false });
-			}
+			currentIndex.current += slideBy.current;
+			leftItems.current = 0;
+			setTranslateValue(sliderRef.current!.clientWidth! - containerRef.current!.clientWidth!);
+			setSlideButtons({ ...slideButtons, rightButton: false });
 		}
 	};
 
 	const PrevSlide = () => {
-		// TODO: Fix this later ...
-		// if (LeftItems < currentIndex) {
-		//   if (keepSliding.left) {
-		//     setLeftItems(LeftItems - 4);
-		//     setCurrentIndex(currentIndex + 4);
-		//     setTranslateValue(currentIndex * 88);
-		//     setSlideButtons({ leftButton: true, rightButton: true });
-		//   }
-		// } else {
-		//   if (keepSliding) {
-		//     setKeepSliding({...keepSliding, left:false});
-		//     if (SliderRef.current && ContainerRef.current) {
-		//       setTranslateValue(SliderRef.current?.clientWidth - ContainerRef.current?.clientWidth);
-		//     }
-		//     setSlideButtons({ leftButton: true, rightButton: false });
-		//   }
-		// }
+		if (currentIndex.current > slideBy.current) {
+			currentIndex.current -= slideBy.current;
+			leftItems.current += slideBy.current;
+			setTranslateValue(currentIndex.current * 88);
+			setSlideButtons({ ...slideButtons, rightButton: true });
+		} else {
+			currentIndex.current = 0;
+			leftItems.current = storiesData.length;
+			setTranslateValue(0);
+			setSlideButtons({ ...slideButtons, leftButton: false });
+		}
 	};
 
 	return (
-		<StoriesContainer ref={ContainerRef}>
-			<StoriesMain translateValue={translateValue} ref={SliderRef}>
-				{StoriesData.map(({ name, image }, i) => (
+		<StoriesContainer ref={containerRef}>
+			<StoriesMain translateValue={translateValue} ref={sliderRef}>
+				{storiesData.map(({ name, image }, i) => (
 					<Story key={i} name={name} image={image} />
 				))}
 			</StoriesMain>
