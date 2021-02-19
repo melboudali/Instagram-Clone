@@ -9,7 +9,7 @@ import ProfileMenu from "../components/Profile/ProfileMenu";
 import LoadingFullScreen from "../components/Common/LoadingFullScreen";
 import ErrorPage from "./ErrorPage";
 
-const Main = styled.div`
+const ProfileContainer = styled.div`
 	margin: 30px auto 0;
 `;
 
@@ -38,7 +38,7 @@ const Profile = ({ match }: ProfileProps) => {
 	return (
 		<>
 			<Container>
-				<Main>
+				<ProfileContainer>
 					<ProfileHeader user={data.getUser.user} loggedinUserData={loggedinUserData} />
 					{data.getUser.user.private ? (
 						<ProfileEmptyPostsOrPrivate type="private" />
@@ -53,7 +53,7 @@ const Profile = ({ match }: ProfileProps) => {
 						</>
 					)}
 					{loggedinUserData.me == null && <UnauthFooter />}
-				</Main>
+				</ProfileContainer>
 			</Container>
 		</>
 	);

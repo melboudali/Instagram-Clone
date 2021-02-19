@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { GetUserQuery, MeQuery, User_Response } from "../../generated/graphql";
+import { MeQuery, User_Response } from "../../generated/graphql";
 
 const ProfileData = styled.header`
 	display: flex;
@@ -8,7 +8,7 @@ const ProfileData = styled.header`
 	margin-bottom: 44px;
 `;
 
-const ProfileImage = styled.div`
+const ProfileHeaderImage = styled.div`
 	display: flex;
 	justify-content: center;
 	flex: 1 1 0;
@@ -34,7 +34,7 @@ const UsernameContainer = styled.div`
 	margin-bottom: 20px;
 `;
 
-const Username = styled.h2`
+const ProfileHeaderUsername = styled.h2`
 	font-weight: 300;
 	font-size: 28px;
 	line-height: 32px;
@@ -49,7 +49,7 @@ const Username = styled.h2`
 	}
 `;
 
-const FollowButton = styled(Link)`
+const ProfileHeaderFollowButton = styled(Link)`
 	background: var(--buttonLightBlue);
 	color: #fff;
 	font-weight: 600;
@@ -59,7 +59,7 @@ const FollowButton = styled(Link)`
 	text-align: center;
 `;
 
-const EditButton = styled(Link)`
+const ProfileHeaderEditButton = styled(Link)`
 	margin-left: 20px;
 	border: 1px solid #dbdbdb;
 	color: #262626;
@@ -69,7 +69,7 @@ const EditButton = styled(Link)`
 	text-align: center;
 `;
 
-const OptionsButton = styled.button`
+const ProfileHeaderOptionsButton = styled.button`
 	margin-left: 5px;
 	cursor: pointer;
 	padding: 0;
@@ -100,7 +100,7 @@ const PostsFollowersFollowingCount = styled.div`
 	}
 `;
 
-const Fullname = styled.h1`
+const ProfileHeaderFullname = styled.h1`
 	display: block;
 	font-size: 16px;
 	font-weight: 600;
@@ -108,14 +108,14 @@ const Fullname = styled.h1`
 	margin: 0;
 `;
 
-const Bio = styled.p`
+const ProfileHeaderBio = styled.p`
 	display: block;
 	font-size: 16px;
 	color: #262626;
 	margin: 3px 0;
 `;
 
-const Website = styled.a`
+const ProfileHeaderWebsite = styled.a`
 	display: block;
 	font-weight: 600;
 	color: #00376b;
@@ -134,26 +134,26 @@ interface ProfileHeaderProps {
 const ProfileHeader = ({ user, loggedinUserData }: ProfileHeaderProps) => {
 	return (
 		<ProfileData>
-			<ProfileImage>
+			<ProfileHeaderImage>
 				<img src={user.image_link} alt="profile" />
-			</ProfileImage>
+			</ProfileHeaderImage>
 			<ProfileInformations>
 				<UsernameContainer>
-					<Username>{user.username}</Username>
+					<ProfileHeaderUsername>{user.username}</ProfileHeaderUsername>
 					{loggedinUserData.me ? (
 						<>
-							<EditButton to="/accounts/edit">Edit Profile</EditButton>
-							<OptionsButton type="button">
+							<ProfileHeaderEditButton to="/accounts/edit">Edit Profile</ProfileHeaderEditButton>
+							<ProfileHeaderOptionsButton type="button">
 								<svg fill="#262626" height="24" viewBox="0 0 48 48" width="24">
 									<path
 										clipRule="evenodd"
 										d="M46.7 20.6l-2.1-1.1c-.4-.2-.7-.5-.8-1-.5-1.6-1.1-3.2-1.9-4.7-.2-.4-.3-.8-.1-1.2l.8-2.3c.2-.5 0-1.1-.4-1.5l-2.9-2.9c-.4-.4-1-.5-1.5-.4l-2.3.8c-.4.1-.8.1-1.2-.1-1.4-.8-3-1.5-4.6-1.9-.4-.1-.8-.4-1-.8l-1.1-2.2c-.3-.5-.8-.8-1.3-.8h-4.1c-.6 0-1.1.3-1.3.8l-1.1 2.2c-.2.4-.5.7-1 .8-1.6.5-3.2 1.1-4.6 1.9-.4.2-.8.3-1.2.1l-2.3-.8c-.5-.2-1.1 0-1.5.4L5.9 8.8c-.4.4-.5 1-.4 1.5l.8 2.3c.1.4.1.8-.1 1.2-.8 1.5-1.5 3-1.9 4.7-.1.4-.4.8-.8 1l-2.1 1.1c-.5.3-.8.8-.8 1.3V26c0 .6.3 1.1.8 1.3l2.1 1.1c.4.2.7.5.8 1 .5 1.6 1.1 3.2 1.9 4.7.2.4.3.8.1 1.2l-.8 2.3c-.2.5 0 1.1.4 1.5L8.8 42c.4.4 1 .5 1.5.4l2.3-.8c.4-.1.8-.1 1.2.1 1.4.8 3 1.5 4.6 1.9.4.1.8.4 1 .8l1.1 2.2c.3.5.8.8 1.3.8h4.1c.6 0 1.1-.3 1.3-.8l1.1-2.2c.2-.4.5-.7 1-.8 1.6-.5 3.2-1.1 4.6-1.9.4-.2.8-.3 1.2-.1l2.3.8c.5.2 1.1 0 1.5-.4l2.9-2.9c.4-.4.5-1 .4-1.5l-.8-2.3c-.1-.4-.1-.8.1-1.2.8-1.5 1.5-3 1.9-4.7.1-.4.4-.8.8-1l2.1-1.1c.5-.3.8-.8.8-1.3v-4.1c.4-.5.1-1.1-.4-1.3zM24 41.5c-9.7 0-17.5-7.8-17.5-17.5S14.3 6.5 24 6.5 41.5 14.3 41.5 24 33.7 41.5 24 41.5z"
 										fillRule="evenodd"></path>
 								</svg>
-							</OptionsButton>
+							</ProfileHeaderOptionsButton>
 						</>
 					) : (
-						<FollowButton to="/">Follow</FollowButton>
+						<ProfileHeaderFollowButton to="/">Follow</ProfileHeaderFollowButton>
 					)}
 				</UsernameContainer>
 				<PostsFollowersFollowingContainer>
@@ -167,12 +167,12 @@ const ProfileHeader = ({ user, loggedinUserData }: ProfileHeaderProps) => {
 						<span>0</span>following
 					</PostsFollowersFollowingCount>
 				</PostsFollowersFollowingContainer>
-				<Fullname>{user.fullname}</Fullname>
-				{user.bio && <Bio>{user.bio}</Bio>}
+				<ProfileHeaderFullname>{user.fullname}</ProfileHeaderFullname>
+				{user.bio && <ProfileHeaderBio>{user.bio}</ProfileHeaderBio>}
 				{user.website && (
-					<Website target="_blank" href={user.website}>
+					<ProfileHeaderWebsite target="_blank" href={user.website}>
 						{user.website}
-					</Website>
+					</ProfileHeaderWebsite>
 				)}
 			</ProfileInformations>
 		</ProfileData>

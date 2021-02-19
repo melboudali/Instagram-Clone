@@ -5,19 +5,19 @@ import Footer from "../components/Common/Footer/Footer";
 import UnauthFooter from "../components/Common/Footer/UnauthFooter";
 import { useMeQuery } from "../generated/graphql";
 
-const Main = styled.div`
+const ErroPageContainer = styled.div`
 	text-align: center;
 	height: 70vh;
 	padding: 40px 0;
 `;
 
-const Title = styled.h2`
+const ErroTitle = styled.h2`
 	color: #262625;
 	font-weight: 600;
 	font-size: 22px;
 `;
 
-const Message = styled.p`
+const ErroMessage = styled.p`
 	font-size: 16px;
 	color: #262625;
 	margin: 40px 0;
@@ -33,13 +33,13 @@ const ErroPage = () => {
 
 	return (
 		<Container>
-			<Main>
-				<Title>Sorry, this page isn't available.</Title>
-				<Message>
+			<ErroPageContainer>
+				<ErroTitle>Sorry, this page isn't available.</ErroTitle>
+				<ErroMessage>
 					The link you followed may be broken, or the page may have been removed.
 					<GoBackLink to="/">Go back to Instagram.</GoBackLink>
-				</Message>
-			</Main>
+				</ErroMessage>
+			</ErroPageContainer>
 			<Footer />
 			{!data?.me && !loading && <UnauthFooter />}
 		</Container>

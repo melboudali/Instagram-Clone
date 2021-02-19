@@ -11,10 +11,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BackgroundImage from "../assets/images/43cc71bb1b43.png";
 import Assets from "../assets/images/32f0a4f27407.png";
-import ConnectionErrorComponent from "../components/Common/Errors/ConnectionError";
 import { lessThan768px } from "../config/MediaQueries";
 
-const Container = styled.section`
+const SigninContainer = styled.section`
 	display: flex;
 	margin: 32px auto 0;
 	flex-direction: row;
@@ -25,7 +24,7 @@ const Container = styled.section`
 	padding-bottom: 32px;
 `;
 
-const LeftComponent = styled.div`
+const SigninLeftComponent = styled.div`
 	position: relative;
 	background: url("${BackgroundImage}");
 	background-repeat: no-repeat;
@@ -42,7 +41,7 @@ const LeftComponent = styled.div`
 	}
 `;
 
-const RightComponent = styled.div`
+const SigninRightComponent = styled.div`
 	align-self: center;
 	color: var(--textColorDarkGray);
 	flex-grow: 1;
@@ -51,7 +50,7 @@ const RightComponent = styled.div`
 	flex-basis: 454px;
 `;
 
-const LoginContainer = styled.div`
+const SigninLoginContainer = styled.div`
 	background-color: #fff;
 	border: 1px solid var(--borderColor);
 	border-radius: 1px;
@@ -59,7 +58,7 @@ const LoginContainer = styled.div`
 	padding: 10px 0;
 `;
 
-const Logo = styled.h1`
+const SigninLogo = styled.h1`
 	margin: 22px auto 12px;
 	background: url(${Assets});
 	background-repeat: no-repeat;
@@ -68,29 +67,29 @@ const Logo = styled.h1`
 	width: 175px;
 `;
 
-const FormContainer = styled.div`
+const SigninFormContainer = styled.div`
 	margin-bottom: 10px;
 	max-width: 350px;
 `;
 
-const Form = styled.form`
+const SigninForm = styled.form`
 	display: flex;
 	flex-direction: column;
 `;
 
-const InputsContainer = styled.div`
+const SigninInputsContainer = styled.div`
 	margin-top: 24px;
 	flex: 0 0 auto;
 	justify-content: flex-start;
 `;
 
-const FBButtonContainer = styled.div`
+const SigninFBButtonContainer = styled.div`
 	display: flex;
 	margin: 8px 40px;
 	justify-content: center;
 `;
 
-const FBButton = styled.button`
+const SigninFBButton = styled.button`
 	display: flex;
 	cursor: pointer;
 	font-weight: 600;
@@ -99,7 +98,7 @@ const FBButton = styled.button`
 	background: none;
 `;
 
-const FBLogo = styled.span`
+const SigninFBLogo = styled.span`
 	align-self: center;
 	margin-right: 8px;
 	background: url(${Assets});
@@ -109,11 +108,11 @@ const FBLogo = styled.span`
 	width: 16px;
 `;
 
-const ButtonText = styled.span`
+const SigninButtonText = styled.span`
 	color: var(--linkColor);
 `;
 
-const ErrorContainer = styled.div`
+const SigninErrorContainer = styled.div`
 	margin: 10px 40px;
 	p {
 		color: var(--textErrorColor);
@@ -124,18 +123,18 @@ const ErrorContainer = styled.div`
 	}
 `;
 
-const ForgotPwdContainer = styled.div`
+const SigninForgotPwdContainer = styled.div`
 	text-align: center;
 	margin: 12px 40px 0;
 `;
 
-const ForgotPwd = styled(Link)`
+const SigninForgotPwd = styled(Link)`
 	color: var(--linkColorTwo);
 	font-size: 12px;
 	line-height: 14px;
 `;
 
-const Signup = styled.div`
+const SignupContainer = styled.div`
 	margin: -3px 0 -4px;
 	p {
 		color: var(--textColorDarkGray);
@@ -153,7 +152,7 @@ const SignupLink = styled(Link)`
 	}
 `;
 
-const GetTheAppContainer = styled.div`
+const SigninGetTheAppContainer = styled.div`
 	position: relative;
 	overflow: auto;
 	text-align: center;
@@ -165,7 +164,7 @@ const GetTheAppContainer = styled.div`
 	}
 `;
 
-const AppsButtons = styled.div`
+const SigninAppsButtons = styled.div`
 	display: inline-flex;
 	margin: 10px 0;
 	a {
@@ -220,16 +219,16 @@ const Signin = () => {
 
 	return (
 		<Fragment>
-			<Container>
-				<LeftComponent>
+			<SigninContainer>
+				<SigninLeftComponent>
 					<Carousel />
-				</LeftComponent>
-				<RightComponent>
-					<LoginContainer>
-						<Logo />
-						<FormContainer>
-							<Form>
-								<InputsContainer>
+				</SigninLeftComponent>
+				<SigninRightComponent>
+					<SigninLoginContainer>
+						<SigninLogo />
+						<SigninFormContainer>
+							<SigninForm>
+								<SigninInputsContainer>
 									<FormINput
 										LabelText="Phone number, username, or email"
 										Required={true}
@@ -247,7 +246,7 @@ const Signin = () => {
 										inputValue={password}
 										setInputValue={setPassword}
 									/>
-								</InputsContainer>
+								</SigninInputsContainer>
 								<Button
 									active={userName.length > 0 && password.length > 0}
 									loading={loginLoading}
@@ -256,36 +255,36 @@ const Signin = () => {
 									Log In
 								</Button>
 								<Divider />
-								<FBButtonContainer>
-									<FBButton type="button" onClick={e => e.preventDefault()}>
-										<FBLogo />
-										<ButtonText>Log in with Facebook</ButtonText>
-									</FBButton>
-								</FBButtonContainer>
+								<SigninFBButtonContainer>
+									<SigninFBButton type="button" onClick={e => e.preventDefault()}>
+										<SigninFBLogo />
+										<SigninButtonText>Log in with Facebook</SigninButtonText>
+									</SigninFBButton>
+								</SigninFBButtonContainer>
 								{loginError && (
-									<ErrorContainer>
+									<SigninErrorContainer>
 										<p>{loginError}</p>
-									</ErrorContainer>
+									</SigninErrorContainer>
 								)}
-							</Form>
-							<ForgotPwdContainer>
-								<ForgotPwd to="/">Forgot password?</ForgotPwd>
-							</ForgotPwdContainer>
-						</FormContainer>
-					</LoginContainer>
-					<LoginContainer>
-						<Signup>
+							</SigninForm>
+							<SigninForgotPwdContainer>
+								<SigninForgotPwd to="/">Forgot password?</SigninForgotPwd>
+							</SigninForgotPwdContainer>
+						</SigninFormContainer>
+					</SigninLoginContainer>
+					<SigninLoginContainer>
+						<SignupContainer>
 							<p>
 								Don't have an account?
 								<SignupLink to="/accounts/emailsignup">
 									<span>Sign up</span>
 								</SignupLink>
 							</p>
-						</Signup>
-					</LoginContainer>
-					<GetTheAppContainer>
+						</SignupContainer>
+					</SigninLoginContainer>
+					<SigninGetTheAppContainer>
 						<p>Get the app.</p>
-						<AppsButtons>
+						<SigninAppsButtons>
 							<a
 								target="_blank"
 								rel="noreferrer"
@@ -298,10 +297,10 @@ const Signin = () => {
 								href="https://play.google.com/store/apps/details?id=com.instagram.android&referrer=utm_source%3Dinstagramweb%26utm_campaign%3DloginPage%26ig_mid%3D12078F57-18AD-43B5-B18B-9B5D69598FA1%26utm_content%3Dlo%26utm_medium%3Dbadge">
 								<img src={GooglePlay} alt="Available on Google Play" />
 							</a>
-						</AppsButtons>
-					</GetTheAppContainer>
-				</RightComponent>
-			</Container>
+						</SigninAppsButtons>
+					</SigninGetTheAppContainer>
+				</SigninRightComponent>
+			</SigninContainer>
 			<Footer />
 		</Fragment>
 	);

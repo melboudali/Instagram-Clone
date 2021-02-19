@@ -8,7 +8,7 @@ import ProfileHeader from "../components/Profile/ProfileHeader";
 import ProfileMenu from "../components/Profile/ProfileMenu";
 import ErrorPage from "./ErrorPage";
 
-const Main = styled.div`
+const TaggedContainer = styled.div`
 	margin: 30px auto 0;
 `;
 
@@ -38,7 +38,7 @@ const Tagged = ({ match }: TaggedProps) => {
 		<>
 			{data?.getUser.user && !data.getUser.error ? (
 				<Container>
-					<Main>
+					<TaggedContainer>
 						<ProfileHeader user={data.getUser.user} loggedinUserData={loggedinUserData} />
 
 						{data.getUser.user.private ? (
@@ -50,7 +50,7 @@ const Tagged = ({ match }: TaggedProps) => {
 							</>
 						)}
 						{loggedinUserData.me == null && <UnauthFooter />}
-					</Main>
+					</TaggedContainer>
 				</Container>
 			) : (
 				<ErrorPage />

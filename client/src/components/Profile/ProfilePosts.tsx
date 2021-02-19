@@ -12,7 +12,7 @@ const LikesAndComments = css`
 	}
 `;
 
-const Container = styled.div`
+const ProfilePostsContainer = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, 293px);
 	grid-gap: 28px;
@@ -30,7 +30,7 @@ const ImageAndCommentsCount = styled.div`
 	background: rgba(0, 0, 0, 0.3);
 `;
 
-const ImageContainer = styled.div`
+const ProfilePostsImages = styled.div`
 	width: 100%;
 	height: 293px;
 	position: relative;
@@ -49,12 +49,12 @@ const PostImage = styled.img`
 	height: 100%;
 `;
 
-const LikesContainer = styled.div`
+const PostLikesContainer = styled.div`
 	${LikesAndComments}
 	margin-right: 30px;
 `;
 
-const CommentsContainer = styled.div`
+const PostCommentsContainer = styled.div`
 	${LikesAndComments}
 `;
 
@@ -64,12 +64,12 @@ interface ProfilePostsProps {
 
 const ProfilePosts = ({ posts }: ProfilePostsProps) => {
 	return (
-		<Container>
+		<ProfilePostsContainer>
 			{posts.map((image, id) => (
-				<ImageContainer key={id}>
+				<ProfilePostsImages key={id}>
 					<PostImage src={image.image_url} alt="post" />
 					<ImageAndCommentsCount>
-						<LikesContainer>
+						<PostLikesContainer>
 							<svg
 								width="18"
 								height="16"
@@ -88,8 +88,8 @@ const ProfilePosts = ({ posts }: ProfilePostsProps) => {
 								/>
 							</svg>
 							0
-						</LikesContainer>
-						<CommentsContainer>
+						</PostLikesContainer>
+						<PostCommentsContainer>
 							<svg
 								width="18"
 								height="18"
@@ -108,11 +108,11 @@ const ProfilePosts = ({ posts }: ProfilePostsProps) => {
 								/>
 							</svg>
 							0
-						</CommentsContainer>
+						</PostCommentsContainer>
 					</ImageAndCommentsCount>
-				</ImageContainer>
+				</ProfilePostsImages>
 			))}
-		</Container>
+		</ProfilePostsContainer>
 	);
 };
 

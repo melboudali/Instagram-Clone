@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const StoryContainer = styled.div`
 	height: 82px;
 	width: 88px;
 	padding: 0 4px;
@@ -11,7 +11,7 @@ const Container = styled.div`
 	justify-content: center;
 `;
 
-const LogoContainer = styled.div`
+const StoryLogoContainer = styled.div`
 	height: 64px;
 	width: 64px;
 	background-image: linear-gradient(to left bottom, #a524a5, #fc8a36);
@@ -19,25 +19,25 @@ const LogoContainer = styled.div`
 	padding: 2px;
 `;
 
-const LogoBackground = styled.div`
+const StoryLogoBackground = styled.div`
 	background: #fff;
 	height: 100%;
 	border-radius: 50%;
 	padding: 2px;
 `;
 
-const Logo = styled.img`
+const StoryLogo = styled.img`
 	height: 100%;
 	width: 100%;
 	border-radius: 50%;
 `;
 
-const NameContainer = styled.div`
+const StoryNameContainer = styled.div`
 	width: 100%;
 	padding: 0 2px;
 `;
 
-const Name = styled.h1`
+const StoryName = styled.h1`
 	letter-spacing: 0.01em;
 	font-size: 12px;
 	line-height: 14px;
@@ -56,16 +56,16 @@ interface StoryProps {
 
 const Story = ({ name, image }: StoryProps) => {
 	return (
-		<Container>
-			<LogoContainer>
-				<LogoBackground>
-					<Logo src={image} alt="logo" />
-				</LogoBackground>
-			</LogoContainer>
-			<NameContainer>
-				<Name>{name}</Name>
-			</NameContainer>
-		</Container>
+		<StoryContainer>
+			<StoryLogoContainer>
+				<StoryLogoBackground>
+					<StoryLogo src={image} alt="logo" />
+				</StoryLogoBackground>
+			</StoryLogoContainer>
+			<StoryNameContainer>
+				<StoryName>{name}</StoryName>
+			</StoryNameContainer>
+		</StoryContainer>
 	);
 };
 

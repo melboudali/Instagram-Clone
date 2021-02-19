@@ -2,11 +2,11 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-const Main = styled.div`
+const FromInputContainer = styled.div`
 	margin: 0 40px 6px;
 `;
 
-const InputContainer = styled.div`
+const FromInputMain = styled.div`
 	background: var(--backgroudColor);
 	border: 1px solid var(--borderColor);
 	border-radius: 3px;
@@ -105,8 +105,8 @@ const FromInput = ({
 	};
 
 	return (
-		<Main>
-			<InputContainer>
+		<FromInputContainer>
+			<FromInputMain>
 				<Label>
 					<Span value={inputValue}>{LabelText}</Span>
 					<Input
@@ -127,8 +127,8 @@ const FromInput = ({
 						</ShowButton>
 					)}
 				</Label>
-			</InputContainer>
-		</Main>
+			</FromInputMain>
+		</FromInputContainer>
 	);
 };
 

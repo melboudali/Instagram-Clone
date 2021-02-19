@@ -10,15 +10,14 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Assets from "../assets/images/32f0a4f27407.png";
-import ConnectionErrorComponent from "../components/Common/Errors/ConnectionError";
 
-const Container = styled.section`
+const SignupContainer = styled.section`
 	margin: 32px auto 0;
 	max-width: 935px;
 	padding-bottom: 32px;
 `;
 
-const LoginContainer = styled.div`
+const SignupMain = styled.div`
 	background-color: #fff;
 	border: 1px solid var(--borderColor);
 	border-radius: 1px;
@@ -26,7 +25,7 @@ const LoginContainer = styled.div`
 	padding: 10px 0;
 `;
 
-const Logo = styled.h1`
+const SignupLogo = styled.h1`
 	margin: 22px auto 12px;
 	background: url(${Assets});
 	background-repeat: no-repeat;
@@ -35,12 +34,12 @@ const Logo = styled.h1`
 	width: 175px;
 `;
 
-const FormContainer = styled.div`
+const SignupFormContainer = styled.div`
 	margin-bottom: 10px;
 	max-width: 350px;
 `;
 
-const Form = styled.form`
+const SignupForm = styled.form`
 	display: flex;
 	flex-direction: column;
 `;
@@ -61,11 +60,11 @@ const SignupTitle = styled.h2`
 	text-align: center;
 `;
 
-const FBButtonContainer = styled.div`
+const SignupFBButtonContainer = styled.div`
 	margin: 8px 40px;
 `;
 
-const FBButton = styled.button`
+const SignupFBButton = styled.button`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -92,7 +91,7 @@ const FBButton = styled.button`
 	}
 `;
 
-const ErrorContainer = styled.div`
+const SignupErrorContainer = styled.div`
 	margin: 10px 40px;
 	p {
 		color: var(--textErrorColor);
@@ -103,7 +102,7 @@ const ErrorContainer = styled.div`
 	}
 `;
 
-const Terms = styled.p`
+const SignupTerms = styled.p`
 	color: var(--textColorGray);
 	font-size: 12px;
 	line-height: 16px;
@@ -111,13 +110,13 @@ const Terms = styled.p`
 	text-align: center;
 `;
 
-const TermsLink = styled(Link)`
+const SignupTermsLink = styled(Link)`
 	color: var(--textColorGray);
 	font-weight: 600;
 	margin: 0px 3px;
 `;
 
-const Login = styled.div`
+const LoginContainer = styled.div`
 	margin: -3px 0 -4px;
 	p {
 		color: var(--textColorDarkGray);
@@ -214,19 +213,19 @@ const Signup = () => {
 
 	return (
 		<Fragment>
-			<Container>
+			<SignupContainer>
 				<SignupComponent>
-					<LoginContainer>
-						<Logo />
-						<FormContainer>
-							<Form>
+					<SignupMain>
+						<SignupLogo />
+						<SignupFormContainer>
+							<SignupForm>
 								<SignupTitle>Sign up to see photos and videos from your friends.</SignupTitle>
-								<FBButtonContainer>
-									<FBButton type="button" onClick={e => e.preventDefault()}>
+								<SignupFBButtonContainer>
+									<SignupFBButton type="button" onClick={e => e.preventDefault()}>
 										<span></span>
 										Log in with Facebook
-									</FBButton>
-								</FBButtonContainer>
+									</SignupFBButton>
+								</SignupFBButtonContainer>
 								<Divider />
 								<FormINput
 									LabelText="Mobile Number or Email"
@@ -273,38 +272,38 @@ const Signup = () => {
 									Sign up
 								</Button>
 								{signupError && (
-									<ErrorContainer>
+									<SignupErrorContainer>
 										<p>{signupError}</p>
-									</ErrorContainer>
+									</SignupErrorContainer>
 								)}
-								<Terms>
+								<SignupTerms>
 									By signing up, you agree to our
-									<TermsLink target="_blank" to="https://help.instagram.com/581066165581870">
+									<SignupTermsLink target="_blank" to="https://help.instagram.com/581066165581870">
 										Terms
-									</TermsLink>
+									</SignupTermsLink>
 									,
-									<TermsLink target="_blank" to="https://help.instagram.com/519522125107875">
+									<SignupTermsLink target="_blank" to="https://help.instagram.com/519522125107875">
 										Data Policy
-									</TermsLink>
+									</SignupTermsLink>
 									and
-									<TermsLink target="_blank" to="/legal/cookies/">
+									<SignupTermsLink target="_blank" to="/legal/cookies/">
 										Cookies Policy
-									</TermsLink>
+									</SignupTermsLink>
 									.
-								</Terms>
-							</Form>
-						</FormContainer>
-					</LoginContainer>
-					<LoginContainer>
-						<Login>
+								</SignupTerms>
+							</SignupForm>
+						</SignupFormContainer>
+					</SignupMain>
+					<SignupContainer>
+						<LoginContainer>
 							<p>
 								Have an account?
 								<LoginLink to="/">
 									<span>Log in</span>
 								</LoginLink>
 							</p>
-						</Login>
-					</LoginContainer>
+						</LoginContainer>
+					</SignupContainer>
 					<GetTheAppContainer>
 						<p>Get the app.</p>
 						<AppsButtons>
@@ -323,7 +322,7 @@ const Signup = () => {
 						</AppsButtons>
 					</GetTheAppContainer>
 				</SignupComponent>
-			</Container>
+			</SignupContainer>
 			<Footer />
 		</Fragment>
 	);

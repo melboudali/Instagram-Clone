@@ -3,7 +3,7 @@ import ArticlesError from "../Common/Errors/ArticlesError";
 import OtherAssets from "../../assets/images/32f0a4f27407.png";
 import Footer from "../Common/Footer/Footer";
 
-const Private = styled.div`
+const PrivateContainer = styled.div`
 	background-color: #fff;
 	border-top: 1px solid #dbdbdb;
 	border-left: 1px solid #efefef;
@@ -15,7 +15,7 @@ const Private = styled.div`
 	text-align: center;
 `;
 
-const Main = styled.div`
+const EmptyContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -44,7 +44,7 @@ const PrivateMessage = styled.p`
 	color: #262626;
 `;
 
-const Message = styled.h1`
+const EmptyMessage = styled.h1`
 	font-size: 28px;
 	font-weight: 300;
 	color: #262626;
@@ -58,10 +58,10 @@ const ProfileEmptyPostsOrPrivate = ({ type }: ProfileEmptyPostsOrPrivateProps) =
 	if (type === "private") {
 		return (
 			<>
-				<Private>
+				<PrivateContainer>
 					<PrivateHeader>This Account is Private</PrivateHeader>
 					<PrivateMessage>Follow to see their photos and videos.</PrivateMessage>
-				</Private>
+				</PrivateContainer>
 				<Footer />
 			</>
 		);
@@ -69,16 +69,16 @@ const ProfileEmptyPostsOrPrivate = ({ type }: ProfileEmptyPostsOrPrivateProps) =
 
 	return (
 		<>
-			<Main>
+			<EmptyContainer>
 				{type === "emptyImages" ? (
 					<ArticlesError />
 				) : (
 					<>
 						<NoTaggedLogoContainer />
-						<Message>No Photos</Message>
+						<EmptyMessage>No Photos</EmptyMessage>
 					</>
 				)}
-			</Main>
+			</EmptyContainer>
 			<Footer />
 		</>
 	);
