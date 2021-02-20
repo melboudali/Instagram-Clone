@@ -123,7 +123,7 @@ const ModalErrorMessage = styled.p`
 `;
 
 interface ModalProps {
-	imageUri: string | undefined;
+	imageUri: string | null;
 	imageFile: File | null;
 	setOpenModal: (arg: boolean) => void;
 	setUploadSuccessfulMessage: (arg: string | null) => void;
@@ -167,26 +167,8 @@ const Modal = ({
 			try {
 				const res = await uploadImageFunc({
 					variables: { file: imageFile, caption: caption },
-					update: (cache, { data }) => {
-						const newImage = data?.uploadImage.image;
-						const existingImages = cache.readQuery<GetAllImagesQuery>({
-							query: GetAllImagesDocument,
-							variables: { limit: 10, cursor: null }
-						});
-
-						if (newImage && existingImages) {
-							cache.writeQuery<GetAllImagesQuery>({
-								query: GetAllImagesDocument,
-								variables: { limit: 10, cursor: null },
-								data: {
-									getAllImages: {
-										__typename: existingImages.getAllImages.__typename,
-										hasMore: existingImages.getAllImages.hasMore,
-										images: [newImage, ...existingImages.getAllImages.images]
-									}
-								}
-							});
-						}
+					update: cache => {
+						cache.evict({ fieldName: "getAllImages" });
 					}
 				});
 				if (res.data?.uploadImage) {

@@ -5,6 +5,7 @@ import { User_Response } from "../../../generated/graphql";
 import timeDifference from "../../../utils/timeDefference";
 
 const ArticleContainer = styled.article`
+	display: block;
 	background-color: #fff;
 	border: 1px solid #dbdbdb;
 	border-radius: 3px;

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useGetAllImagesQuery, User_Response } from "../../../generated/graphql";
 import ArticlesError from "../../Common/Errors/ArticlesError";
 import LoadingSpinner from "../../Common/LoadingSpinner";
+import { useEffect } from "react";
+import useScrollBottom from "../../../Hooks/useScrollBottom";
 
 const ArticlesContainer = styled.main`
 	--ArticleMargin: 28px;
@@ -20,10 +22,11 @@ const ArticlesErrorContainer = styled.div`
 	text-align: center;
 `;
 
-const ArticlesLoadingSpinner = styled.div`
+const ArticlesLoadingSpinner = styled.div<{ padding: string; margin: boolean }>`
 	width: 614px;
-	padding: 135px 0;
+	padding: ${({ padding }) => padding};
 	text-align: center;
+	${({ margin }) => margin && "margin: -40px 0 20px 0;"}
 `;
 
 interface ArticleProps {
@@ -31,13 +34,40 @@ interface ArticleProps {
 }
 
 const Articles = ({ meData }: ArticleProps) => {
-	const { data: images, loading: imagesLoading, error } = useGetAllImagesQuery({
+	const {
+		data: images,
+		loading: imagesLoading,
+		error,
+		fetchMore,
+		variables
+	} = useGetAllImagesQuery({
 		variables: { limit: 3, cursor: null }
 	});
 
+	const { isBottom, setIsBottom } = useScrollBottom();
+
+	useEffect(() => {
+		if (isBottom && images?.getAllImages.hasMore) {
+			fetchMore({
+				variables: {
+					limit: variables?.limit,
+					cursor: images.getAllImages.images[images.getAllImages.images.length - 1].created_at
+				}
+			});
+			setIsBottom(false);
+		}
+	}, [
+		fetchMore,
+		images?.getAllImages.hasMore,
+		images?.getAllImages.images,
+		isBottom,
+		variables?.limit,
+		setIsBottom
+	]);
+
 	if (imagesLoading)
 		return (
-			<ArticlesLoadingSpinner>
+			<ArticlesLoadingSpinner padding="135px 0" margin={false}>
 				<LoadingSpinner margin="0 auto" />
 			</ArticlesLoadingSpinner>
 		);
@@ -78,6 +108,11 @@ const Articles = ({ meData }: ArticleProps) => {
 						liked={!!liked}
 					/>
 				)
+			)}
+			{images.getAllImages.hasMore && (
+				<ArticlesLoadingSpinner padding="0" margin={true}>
+					<LoadingSpinner margin="0 auto" />
+				</ArticlesLoadingSpinner>
 			)}
 		</ArticlesContainer>
 	);

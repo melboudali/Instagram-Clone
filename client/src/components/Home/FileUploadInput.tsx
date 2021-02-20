@@ -67,7 +67,7 @@ const FileInput = styled.input`
 `;
 
 const FileUploadInput = () => {
-	const [imageUri, setImageUri] = useState<string | undefined>();
+	const [imageUri, setImageUri] = useState<string | null>(null);
 	const [imageFile, setImageFile] = useState<File | null>(null);
 	const [openModal, setOpenModal] = useState(false);
 	const [uploadErrorMessage, setUploadErroMessage] = useState<string | null>(null);
