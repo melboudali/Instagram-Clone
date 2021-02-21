@@ -31,15 +31,15 @@ const SuggestionsContainer = styled.div<{ sticky: boolean }>`
 		--SuggestionsLeft: 774.5px;
 		}
 		@media only screen and (min-width: 1200px) {
-		--SuggestionsLeft: 849px;
+		--SuggestionsLeft: calc(((100% - 975px) / 2) + 662px);
 		}
         `
 			: `
 		top: 18px;
 		position: absolute;`}
 
-	max-width: 293px;
-	width: 100%;
+	width: 293px;
+	/* width: 100%; */
 	@media only screen and (max-width: 1000px) {
 		display: none;
 		flex: 0 0 0%;
