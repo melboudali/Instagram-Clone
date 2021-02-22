@@ -25,6 +25,8 @@ export type Query = {
 
 
 export type QueryGetUserArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
   username: Scalars['String'];
 };
 
@@ -60,6 +62,7 @@ export type Response = {
   __typename?: 'response';
   error?: Maybe<Error>;
   user?: Maybe<User_Response>;
+  hasMore?: Maybe<Scalars['Boolean']>;
 };
 
 export type Error = {
@@ -164,6 +167,8 @@ export type UserFragmentFragment = (
 
 export type GetUserQueryVariables = Exact<{
   username: Scalars['String'];
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -171,6 +176,7 @@ export type GetUserQuery = (
   { __typename?: 'Query' }
   & { getUser: (
     { __typename?: 'response' }
+    & Pick<Response, 'hasMore'>
     & { user?: Maybe<(
       { __typename?: 'user_response' }
       & Pick<User_Response, 'website' | 'bio' | 'private'>
@@ -325,8 +331,8 @@ export const UserFragmentFragmentDoc = gql`
 }
     `;
 export const GetUserDocument = gql`
-    query GetUser($username: String!) {
-  getUser(username: $username) {
+    query GetUser($username: String!, $limit: Int!, $cursor: String) {
+  getUser(username: $username, limit: $limit, cursor: $cursor) {
     user {
       ...userFragment
       website
@@ -344,6 +350,7 @@ export const GetUserDocument = gql`
     error {
       ...userErrorFragment
     }
+    hasMore
   }
 }
     ${UserFragmentFragmentDoc}
@@ -362,6 +369,8 @@ ${UserErrorFragmentFragmentDoc}`;
  * const { data, loading, error } = useGetUserQuery({
  *   variables: {
  *      username: // value for 'username'
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
  *   },
  * });
  */

@@ -3,6 +3,7 @@ import {
 	Ctx,
 	Field,
 	InputType,
+	Int,
 	Mutation,
 	ObjectType,
 	Query,
@@ -15,6 +16,7 @@ import argon2 from "argon2";
 import { cookieName } from "../config/constants";
 import { getConnection } from "typeorm";
 import { isAuth } from "../middleware/isAuthenticated";
+import { Image } from "../entities/image";
 
 @InputType()
 class register_inputs {
@@ -76,6 +78,8 @@ class response {
 	error?: error;
 	@Field(() => user_response, { nullable: true })
 	user?: user_response;
+	@Field(() => Boolean, { nullable: true })
+	hasMore?: boolean;
 }
 
 @ObjectType()
@@ -190,13 +194,14 @@ export class UserResolver {
 	}
 
 	@Query(() => response)
-	async getUser(@Arg("username") username: string): Promise<response> {
-		const user = await User.createQueryBuilder("user")
-			.leftJoinAndSelect("user.images", "image")
-			.where("username = :username", { username })
-			.orderBy("image.created_at", "DESC")
-			.getOne();
-
+	async getUser(
+		@Arg("username") username: string,
+		@Arg("limit", () => Int) limit: number,
+		@Arg("cursor", () => String, { nullable: true }) cursor: string | null
+	): Promise<response> {
+		const user = await User.findOne({ username });
+		const minLimit = Math.min(50, limit);
+		const minLimitPlusOne = minLimit + 1;
 		if (!user) {
 			return {
 				error: {
@@ -205,16 +210,37 @@ export class UserResolver {
 			};
 		}
 
-		const {
-			id,
-			username: userName,
-			fullname,
-			image_link,
-			website,
-			bio,
-			private: isPrivate,
-			images
-		} = user;
+		let user_images: user_image_data[] = [];
+		if (!user.private) {
+			if (cursor) {
+				user_images = await Image.createQueryBuilder()
+					.where('"userId" = :userid', { userid: user.id })
+					.where("created_at < :newcursor", { newcursor: new Date(parseInt(cursor)) })
+					.orderBy("created_at", "DESC")
+					.limit(minLimitPlusOne)
+					.getMany();
+				console.log("----------------------------------");
+				console.log(user_images);
+				// const newCursor = new Date(parseInt(cursor));
+				// user_images = await getConnection().query(
+				// 	`
+				// select *
+				// from image image
+				// where created_at < ${newCursor}
+				// order by created_at DESC
+				// limit ${minLimitPlusOne}
+				// `
+				// );
+			} else {
+				user_images = await Image.createQueryBuilder()
+					.where('"userId" = :userid', { userid: user.id })
+					.orderBy("created_at", "DESC")
+					.limit(limit)
+					.getMany();
+			}
+		}
+
+		const { id, username: userName, fullname, image_link, website, bio, private: isPrivate } = user;
 
 		return {
 			user: {
@@ -225,8 +251,9 @@ export class UserResolver {
 				website,
 				bio,
 				private: isPrivate,
-				images
-			}
+				images: user_images.slice(0, minLimit)
+			},
+			hasMore: user_images.length === minLimitPlusOne
 		};
 	}
 

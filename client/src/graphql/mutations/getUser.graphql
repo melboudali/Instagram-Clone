@@ -1,5 +1,5 @@
-query GetUser($username: String!) {
-	getUser(username: $username) {
+query GetUser($username: String!, $limit: Int!, $cursor: String) {
+	getUser(username: $username, limit: $limit, cursor: $cursor) {
 		user {
 			...userFragment
 			website
@@ -17,5 +17,6 @@ query GetUser($username: String!) {
 		error {
 			...userErrorFragment
 		}
+		hasMore
 	}
 }

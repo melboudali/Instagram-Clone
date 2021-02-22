@@ -8,6 +8,8 @@ import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileMenu from "../components/profile/ProfileMenu";
 import LoadingFullScreen from "../components/common/LoadingFullScreen";
 import ErrorPage from "./ErrorPage";
+import { useEffect } from "react";
+import useScrollBottom from "../hooks/useScrollBottom";
 
 const ProfileContainer = styled.div`
 	margin: 30px auto 0;
@@ -20,7 +22,29 @@ interface ProfileProps {
 const Profile = ({ match }: ProfileProps) => {
 	const { data: loggedinUserData, error: loggedInError } = useMeQuery();
 	const username = match.params.username.toLowerCase();
-	const { data, loading, error } = useGetUserQuery({ variables: { username } });
+	const { data, loading, error, fetchMore, variables } = useGetUserQuery({
+		variables: { username, limit: 6, cursor: null }
+	});
+	const { isBottom, setIsBottom } = useScrollBottom();
+
+	useEffect(() => {
+		if (isBottom) {
+			fetchMore({
+				variables: {
+					limit: variables?.limit,
+					cursor: data?.getUser.user?.images[data?.getUser.user?.images.length - 1].created_at
+				}
+			});
+			setIsBottom(false);
+		}
+	}, [
+		data?.getUser.hasMore,
+		data?.getUser.user?.images,
+		fetchMore,
+		isBottom,
+		setIsBottom,
+		variables?.limit
+	]);
 
 	if (loading) {
 		return <LoadingFullScreen />;
