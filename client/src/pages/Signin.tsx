@@ -1,11 +1,11 @@
 import { useState, Fragment } from "react";
-import Carousel from "../components/Signin_Signup/Carousel";
-import FormINput from "../components/Signin_Signup/FormInput";
-import Button from "../components/Signin_Signup/Button";
-import Divider from "../components/Signin_Signup/Divider";
+import Carousel from "../components/signin_signup/Carousel";
+import FormINput from "../components/signin_signup/FormInput";
+import Button from "../components/signin_signup/Button";
+import Divider from "../components/signin_signup/Divider";
 import GooglePlay from "../assets/images/e9cd846dc748.png";
 import PlayStore from "../assets/images/180ae7a0bcf7.png";
-import Footer from "../components/Common/Footer/Footer";
+import Footer from "../components/common/footer/Footer";
 import { MeDocument, MeQuery, useLoginMutation } from "../generated/graphql";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -248,7 +248,7 @@ const Signin = () => {
 									/>
 								</SigninInputsContainer>
 								<Button
-									active={userName.length > 0 && password.length > 0}
+									active={!!userName.length && !!password.length}
 									loading={loginLoading}
 									onClickFunction={loginFunction}
 									type="submit">

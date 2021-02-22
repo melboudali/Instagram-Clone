@@ -2,7 +2,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ApolloClient, ApolloLink, ApolloProvider, InMemoryCache } from "@apollo/client";
 import App from "./App";
-import UseScrollTop from "./Hooks/useScrollTop";
+import UseScrollTop from "./hooks/useScrollTop";
 import reportWebVitals from "./reportWebVitals";
 import { createUploadLink } from "apollo-upload-client";
 import { showFooterValue } from "./graphql/cache/cache";

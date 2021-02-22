@@ -1,11 +1,11 @@
 import { Fragment, useState } from "react";
-import Divider from "../components/Signin_Signup/Divider";
-import FormINput from "../components/Signin_Signup/FormInput";
-import Button from "../components/Signin_Signup/Button";
+import Divider from "../components/signin_signup/Divider";
+import FormINput from "../components/signin_signup/FormInput";
+import Button from "../components/signin_signup/Button";
 import GooglePlay from "../assets/images/e9cd846dc748.png";
 import PlayStore from "../assets/images/180ae7a0bcf7.png";
 import { MeDocument, MeQuery, useRegisterMutation } from "../generated/graphql";
-import Footer from "../components/Common/Footer/Footer";
+import Footer from "../components/common/footer/Footer";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -170,12 +170,7 @@ const Signup = () => {
 	const [signupLoading, setSignupLoading] = useState(false);
 
 	const signupFunction = async () => {
-		if (
-			email.length === 0 ||
-			fullName.length === 0 ||
-			userName.length === 0 ||
-			password.length === 0
-		) {
+		if (!email.length || !fullName.length || !userName.length || !password.length) {
 			setSignupError("Please fill in all fields!");
 			return;
 		}

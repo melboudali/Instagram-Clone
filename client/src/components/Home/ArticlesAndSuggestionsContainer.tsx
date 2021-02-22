@@ -1,4 +1,4 @@
-import Articles from "./Articles/Articles";
+import Articles from "./articles/Articles";
 import Suggestion from "./Suggestions";
 import { useMeQuery } from "../../generated/graphql";
 import styled from "styled-components";
@@ -14,7 +14,7 @@ const ArticlesAndSuggestionsMain = styled.div`
 const ArticlesAndSuggestionsContainer = () => {
 	const { data, error } = useMeQuery();
 
-	if (error || data == null || data.me == null) return null;
+	if (error || !data || !data.me) return null;
 
 	return (
 		<ArticlesAndSuggestionsMain>

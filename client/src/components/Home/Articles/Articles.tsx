@@ -1,10 +1,10 @@
 import Article from "./Article";
 import styled from "styled-components";
 import { useGetAllImagesQuery, User_Response } from "../../../generated/graphql";
-import ArticlesError from "../../Common/Errors/ArticlesError";
-import LoadingSpinner from "../../Common/LoadingSpinner";
+import ArticlesError from "../../common/errors/ArticlesError";
+import LoadingSpinner from "../../common/LoadingSpinner";
 import { useEffect } from "react";
-import useScrollBottom from "../../../Hooks/useScrollBottom";
+import useScrollBottom from "../../../hooks/useScrollBottom";
 
 const ArticlesContainer = styled.main`
 	--ArticleMargin: 28px;
@@ -72,7 +72,7 @@ const Articles = ({ meData }: ArticleProps) => {
 			</ArticlesLoadingSpinner>
 		);
 
-	if (images == null || images.getAllImages.images.length === 0 || error)
+	if (!images || !images.getAllImages.images.length || error)
 		return (
 			<ArticlesErrorContainer>
 				<ArticlesError />

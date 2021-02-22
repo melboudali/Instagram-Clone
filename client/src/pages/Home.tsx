@@ -1,7 +1,7 @@
-import Container from "../Containers/Container";
-import FileUploadInputProps from "../components/Home/FileUploadInput";
-import Stories from "../components/Home/Stories/Stories";
-import ArticlesAndSuggestionsContainer from "../components/Home/ArticlesAndSuggestionsContainer";
+import Container from "../containers/Container";
+import FileUploadInputProps from "../components/home/FileUploadInput";
+import Stories from "../components/home/stories/Stories";
+import ArticlesAndSuggestionsContainer from "../components/home/ArticlesAndSuggestionsContainer";
 
 const Home = () => {
 	return (

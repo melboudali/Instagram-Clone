@@ -133,12 +133,11 @@ const FileUploadInput = () => {
 				</svg>
 			</FileUploadSvgContainer>
 			<FileUploadText>
-				<span>Choose {uploadSuccessfulMessage != null ? `another` : `an`} image</span> or drag it
-				here.
-				{uploadErrorMessage != null && (
+				<span>Choose {uploadSuccessfulMessage ? `another` : `an`} image</span> or drag it here.
+				{uploadErrorMessage && (
 					<FileUploadErrorMessage>{uploadErrorMessage}</FileUploadErrorMessage>
 				)}
-				{uploadSuccessfulMessage != null && (
+				{uploadSuccessfulMessage && (
 					<FileUploadSuccessful>
 						<svg
 							viewBox="0 0 24 24"

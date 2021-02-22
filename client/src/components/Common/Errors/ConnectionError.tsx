@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Container from "../../../Containers/Container";
+import Container from "../../../containers/Container";
 
 const ConnectionErrorMain = styled.div`
 	display: flex;

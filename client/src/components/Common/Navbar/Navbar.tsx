@@ -6,7 +6,7 @@ import NavbarMenu from "./NavbarMenu";
 import NavbarLink from "./NavbarLink";
 import Logo from "../../../assets/images/735145cfe0a4.png";
 import Assets from "../../../assets/images/32f0a4f27407.png";
-import useClickOutside from "../../../Hooks/useClickOutside";
+import useClickOutside from "../../../hooks/useClickOutside";
 
 const NavbarContainer = styled.header`
 	position: fixed;
@@ -184,7 +184,7 @@ const Navbar = () => {
 				</MidNav>
 				<RightNav>
 					<div>
-						{error == null && data != null && data.me != null ? (
+						{!error && data && data.me ? (
 							<>
 								<NavbarLink path="/">
 									<svg fill="#262626" viewBox="0 0 48 48">

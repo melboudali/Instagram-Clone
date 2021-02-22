@@ -1,5 +1,5 @@
 import { ReactiveVar, makeVar } from "@apollo/client";
-import { showFooter } from "../../Models/cache";
+import { showFooter } from "../../models/cache";
 
 const showFooterInitialValue: showFooter = [{ showUnauthFooter: false }];
 

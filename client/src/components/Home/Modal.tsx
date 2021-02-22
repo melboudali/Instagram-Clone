@@ -1,13 +1,9 @@
 import { useRef, useState, useEffect } from "react";
-import {
-	GetAllImagesDocument,
-	GetAllImagesQuery,
-	useUploadImageMutation
-} from "../../generated/graphql";
-import Button from "../Signin_Signup/Button";
+import { useUploadImageMutation } from "../../generated/graphql";
+import Button from "../signin_signup/Button";
 import styled from "styled-components";
 import { useMeQuery } from "../../generated/graphql";
-import useClickOutside from "../../Hooks/useClickOutside";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const ModalContainer = styled.div`
 	background-color: rgba(0, 0, 0, 0.87);

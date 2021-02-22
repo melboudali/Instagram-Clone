@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import ArticlesError from "../Common/Errors/ArticlesError";
+import ArticlesError from "../common/errors/ArticlesError";
 import OtherAssets from "../../assets/images/32f0a4f27407.png";
-import Footer from "../Common/Footer/Footer";
+import Footer from "../common/footer/Footer";
 
 const PrivateContainer = styled.div`
 	background-color: #fff;

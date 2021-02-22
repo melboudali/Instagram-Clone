@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { User_Response } from "../../generated/graphql";
-import useSticky from "../../Hooks/useSticky";
+import useSticky from "../../hooks/useSticky";
 import SuggestionsList from "./SuggestionsList";
 
 const EllipsisText = css`
@@ -39,7 +39,6 @@ const SuggestionsContainer = styled.div<{ sticky: boolean }>`
 		position: absolute;`}
 
 	width: 293px;
-	/* width: 100%; */
 	@media only screen and (max-width: 1000px) {
 		display: none;
 		flex: 0 0 0%;
@@ -67,7 +66,6 @@ const CurrentUserProfileImage = styled.div`
 const CurrentUserProfileImageLink = styled(Link)`
 	text-decoration: none;
 	img {
-		/* border: 1px solid rgba(0, 0, 0, 0.0975); */
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;

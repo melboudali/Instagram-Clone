@@ -1,8 +1,8 @@
 import { useGetSuggestedUsersQuery } from "../../generated/graphql";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-import SuggestionsError from "../Common/Errors/SuggestionsError";
-import LoadingSpinner from "../Common/LoadingSpinner";
+import SuggestionsError from "../common/errors/SuggestionsError";
+import LoadingSpinner from "../common/LoadingSpinner";
 
 const EllipsisText = css`
 	white-space: nowrap;
@@ -45,7 +45,6 @@ const SuggestedProfileImage = styled.div`
 const SuggestedProfileImageLink = styled(Link)`
 	text-decoration: none;
 	img {
-		/* border: 1px solid rgba(0, 0, 0, 0.0975); */
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
@@ -103,7 +102,7 @@ const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
 
 	if (loading) return <LoadingSpinner margin="60px 0" />;
 
-	if (data == null || data.suggestedUsers.users.length === 0 || error) return <SuggestionsError />;
+	if (!data || !data.suggestedUsers.users.length || error) return <SuggestionsError />;
 
 	return (
 		<>
