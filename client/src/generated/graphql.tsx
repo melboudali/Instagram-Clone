@@ -21,12 +21,11 @@ export type Query = {
   getUser: Response;
   suggestedUsers: Responses;
   getAllImages: PaginatedImages;
+  getUserImages: PaginatedImages;
 };
 
 
 export type QueryGetUserArgs = {
-  cursor?: Maybe<Scalars['String']>;
-  limit: Scalars['Int'];
   username: Scalars['String'];
 };
 
@@ -34,6 +33,13 @@ export type QueryGetUserArgs = {
 export type QueryGetAllImagesArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
+};
+
+
+export type QueryGetUserImagesArgs = {
+  cursor?: Maybe<Scalars['String']>;
+  limit: Scalars['Int'];
+  userId: Scalars['Int'];
 };
 
 export type User_Response = {
@@ -62,7 +68,6 @@ export type Response = {
   __typename?: 'response';
   error?: Maybe<Error>;
   user?: Maybe<User_Response>;
-  hasMore?: Maybe<Scalars['Boolean']>;
 };
 
 export type Error = {
@@ -167,8 +172,6 @@ export type UserFragmentFragment = (
 
 export type GetUserQueryVariables = Exact<{
   username: Scalars['String'];
-  limit: Scalars['Int'];
-  cursor?: Maybe<Scalars['String']>;
 }>;
 
 
@@ -176,14 +179,9 @@ export type GetUserQuery = (
   { __typename?: 'Query' }
   & { getUser: (
     { __typename?: 'response' }
-    & Pick<Response, 'hasMore'>
     & { user?: Maybe<(
       { __typename?: 'user_response' }
-      & Pick<User_Response, 'website' | 'bio' | 'private'>
-      & { images: Array<(
-        { __typename?: 'user_image_data' }
-        & Pick<User_Image_Data, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'created_at'>
-      )> }
+      & Pick<User_Response, 'id' | 'website' | 'bio' | 'private'>
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
@@ -292,6 +290,25 @@ export type GetSuggestedUsersQuery = (
   ) }
 );
 
+export type GetUserImagesQueryVariables = Exact<{
+  userId: Scalars['Int'];
+  limit: Scalars['Int'];
+  cursor?: Maybe<Scalars['String']>;
+}>;
+
+
+export type GetUserImagesQuery = (
+  { __typename?: 'Query' }
+  & { getUserImages: (
+    { __typename?: 'PaginatedImages' }
+    & Pick<PaginatedImages, 'hasMore'>
+    & { images: Array<(
+      { __typename?: 'image_data' }
+      & ImageFragmentFragment
+    )> }
+  ) }
+);
+
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -331,26 +348,18 @@ export const UserFragmentFragmentDoc = gql`
 }
     `;
 export const GetUserDocument = gql`
-    query GetUser($username: String!, $limit: Int!, $cursor: String) {
-  getUser(username: $username, limit: $limit, cursor: $cursor) {
+    query GetUser($username: String!) {
+  getUser(username: $username) {
     user {
+      id
       ...userFragment
       website
       bio
       private
-      images {
-        id
-        caption
-        image_url
-        likes
-        like_status
-        created_at
-      }
     }
     error {
       ...userErrorFragment
     }
-    hasMore
   }
 }
     ${UserFragmentFragmentDoc}
@@ -369,8 +378,6 @@ ${UserErrorFragmentFragmentDoc}`;
  * const { data, loading, error } = useGetUserQuery({
  *   variables: {
  *      username: // value for 'username'
- *      limit: // value for 'limit'
- *      cursor: // value for 'cursor'
  *   },
  * });
  */
@@ -603,6 +610,44 @@ export function useGetSuggestedUsersLazyQuery(baseOptions?: Apollo.LazyQueryHook
 export type GetSuggestedUsersQueryHookResult = ReturnType<typeof useGetSuggestedUsersQuery>;
 export type GetSuggestedUsersLazyQueryHookResult = ReturnType<typeof useGetSuggestedUsersLazyQuery>;
 export type GetSuggestedUsersQueryResult = Apollo.QueryResult<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>;
+export const GetUserImagesDocument = gql`
+    query GetUserImages($userId: Int!, $limit: Int!, $cursor: String) {
+  getUserImages(userId: $userId, limit: $limit, cursor: $cursor) {
+    hasMore
+    images {
+      ...imageFragment
+    }
+  }
+}
+    ${ImageFragmentFragmentDoc}`;
+
+/**
+ * __useGetUserImagesQuery__
+ *
+ * To run a query within a React component, call `useGetUserImagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserImagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserImagesQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *      limit: // value for 'limit'
+ *      cursor: // value for 'cursor'
+ *   },
+ * });
+ */
+export function useGetUserImagesQuery(baseOptions: Apollo.QueryHookOptions<GetUserImagesQuery, GetUserImagesQueryVariables>) {
+        return Apollo.useQuery<GetUserImagesQuery, GetUserImagesQueryVariables>(GetUserImagesDocument, baseOptions);
+      }
+export function useGetUserImagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetUserImagesQuery, GetUserImagesQueryVariables>) {
+          return Apollo.useLazyQuery<GetUserImagesQuery, GetUserImagesQueryVariables>(GetUserImagesDocument, baseOptions);
+        }
+export type GetUserImagesQueryHookResult = ReturnType<typeof useGetUserImagesQuery>;
+export type GetUserImagesLazyQueryHookResult = ReturnType<typeof useGetUserImagesLazyQuery>;
+export type GetUserImagesQueryResult = Apollo.QueryResult<GetUserImagesQuery, GetUserImagesQueryVariables>;
 export const MeDocument = gql`
     query Me {
   me {

@@ -124,10 +124,7 @@ const ProfileHeaderWebsite = styled.a`
 `;
 
 interface ProfileHeaderProps {
-	user: Pick<
-		User_Response,
-		"image_link" | "username" | "images" | "private" | "fullname" | "bio" | "website"
-	>;
+	user: Pick<User_Response, "image_link" | "username" | "private" | "fullname" | "bio" | "website">;
 	loggedinUserData: MeQuery;
 }
 
@@ -158,7 +155,7 @@ const ProfileHeader = ({ user, loggedinUserData }: ProfileHeaderProps) => {
 				</UsernameContainer>
 				<PostsFollowersFollowingContainer>
 					<PostsFollowersFollowingCount>
-						<span>{user.images?.length}</span>posts
+						<span>0</span>posts
 					</PostsFollowersFollowingCount>
 					<PostsFollowersFollowingCount>
 						<span>0</span>followers

@@ -1,0 +1,8 @@
+query GetUserImages($userId: Int!, $limit: Int!, $cursor: String) {
+	getUserImages(userId: $userId, limit: $limit, cursor: $cursor) {
+		hasMore
+		images {
+			...imageFragment
+		}
+	}
+}

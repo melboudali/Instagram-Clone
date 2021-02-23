@@ -19,7 +19,7 @@ interface TaggedProps {
 const Tagged = ({ match }: TaggedProps) => {
 	const { data: loggedinUserData, error: loggedInError } = useMeQuery();
 	const username = match.params.username.toLowerCase();
-	const { data, loading, error } = useGetUserQuery({ variables: { username, limit: 0 } });
+	const { data, loading, error } = useGetUserQuery({ variables: { username } });
 
 	if (loading) {
 		return <LoadingFullScreen />;

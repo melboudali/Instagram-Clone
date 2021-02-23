@@ -38,6 +38,18 @@ const client = new ApolloClient({
 								images: [...(existing?.images || []), ...incoming.images]
 							};
 						}
+					},
+					getUserImages: {
+						keyArgs: [],
+						merge(
+							existing: PaginatedImages | undefined,
+							incoming: PaginatedImages
+						): PaginatedImages {
+							return {
+								...incoming,
+								images: [...(existing?.images || []), ...incoming.images]
+							};
+						}
 					}
 				}
 			}

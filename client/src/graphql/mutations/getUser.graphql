@@ -1,22 +1,14 @@
-query GetUser($username: String!, $limit: Int!, $cursor: String) {
-	getUser(username: $username, limit: $limit, cursor: $cursor) {
+query GetUser($username: String!) {
+	getUser(username: $username) {
 		user {
+			id
 			...userFragment
 			website
 			bio
 			private
-			images {
-				id
-				caption
-				image_url
-				likes
-				like_status
-				created_at
-			}
 		}
 		error {
 			...userErrorFragment
 		}
-		hasMore
 	}
 }
