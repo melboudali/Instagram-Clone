@@ -5,7 +5,7 @@ import argon2 from "argon2";
 import { cookieName } from "../config/constants";
 import { getConnection } from "typeorm";
 import { isAuth } from "../middleware/isAuthenticated";
-import { register_inputs, response, responses, user_response } from "src/models/user";
+import { register_inputs, response, responses, user_response } from "../models/user";
 
 @Resolver(User)
 export class UserResolver {

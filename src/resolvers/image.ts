@@ -16,12 +16,7 @@ import { isAuth } from "../middleware/isAuthenticated";
 import { MyContext } from "../types";
 import { getConnection } from "typeorm";
 import { v2 as cloudinary } from "cloudinary";
-import {
-	image_author,
-	image_data,
-	image_upload_response,
-	PaginatedImages
-} from "src/models/images";
+import { image_author, image_data, image_upload_response, PaginatedImages } from "../models/images";
 
 @Resolver(Image)
 export class ImageResolver {
