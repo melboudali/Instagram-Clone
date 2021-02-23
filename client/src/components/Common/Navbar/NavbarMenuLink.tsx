@@ -51,12 +51,12 @@ const MenuListName = styled.div`
 `;
 
 interface NavbarMenuLinkProps {
-	LinkName: string;
+	linkName: string;
 	to: string;
 	children: React.ReactNode;
 }
 
-const NavbarMenuLink = ({ LinkName, to, children }: NavbarMenuLinkProps) => {
+const NavbarMenuLink = ({ linkName, to, children }: NavbarMenuLinkProps) => {
 	return (
 		<MenuListLink to={to}>
 			<MenuListContainer>
@@ -64,7 +64,7 @@ const NavbarMenuLink = ({ LinkName, to, children }: NavbarMenuLinkProps) => {
 					<MenuIconContainer>{children}</MenuIconContainer>
 					<MenuListNameContainer>
 						<MenuListName>
-							<div>{LinkName}</div>
+							<div>{linkName}</div>
 						</MenuListName>
 					</MenuListNameContainer>
 				</div>

@@ -170,7 +170,7 @@ const Signup = () => {
 	const [signupLoading, setSignupLoading] = useState(false);
 
 	const signupFunction = async () => {
-		if (!email.length || !fullName.length || !userName.length || !password.length) {
+		if (!email || !fullName || !userName || !password) {
 			setSignupError("Please fill in all fields!");
 			return;
 		}
@@ -223,37 +223,37 @@ const Signup = () => {
 								</SignupFBButtonContainer>
 								<Divider />
 								<FormINput
-									LabelText="Mobile Number or Email"
-									Required={true}
-									Maxlength={75}
-									Name="email"
-									Type="text"
+									labelText="Mobile Number or Email"
+									required={true}
+									maxlength={75}
+									name="email"
+									type="text"
 									inputValue={email}
 									setInputValue={setEmail}
 								/>
 								<FormINput
-									LabelText="Full Name"
-									Required={true}
-									Maxlength={75}
-									Name="fullname"
-									Type="text"
+									labelText="Full Name"
+									required={true}
+									maxlength={75}
+									name="fullname"
+									type="text"
 									inputValue={fullName}
 									setInputValue={setFullname}
 								/>
 								<FormINput
-									LabelText="Username"
-									Required={true}
-									Maxlength={75}
-									Name="username"
-									Type="text"
+									labelText="Username"
+									required={true}
+									maxlength={75}
+									name="username"
+									type="text"
 									inputValue={userName}
 									setInputValue={setUsername}
 								/>
 								<FormINput
-									LabelText="Password"
-									Required={true}
-									Name="password"
-									Type="password"
+									labelText="Password"
+									required={true}
+									name="password"
+									type="password"
 									inputValue={password}
 									setInputValue={setPassword}
 								/>

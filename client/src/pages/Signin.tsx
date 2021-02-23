@@ -186,6 +186,10 @@ const Signin = () => {
 	const [loginError, setLoginError] = useState<string | null>(null);
 
 	const loginFunction = async () => {
+		if (!userName || !password) {
+			setLoginError("Please fill in all fields!");
+			return;
+		}
 		setLoginLoading(true);
 		setLoginError(null);
 		try {
@@ -230,19 +234,19 @@ const Signin = () => {
 							<SigninForm>
 								<SigninInputsContainer>
 									<FormINput
-										LabelText="Phone number, username, or email"
-										Required={true}
-										Maxlength={75}
-										Name="username"
-										Type="text"
+										labelText="Phone number, username, or email"
+										required={true}
+										maxlength={75}
+										name="username"
+										type="text"
 										inputValue={userName}
 										setInputValue={setUserName}
 									/>
 									<FormINput
-										LabelText="Password"
-										Required={true}
-										Name="password"
-										Type="password"
+										labelText="Password"
+										required={true}
+										name="password"
+										type="password"
 										inputValue={password}
 										setInputValue={setPassword}
 									/>

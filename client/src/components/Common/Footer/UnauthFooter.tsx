@@ -104,7 +104,7 @@ const UnauthFooterSignUpButton = styled(Link)`
 
 const UnauthFooter = () => {
 	const { data } = useQuery(gql`
-		query GetShowUnauthFooter {
+		query getShowUnauthFooter {
 			showFooter @client {
 				showUnauthFooter
 			}

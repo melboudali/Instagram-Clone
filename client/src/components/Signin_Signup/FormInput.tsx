@@ -73,21 +73,21 @@ const ShowButton = styled.button`
 `;
 
 interface FormInputProps {
-	LabelText: string;
-	Required: boolean;
-	Maxlength?: number;
-	Name: string;
-	Type: string;
+	labelText: string;
+	required: boolean;
+	maxlength?: number;
+	name: string;
+	type: string;
 	inputValue: string;
 	setInputValue: Function;
 }
 
 const FromInput = ({
-	LabelText,
-	Required,
-	Maxlength,
-	Name,
-	Type,
+	labelText,
+	required,
+	maxlength,
+	name,
+	type,
 	inputValue,
 	setInputValue
 }: FormInputProps) => {
@@ -108,20 +108,20 @@ const FromInput = ({
 		<FromInputContainer>
 			<FromInputMain>
 				<Label>
-					<Span value={inputValue}>{LabelText}</Span>
+					<Span value={inputValue}>{labelText}</Span>
 					<Input
-						aria-label={LabelText}
-						aria-required={Required}
+						aria-label={labelText}
+						aria-required={required}
 						autoCapitalize="off"
 						autoCorrect="off"
-						maxLength={Maxlength}
-						name={Name}
-						type={Type === "password" && showPassword ? "text" : Type}
+						maxLength={maxlength}
+						name={name}
+						type={type === "password" && showPassword ? "text" : type}
 						value={inputValue}
 						autoComplete="off"
 						onChange={onChangeFunction}
 					/>
-					{Type === "password" && inputValue.length > 0 && (
+					{type === "password" && inputValue.length > 0 && (
 						<ShowButton type="button" onClick={onClickFunction}>
 							{showPassword ? "hide" : "show"}
 						</ShowButton>
@@ -133,11 +133,11 @@ const FromInput = ({
 };
 
 FromInput.propTypes = {
-	LabelText: PropTypes.string.isRequired,
-	Required: PropTypes.bool.isRequired,
-	Maxlength: PropTypes.number,
-	Name: PropTypes.string.isRequired,
-	Type: PropTypes.string.isRequired,
+	labelText: PropTypes.string.isRequired,
+	required: PropTypes.bool.isRequired,
+	maxlength: PropTypes.number,
+	name: PropTypes.string.isRequired,
+	type: PropTypes.string.isRequired,
 	inputValue: PropTypes.string.isRequired,
 	setInputValue: PropTypes.func.isRequired
 };

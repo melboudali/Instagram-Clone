@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import NavbarMenu from "./NavbarMenu";
 import NavbarLink from "./NavbarLink";
-import Logo from "../../../assets/images/735145cfe0a4.png";
+import logo from "../../../assets/images/735145cfe0a4.png";
 import Assets from "../../../assets/images/32f0a4f27407.png";
 import useClickOutside from "../../../hooks/useClickOutside";
 
@@ -175,7 +175,7 @@ const Navbar = () => {
 			<NavbarMain>
 				<LeftNav>
 					<LeftNavLink to="/">
-						<img src={Logo} alt="dd" />
+						<img src={logo} alt="dd" />
 					</LeftNavLink>
 				</LeftNav>
 				<MidNav>

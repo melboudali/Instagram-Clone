@@ -193,7 +193,7 @@ const Stories = () => {
 		rightButton: true
 	});
 
-	const NextSlide = () => {
+	const slideRight = () => {
 		if (currentIndex.current < leftItems.current / slideBy.current) {
 			currentIndex.current += slideBy.current;
 			leftItems.current -= slideBy.current;
@@ -207,7 +207,7 @@ const Stories = () => {
 		}
 	};
 
-	const PrevSlide = () => {
+	const slideLeft = () => {
 		if (currentIndex.current > slideBy.current) {
 			currentIndex.current -= slideBy.current;
 			leftItems.current += slideBy.current;
@@ -230,12 +230,12 @@ const Stories = () => {
 			</StoriesMain>
 			{slideButtons.leftButton && (
 				<PrevButton>
-					<PrevClickable onClick={PrevSlide} />
+					<PrevClickable onClick={slideLeft} />
 				</PrevButton>
 			)}
 			{slideButtons.rightButton && (
 				<NextButton>
-					<NextClickable onClick={NextSlide} />
+					<NextClickable onClick={slideRight} />
 				</NextButton>
 			)}
 		</StoriesContainer>

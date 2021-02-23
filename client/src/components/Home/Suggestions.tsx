@@ -172,7 +172,7 @@ const Suggestions = ({ meData }: SuggestionsProps) => {
 		console.log(`${buttonName} Button Clicked.`);
 	};
 
-	const LinksData: string[] = [
+	const linksData: string[] = [
 		"About",
 		"Help",
 		"Press",
@@ -214,9 +214,9 @@ const Suggestions = ({ meData }: SuggestionsProps) => {
 			<div>
 				<SuggestionsLinksContainer>
 					<SuggestionsLinksList>
-						{LinksData.map((theLink, id) => (
+						{linksData.map((link, id) => (
 							<SuggestionsLinkItem key={id}>
-								<SuggestionsListLink to={`/${theLink}`}>{theLink}</SuggestionsListLink>
+								<SuggestionsListLink to={`/${link}`}>{link}</SuggestionsListLink>
 							</SuggestionsLinkItem>
 						))}
 					</SuggestionsLinksList>

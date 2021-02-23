@@ -140,7 +140,7 @@ const Modal = ({
 	const { clickOutside } = useClickOutside(ref);
 
 	const [caption, setCaption] = useState("");
-	const [UploadLoading, setLoadingUpload] = useState(false);
+	const [uploadLoading, setUploadLoading] = useState(false);
 	const [connectionError, setConnectionError] = useState(false);
 
 	useEffect(() => {
@@ -151,14 +151,14 @@ const Modal = ({
 	}, [clickOutside, setOpenModal, Scrollbar]);
 
 	const closeModal = () => {
-		setLoadingUpload(false);
+		setUploadLoading(false);
 		setOpenModal(false);
 		Scrollbar("show");
 	};
 
 	const UploadFile = async () => {
 		if (connectionError) setConnectionError(false);
-		setLoadingUpload(true);
+		setUploadLoading(true);
 		if (imageFile) {
 			try {
 				const res = await uploadImageFunc({
@@ -177,7 +177,7 @@ const Modal = ({
 				}
 			} catch (error) {
 				setConnectionError(true);
-				setLoadingUpload(false);
+				setUploadLoading(false);
 			}
 		}
 	};
@@ -224,7 +224,7 @@ const Modal = ({
 						</ModalCaption>
 						<Button
 							active={!!caption}
-							loading={UploadLoading}
+							loading={uploadLoading}
 							type="button"
 							onClickFunction={UploadFile}>
 							Post

@@ -49,10 +49,10 @@ const Carousel = () => {
 
 	return (
 		<Fragment>
-			<ImagesContainer src={firstImage} alt={undefined} New={newImg === 1} Old={oldImg === 1} />
-			<ImagesContainer src={secondImage} alt={undefined} New={newImg === 2} Old={oldImg === 2} />
-			<ImagesContainer src={thirdImage} alt={undefined} New={newImg === 3} Old={oldImg === 3} />
-			<ImagesContainer src={forthImage} alt={undefined} New={newImg === 4} Old={oldImg === 4} />
+			<ImagesContainer src={firstImage} alt="" New={newImg === 1} Old={oldImg === 1} />
+			<ImagesContainer src={secondImage} alt="" New={newImg === 2} Old={oldImg === 2} />
+			<ImagesContainer src={thirdImage} alt="" New={newImg === 3} Old={oldImg === 3} />
+			<ImagesContainer src={forthImage} alt="" New={newImg === 4} Old={oldImg === 4} />
 		</Fragment>
 	);
 };
