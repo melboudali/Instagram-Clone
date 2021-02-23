@@ -1,92 +1,11 @@
-import {
-	Arg,
-	Ctx,
-	Field,
-	InputType,
-	Int,
-	Mutation,
-	ObjectType,
-	Query,
-	Resolver,
-	UseMiddleware
-} from "type-graphql";
+import { Arg, Ctx, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "../entities/user";
 import { MyContext } from "../types";
 import argon2 from "argon2";
 import { cookieName } from "../config/constants";
 import { getConnection } from "typeorm";
 import { isAuth } from "../middleware/isAuthenticated";
-import { Image } from "../entities/image";
-
-@InputType()
-class register_inputs {
-	@Field()
-	userName!: string;
-	@Field()
-	email!: string;
-	@Field()
-	password!: string;
-	@Field()
-	fullName!: string;
-}
-
-@ObjectType()
-class user_image_data {
-	@Field()
-	id!: string;
-	@Field()
-	caption!: string;
-	@Field()
-	image_url!: string;
-	@Field()
-	likes!: number;
-	@Field({ nullable: true })
-	like_status!: string;
-	@Field(() => String)
-	created_at!: Date;
-}
-
-@ObjectType()
-class user_response {
-	@Field()
-	id!: number;
-	@Field()
-	username!: string;
-	@Field()
-	fullname!: string;
-	@Field()
-	image_link!: string;
-	@Field({ nullable: true })
-	website!: string;
-	@Field({ nullable: true })
-	bio!: string;
-	@Field()
-	private!: boolean;
-	@Field(() => [user_image_data])
-	images!: user_image_data[];
-}
-
-@ObjectType()
-class error {
-	@Field()
-	message!: string;
-}
-
-@ObjectType()
-class response {
-	@Field(() => error, { nullable: true })
-	error?: error;
-	@Field(() => user_response, { nullable: true })
-	user?: user_response;
-	@Field(() => Boolean, { nullable: true })
-	hasMore?: boolean;
-}
-
-@ObjectType()
-class responses {
-	@Field(() => [user_response])
-	users!: user_response[];
-}
+import { register_inputs, response, responses, user_response } from "src/models/user";
 
 @Resolver(User)
 export class UserResolver {
@@ -194,50 +113,14 @@ export class UserResolver {
 	}
 
 	@Query(() => response)
-	async getUser(
-		@Arg("username") username: string,
-		@Arg("limit", () => Int) limit: number,
-		@Arg("cursor", () => String, { nullable: true }) cursor: string | null
-	): Promise<response> {
+	async getUser(@Arg("username") username: string): Promise<response> {
 		const user = await User.findOne({ username });
-		const minLimit = Math.min(50, limit);
-		const minLimitPlusOne = minLimit + 1;
 		if (!user) {
 			return {
 				error: {
 					message: `User '${username}' not found!`
 				}
 			};
-		}
-
-		let user_images: user_image_data[] = [];
-		if (!user.private) {
-			if (cursor) {
-				user_images = await Image.createQueryBuilder()
-					.where('"userId" = :userid', { userid: user.id })
-					.where("created_at < :newcursor", { newcursor: new Date(parseInt(cursor)) })
-					.orderBy("created_at", "DESC")
-					.limit(minLimitPlusOne)
-					.getMany();
-				console.log("----------------------------------");
-				console.log(user_images);
-				// const newCursor = new Date(parseInt(cursor));
-				// user_images = await getConnection().query(
-				// 	`
-				// select *
-				// from image image
-				// where created_at < ${newCursor}
-				// order by created_at DESC
-				// limit ${minLimitPlusOne}
-				// `
-				// );
-			} else {
-				user_images = await Image.createQueryBuilder()
-					.where('"userId" = :userid', { userid: user.id })
-					.orderBy("created_at", "DESC")
-					.limit(limit)
-					.getMany();
-			}
 		}
 
 		const { id, username: userName, fullname, image_link, website, bio, private: isPrivate } = user;
@@ -251,9 +134,8 @@ export class UserResolver {
 				website,
 				bio,
 				private: isPrivate,
-				images: user_images.slice(0, minLimit)
-			},
-			hasMore: user_images.length === minLimitPlusOne
+				images: []
+			}
 		};
 	}
 

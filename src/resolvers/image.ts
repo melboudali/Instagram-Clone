@@ -3,8 +3,6 @@ import {
 	Resolver,
 	Mutation,
 	Arg,
-	ObjectType,
-	Field,
 	UseMiddleware,
 	Ctx,
 	Query,
@@ -18,56 +16,12 @@ import { isAuth } from "../middleware/isAuthenticated";
 import { MyContext } from "../types";
 import { getConnection } from "typeorm";
 import { v2 as cloudinary } from "cloudinary";
-
-@ObjectType()
-class image_author {
-	@Field()
-	id!: number;
-	@Field()
-	username!: string;
-	@Field()
-	image_link!: string;
-}
-
-@ObjectType()
-class image_data extends Image {
-	@Field()
-	id!: string;
-	@Field()
-	caption!: string;
-	@Field()
-	image_url!: string;
-	@Field()
-	likes!: number;
-	@Field({ nullable: true })
-	like_status!: string;
-	@Field(() => String)
-	created_at!: Date;
-}
-
-@ObjectType()
-class image_error {
-	@Field()
-	field!: string;
-	@Field()
-	message!: string;
-}
-
-@ObjectType()
-class image_upload_response {
-	@Field(() => image_data, { nullable: true })
-	image?: image_data;
-	@Field(() => image_error, { nullable: true })
-	error?: image_error;
-}
-
-@ObjectType()
-class PaginatedImages {
-	@Field(() => [image_data])
-	images!: image_data[];
-	@Field(() => Boolean)
-	hasMore!: boolean;
-}
+import {
+	image_author,
+	image_data,
+	image_upload_response,
+	PaginatedImages
+} from "src/models/images";
 
 @Resolver(Image)
 export class ImageResolver {
@@ -131,6 +85,7 @@ export class ImageResolver {
 			queryParams.push(new Date(parseInt(cursor)));
 			cursorId = queryParams.length;
 		}
+
 		const images = await getConnection().query(
 			`
 		select i.*, 
@@ -142,6 +97,33 @@ export class ImageResolver {
 		`,
 			queryParams
 		);
+
+		return { images: images.slice(0, minLimit), hasMore: images.length === minLimitPlusOne };
+	}
+
+	@Query(() => PaginatedImages)
+	async getUserImages(
+		@Arg("userId", () => Int) userId: number,
+		@Arg("limit", () => Int) limit: number,
+		@Arg("cursor", () => String, { nullable: true }) cursor: string | null
+	): Promise<PaginatedImages> {
+		const minLimit = Math.min(50, limit);
+		const minLimitPlusOne = minLimit + 1;
+		let images: image_data[] = [];
+		if (cursor) {
+			images = await Image.createQueryBuilder()
+				.where('"userId" = :userId', { userId: userId })
+				.where("created_at < :newcursor", { newcursor: new Date(parseInt(cursor)) })
+				.orderBy("created_at", "DESC")
+				.limit(minLimitPlusOne)
+				.getMany();
+		} else {
+			images = await Image.createQueryBuilder()
+				.where('"userId" = :userId', { userId: userId })
+				.orderBy("created_at", "DESC")
+				.limit(minLimitPlusOne)
+				.getMany();
+		}
 
 		return { images: images.slice(0, minLimit), hasMore: images.length === minLimitPlusOne };
 	}
