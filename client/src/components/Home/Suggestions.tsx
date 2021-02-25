@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { User_Response } from "../../generated/graphql";
 import useSticky from "../../hooks/useSticky";
 import SuggestionsList from "./SuggestionsList";
+import PropTypes from "prop-types";
 
 const EllipsisText = css`
 	white-space: nowrap;
@@ -225,6 +226,10 @@ const Suggestions = ({ meData }: SuggestionsProps) => {
 			</div>
 		</SuggestionsContainer>
 	);
+};
+
+Suggestions.propTypes = {
+	meData: PropTypes.object.isRequired
 };
 
 export default Suggestions;

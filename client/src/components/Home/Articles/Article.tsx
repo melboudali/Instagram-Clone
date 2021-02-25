@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { User_Response } from "../../../generated/graphql";
 import timeDifference from "../../../utils/timeDefference";
+import PropTypes from "prop-types";
 
 const ArticleContainer = styled.article`
 	display: block;
@@ -393,6 +394,24 @@ const Article = ({
 			</ArticleCommentContainer>
 		</ArticleContainer>
 	);
+};
+
+Article.propTypes = {
+	name: PropTypes.string.isRequired,
+	logo: PropTypes.string.isRequired,
+	image: PropTypes.string.isRequired,
+	description: PropTypes.string.isRequired,
+	likes: PropTypes.string.isRequired,
+	comments: PropTypes.arrayOf(
+		PropTypes.shape({
+			user: PropTypes.string.isRequired,
+			comment: PropTypes.string.isRequired
+		})
+	).isRequired,
+	commentsLength: PropTypes.number.isRequired,
+	createdTime: PropTypes.string.isRequired,
+	meData: PropTypes.object.isRequired,
+	liked: PropTypes.bool.isRequired
 };
 
 export default Article;

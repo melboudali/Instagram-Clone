@@ -5,6 +5,7 @@ import useScrollBottom from "../../hooks/useScrollBottom";
 import LoadingSpinner from "../common/LoadingSpinner";
 import Skeleton from "../skeletons/Skeleton";
 import ProfileEmptyPostsOrPrivate from "./ProfileEmptyPostsOrPrivate";
+import PropTypes from "prop-types";
 
 const LikesAndComments = css`
 	display: flex;
@@ -162,6 +163,11 @@ const ProfilePosts = ({ userId, isPrivate }: ProfilePostsProps) => {
 			{data.getUserImages.hasMore && <LoadingSpinner margin="20px auto 0" />}
 		</>
 	);
+};
+
+ProfilePosts.propTypes = {
+	userId: PropTypes.number.isRequired,
+	isPrivate: PropTypes.bool.isRequired
 };
 
 export default ProfilePosts;

@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const UseScrollTop: React.FC<RouteComponentProps> = ({ history }) => {
+const UseScrollTop = () => {
+	const history = useHistory();
 	useEffect(() =>
 		history.listen(() => {
 			window.scrollTo(0, 0);
@@ -10,4 +11,4 @@ const UseScrollTop: React.FC<RouteComponentProps> = ({ history }) => {
 	return null;
 };
 
-export default withRouter(UseScrollTop);
+export default UseScrollTop;

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const MenuListLink = styled(Link)`
 	cursor: pointer;
@@ -71,6 +72,12 @@ const NavbarMenuLink = ({ linkName, to, children }: NavbarMenuLinkProps) => {
 			</MenuListContainer>
 		</MenuListLink>
 	);
+};
+
+NavbarMenuLink.propTypes = {
+	linkName: PropTypes.string.isRequired,
+	to: PropTypes.string.isRequired,
+	children: PropTypes.node.isRequired
 };
 
 export default NavbarMenuLink;

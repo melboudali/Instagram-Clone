@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ArticlesError from "../common/errors/ArticlesError";
 import OtherAssets from "../../assets/images/32f0a4f27407.png";
 import Footer from "../common/footer/Footer";
+import PropTypes from "prop-types";
 
 const PrivateContainer = styled.div`
 	background-color: #fff;
@@ -82,6 +83,10 @@ const ProfileEmptyPostsOrPrivate = ({ type }: ProfileEmptyPostsOrPrivateProps) =
 			<Footer />
 		</>
 	);
+};
+
+ProfileEmptyPostsOrPrivate.propTypes = {
+	type: PropTypes.string.isRequired
 };
 
 export default ProfileEmptyPostsOrPrivate;

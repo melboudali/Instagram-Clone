@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { User_Response } from "../../generated/graphql";
+import PropTypes from "prop-types";
 
 const PostAndTaggedMenu = styled.div`
 	border-top: 1px solid #dbdbdb;
@@ -79,6 +80,11 @@ const ProfileMenu = ({ user, page }: ProfileMenuProps) => {
 			</PostsMenu>
 		</PostAndTaggedMenu>
 	);
+};
+
+ProfileMenu.propTypes = {
+	user: PropTypes.object.isRequired,
+	page: PropTypes.string.isRequired
 };
 
 export default ProfileMenu;

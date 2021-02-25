@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const SkeletonElement = styled.div<{ height: string; width: string; radius?: string }>`
 	background-color: #b9b9b9;
@@ -25,6 +26,12 @@ interface ArticleProps {
 
 const Skeleton = ({ height, width, radius }: ArticleProps) => {
 	return <SkeletonElement height={height} width={width} radius={radius} />;
+};
+
+Skeleton.propTypes = {
+	height: PropTypes.string.isRequired,
+	width: PropTypes.string.isRequired,
+	radius: PropTypes.string
 };
 
 export default Skeleton;

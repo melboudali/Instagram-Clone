@@ -7,6 +7,7 @@ import LoadingFullScreen from "../components/common/LoadingFullScreen";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileMenu from "../components/profile/ProfileMenu";
 import ErrorPage from "./ErrorPage";
+import PropTypes from "prop-types";
 
 const TaggedContainer = styled.div`
 	margin: 30px auto 0;
@@ -51,6 +52,14 @@ const Tagged = ({ match }: TaggedProps) => {
 			)}
 		</>
 	);
+};
+
+Tagged.propTypes = {
+	match: PropTypes.shape({
+		params: PropTypes.shape({
+			username: PropTypes.string.isRequired
+		})
+	})
 };
 
 export default Tagged;

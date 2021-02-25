@@ -4,6 +4,7 @@ import Button from "../signin_signup/Button";
 import styled from "styled-components";
 import { useMeQuery } from "../../generated/graphql";
 import useClickOutside from "../../hooks/useClickOutside";
+import PropTypes from "prop-types";
 
 const ModalContainer = styled.div`
 	background-color: rgba(0, 0, 0, 0.87);
@@ -235,6 +236,14 @@ const Modal = ({
 			</ModalMain>
 		</ModalContainer>
 	);
+};
+
+Modal.propTypes = {
+	imageUri: PropTypes.string,
+	imageFile: PropTypes.object,
+	setOpenModal: PropTypes.func,
+	setUploadSuccessfulMessage: PropTypes.func,
+	Scrollbar: PropTypes.func
 };
 
 export default Modal;

@@ -8,6 +8,7 @@ import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileMenu from "../components/profile/ProfileMenu";
 import LoadingFullScreen from "../components/common/LoadingFullScreen";
 import ErrorPage from "./ErrorPage";
+import PropTypes from "prop-types";
 
 const ProfileContainer = styled.div`
 	margin: 30px auto 0;
@@ -49,6 +50,14 @@ const Profile = ({ match }: ProfileProps) => {
 			</Container>
 		</>
 	);
+};
+
+Profile.propTypes = {
+	match: PropTypes.shape({
+		params: PropTypes.shape({
+			username: PropTypes.string.isRequired
+		})
+	})
 };
 
 export default Profile;

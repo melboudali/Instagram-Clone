@@ -1,6 +1,6 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const FromInputContainer = styled.div`
 	margin: 0 40px 6px;

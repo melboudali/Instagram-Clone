@@ -6,6 +6,7 @@ import LoadingSpinner from "../../common/LoadingSpinner";
 import { useEffect } from "react";
 import useScrollBottom from "../../../hooks/useScrollBottom";
 import { default as ArticleSkeleton } from "../../skeletons/ArticleSkeleton";
+import PropTypes from "prop-types";
 
 const ArticlesContainer = styled.main`
 	--ArticleMargin: 28px;
@@ -117,6 +118,10 @@ const Articles = ({ meData }: ArticleProps) => {
 			)}
 		</ArticlesContainer>
 	);
+};
+
+Articles.propTypes = {
+	meData: PropTypes.object.isRequired
 };
 
 export default Articles;

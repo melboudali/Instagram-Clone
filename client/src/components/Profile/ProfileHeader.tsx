@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { MeQuery, User_Response } from "../../generated/graphql";
+import PropTypes from "prop-types";
 
 const ProfileData = styled.header`
 	display: flex;
@@ -176,6 +177,11 @@ const ProfileHeader = ({ user, loggedinUserData }: ProfileHeaderProps) => {
 			</ProfileInformations>
 		</ProfileData>
 	);
+};
+
+ProfileHeader.propTypes = {
+	user: PropTypes.object.isRequired,
+	loggedinUserData: PropTypes.object.isRequired
 };
 
 export default ProfileHeader;

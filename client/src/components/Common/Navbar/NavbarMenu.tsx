@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { User_Response } from "../../../generated/graphql";
 import LogoutLink from "./LogoutLink";
 import NavbarMenuLink from "./NavbarMenuLink";
+import PropTypes from "prop-types";
 
 const NavbarMenuContainer = styled.div`
 	margin-left: -180px;
@@ -106,6 +107,11 @@ const NavbarMenu = ({ meData, showMenu }: NavbarMenuProps) => {
 			</NavbarMenuMenu>
 		</NavbarMenuContainer>
 	);
+};
+
+NavbarMenu.propTypes = {
+	meData: PropTypes.object.isRequired,
+	showMenu: PropTypes.bool.isRequired
 };
 
 export default NavbarMenu;

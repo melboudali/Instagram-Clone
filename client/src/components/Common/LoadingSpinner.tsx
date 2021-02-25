@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const LoadingSpinnerContainer = styled.div<{ margin: string }>`
 	margin: ${({ margin }) => margin};
@@ -150,6 +151,10 @@ const LoadingSpinner = ({ margin }: LoadingSpinnerProps) => {
 			</svg>
 		</LoadingSpinnerContainer>
 	);
+};
+
+LoadingSpinner.propTypes = {
+	margin: PropTypes.string.isRequired
 };
 
 export default LoadingSpinner;

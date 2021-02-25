@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const LinkContainer = styled.div`
 	position: relative;
@@ -20,6 +21,11 @@ const NavbarLink = ({ path, children }: NavbarLinkProps) => {
 			<Link to={path}>{children}</Link>
 		</LinkContainer>
 	);
+};
+
+NavbarLink.propTypes = {
+	path: PropTypes.string.isRequired,
+	children: PropTypes.node.isRequired
 };
 
 export default NavbarLink;

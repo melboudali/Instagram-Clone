@@ -1,5 +1,6 @@
 import { MeDocument, MeQuery, useLogoutMutation } from "../../../generated/graphql";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const LogoutLinkContainer = styled.div`
 	cursor: pointer;
@@ -85,6 +86,10 @@ const LogoutLink = ({ children }: LogoutLinkProps) => {
 			</LogoutLinkMain>
 		</LogoutLinkContainer>
 	);
+};
+
+LogoutLink.propTypes = {
+	children: PropTypes.node.isRequired
 };
 
 export default LogoutLink;

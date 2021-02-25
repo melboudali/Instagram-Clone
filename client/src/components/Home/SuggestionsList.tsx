@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import SuggestionsError from "../common/errors/SuggestionsError";
 import LoadingSpinner from "../common/LoadingSpinner";
+import PropTypes from "prop-types";
 
 const EllipsisText = css`
 	white-space: nowrap;
@@ -132,6 +133,10 @@ const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
 			</>
 		</>
 	);
+};
+
+SuggestionsList.propTypes = {
+	onClickFunction: PropTypes.func.isRequired
 };
 
 export default SuggestionsList;

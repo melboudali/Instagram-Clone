@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 const useSticky = (top: number) => {
 	const [sticky, setSticky] = useState<boolean>(false);
@@ -11,6 +12,10 @@ const useSticky = (top: number) => {
 		return () => window.removeEventListener("scroll", onScrollFunc);
 	}, [top]);
 	return sticky;
+};
+
+useSticky.propTypes = {
+	top: PropTypes.number.isRequired
 };
 
 export default useSticky;
