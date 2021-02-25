@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import styled, { css } from "styled-components";
-import { User_Image_Data, useGetUserImagesQuery } from "../../generated/graphql";
+import { useGetUserImagesQuery } from "../../generated/graphql";
 import useScrollBottom from "../../hooks/useScrollBottom";
 import LoadingSpinner from "../common/LoadingSpinner";
+import Skeleton from "../skeletons/Skeleton";
 import ProfileEmptyPostsOrPrivate from "./ProfileEmptyPostsOrPrivate";
 
 const LikesAndComments = css`
@@ -95,7 +96,14 @@ const ProfilePosts = ({ userId, isPrivate }: ProfilePostsProps) => {
 		variables?.userId
 	]);
 
-	if (loading) return <LoadingSpinner margin="100px auto 0" />;
+	if (loading)
+		return (
+			<ProfilePostsContainer>
+				{[1, 2, 3, 4, 5, 6].map(i => (
+					<Skeleton key={i} height="293px" width="100%" />
+				))}
+			</ProfilePostsContainer>
+		);
 
 	if (!data?.getUserImages.images.length || error)
 		return <ProfileEmptyPostsOrPrivate type="emptyImages" />;

@@ -5,6 +5,7 @@ import ArticlesError from "../../common/errors/ArticlesError";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { useEffect } from "react";
 import useScrollBottom from "../../../hooks/useScrollBottom";
+import { default as ArticleSkeleton } from "../../skeletons/ArticleSkeleton";
 
 const ArticlesContainer = styled.main`
 	--ArticleMargin: 28px;
@@ -67,9 +68,9 @@ const Articles = ({ meData }: ArticleProps) => {
 
 	if (imagesLoading)
 		return (
-			<ArticlesLoadingSpinner padding="135px 0" margin={false}>
-				<LoadingSpinner margin="0 auto" />
-			</ArticlesLoadingSpinner>
+			<ArticlesContainer>
+				<ArticleSkeleton />
+			</ArticlesContainer>
 		);
 
 	if (!images || !images.getAllImages.images.length || error)
