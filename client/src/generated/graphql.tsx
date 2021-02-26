@@ -52,6 +52,7 @@ export type User_Response = {
   bio?: Maybe<Scalars['String']>;
   private: Scalars['Boolean'];
   images: Array<User_Image_Data>;
+  images_length: Scalars['Float'];
 };
 
 export type User_Image_Data = {
@@ -181,7 +182,7 @@ export type GetUserQuery = (
     { __typename?: 'response' }
     & { user?: Maybe<(
       { __typename?: 'user_response' }
-      & Pick<User_Response, 'id' | 'website' | 'bio' | 'private'>
+      & Pick<User_Response, 'id' | 'images_length' | 'website' | 'bio' | 'private'>
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
@@ -353,6 +354,7 @@ export const GetUserDocument = gql`
     user {
       id
       ...userFragment
+      images_length
       website
       bio
       private

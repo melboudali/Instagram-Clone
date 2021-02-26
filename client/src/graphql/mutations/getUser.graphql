@@ -3,6 +3,7 @@ query GetUser($username: String!) {
 		user {
 			id
 			...userFragment
+			images_length
 			website
 			bio
 			private

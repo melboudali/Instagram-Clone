@@ -62,9 +62,12 @@ export class User extends BaseEntity {
 	@Column({ default: false })
 	private!: boolean;
 
+	@Field()
+	images_length?: number;
+
 	@Field(() => [Image])
 	@OneToMany(() => Image, image => image.user)
-	images!: Image[];
+	images?: Image[];
 
 	@OneToMany(() => Follower, follower => follower.user)
 	followers!: Follower[];

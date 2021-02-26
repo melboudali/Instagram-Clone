@@ -45,7 +45,9 @@ export class user_response {
 	@Field()
 	private!: boolean;
 	@Field(() => [user_image_data])
-	images!: user_image_data[];
+	images?: user_image_data[];
+	@Field()
+	images_length?: number;
 }
 
 @ObjectType()

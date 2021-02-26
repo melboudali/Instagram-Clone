@@ -114,7 +114,11 @@ export class UserResolver {
 
 	@Query(() => response)
 	async getUser(@Arg("username") username: string): Promise<response> {
-		const user = await User.findOne({ username });
+		const user = await User.createQueryBuilder("user")
+			.loadRelationCountAndMap("user.images_length", "user.images", "image")
+			.where("username = :username", { username })
+			.getOne();
+
 		if (!user) {
 			return {
 				error: {
@@ -123,7 +127,16 @@ export class UserResolver {
 			};
 		}
 
-		const { id, username: userName, fullname, image_link, website, bio, private: isPrivate } = user;
+		const {
+			id,
+			username: userName,
+			fullname,
+			image_link,
+			website,
+			bio,
+			private: isPrivate,
+			images_length
+		} = user;
 
 		return {
 			user: {
@@ -134,7 +147,7 @@ export class UserResolver {
 				website,
 				bio,
 				private: isPrivate,
-				images: []
+				images_length
 			}
 		};
 	}
