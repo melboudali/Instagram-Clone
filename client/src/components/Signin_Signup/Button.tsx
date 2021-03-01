@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 
 const ButtonContainer = styled.div`
@@ -21,19 +21,20 @@ const ButtonElement = styled.button<{ active: boolean }>`
 	width: 100%;
 `;
 
+const IGCoreSpinnerSpin8 = keyframes`
+	0% {
+		transform: rotate(180deg);
+	}
+	to {
+		transform: rotate(540deg);
+	}
+`;
+
 const LoadingContainer = styled.div`
 	height: 18px;
 	width: 18px;
 	svg {
-		animation: IGCoreSpinnerSpin8 0.8s steps(8) infinite;
-		@keyframes IGCoreSpinnerSpin8 {
-			0% {
-				transform: rotate(180deg);
-			}
-			to {
-				transform: rotate(540deg);
-			}
-		}
+		animation: ${IGCoreSpinnerSpin8} 0.8s steps(8) infinite;
 	}
 `;
 

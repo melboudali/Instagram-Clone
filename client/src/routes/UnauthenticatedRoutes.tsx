@@ -11,9 +11,9 @@ const UnauthenticatedApp = () => {
 	return (
 		<Switch>
 			<Route exact path="/" component={Signin} />
+			<Route exact path="/accounts/emailsignup" component={Signup} />
 			<Route exact path="/:username" component={Profile} />;
 			<Route exact path="/:username/tagged" component={Tagged} />;
-			<Route exact path="/accounts/emailsignup" component={Signup} />
 			<Route exact path="*" component={ErrorPage} />
 		</Switch>
 	);

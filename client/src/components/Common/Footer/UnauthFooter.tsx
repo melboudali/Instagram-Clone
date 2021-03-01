@@ -1,11 +1,11 @@
 import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import Assets from "../../../assets/images/9813fcc3aa16.png";
 import { showFooterValue } from "../../../graphql/cache/cache";
 
 const UnauthFooterContainer = styled.div<{ closed: boolean }>`
-	${({ closed }) => (closed ? "display: none;" : "display: block;")}
+	display: ${({ closed }) => (closed ? "none" : "block")};
 	position: fixed;
 	width: 100%;
 	padding: 20px 16px;
@@ -37,20 +37,21 @@ const UnauthFooterCloseImage = styled.span`
 	background-position: -480px -442px;
 `;
 
-const UnauthFooterMain = styled.div`
-	display: flex;
-	max-width: 903px;
-	margin: 0 auto;
-	align-items: center;
-	animation: slide 0.4s ease-in-out;
-	@keyframes slide {
+const slide = keyframes`
 		0% {
 			transform: translateY(60px);
 		}
 		100% {
 			transform: translateY(0);
 		}
-	}
+`;
+
+const UnauthFooterMain = styled.div`
+	display: flex;
+	max-width: 903px;
+	margin: 0 auto;
+	align-items: center;
+	animation: ${slide} 0.4s ease-in-out;
 `;
 
 const UnauthFooterLogo = styled.div`

@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useUploadImageMutation } from "../../generated/graphql";
 import Button from "../signin_signup/Button";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useMeQuery } from "../../generated/graphql";
 import useClickOutside from "../../hooks/useClickOutside";
 import PropTypes from "prop-types";
@@ -17,6 +17,15 @@ const ModalContainer = styled.div`
 	z-index: 2;
 `;
 
+const ModalSlide = keyframes`
+			0% {
+				transform: translate(-50%, -90%);
+			}
+			100% {
+				transform: translate(-50%, -50%);
+			}
+`;
+
 const ModalMain = styled.div`
 	display: flex;
 	position: absolute;
@@ -28,15 +37,7 @@ const ModalMain = styled.div`
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: var(--backgroudColor);
-	animation: slide 0.3s ease-in-out;
-	@keyframes slide {
-		0% {
-			transform: translate(-50%, -90%);
-		}
-		100% {
-			transform: translate(-50%, -50%);
-		}
-	}
+	animation: ${ModalSlide} 0.3s ease-in-out;
 `;
 
 const ModalClose = styled.button`
@@ -223,11 +224,7 @@ const Modal = ({
 								onChange={e => setCaption(e.target.value)}
 							/>
 						</ModalCaption>
-						<Button
-							active={!!caption}
-							loading={uploadLoading}
-							type="button"
-							onClickFunction={UploadFile}>
+						<Button active={!!caption} loading={uploadLoading} type="button" onClickFunction={UploadFile}>
 							Post
 						</Button>
 						{connectionError && <ModalErrorMessage>503 Service Unavailable</ModalErrorMessage>}

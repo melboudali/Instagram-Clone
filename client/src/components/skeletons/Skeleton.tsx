@@ -1,6 +1,11 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 
+const skeletonAnimation = keyframes`
+	50% {
+		opacity: 0.2;
+	}
+`;
 const SkeletonElement = styled.div<{ height: string; width: string; radius?: string }>`
 	background-color: #b9b9b9;
 	margin: 0;
@@ -10,12 +15,7 @@ const SkeletonElement = styled.div<{ height: string; width: string; radius?: str
 	    width: ${width};
         `}
 	${({ radius }) => radius && `border-radius: ${radius};`}
-	animation: skeletonAnimation 2s steps(16) infinite;
-	@keyframes skeletonAnimation {
-		50% {
-			opacity: 0.2;
-		}
-	}
+	animation: ${skeletonAnimation} 2s steps(16) infinite;
 `;
 
 interface ArticleProps {

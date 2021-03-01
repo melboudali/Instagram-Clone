@@ -1,5 +1,13 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
+
+const SpinnerAnimation = keyframes`
+			0% {
+				transform: rotate(0deg);
+			}
+			to {
+				transform: rotate(360deg);
+			}`;
 
 const LoadingSpinnerContainer = styled.div<{ margin: string }>`
 	margin: ${({ margin }) => margin};
@@ -8,15 +16,7 @@ const LoadingSpinnerContainer = styled.div<{ margin: string }>`
 	svg {
 		width: 25px;
 		margin: 0 auto;
-		animation: SpinnerAnimation 1.2s steps(12) infinite;
-		@keyframes SpinnerAnimation {
-			0% {
-				transform: rotate(0deg);
-			}
-			to {
-				transform: rotate(360deg);
-			}
-		}
+		animation: ${SpinnerAnimation} 1.2s steps(12) infinite;
 	}
 `;
 
