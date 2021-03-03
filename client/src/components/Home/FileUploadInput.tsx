@@ -134,9 +134,7 @@ const FileUploadInput = () => {
 			</FileUploadSvgContainer>
 			<FileUploadText>
 				<span>Choose {uploadSuccessfulMessage ? `another` : `an`} image</span> or drag it here.
-				{uploadErrorMessage && (
-					<FileUploadErrorMessage>{uploadErrorMessage}</FileUploadErrorMessage>
-				)}
+				{uploadErrorMessage && <FileUploadErrorMessage>{uploadErrorMessage}</FileUploadErrorMessage>}
 				{uploadSuccessfulMessage && (
 					<FileUploadSuccessful>
 						<svg
@@ -154,7 +152,13 @@ const FileUploadInput = () => {
 					</FileUploadSuccessful>
 				)}
 			</FileUploadText>
-			<FileInput type="file" title="Choose a file or drag it here." multiple onChange={onChange} />
+			<FileInput
+				type="file"
+				title="Choose a file or drag it here."
+				accept="image/jpeg,image/png"
+				multiple
+				onChange={onChange}
+			/>
 		</FileUploadContainer>
 	);
 };

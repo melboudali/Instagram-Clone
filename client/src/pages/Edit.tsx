@@ -67,6 +67,16 @@ const ChangeProfilePhoto = styled.button`
 	margin-top: 5px;
 `;
 
+const CheckboxTitle = styled.label`
+	font-size: 1rem;
+	font-weight: 600;
+	color: #262626;
+`;
+
+const CheckboxContainer = styled.section`
+	display: flex;
+`;
+
 interface EditProps {}
 
 const Edit = ({}: EditProps) => {
@@ -108,6 +118,11 @@ const Edit = ({}: EditProps) => {
 					<EditFormInput label="Email" type="email" />
 					<EditFormInput label="Phone Number" type="tel" />
 					<EditFormInput label="Gender" />
+					<EditFormInput
+						type="checkbox"
+						label="Similar Account Suggestions"
+						description="Include your account when recommending similar accounts people might want to follow."
+					/>
 				</EditMain>
 			</EditContainer>
 		</Container>
