@@ -1,6 +1,7 @@
 import Container from "../containers/Container";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import EditFormInput from "../components/Edit/EditFormInput";
 
 const EditContainer = styled.main`
 	background-color: #fff;
@@ -23,7 +24,7 @@ const EditSideBar = styled.aside`
 `;
 
 const EditMain = styled.main`
-	padding: 20px 0;
+	padding: 20px;
 	max-width: 800px;
 	width: 100%;
 `;
@@ -33,7 +34,11 @@ const ChangePhotoSection = styled.section`
 	padding: 10px 0;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: left;
+	margin-bottom: 20px;
+	@media (min-width: 800px) {
+		justify-content: center;
+	}
 `;
 
 const CurrentUserPhoto = styled.img`
@@ -82,6 +87,27 @@ const Edit = ({}: EditProps) => {
 							<ChangeProfilePhoto>Change Profile Photo</ChangeProfilePhoto>
 						</UserNameAndChangeBtn>
 					</ChangePhotoSection>
+					<EditFormInput
+						label="Name"
+						description="Help people discover your account by using the name you're known by: either your full name,
+								nickname, or business name."
+						subDescription="You can only change your name twice within 14 days."
+					/>
+					<EditFormInput
+						label="Username"
+						description="In most cases, you'll be able to change your username back to top.dankest.memes for another
+								14 days."
+					/>
+					<EditFormInput label="Website" />
+					<EditFormInput
+						label="Bio"
+						descriptionTitle="Personal Information"
+						description="Provide your personal information, even if the account is used for a business, a pet or something else. This won't be a part of your public profile."
+						textArea
+					/>
+					<EditFormInput label="Email" type="email" />
+					<EditFormInput label="Phone Number" type="tel" />
+					<EditFormInput label="Gender" />
 				</EditMain>
 			</EditContainer>
 		</Container>

@@ -111,6 +111,7 @@ const FromInput = ({
 					<Span value={inputValue}>{labelText}</Span>
 					<Input
 						aria-label={labelText}
+						required={required}
 						aria-required={required}
 						autoCapitalize="off"
 						autoCorrect="off"
