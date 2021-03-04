@@ -47,22 +47,16 @@ export type User_Response = {
   id: Scalars['Float'];
   username: Scalars['String'];
   fullname: Scalars['String'];
+  email: Scalars['String'];
+  phone_number?: Maybe<Scalars['Float']>;
+  gender?: Maybe<Scalars['String']>;
   image_link: Scalars['String'];
   website?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
   private: Scalars['Boolean'];
-  images: Array<User_Image_Data>;
-  images_length: Scalars['Float'];
-};
-
-export type User_Image_Data = {
-  __typename?: 'user_image_data';
-  id: Scalars['String'];
-  caption: Scalars['String'];
-  image_url: Scalars['String'];
-  likes: Scalars['Float'];
-  like_status?: Maybe<Scalars['String']>;
-  created_at: Scalars['String'];
+  disabled: Scalars['Boolean'];
+  recomended: Scalars['Boolean'];
+  images_length?: Maybe<Scalars['Float']>;
 };
 
 export type Response = {
@@ -203,6 +197,7 @@ export type LoginMutation = (
     { __typename?: 'response' }
     & { user?: Maybe<(
       { __typename?: 'user_response' }
+      & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
@@ -230,6 +225,7 @@ export type RegisterMutation = (
     { __typename?: 'response' }
     & { user?: Maybe<(
       { __typename?: 'user_response' }
+      & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
@@ -317,6 +313,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'user_response' }
+    & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
     & UserFragmentFragment
   )> }
 );
@@ -397,6 +394,14 @@ export const LoginDocument = gql`
   login(userNameOrEmail: $userNameOrEmail, password: $password) {
     user {
       ...userFragment
+      website
+      bio
+      private
+      email
+      phone_number
+      gender
+      recomended
+      disabled
     }
     error {
       ...userErrorFragment
@@ -465,6 +470,14 @@ export const RegisterDocument = gql`
   register(registerInputs: $registerInputs) {
     user {
       ...userFragment
+      website
+      bio
+      private
+      email
+      phone_number
+      gender
+      recomended
+      disabled
     }
     error {
       ...userErrorFragment
@@ -654,6 +667,14 @@ export const MeDocument = gql`
     query Me {
   me {
     ...userFragment
+    website
+    bio
+    private
+    email
+    phone_number
+    gender
+    recomended
+    disabled
   }
 }
     ${UserFragmentFragmentDoc}`;

@@ -2,6 +2,14 @@ mutation Login($userNameOrEmail: String!, $password: String!) {
 	login(userNameOrEmail: $userNameOrEmail, password: $password) {
 		user {
 			...userFragment
+			website
+			bio
+			private
+			email
+			phone_number
+			gender
+			recomended
+			disabled
 		}
 		error {
 			...userErrorFragment

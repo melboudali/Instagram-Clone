@@ -2,6 +2,14 @@ mutation Register($registerInputs: register_inputs!) {
 	register(registerInputs: $registerInputs) {
 		user {
 			...userFragment
+			website
+			bio
+			private
+			email
+			phone_number
+			gender
+			recomended
+			disabled
 		}
 		error {
 			...userErrorFragment

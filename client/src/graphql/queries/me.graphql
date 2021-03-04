@@ -1,5 +1,13 @@
 query Me {
 	me {
 		...userFragment
+		website
+		bio
+		private
+		email
+		phone_number
+		gender
+		recomended
+		disabled
 	}
 }

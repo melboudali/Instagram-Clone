@@ -61,11 +61,16 @@ export class UserResolver {
 				id: user!.id,
 				username: user!.username,
 				fullname: user!.fullname,
+				email: user!.email,
+				phone_number: user!.phone_number,
+				gender: user!.gender,
+				recomended: user!.recomended,
+				images_length: user!.images_length,
 				image_link: user!.image_link,
 				website: user!.website,
 				bio: user!.bio,
 				private: user!.private,
-				images: user!.images
+				disabled: user!.disabled
 			}
 		};
 	}
@@ -103,11 +108,16 @@ export class UserResolver {
 				id: user.id,
 				username: user.username,
 				fullname: user.fullname,
+				email: user.email,
+				phone_number: user.phone_number,
+				gender: user.gender,
+				recomended: user.recomended,
+				images_length: user.images_length,
 				image_link: user.image_link,
 				website: user.website,
 				bio: user.bio,
 				private: user.private,
-				images: user.images
+				disabled: user.disabled
 			}
 		};
 	}
@@ -135,7 +145,8 @@ export class UserResolver {
 			website,
 			bio,
 			private: isPrivate,
-			images_length
+			images_length,
+			disabled
 		} = user;
 
 		return {
@@ -147,7 +158,8 @@ export class UserResolver {
 				website,
 				bio,
 				private: isPrivate,
-				images_length
+				images_length,
+				disabled
 			}
 		};
 	}

@@ -45,6 +45,10 @@ export class User extends BaseEntity {
 
 	@Field({ nullable: true })
 	@Column({ nullable: true })
+	gender!: string;
+
+	@Field({ nullable: true })
+	@Column({ nullable: true })
 	phone_number!: number;
 
 	@Field()
@@ -61,6 +65,14 @@ export class User extends BaseEntity {
 	@Field()
 	@Column({ default: false })
 	private!: boolean;
+
+	@Field()
+	@Column({ default: false })
+	disabled!: boolean;
+
+	@Field()
+	@Column({ default: true })
+	recomended!: boolean;
 
 	@Field()
 	images_length?: number;

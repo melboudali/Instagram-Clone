@@ -37,6 +37,12 @@ export class user_response {
 	@Field()
 	fullname!: string;
 	@Field()
+	email?: string;
+	@Field({ nullable: true })
+	phone_number?: number;
+	@Field({ nullable: true })
+	gender?: string;
+	@Field()
 	image_link!: string;
 	@Field({ nullable: true })
 	website!: string;
@@ -44,9 +50,11 @@ export class user_response {
 	bio!: string;
 	@Field()
 	private!: boolean;
-	@Field(() => [user_image_data])
-	images?: user_image_data[];
 	@Field()
+	disabled!: boolean;
+	@Field()
+	recomended?: boolean;
+	@Field({ nullable: true })
 	images_length?: number;
 }
 

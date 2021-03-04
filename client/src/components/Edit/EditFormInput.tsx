@@ -17,7 +17,6 @@ const InputSectionLabelContainer = styled.div<{ type: string | undefined }>`
 		${({ type }) => (type !== "checkbox" ? "margin-top: 17px;" : "margin-top: 10px;")}
 		position: relative;
 		width: 160px;
-		height: 10px;
 		margin-right: 30px;
 	}
 `;
@@ -111,6 +110,10 @@ interface EditFormInputProps {
 	subDescription?: string;
 	type?: string;
 	textArea?: boolean;
+	formData: object;
+	setFormData: Function;
+	value?: string | number | null | undefined;
+	defaultChecked?: boolean;
 }
 
 const EditFormInput = ({
@@ -119,7 +122,11 @@ const EditFormInput = ({
 	description,
 	subDescription,
 	type,
-	textArea
+	textArea,
+	formData,
+	setFormData,
+	value,
+	defaultChecked
 }: EditFormInputProps) => {
 	return (
 		<EditFormInputContainer>
@@ -134,18 +141,32 @@ const EditFormInput = ({
 						autoCapitalize="off"
 						autoCorrect="off"
 						autoComplete="off"
+						maxLength={100}
 						rows={5}
+						value={value!}
+						onChange={e =>
+							setFormData({
+								...formData,
+								[label]: e.target.value
+							})
+						}
 					/>
 				) : (
 					<InputSectionInput
 						type={type ? type : "text"}
 						placeholder={label}
-						name={label}
 						id={label}
 						autoCapitalize="off"
 						autoCorrect="off"
 						maxLength={50}
 						autoComplete="off"
+						{...(type === "checkbox" ? { defaultChecked: defaultChecked! } : { value: value! })}
+						onChange={e =>
+							setFormData({
+								...formData,
+								[label]: type === "checkbox" ? !defaultChecked : e.target.value
+							})
+						}
 					/>
 				)}
 
@@ -163,8 +184,15 @@ const EditFormInput = ({
 
 EditFormInput.propTypes = {
 	label: PropTypes.string.isRequired,
-	description: PropTypes.string.isRequired,
-	subDescription: PropTypes.string
+	descriptionTitle: PropTypes.string,
+	description: PropTypes.string,
+	subDescription: PropTypes.string,
+	type: PropTypes.string,
+	textArea: PropTypes.bool,
+	formData: PropTypes.object,
+	setFormData: PropTypes.func,
+	value: PropTypes.string,
+	defaultChecked: PropTypes.bool
 };
 
 export default EditFormInput;
