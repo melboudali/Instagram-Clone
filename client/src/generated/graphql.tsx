@@ -105,6 +105,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   register: Response;
   login: Response;
+  editUser: Response;
   logout: Scalars['Boolean'];
   uploadImage: Image_Upload_Response;
 };
@@ -118,6 +119,18 @@ export type MutationRegisterArgs = {
 export type MutationLoginArgs = {
   password: Scalars['String'];
   userNameOrEmail: Scalars['String'];
+};
+
+
+export type MutationEditUserArgs = {
+  similarAccountSuggestions: Scalars['Boolean'];
+  gender?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['Int']>;
+  email: Scalars['String'];
+  bio?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  username: Scalars['String'];
+  name: Scalars['String'];
 };
 
 
@@ -163,6 +176,33 @@ export type UserErrorFragmentFragment = (
 export type UserFragmentFragment = (
   { __typename?: 'user_response' }
   & Pick<User_Response, 'username' | 'fullname' | 'image_link'>
+);
+
+export type EditUserMutationVariables = Exact<{
+  name: Scalars['String'];
+  username: Scalars['String'];
+  email: Scalars['String'];
+  website?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['Int']>;
+  gender?: Maybe<Scalars['String']>;
+  similarAccountSuggestions: Scalars['Boolean'];
+}>;
+
+
+export type EditUserMutation = (
+  { __typename?: 'Mutation' }
+  & { editUser: (
+    { __typename?: 'response' }
+    & { user?: Maybe<(
+      { __typename?: 'user_response' }
+      & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
+      & UserFragmentFragment
+    )>, error?: Maybe<(
+      { __typename?: 'error' }
+      & UserErrorFragmentFragment
+    )> }
+  ) }
 );
 
 export type GetUserQueryVariables = Exact<{
@@ -345,6 +385,68 @@ export const UserFragmentFragmentDoc = gql`
   image_link
 }
     `;
+export const EditUserDocument = gql`
+    mutation EditUser($name: String!, $username: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!) {
+  editUser(
+    name: $name
+    username: $username
+    email: $email
+    website: $website
+    bio: $bio
+    phoneNumber: $phoneNumber
+    gender: $gender
+    similarAccountSuggestions: $similarAccountSuggestions
+  ) {
+    user {
+      ...userFragment
+      website
+      bio
+      private
+      email
+      phone_number
+      gender
+      recomended
+      disabled
+    }
+    error {
+      ...userErrorFragment
+    }
+  }
+}
+    ${UserFragmentFragmentDoc}
+${UserErrorFragmentFragmentDoc}`;
+export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditUserMutationVariables>;
+
+/**
+ * __useEditUserMutation__
+ *
+ * To run a mutation, you first call `useEditUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editUserMutation, { data, loading, error }] = useEditUserMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *      username: // value for 'username'
+ *      email: // value for 'email'
+ *      website: // value for 'website'
+ *      bio: // value for 'bio'
+ *      phoneNumber: // value for 'phoneNumber'
+ *      gender: // value for 'gender'
+ *      similarAccountSuggestions: // value for 'similarAccountSuggestions'
+ *   },
+ * });
+ */
+export function useEditUserMutation(baseOptions?: Apollo.MutationHookOptions<EditUserMutation, EditUserMutationVariables>) {
+        return Apollo.useMutation<EditUserMutation, EditUserMutationVariables>(EditUserDocument, baseOptions);
+      }
+export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
+export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
+export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
 export const GetUserDocument = gql`
     query GetUser($username: String!) {
   getUser(username: $username) {

@@ -1,10 +1,16 @@
 import { useState } from "react";
 import Container from "../containers/Container";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import EditFormInput from "../components/Edit/EditFormInput";
-import Button from "../components/signin_signup/Button";
+import {
+	GetUserDocument,
+	GetUserQuery,
+	MeDocument,
+	MeQuery,
+	useEditUserMutation,
+	useMeQuery
+} from "../generated/graphql";
 import PropTypes from "prop-types";
-import { useMeQuery } from "../generated/graphql";
 
 const EditContainer = styled.main`
 	background-color: #fff;
@@ -17,6 +23,34 @@ const EditContainer = styled.main`
 	flex-direction: column;
 	@media (min-width: 800px) {
 		flex-direction: row;
+	}
+`;
+
+const slide = keyframes`
+		0% {
+			transform: translateY(60px);
+		}
+		100% {
+			transform: 
+		}
+`;
+
+const UpdatedMessage = styled.div<{ updated: boolean }>`
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 60px;
+	background-color: rgba(0, 0, 0, 0.8);
+	display: flex;
+	align-items: center;
+	padding: 0 30px;
+	transform: ${({ updated }) => (updated ? "translateY(0)" : "translateY(60px)")};
+	transition: all 0.3s ease-in-out;
+	h1 {
+		color: #eee;
+		font-size: 0.9rem;
+		font-weight: 500;
 	}
 `;
 
@@ -95,6 +129,27 @@ const ButtonElement = styled.button<{ active: boolean }>`
 	font-size: 14px;
 	padding: 8px 15px;
 	width: 90px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: ${({ active }) => (active ? "pointer" : "not-allowed")};
+`;
+
+const IGCoreSpinnerSpin8 = keyframes`
+	0% {
+		transform: rotate(180deg);
+	}
+	to {
+		transform: rotate(540deg);
+	}
+`;
+
+const LoadingContainer = styled.div`
+	height: 18px;
+	width: 18px;
+	svg {
+		animation: ${IGCoreSpinnerSpin8} 0.8s steps(8) infinite;
+	}
 `;
 
 const DisableAccount = styled.button`
@@ -114,22 +169,89 @@ interface EditProps {}
 
 const Edit = ({}: EditProps) => {
 	const { data } = useMeQuery();
-
 	const [formData, setFormData] = useState({
-		Name: data?.me?.fullname,
-		Username: data?.me?.username,
+		Name: data?.me?.fullname!,
+		Username: data?.me?.username!,
 		Website: data?.me?.website,
 		Bio: data?.me?.bio,
-		Email: data?.me?.email,
+		Email: data?.me?.email!,
 		Gender: data?.me?.gender,
 		"Phone Number": data?.me?.phone_number,
-		"Similar Account Suggestions": data?.me?.recomended
+		"Similar Account Suggestions": data?.me?.recomended!
 	});
 
-	const onSubmit = (e: React.FormEvent) => {
+	const [loading, setLoading] = useState(false);
+	const [updated, setUpdated] = useState(false);
+
+	const [editUser] = useEditUserMutation();
+
+	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log(formData);
-		console.log("Hello World");
+		setLoading(true);
+		try {
+			const res = await editUser({
+				variables: {
+					name: formData.Name,
+					username: formData.Username,
+					email: formData.Email,
+					website: formData.Website,
+					bio: formData.Bio,
+					phoneNumber: formData["Phone Number"],
+					gender: formData.Gender,
+					similarAccountSuggestions: formData["Similar Account Suggestions"]
+				},
+				update: (cache, { data }) => {
+					cache.writeQuery<MeQuery>({
+						query: MeDocument,
+						data: {
+							__typename: "Query",
+							me: data?.editUser.user
+						}
+					});
+
+					const existedUser = cache.readQuery<GetUserQuery>({
+						query: GetUserDocument,
+						variables: { username: formData.Username }
+					});
+					if (existedUser) {
+						cache.writeQuery<GetUserQuery>({
+							query: GetUserDocument,
+							data: {
+								__typename: existedUser.__typename,
+								getUser: {
+									__typename: existedUser.getUser.__typename,
+									user: {
+										__typename: existedUser.getUser.user?.__typename,
+										id: existedUser.getUser.user?.id!,
+										username: formData.Username,
+										fullname: formData.Name,
+										website: formData.Website,
+										bio: formData.Bio,
+										image_link: existedUser.getUser.user?.image_link!,
+										images_length: existedUser.getUser.user?.images_length,
+										private: existedUser.getUser.user?.private!
+									},
+									error: {
+										__typename: existedUser.getUser.error?.__typename,
+										message: existedUser.getUser.error?.message!
+									}
+								}
+							}
+						});
+					}
+				}
+			});
+			if (res.data?.editUser.error) {
+				console.log("Mutation Error");
+			}
+			if (res.data?.editUser.user) {
+				setUpdated(true);
+				setTimeout(() => setUpdated(false), 3000);
+			}
+		} catch (error) {
+			console.log("503 Service Unavailable");
+		}
+		setLoading(false);
 	};
 
 	const activeButton = !!(formData.Name && formData.Username && formData.Email);
@@ -211,13 +333,103 @@ const Edit = ({}: EditProps) => {
 						/>
 						<SubmitButtonSection>
 							<ButtonElement active={activeButton} type="submit" disabled={!activeButton}>
-								Submit
+								{loading ? (
+									<LoadingContainer>
+										<svg aria-label="Loading..." viewBox="0 0 100 100">
+											<rect
+												fill="#fafafa"
+												height="10"
+												opacity="0"
+												rx="5"
+												ry="5"
+												transform="rotate(-90 50 50)"
+												width="28"
+												x="67"
+												y="45"></rect>
+											<rect
+												fill="#fafafa"
+												height="10"
+												opacity="0.125"
+												rx="5"
+												ry="5"
+												transform="rotate(-45 50 50)"
+												width="28"
+												x="67"
+												y="45"></rect>
+											<rect
+												fill="#fafafa"
+												height="10"
+												opacity="0.25"
+												rx="5"
+												ry="5"
+												transform="rotate(0 50 50)"
+												width="28"
+												x="67"
+												y="45"></rect>
+											<rect
+												fill="#fafafa"
+												height="10"
+												opacity="0.375"
+												rx="5"
+												ry="5"
+												transform="rotate(45 50 50)"
+												width="28"
+												x="67"
+												y="45"></rect>
+											<rect
+												fill="#fafafa"
+												height="10"
+												opacity="0.5"
+												rx="5"
+												ry="5"
+												transform="rotate(90 50 50)"
+												width="28"
+												x="67"
+												y="45"></rect>
+											<rect
+												fill="#fafafa"
+												height="10"
+												opacity="0.625"
+												rx="5"
+												ry="5"
+												transform="rotate(135 50 50)"
+												width="28"
+												x="67"
+												y="45"></rect>
+											<rect
+												fill="#fafafa"
+												height="10"
+												opacity="0.75"
+												rx="5"
+												ry="5"
+												transform="rotate(180 50 50)"
+												width="28"
+												x="67"
+												y="45"></rect>
+											<rect
+												fill="#fafafa"
+												height="10"
+												opacity="0.875"
+												rx="5"
+												ry="5"
+												transform="rotate(225 50 50)"
+												width="28"
+												x="67"
+												y="45"></rect>
+										</svg>
+									</LoadingContainer>
+								) : (
+									"Submit"
+								)}
 							</ButtonElement>
 							<DisableAccount>Temporarily disable my account</DisableAccount>
 						</SubmitButtonSection>
 					</form>
 				</EditMain>
 			</EditContainer>
+			<UpdatedMessage updated={updated}>
+				<h1>Profile saved.</h1>
+			</UpdatedMessage>
 		</Container>
 	);
 };

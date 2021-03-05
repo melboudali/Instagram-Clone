@@ -1,4 +1,4 @@
-import { Arg, Ctx, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
+import { Arg, Ctx, Int, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "../entities/user";
 import { MyContext } from "../types";
 import argon2 from "argon2";
@@ -118,6 +118,74 @@ export class UserResolver {
 				bio: user.bio,
 				private: user.private,
 				disabled: user.disabled
+			}
+		};
+	}
+
+	@Mutation(() => response)
+	@UseMiddleware(isAuth)
+	async editUser(
+		@Arg("name") name: string,
+		@Arg("username") username: string,
+		@Arg("website", () => String, { nullable: true }) website: string | null,
+		@Arg("bio", () => String, { nullable: true }) bio: string | null,
+		@Arg("email") email: string,
+		@Arg("phoneNumber", () => Int, {
+			nullable: true
+		})
+		phoneNumber: number | null,
+		@Arg("gender", () => String, { nullable: true }) gender: string | null,
+		@Arg("similarAccountSuggestions") similarAccountSuggestions: boolean,
+		@Ctx() { req }: MyContext
+	): Promise<response> {
+		if (name.length <= 3 || username.length <= 3 || email.length <= 3) {
+			return {
+				error: { message: "Full name or Username or Email length should be greater than 5." }
+			};
+		}
+		if (email.length <= 3 || !email.includes("@") || email.includes(" ")) {
+			return { error: { message: "Invalid email." } };
+		}
+		const id = req.session.user_id;
+		const user = await User.findOne({ id });
+		if (!user) {
+			return { error: { message: "user no longer exists" } };
+		}
+		const newUsername = username.toLowerCase().split(" ").join(".");
+		try {
+			await User.update(
+				{ id },
+				{
+					fullname: name,
+					username: newUsername,
+					email,
+					website: website!,
+					bio: bio!,
+					gender: gender!,
+					phone_number: phoneNumber!,
+					disabled: similarAccountSuggestions
+				}
+			);
+		} catch (error) {
+			if (error.code === "23505") {
+				return { error: { message: "That username or email address is already in use." } };
+			}
+		}
+		return {
+			user: {
+				id: user.id,
+				username: newUsername,
+				fullname: name,
+				email: email,
+				phone_number: phoneNumber!,
+				gender: gender!,
+				recomended: user.recomended,
+				images_length: user.images_length,
+				image_link: user.image_link,
+				website: website!,
+				bio: bio!,
+				private: user.private,
+				disabled: similarAccountSuggestions
 			}
 		};
 	}

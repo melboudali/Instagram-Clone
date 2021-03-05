@@ -1,0 +1,36 @@
+mutation EditUser(
+	$name: String!
+	$username: String!
+	$email: String!
+	$website: String
+	$bio: String
+	$phoneNumber: Int
+	$gender: String
+	$similarAccountSuggestions: Boolean!
+) {
+	editUser(
+		name: $name
+		username: $username
+		email: $email
+		website: $website
+		bio: $bio
+		phoneNumber: $phoneNumber
+		gender: $gender
+		similarAccountSuggestions: $similarAccountSuggestions
+	) {
+		user {
+			...userFragment
+			website
+			bio
+			private
+			email
+			phone_number
+			gender
+			recomended
+			disabled
+		}
+		error {
+			...userErrorFragment
+		}
+	}
+}
