@@ -1,6 +1,5 @@
 import { Arg, Ctx, Int, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "../entities/user";
-import { Image } from "../entities/image";
 import { MyContext } from "../types";
 import argon2 from "argon2";
 import { cookieName } from "../config/constants";
