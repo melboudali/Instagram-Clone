@@ -15,6 +15,7 @@ const ModalContainer = styled.div`
 	top: 0;
 	bottom: 0;
 	z-index: 2;
+	backdrop-filter: blur(1.5px);
 `;
 
 const ModalSlide = keyframes`
@@ -28,14 +29,11 @@ const ModalSlide = keyframes`
 
 const ModalMain = styled.div`
 	display: flex;
-	position: absolute;
-	border: none;
+	align-items: center;
+	justify-content: center;
 	border-radius: 10px;
 	width: 700px;
 	min-height: 60px;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 	background-color: var(--backgroudColor);
 	animation: ${ModalSlide} 0.3s ease-in-out;
 `;

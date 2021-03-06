@@ -42,8 +42,8 @@ export class user_response {
 	phone_number?: number;
 	@Field({ nullable: true })
 	gender?: string;
-	@Field({ nullable: true })
-	image_link?: string;
+	@Field()
+	image_link!: string;
 	@Field({ nullable: true })
 	website?: string;
 	@Field({ nullable: true })

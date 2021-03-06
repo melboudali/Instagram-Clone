@@ -132,6 +132,7 @@ export class UserResolver {
 		@Arg("file", () => GraphQLUpload, { nullable: true }) File: FileUpload | null,
 		@Arg("name") name: string,
 		@Arg("username") username: string,
+		@Arg("image_link") image_link: string,
 		@Arg("website", () => String, { nullable: true }) website: string | null,
 		@Arg("bio", () => String, { nullable: true }) bio: string | null,
 		@Arg("email") email: string,
@@ -160,6 +161,7 @@ export class UserResolver {
 			fullname: name,
 			username: newUsername,
 			email,
+			image_link,
 			website: website!,
 			bio: bio!,
 			gender: gender!,
@@ -175,8 +177,9 @@ export class UserResolver {
 						if (error) {
 							return { error: { message: error.message } };
 						}
+						user = { ...user, image_link: result?.secure_url as string };
 						try {
-							await User.update({ id }, { ...user, image_link: result?.secure_url });
+							await User.update({ id }, user);
 						} catch (error) {
 							if (error.code === "23505") {
 								return { error: { message: "That username or email address is already in use." } };

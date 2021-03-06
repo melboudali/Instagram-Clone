@@ -66,7 +66,7 @@ const PostCommentsContainer = styled.div`
 
 interface ProfilePostsProps {
 	userId: number;
-	isPrivate: boolean;
+	isPrivate: boolean | null | undefined;
 }
 
 const ProfilePosts = ({ userId, isPrivate }: ProfilePostsProps) => {

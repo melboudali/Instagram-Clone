@@ -1,6 +1,8 @@
 mutation EditUser(
+	$file: Upload!
 	$name: String!
 	$username: String!
+	$image_link: String!
 	$email: String!
 	$website: String
 	$bio: String
@@ -9,8 +11,10 @@ mutation EditUser(
 	$similarAccountSuggestions: Boolean!
 ) {
 	editUser(
+		file: $file
 		name: $name
 		username: $username
+		image_link: $image_link
 		email: $email
 		website: $website
 		bio: $bio

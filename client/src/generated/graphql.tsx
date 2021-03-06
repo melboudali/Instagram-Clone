@@ -47,15 +47,15 @@ export type User_Response = {
   id: Scalars['Float'];
   username: Scalars['String'];
   fullname: Scalars['String'];
-  email: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
   phone_number?: Maybe<Scalars['Float']>;
   gender?: Maybe<Scalars['String']>;
   image_link: Scalars['String'];
   website?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
-  private: Scalars['Boolean'];
-  disabled: Scalars['Boolean'];
-  recomended: Scalars['Boolean'];
+  private?: Maybe<Scalars['Boolean']>;
+  disabled?: Maybe<Scalars['Boolean']>;
+  recomended?: Maybe<Scalars['Boolean']>;
   images_length?: Maybe<Scalars['Float']>;
 };
 
@@ -129,8 +129,10 @@ export type MutationEditUserArgs = {
   email: Scalars['String'];
   bio?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
+  image_link: Scalars['String'];
   username: Scalars['String'];
   name: Scalars['String'];
+  file?: Maybe<Scalars['Upload']>;
 };
 
 
@@ -146,6 +148,7 @@ export type Register_Inputs = {
   fullName: Scalars['String'];
 };
 
+
 export type Image_Upload_Response = {
   __typename?: 'image_upload_response';
   image?: Maybe<Image_Data>;
@@ -154,10 +157,8 @@ export type Image_Upload_Response = {
 
 export type Image_Error = {
   __typename?: 'image_error';
-  field: Scalars['String'];
   message: Scalars['String'];
 };
-
 
 export type ImageFragmentFragment = (
   { __typename?: 'image_data' }
@@ -179,8 +180,10 @@ export type UserFragmentFragment = (
 );
 
 export type EditUserMutationVariables = Exact<{
+  file: Scalars['Upload'];
   name: Scalars['String'];
   username: Scalars['String'];
+  image_link: Scalars['String'];
   email: Scalars['String'];
   website?: Maybe<Scalars['String']>;
   bio?: Maybe<Scalars['String']>;
@@ -196,7 +199,7 @@ export type EditUserMutation = (
     { __typename?: 'response' }
     & { user?: Maybe<(
       { __typename?: 'user_response' }
-      & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
+      & Pick<User_Response, 'id' | 'website' | 'bio' | 'email' | 'phone_number' | 'gender' | 'recomended'>
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
@@ -237,7 +240,7 @@ export type LoginMutation = (
     { __typename?: 'response' }
     & { user?: Maybe<(
       { __typename?: 'user_response' }
-      & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
+      & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended'>
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
@@ -265,7 +268,7 @@ export type RegisterMutation = (
     { __typename?: 'response' }
     & { user?: Maybe<(
       { __typename?: 'user_response' }
-      & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
+      & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended'>
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
@@ -289,7 +292,7 @@ export type UploadImageMutation = (
       & ImageFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'image_error' }
-      & Pick<Image_Error, 'field' | 'message'>
+      & Pick<Image_Error, 'message'>
     )> }
   ) }
 );
@@ -353,7 +356,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'user_response' }
-    & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
+    & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended'>
     & UserFragmentFragment
   )> }
 );
@@ -386,10 +389,12 @@ export const UserFragmentFragmentDoc = gql`
 }
     `;
 export const EditUserDocument = gql`
-    mutation EditUser($name: String!, $username: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!) {
+    mutation EditUser($file: Upload!, $name: String!, $username: String!, $image_link: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!) {
   editUser(
+    file: $file
     name: $name
     username: $username
+    image_link: $image_link
     email: $email
     website: $website
     bio: $bio
@@ -398,15 +403,14 @@ export const EditUserDocument = gql`
     similarAccountSuggestions: $similarAccountSuggestions
   ) {
     user {
+      id
       ...userFragment
       website
       bio
-      private
       email
       phone_number
       gender
       recomended
-      disabled
     }
     error {
       ...userErrorFragment
@@ -430,8 +434,10 @@ export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditU
  * @example
  * const [editUserMutation, { data, loading, error }] = useEditUserMutation({
  *   variables: {
+ *      file: // value for 'file'
  *      name: // value for 'name'
  *      username: // value for 'username'
+ *      image_link: // value for 'image_link'
  *      email: // value for 'email'
  *      website: // value for 'website'
  *      bio: // value for 'bio'
@@ -503,7 +509,6 @@ export const LoginDocument = gql`
       phone_number
       gender
       recomended
-      disabled
     }
     error {
       ...userErrorFragment
@@ -579,7 +584,6 @@ export const RegisterDocument = gql`
       phone_number
       gender
       recomended
-      disabled
     }
     error {
       ...userErrorFragment
@@ -620,7 +624,6 @@ export const UploadImageDocument = gql`
       ...imageFragment
     }
     error {
-      field
       message
     }
   }
@@ -776,7 +779,6 @@ export const MeDocument = gql`
     phone_number
     gender
     recomended
-    disabled
   }
 }
     ${UserFragmentFragmentDoc}`;

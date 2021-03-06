@@ -10,6 +10,7 @@ import {
 	useEditUserMutation,
 	useMeQuery
 } from "../generated/graphql";
+import PhotoModalMain from "../components/Edit/PhotoModal";
 import PropTypes from "prop-types";
 
 const EditContainer = styled.main`
@@ -95,6 +96,7 @@ const ChangeProfilePhoto = styled.button`
 	font-size: 0.9rem;
 	font-weight: 500;
 	margin-top: 5px;
+	cursor: pointer;
 `;
 
 const SubmitButtonSection = styled.section`
@@ -151,6 +153,7 @@ const DisableAccount = styled.button`
 	color: #0095f6;
 	font-size: 0.9rem;
 	font-weight: 600;
+	cursor: pointer;
 	@media (min-width: 800px) {
 		margin: 0;
 	}
@@ -160,21 +163,31 @@ interface EditProps {}
 
 const Edit = ({}: EditProps) => {
 	const { data } = useMeQuery();
-	const [formData, setFormData] = useState({
-		Name: data?.me?.fullname || "",
-		Username: data?.me?.username || "",
-		Website: data?.me?.website || "",
-		Bio: data?.me?.bio || "",
-		Email: data?.me?.email || "",
-		Gender: data?.me?.gender || "",
-		"Phone Number": data?.me?.phone_number || undefined,
-		"Similar Account Suggestions": data?.me?.recomended || true
-	});
+	const [editUser] = useEditUserMutation();
 
+	const [formData, setFormData] = useState({
+		Name: data?.me?.fullname,
+		Username: data?.me?.username,
+		image_link: data?.me?.image_link,
+		Website: data?.me?.website,
+		Bio: data?.me?.bio,
+		Email: data?.me?.email,
+		Gender: data?.me?.gender,
+		"Phone Number": data?.me?.phone_number,
+		"Similar Account Suggestions": data?.me?.recomended!
+	});
 	const [loading, setLoading] = useState(false);
 	const [updated, setUpdated] = useState(false);
+	const [openModal, setOpenModal] = useState(false);
 
-	const [editUser] = useEditUserMutation();
+	const [imageFile, setImageFile] = useState<File | null>(null);
+	const [uploadErrorMessage, setUploadErroMessage] = useState<string | null>(null);
+
+	const Scrollbar = (arg: "show" | "hide") => {
+		arg === "show"
+			? (document.documentElement.style.overflowY = "visible")
+			: (document.documentElement.style.overflowY = "hidden");
+	};
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -182,12 +195,14 @@ const Edit = ({}: EditProps) => {
 		try {
 			const res = await editUser({
 				variables: {
-					name: formData.Name,
-					username: formData.Username,
-					email: formData.Email,
+					file: imageFile,
+					name: formData.Name!,
+					username: formData.Username!,
+					image_link: formData.image_link!,
+					email: formData.Email!,
 					website: formData.Website,
 					bio: formData.Bio,
-					phoneNumber: formData["Phone Number"],
+					phoneNumber: Number(formData["Phone Number"]),
 					gender: formData.Gender,
 					similarAccountSuggestions: formData["Similar Account Suggestions"]
 				},
@@ -214,8 +229,8 @@ const Edit = ({}: EditProps) => {
 									user: {
 										__typename: existedUser.getUser.user?.__typename,
 										id: existedUser.getUser.user?.id!,
-										username: formData.Username,
-										fullname: formData.Name,
+										username: formData.Username!,
+										fullname: formData.Name!,
 										website: formData.Website,
 										bio: formData.Bio,
 										image_link: data?.editUser.user?.image_link || existedUser.getUser.user?.image_link!,
@@ -251,15 +266,32 @@ const Edit = ({}: EditProps) => {
 	return (
 		<Container>
 			<EditContainer>
+				{openModal && (
+					<PhotoModalMain
+						Scrollbar={Scrollbar}
+						setOpenModal={setOpenModal}
+						setFormData={setFormData}
+						formData={formData}
+						setImageFile={setImageFile}
+						setUploadErroMessage={setUploadErroMessage}
+					/>
+				)}
 				{/* <EditSideBar>
 					<h1>Hello World</h1>
 				</EditSideBar> */}
 				<EditMain>
 					<ChangePhotoSection>
-						<CurrentUserPhoto src={data?.me?.image_link} alt={data?.me?.username} />
+						<CurrentUserPhoto src={formData.image_link} alt={data?.me?.username} />
 						<UserNameAndChangeBtn>
 							<UserNameTitle>{data?.me?.username}</UserNameTitle>
-							<ChangeProfilePhoto>Change Profile Photo</ChangeProfilePhoto>
+							<ChangeProfilePhoto
+								type="button"
+								onClick={() => {
+									Scrollbar("hide");
+									setOpenModal(true);
+								}}>
+								Change Profile Photo
+							</ChangeProfilePhoto>
 						</UserNameAndChangeBtn>
 					</ChangePhotoSection>
 					<form onSubmit={onSubmit}>

@@ -4,7 +4,6 @@ mutation UploadImage($file: Upload!, $caption: String!) {
 			...imageFragment
 		}
 		error {
-			field
 			message
 		}
 	}
