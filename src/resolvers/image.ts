@@ -16,7 +16,13 @@ import { isAuth } from "../middleware/isAuthenticated";
 import { MyContext } from "../types";
 import { getConnection } from "typeorm";
 import { v2 as cloudinary } from "cloudinary";
-import { image_author, image_data, image_upload_response, PaginatedImages } from "../models/images";
+import {
+	cloudinaryConfig,
+	image_author,
+	image_data,
+	image_upload_response,
+	PaginatedImages
+} from "../models/images";
 
 @Resolver(Image)
 export class ImageResolver {
@@ -26,7 +32,7 @@ export class ImageResolver {
 		@Arg("file", () => GraphQLUpload) { createReadStream }: FileUpload,
 		@Arg("caption") caption: string,
 		@Ctx() { req }: MyContext
-	): Promise<any> {
+	): Promise<image_upload_response> {
 		return new Promise((resolve, reject) => {
 			if (!caption || caption.length <= 3) {
 				reject({ error: { message: "Title should be greater than 3!" } });
@@ -34,11 +40,7 @@ export class ImageResolver {
 
 			const userId = req.session.user_id;
 
-			cloudinary.config({
-				cloud_name: process.env.CLOUD_NAME,
-				api_key: process.env.API_KEY,
-				api_secret: process.env.API_SECRET
-			});
+			cloudinary.config(cloudinaryConfig);
 
 			createReadStream().pipe(
 				cloudinary.uploader.upload_stream(

@@ -9,7 +9,6 @@ mutation Register($registerInputs: register_inputs!) {
 			phone_number
 			gender
 			recomended
-			disabled
 		}
 		error {
 			...userErrorFragment

@@ -9,7 +9,6 @@ mutation Login($userNameOrEmail: String!, $password: String!) {
 			phone_number
 			gender
 			recomended
-			disabled
 		}
 		error {
 			...userErrorFragment

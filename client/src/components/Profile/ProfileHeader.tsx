@@ -130,9 +130,10 @@ interface ProfileHeaderProps {
 		"image_link" | "username" | "private" | "fullname" | "bio" | "website" | "images_length"
 	>;
 	loggedinUserData: MeQuery;
+	username: string;
 }
 
-const ProfileHeader = ({ user, loggedinUserData }: ProfileHeaderProps) => {
+const ProfileHeader = ({ user, loggedinUserData, username }: ProfileHeaderProps) => {
 	return (
 		<ProfileData>
 			<ProfileHeaderImage>
@@ -141,7 +142,7 @@ const ProfileHeader = ({ user, loggedinUserData }: ProfileHeaderProps) => {
 			<ProfileInformations>
 				<UsernameContainer>
 					<ProfileHeaderUsername>{user.username}</ProfileHeaderUsername>
-					{loggedinUserData.me ? (
+					{loggedinUserData.me && loggedinUserData.me.username === username ? (
 						<>
 							<ProfileHeaderEditButton to="/accounts/edit">Edit Profile</ProfileHeaderEditButton>
 							<ProfileHeaderOptionsButton type="button">

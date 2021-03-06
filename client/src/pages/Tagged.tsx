@@ -34,7 +34,11 @@ const Tagged = ({ match }: TaggedProps) => {
 			{data.getUser.user && !data.getUser.error ? (
 				<Container>
 					<TaggedContainer>
-						<ProfileHeader user={data.getUser.user} loggedinUserData={loggedinUserData} />
+						<ProfileHeader
+							user={data.getUser.user}
+							loggedinUserData={loggedinUserData}
+							username={username}
+						/>
 
 						{data.getUser.user.private ? (
 							<ProfileEmptyPostsOrPrivate type="private" />

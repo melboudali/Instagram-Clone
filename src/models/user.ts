@@ -36,23 +36,23 @@ export class user_response {
 	username!: string;
 	@Field()
 	fullname!: string;
-	@Field()
+	@Field({ nullable: true })
 	email?: string;
 	@Field({ nullable: true })
 	phone_number?: number;
 	@Field({ nullable: true })
 	gender?: string;
-	@Field()
-	image_link!: string;
 	@Field({ nullable: true })
-	website!: string;
+	image_link?: string;
 	@Field({ nullable: true })
-	bio!: string;
-	@Field()
-	private!: boolean;
-	@Field()
-	disabled!: boolean;
-	@Field()
+	website?: string;
+	@Field({ nullable: true })
+	bio?: string;
+	@Field({ nullable: true })
+	private?: boolean;
+	@Field({ nullable: true })
+	disabled?: boolean;
+	@Field({ nullable: true })
 	recomended?: boolean;
 	@Field({ nullable: true })
 	images_length?: number;

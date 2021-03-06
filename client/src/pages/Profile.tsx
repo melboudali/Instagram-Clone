@@ -36,7 +36,11 @@ const Profile = ({ match }: ProfileProps) => {
 		<>
 			<Container>
 				<ProfileContainer>
-					<ProfileHeader user={data.getUser.user} loggedinUserData={loggedinUserData} />
+					<ProfileHeader
+						user={data.getUser.user}
+						loggedinUserData={loggedinUserData}
+						username={username}
+					/>
 					{data.getUser.user.private ? (
 						<ProfileEmptyPostsOrPrivate type="private" />
 					) : (

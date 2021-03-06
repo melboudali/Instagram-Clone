@@ -29,10 +29,7 @@ const client = new ApolloClient({
 					},
 					getAllImages: {
 						keyArgs: [],
-						merge(
-							existing: PaginatedImages | undefined,
-							incoming: PaginatedImages
-						): PaginatedImages {
+						merge(existing: PaginatedImages | undefined, incoming: PaginatedImages): PaginatedImages {
 							return {
 								...incoming,
 								images: [...(existing?.images || []), ...incoming.images]
@@ -40,11 +37,8 @@ const client = new ApolloClient({
 						}
 					},
 					getUserImages: {
-						keyArgs: [],
-						merge(
-							existing: PaginatedImages | undefined,
-							incoming: PaginatedImages
-						): PaginatedImages {
+						keyArgs: ["userId"],
+						merge(existing: PaginatedImages | undefined, incoming: PaginatedImages): PaginatedImages {
 							return {
 								...incoming,
 								images: [...(existing?.images || []), ...incoming.images]

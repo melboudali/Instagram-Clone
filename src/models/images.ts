@@ -30,8 +30,6 @@ export class image_data extends Image {
 @ObjectType()
 export class image_error {
 	@Field()
-	field!: string;
-	@Field()
 	message!: string;
 }
 
@@ -50,3 +48,9 @@ export class PaginatedImages {
 	@Field(() => Boolean)
 	hasMore!: boolean;
 }
+
+export const cloudinaryConfig = {
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.API_KEY,
+	api_secret: process.env.API_SECRET
+};

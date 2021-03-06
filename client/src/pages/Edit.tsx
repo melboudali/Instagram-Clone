@@ -26,15 +26,6 @@ const EditContainer = styled.main`
 	}
 `;
 
-const slide = keyframes`
-		0% {
-			transform: translateY(60px);
-		}
-		100% {
-			transform: 
-		}
-`;
-
 const UpdatedMessage = styled.div<{ updated: boolean }>`
 	position: fixed;
 	bottom: 0;
@@ -170,14 +161,14 @@ interface EditProps {}
 const Edit = ({}: EditProps) => {
 	const { data } = useMeQuery();
 	const [formData, setFormData] = useState({
-		Name: data?.me?.fullname!,
-		Username: data?.me?.username!,
-		Website: data?.me?.website,
-		Bio: data?.me?.bio,
-		Email: data?.me?.email!,
-		Gender: data?.me?.gender,
-		"Phone Number": data?.me?.phone_number,
-		"Similar Account Suggestions": data?.me?.recomended!
+		Name: data?.me?.fullname || "",
+		Username: data?.me?.username || "",
+		Website: data?.me?.website || "",
+		Bio: data?.me?.bio || "",
+		Email: data?.me?.email || "",
+		Gender: data?.me?.gender || "",
+		"Phone Number": data?.me?.phone_number || undefined,
+		"Similar Account Suggestions": data?.me?.recomended || true
 	});
 
 	const [loading, setLoading] = useState(false);
@@ -227,9 +218,10 @@ const Edit = ({}: EditProps) => {
 										fullname: formData.Name,
 										website: formData.Website,
 										bio: formData.Bio,
-										image_link: existedUser.getUser.user?.image_link!,
+										image_link: data?.editUser.user?.image_link || existedUser.getUser.user?.image_link!,
 										images_length: existedUser.getUser.user?.images_length,
-										private: existedUser.getUser.user?.private!
+										private: existedUser.getUser.user?.private!,
+										recomended: formData["Similar Account Suggestions"]
 									},
 									error: {
 										__typename: existedUser.getUser.error?.__typename,
@@ -312,7 +304,7 @@ const Edit = ({}: EditProps) => {
 						/>
 						<EditFormInput
 							label="Phone Number"
-							type="tel"
+							type="number"
 							formData={formData}
 							setFormData={setFormData}
 							value={formData["Phone Number"]}

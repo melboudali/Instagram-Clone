@@ -1,11 +1,15 @@
 import { Arg, Ctx, Int, Mutation, Query, Resolver, UseMiddleware } from "type-graphql";
 import { User } from "../entities/user";
+import { Image } from "../entities/image";
 import { MyContext } from "../types";
 import argon2 from "argon2";
 import { cookieName } from "../config/constants";
 import { getConnection } from "typeorm";
 import { isAuth } from "../middleware/isAuthenticated";
 import { register_inputs, response, responses, user_response } from "../models/user";
+import { FileUpload, GraphQLUpload } from "graphql-upload";
+import { cloudinaryConfig } from "../models/images";
+import { v2 as cloudinary } from "cloudinary";
 
 @Resolver(User)
 export class UserResolver {
@@ -55,7 +59,7 @@ export class UserResolver {
 				return { error: { message: "That username or email address is already in use." } };
 			}
 		}
-		req.session.user_id = user!.id;
+		req.session.user_id = user!.id!;
 		return {
 			user: {
 				id: user!.id,
@@ -125,6 +129,7 @@ export class UserResolver {
 	@Mutation(() => response)
 	@UseMiddleware(isAuth)
 	async editUser(
+		@Arg("file", () => GraphQLUpload, { nullable: true }) File: FileUpload | null,
 		@Arg("name") name: string,
 		@Arg("username") username: string,
 		@Arg("website", () => String, { nullable: true }) website: string | null,
@@ -147,46 +152,53 @@ export class UserResolver {
 			return { error: { message: "Invalid email." } };
 		}
 		const id = req.session.user_id;
-		const user = await User.findOne({ id });
-		if (!user) {
-			return { error: { message: "user no longer exists" } };
-		}
+		cloudinary.config(cloudinaryConfig);
 		const newUsername = username.toLowerCase().split(" ").join(".");
-		try {
-			await User.update(
-				{ id },
-				{
-					fullname: name,
-					username: newUsername,
-					email,
-					website: website!,
-					bio: bio!,
-					gender: gender!,
-					phone_number: phoneNumber!,
-					disabled: similarAccountSuggestions
-				}
+
+		let user = {
+			id,
+			fullname: name,
+			username: newUsername,
+			email,
+			website: website!,
+			bio: bio!,
+			gender: gender!,
+			phone_number: phoneNumber!,
+			recomended: similarAccountSuggestions
+		};
+
+		if (File) {
+			File.createReadStream().pipe(
+				cloudinary.uploader.upload_stream(
+					{ folder: process.env.CLOUDINARY_FOLDER },
+					async (error, result) => {
+						if (error) {
+							return { error: { message: error.message } };
+						}
+						try {
+							await User.update({ id }, { ...user, image_link: result?.secure_url });
+						} catch (error) {
+							if (error.code === "23505") {
+								return { error: { message: "That username or email address is already in use." } };
+							}
+						}
+						return {
+							user
+						};
+					}
+				)
 			);
-		} catch (error) {
-			if (error.code === "23505") {
-				return { error: { message: "That username or email address is already in use." } };
+		} else {
+			try {
+				await User.update({ id }, user);
+			} catch (error) {
+				if (error.code === "23505") {
+					return { error: { message: "That username or email address is already in use." } };
+				}
 			}
 		}
 		return {
-			user: {
-				id: user.id,
-				username: newUsername,
-				fullname: name,
-				email: email,
-				phone_number: phoneNumber!,
-				gender: gender!,
-				recomended: user.recomended,
-				images_length: user.images_length,
-				image_link: user.image_link,
-				website: website!,
-				bio: bio!,
-				private: user.private,
-				disabled: similarAccountSuggestions
-			}
+			user
 		};
 	}
 
