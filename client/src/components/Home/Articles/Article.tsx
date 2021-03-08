@@ -152,7 +152,6 @@ const ArticleDescription = styled.div`
 
 const ArticleDescriptionLink = styled(Link)`
 	color: #262626;
-	text-decoration: none;
 	font-weight: 600;
 	margin-right: 4px;
 `;
@@ -163,7 +162,6 @@ const ArticleCommentsCount = styled.div`
 
 const ArticleCommentsCountLink = styled(Link)`
 	color: #8e8e8e;
-	text-decoration: none;
 `;
 
 const ArticleCommentAndCreatedtimeContainer = styled.div`
@@ -180,7 +178,6 @@ const ArticleComment = styled.div`
 
 const ArticleCommentLink = styled(Link)`
 	color: #262626;
-	text-decoration: none;
 	font-weight: 600;
 	margin-right: 4px;
 `;

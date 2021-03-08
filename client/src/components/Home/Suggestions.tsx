@@ -65,7 +65,6 @@ const CurrentUserProfileImage = styled.div`
 `;
 
 const CurrentUserProfileImageLink = styled(Link)`
-	text-decoration: none;
 	img {
 		width: 100%;
 		height: 100%;

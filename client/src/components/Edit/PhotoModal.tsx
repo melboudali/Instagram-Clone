@@ -148,6 +148,18 @@ const PhotoModal = ({
 		}
 	};
 
+	const RemovePhoto = () => {
+		setUploadErroMessage(null);
+		setFormData({
+			...formData,
+			image_link:
+				"https://res.cloudinary.com/elboudali/image/upload/v1615221365/Instagram-Clone/44884218_345707102882519_2446069589734326272_n_htmp8n.jpg"
+		});
+		setImageFile(null);
+		Scrollbar("show");
+		setOpenModal(false);
+	};
+
 	return (
 		<PhotoModalContainer>
 			<PhotoModalMain ref={ref}>
@@ -162,8 +174,14 @@ const PhotoModal = ({
 						onChange={onChange}
 					/>
 				</ChangePhotoButton>
-				<RemovePhotoButton>Remove Current Photo</RemovePhotoButton>
-				<CancelButton>Cancel</CancelButton>
+				<RemovePhotoButton onClick={RemovePhoto}>Remove Current Photo</RemovePhotoButton>
+				<CancelButton
+					onClick={() => {
+						Scrollbar("show");
+						setOpenModal(false);
+					}}>
+					Cancel
+				</CancelButton>
 			</PhotoModalMain>
 		</PhotoModalContainer>
 	);

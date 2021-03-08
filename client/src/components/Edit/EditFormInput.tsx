@@ -160,7 +160,9 @@ const EditFormInput = ({
 						autoCorrect="off"
 						maxLength={50}
 						autoComplete="off"
-						{...(type === "checkbox" ? { defaultChecked: defaultChecked! } : { value: value! })}
+						{...(type === "checkbox"
+							? { defaultChecked: defaultChecked! }
+							: { value: value || undefined })}
 						onChange={e =>
 							setFormData({
 								...formData,

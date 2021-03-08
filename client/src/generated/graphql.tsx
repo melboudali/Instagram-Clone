@@ -180,7 +180,7 @@ export type UserFragmentFragment = (
 );
 
 export type EditUserMutationVariables = Exact<{
-  file: Scalars['Upload'];
+  file?: Maybe<Scalars['Upload']>;
   name: Scalars['String'];
   username: Scalars['String'];
   image_link: Scalars['String'];
@@ -389,7 +389,7 @@ export const UserFragmentFragmentDoc = gql`
 }
     `;
 export const EditUserDocument = gql`
-    mutation EditUser($file: Upload!, $name: String!, $username: String!, $image_link: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!) {
+    mutation EditUser($file: Upload, $name: String!, $username: String!, $image_link: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!) {
   editUser(
     file: $file
     name: $name

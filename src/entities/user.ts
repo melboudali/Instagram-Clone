@@ -54,7 +54,7 @@ export class User extends BaseEntity {
 	@Field()
 	@Column({
 		default:
-			"https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_ohc=zSwWVl1-uFkAX8fS1DA&oh=f6f65eb2966cd097b66316043fd1c6be&oe=603C4E0F&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2"
+			"https://res.cloudinary.com/elboudali/image/upload/v1615221365/Instagram-Clone/44884218_345707102882519_2446069589734326272_n_htmp8n.jpg"
 	})
 	image_link!: string;
 

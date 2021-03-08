@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
@@ -46,7 +47,7 @@ const FooterLink = styled.div`
 	margin: 0 8px 12px;
 `;
 
-const FooterLinkTag = styled.a`
+const FooterLinkTag = styled(Link)`
 	color: var(--textColorGray);
 	div {
 		font-size: 12px;
@@ -63,84 +64,84 @@ const Footer = () => {
 				<FooterLinks>
 					<div>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>about</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>blog</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>jobs</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>aPI</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>privacy</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>terms</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>top accounts</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>hashtags</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>locations</div>
 							</FooterLinkTag>
 						</FooterLink>
 					</div>
 					<div>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>beauty</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>dance & performance</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>fitness</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>food & drink</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>home & garden</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>music</div>
 							</FooterLinkTag>
 						</FooterLink>
 						<FooterLink>
-							<FooterLinkTag href="/about">
+							<FooterLinkTag to="/about">
 								<div>visual arts</div>
 							</FooterLinkTag>
 						</FooterLink>
@@ -150,18 +151,8 @@ const Footer = () => {
 					<div>
 						English
 						<span>
-							<svg
-								width="11"
-								height="6"
-								viewBox="0 0 11 6"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg">
-								<path
-									d="M1 1L5.5 5L10 1"
-									stroke="#8E8E8E"
-									strokeLinecap="round"
-									strokeLinejoin="round"
-								/>
+							<svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M1 1L5.5 5L10 1" stroke="#8E8E8E" strokeLinecap="round" strokeLinejoin="round" />
 							</svg>
 						</span>
 					</div>

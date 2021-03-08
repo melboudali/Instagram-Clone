@@ -12,6 +12,7 @@ import {
 } from "../generated/graphql";
 import PhotoModalMain from "../components/Edit/PhotoModal";
 import PropTypes from "prop-types";
+import EditSidebar from "../components/Edit/EditSidebar";
 
 const EditContainer = styled.main`
 	background-color: #fff;
@@ -19,7 +20,7 @@ const EditContainer = styled.main`
 	border-radius: 3px;
 	margin: 30px 0 0;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: center;
 	flex-direction: column;
 	@media (min-width: 800px) {
@@ -44,12 +45,6 @@ const UpdatedMessage = styled.div<{ updated: boolean }>`
 		font-size: 0.9rem;
 		font-weight: 500;
 	}
-`;
-
-const EditSideBar = styled.aside`
-	padding: 20px 0;
-	width: 100%;
-	max-width: 200px;
 `;
 
 const EditMain = styled.main`
@@ -276,9 +271,7 @@ const Edit = ({}: EditProps) => {
 						setUploadErroMessage={setUploadErroMessage}
 					/>
 				)}
-				{/* <EditSideBar>
-					<h1>Hello World</h1>
-				</EditSideBar> */}
+				<EditSidebar />
 				<EditMain>
 					<ChangePhotoSection>
 						<CurrentUserPhoto src={formData.image_link} alt={data?.me?.username} />

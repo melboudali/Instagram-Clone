@@ -44,7 +44,6 @@ const SuggestedProfileImage = styled.div`
 `;
 
 const SuggestedProfileImageLink = styled(Link)`
-	text-decoration: none;
 	img {
 		width: 100%;
 		height: 100%;

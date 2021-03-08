@@ -11,9 +11,9 @@ const AuthenticatedApp = () => {
 	return (
 		<Switch>
 			<Route exact path="/" component={Home} />
-			<Route exact path="/accounts/edit" component={Edit} />;
-			<Route exact path="/:username" component={Profile} />;
-			<Route exact path="/:username/tagged" component={Tagged} />;
+			<Route exact path="/accounts/edit" component={Edit} />
+			<Route exact path="/:username" component={Profile} />
+			<Route exact path="/:username/tagged" component={Tagged} />
 			<Route exact path="*" component={ErrorPage} />
 		</Switch>
 	);

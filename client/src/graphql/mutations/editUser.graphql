@@ -1,5 +1,5 @@
 mutation EditUser(
-	$file: Upload!
+	$file: Upload
 	$name: String!
 	$username: String!
 	$image_link: String!
