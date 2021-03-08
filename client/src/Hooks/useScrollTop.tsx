@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-const UseScrollTop = () => {
+const useScrollTop = () => {
 	const history = useHistory();
 	useEffect(() =>
 		history.listen(() => {
@@ -11,4 +11,4 @@ const UseScrollTop = () => {
 	return null;
 };
 
-export default UseScrollTop;
+export default useScrollTop;
