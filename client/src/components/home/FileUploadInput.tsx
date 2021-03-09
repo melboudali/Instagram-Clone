@@ -10,11 +10,13 @@ const FileUploadContainer = styled.div`
 	align-items: center;
 	margin: 24px auto 0;
 	height: 150px;
-	/* width: 676px; */
-	width: 70%;
+	width: 100%;
 	background-color: #fff;
 	border: 1px dashed #dbdbdb;
 	border-radius: 10px;
+	@media (min-width: 800px) {
+		width: 70%;
+	}
 `;
 
 const FileUploadSvgContainer = styled.div`
@@ -35,7 +37,6 @@ const FileUploadText = styled.div`
 const FileUploadErrorMessage = styled.span`
 	color: var(--textErrorColor);
 	font-weight: 300;
-	display: block;
 	margin-top: 5px;
 `;
 

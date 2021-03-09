@@ -1,5 +1,10 @@
 import { useRef, useState, useEffect } from "react";
-import { useUploadImageMutation } from "../../generated/graphql";
+import {
+	GetUserDocument,
+	GetUserImagesDocument,
+	GetUserImagesQuery,
+	useUploadImageMutation
+} from "../../generated/graphql";
 import Button from "../signin_signup/Button";
 import styled, { keyframes } from "styled-components";
 import { useMeQuery } from "../../generated/graphql";
@@ -9,6 +14,9 @@ import PropTypes from "prop-types";
 const ModalContainer = styled.div`
 	background-color: rgba(0, 0, 0, 0.87);
 	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	height: 100vh;
 	left: 0;
 	right: 0;
@@ -19,28 +27,32 @@ const ModalContainer = styled.div`
 `;
 
 const ModalSlide = keyframes`
-			0% {
-				transform: translate(-50%, -90%);
-			}
-			100% {
-				transform: translate(-50%, -50%);
+			 0% {
+				transform: translateY(-50%);
 			}
 `;
 
 const ModalMain = styled.div`
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 	border-radius: 10px;
-	width: 700px;
-	min-height: 60px;
 	background-color: var(--backgroudColor);
 	animation: ${ModalSlide} 0.3s ease-in-out;
+	@media (min-width: 800px) {
+		width: 700px;
+		min-height: 60px;
+		flex-direction: row;
+	}
 `;
 
 const ModalClose = styled.button`
 	cursor: pointer;
-	padding: 0;
+	width: 30px;
+	height: 30px;
+	padding: 5px;
 	background: 0 0;
 	border: 0;
 	outline: 0;
@@ -48,6 +60,8 @@ const ModalClose = styled.button`
 	top: 10px;
 	right: 10px;
 	z-index: 2;
+	background-color: #dfdfdf;
+	border-radius: 100%;
 	svg {
 		stroke: var(--textColorGray);
 	}
@@ -57,14 +71,18 @@ const ModalImageContainer = styled.img`
 	display: block;
 	width: 300px;
 	min-height: 300px;
+	max-height: 450px;
 	object-fit: cover;
-	border-bottom-left-radius: 8px;
-	border-top-left-radius: 8px;
+	@media (min-width: 800px) {
+		border-bottom-left-radius: 8px;
+		border-top-left-radius: 8px;
+	}
 `;
 
 const ModalImageCaptionContainer = styled.div`
 	flex: 1 1 100%;
 	position: relative;
+	width: 100%;
 `;
 
 const ModalTitle = styled.h1`
@@ -72,8 +90,10 @@ const ModalTitle = styled.h1`
 	font-size: 14px;
 	color: var(--textColorDarkGray);
 	text-align: center;
-	padding: 10px 0 0 0;
-	margin: 0;
+	margin: 15px 0;
+	@media (min-width: 800px) {
+		margin: 0 0 15px 0;
+	}
 `;
 
 const ModalCaptionContainer = styled.div`
@@ -81,15 +101,12 @@ const ModalCaptionContainer = styled.div`
 	width: 100%;
 	flex-direction: column;
 	justify-content: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 	padding: 0 20px;
 `;
 
 const ModalCaption = styled.div`
 	display: flex;
+	width: 100%;
 `;
 
 const ModalUserImage = styled.img`
@@ -100,15 +117,14 @@ const ModalUserImage = styled.img`
 `;
 
 const ModalCaptionArea = styled.textarea`
-	height: 120px;
+	height: 100px;
 	background: none;
 	border: 0;
 	color: #262626;
-	flex: 1 1 100%;
 	outline: 0;
 	padding: 0;
 	resize: none;
-	margin: 0 0 10px 10px;
+	margin-left: 10px;
 `;
 
 const ModalErrorMessage = styled.p`
@@ -163,8 +179,9 @@ const Modal = ({
 			try {
 				const res = await uploadImageFunc({
 					variables: { file: imageFile, caption: caption },
-					update: cache => {
+					update: (cache, { data }) => {
 						cache.evict({ fieldName: "getAllImages" });
+						cache.evict({ fieldName: "getUserImages" });
 					}
 				});
 				if (res.data?.uploadImage) {
@@ -208,8 +225,8 @@ const Modal = ({
 				</ModalClose>
 				<ModalImageContainer src={imageUri!} alt="Uploaded Image" />
 				<ModalImageCaptionContainer>
-					<ModalTitle>New Post</ModalTitle>
 					<ModalCaptionContainer>
+						<ModalTitle>New Post</ModalTitle>
 						<ModalCaption>
 							<ModalUserImage src={data?.me?.image_link} alt="profile" />
 							<ModalCaptionArea

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const EditSidebarContainer = styled.aside`
@@ -18,13 +18,12 @@ const ElementLink = styled(NavLink).attrs<{ activeClassName: string }>({ activeC
 	font-weight: 400;
 	color: var(--textColorGray);
 	padding: 16px 0 16px 16px;
-	border-left: 2px solid transparent;
 	&:hover {
 		background-color: var(--backgroudColor);
-		border-color: var(--borderColor);
+		box-shadow: inset 3px 0 var(--borderColor);
 	}
 	&.${activeClassName} {
-		border-color: var(--textColorDarkGray);
+		box-shadow: inset 3px 0 var(--textColorDarkGray);
 		font-weight: 500;
 		color: var(--textColorDarkGray);
 		&:hover {

@@ -29,7 +29,7 @@ const main = async () => {
 		type: "postgres",
 		url: process.env.DATABASE_URL,
 		synchronize: !isProd,
-		logging: true,
+		logging: !isProd,
 		ssl: isProd ? { rejectUnauthorized: false } : false,
 		entities: [User, Image, Like, Comment, Follower],
 		migrations: [path.join(__dirname, "migrations/*.js")]

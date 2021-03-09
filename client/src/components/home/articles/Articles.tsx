@@ -9,23 +9,23 @@ import { default as ArticleSkeleton } from "../../skeletons/ArticleSkeleton";
 import PropTypes from "prop-types";
 
 const ArticlesContainer = styled.main`
-	--ArticleMargin: 28px;
+	--ArticleMargin: 0;
 	max-width: 614px;
-	float: left;
 	margin-right: var(--ArticleMargin);
-	@media only screen and (max-width: 1000px) {
-		--ArticleMargin: 0;
+	@media (min-width: 800px) {
+		--ArticleMargin: 28px;
+		margin-right: var(--ArticleMargin);
 	}
 `;
 
 const ArticlesErrorContainer = styled.div`
-	width: 614px;
+	max-width: 614px;
 	padding: 100px 0;
 	text-align: center;
 `;
 
 const ArticlesLoadingSpinner = styled.div<{ padding: string; margin: boolean }>`
-	width: 614px;
+	max-width: 614px;
 	padding: ${({ padding }) => padding};
 	text-align: center;
 	${({ margin }) => margin && "margin: -40px 0 20px 0;"}
@@ -36,15 +36,11 @@ interface ArticleProps {
 }
 
 const Articles = ({ meData }: ArticleProps) => {
-	const {
-		data: images,
-		loading: imagesLoading,
-		error,
-		fetchMore,
-		variables
-	} = useGetAllImagesQuery({
-		variables: { limit: 3, cursor: null }
-	});
+	const { data: images, loading: imagesLoading, error, fetchMore, variables } = useGetAllImagesQuery(
+		{
+			variables: { limit: 3, cursor: null }
+		}
+	);
 
 	const { isBottom, setIsBottom } = useScrollBottom();
 

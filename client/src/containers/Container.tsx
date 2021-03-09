@@ -6,7 +6,10 @@ import PropTypes from "prop-types";
 const Main = styled.main`
 	margin: 0 auto 30px;
 	max-width: 975px;
-	padding: 54px 20px 0;
+	padding: 40px 10px 0;
+	@media (min-width: 800px) {
+		padding: 54px 20px 0;
+	}
 `;
 
 interface ContainerProps {
