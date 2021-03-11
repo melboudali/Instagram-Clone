@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Container from "../containers/Container";
 import styled, { keyframes } from "styled-components";
 import EditFormInput from "../components/Edit/EditFormInput";
 import {
+	GetAllImagesDocument,
+	GetAllImagesQuery,
 	GetUserDocument,
 	GetUserQuery,
 	MeDocument,
@@ -206,9 +208,40 @@ const Edit = ({}: EditProps) => {
 						query: MeDocument,
 						data: {
 							__typename: "Query",
-							me: data?.editUser.user
+							me: data?.editUser.user!
 						}
 					});
+
+					const existedImages = cache.readQuery<GetAllImagesQuery>({
+						query: GetAllImagesDocument,
+						variables: { limit: 3, cursor: null }
+					});
+					if (existedImages) {
+						const newImages = existedImages.getAllImages.images.map(image => {
+							if (image.user.username === formData.Username) {
+								return {
+									...image,
+									user: {
+										...image.user,
+										username: data?.editUser.user?.username!,
+										image_link: data?.editUser.user?.image_link!
+									}
+								};
+							}
+							return image;
+						});
+						cache.writeQuery<GetAllImagesQuery>({
+							query: GetAllImagesDocument,
+							data: {
+								__typename: existedImages.__typename,
+								getAllImages: {
+									__typename: existedImages.getAllImages.__typename,
+									hasMore: existedImages.getAllImages.hasMore,
+									images: newImages
+								}
+							}
+						});
+					}
 
 					const existedUser = cache.readQuery<GetUserQuery>({
 						query: GetUserDocument,
@@ -241,6 +274,7 @@ const Edit = ({}: EditProps) => {
 							}
 						});
 					}
+					return;
 				}
 			});
 			if (res.data?.editUser.error) {
@@ -310,6 +344,7 @@ const Edit = ({}: EditProps) => {
 							formData={formData}
 							setFormData={setFormData}
 							value={formData.Website}
+							type="url"
 						/>
 						<EditFormInput
 							label="Bio"

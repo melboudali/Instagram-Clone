@@ -146,6 +146,7 @@ const PhotoModal = ({
 		} else {
 			setUploadErroMessage("Too many files !!");
 		}
+		return;
 	};
 
 	const RemovePhoto = () => {
@@ -158,6 +159,7 @@ const PhotoModal = ({
 		setImageFile(null);
 		Scrollbar("show");
 		setOpenModal(false);
+		return;
 	};
 
 	return (

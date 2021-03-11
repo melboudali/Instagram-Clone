@@ -219,6 +219,7 @@ const Signin = () => {
 			setLoginError("503 Service Unavailable");
 			setLoginLoading(false);
 		}
+		return;
 	};
 
 	return (

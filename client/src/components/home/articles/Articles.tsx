@@ -80,15 +80,18 @@ const Articles = ({ meData }: ArticleProps) => {
 	return (
 		<ArticlesContainer>
 			{images.getAllImages.images?.map(
-				({
-					id,
-					caption,
-					likes,
-					image_url,
-					like_status: liked,
-					user: { image_link, username },
-					created_at
-				}) => (
+				(
+					{
+						id,
+						caption,
+						likes,
+						image_url,
+						like_status: liked,
+						user: { image_link, username },
+						created_at
+					},
+					idx
+				) => (
 					<Article
 						key={id}
 						name={username}

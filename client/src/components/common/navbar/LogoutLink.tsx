@@ -59,7 +59,7 @@ interface LogoutLinkProps {
 const LogoutLink = ({ children }: LogoutLinkProps) => {
 	const [logout] = useLogoutMutation();
 
-	const logoutFunc = async () =>
+	const logoutFunc = async () => {
 		await logout({
 			update: cache => {
 				cache.writeQuery<MeQuery>({
@@ -71,6 +71,8 @@ const LogoutLink = ({ children }: LogoutLinkProps) => {
 				});
 			}
 		});
+		return;
+	};
 
 	return (
 		<LogoutLinkContainer role="button" onClick={logoutFunc}>

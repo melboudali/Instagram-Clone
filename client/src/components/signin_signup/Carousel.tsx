@@ -32,8 +32,8 @@ const Carousel = () => {
 
 	useEffect(() => {
 		const Slider = setInterval(() => {
-			if (newImg < 5 - 1) {
-				if (oldImg < 5 - 1) {
+			if (newImg < 4) {
+				if (oldImg < 4) {
 					setOldImage(oldImg + 1);
 				} else {
 					setOldImage(1);
@@ -49,10 +49,10 @@ const Carousel = () => {
 
 	return (
 		<Fragment>
-			<ImagesContainer src={firstImage} alt="" New={newImg === 1} Old={oldImg === 1} />
-			<ImagesContainer src={secondImage} alt="" New={newImg === 2} Old={oldImg === 2} />
-			<ImagesContainer src={thirdImage} alt="" New={newImg === 3} Old={oldImg === 3} />
-			<ImagesContainer src={forthImage} alt="" New={newImg === 4} Old={oldImg === 4} />
+			<ImagesContainer src={firstImage} New={newImg === 1} Old={oldImg === 1} />
+			<ImagesContainer src={secondImage} New={newImg === 2} Old={oldImg === 2} />
+			<ImagesContainer src={thirdImage} New={newImg === 3} Old={oldImg === 3} />
+			<ImagesContainer src={forthImage} New={newImg === 4} Old={oldImg === 4} />
 		</Fragment>
 	);
 };

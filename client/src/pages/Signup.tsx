@@ -204,6 +204,7 @@ const Signup = () => {
 			setSignupLoading(false);
 			setSignupError("503 Service Unavailable");
 		}
+		return;
 	};
 
 	return (
@@ -258,9 +259,7 @@ const Signup = () => {
 									setInputValue={setPassword}
 								/>
 								<Button
-									active={
-										!!email.length && !!fullName.length && !!userName.length && !!password.length
-									}
+									active={!!email.length && !!fullName.length && !!userName.length && !!password.length}
 									loading={signupLoading}
 									onClickFunction={signupFunction}
 									type="submit">

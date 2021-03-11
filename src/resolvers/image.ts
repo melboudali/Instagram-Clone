@@ -36,6 +36,7 @@ export class ImageResolver {
 		return new Promise((resolve, reject) => {
 			if (!caption || caption.length <= 3) {
 				reject({ error: { message: "Title should be greater than 3!" } });
+				return;
 			}
 
 			const userId = req.session.user_id;

@@ -193,7 +193,7 @@ EditFormInput.propTypes = {
 	textArea: PropTypes.bool,
 	formData: PropTypes.object,
 	setFormData: PropTypes.func,
-	value: PropTypes.string,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	defaultChecked: PropTypes.bool
 };
 
