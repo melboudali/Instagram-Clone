@@ -1,6 +1,4 @@
-import { useRef, useState } from "react";
-import Container from "../containers/Container";
-import styled, { keyframes } from "styled-components";
+import { useState } from "react";
 import EditFormInput from "../components/Edit/EditFormInput";
 import {
 	GetAllImagesDocument,
@@ -13,88 +11,10 @@ import {
 	useMeQuery
 } from "../generated/graphql";
 import PhotoModalMain from "../components/Edit/PhotoModal";
+import SettingsContainer from "../containers/SettingsContainer";
+import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
-import EditSidebar from "../components/Edit/EditSidebar";
-
-const EditContainer = styled.main`
-	background-color: #fff;
-	border: 1px solid #dbdbdb;
-	border-radius: 3px;
-	margin: 30px 0 0;
-	display: flex;
-	align-items: flex-start;
-	justify-content: center;
-	flex-direction: column;
-	@media (min-width: 800px) {
-		flex-direction: row;
-	}
-`;
-
-const UpdatedMessage = styled.div<{ updated: boolean }>`
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 60px;
-	background-color: rgba(0, 0, 0, 0.8);
-	display: flex;
-	align-items: center;
-	padding: 0 30px;
-	transform: ${({ updated }) => (updated ? "translateY(0)" : "translateY(60px)")};
-	transition: all 0.3s ease-in-out;
-	h1 {
-		color: #eee;
-		font-size: 0.9rem;
-		font-weight: 500;
-	}
-`;
-
-const EditMain = styled.main`
-	padding: 20px;
-	max-width: 800px;
-	width: 100%;
-`;
-
-const ChangePhotoSection = styled.section`
-	width: 100%;
-	padding: 10px 0;
-	display: flex;
-	align-items: center;
-	justify-content: left;
-	margin-bottom: 20px;
-	@media (min-width: 800px) {
-		justify-content: center;
-	}
-`;
-
-const CurrentUserPhoto = styled.img`
-	width: 60px;
-	height: 60px;
-	border-radius: 50%;
-	object-fit: cover;
-	object-position: center;
-`;
-
-const UserNameAndChangeBtn = styled.div`
-	margin-left: 10px;
-`;
-
-const UserNameTitle = styled.h1`
-	font-size: 1.1rem;
-	font-weight: 500;
-	color: #262626;
-`;
-
-const ChangeProfilePhoto = styled.button`
-	background: none;
-	border: none;
-	outline: none;
-	color: #0095f6;
-	font-size: 0.9rem;
-	font-weight: 500;
-	margin-top: 5px;
-	cursor: pointer;
-`;
+import SubmitButton from "../components/Edit/SubmitButton";
 
 const SubmitButtonSection = styled.section`
 	display: flex;
@@ -106,39 +26,6 @@ const SubmitButtonSection = styled.section`
 		flex-direction: row;
 		justify-content: space-between;
 		margin-left: 157px;
-	}
-`;
-
-const ButtonElement = styled.button<{ active: boolean }>`
-	opacity: ${({ active }) => (active ? "1" : "0.3")};
-	border: none;
-	background-color: var(--buttonLightBlue);
-	border-radius: 4px;
-	color: #fff;
-	font-weight: 600;
-	font-size: 14px;
-	padding: 8px 15px;
-	width: 90px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	cursor: ${({ active }) => (active ? "pointer" : "not-allowed")};
-`;
-
-const IGCoreSpinnerSpin8 = keyframes`
-	0% {
-		transform: rotate(180deg);
-	}
-	to {
-		transform: rotate(540deg);
-	}
-`;
-
-const LoadingContainer = styled.div`
-	height: 18px;
-	width: 18px;
-	svg {
-		animation: ${IGCoreSpinnerSpin8} 0.8s steps(8) infinite;
 	}
 `;
 
@@ -293,196 +180,88 @@ const Edit = ({}: EditProps) => {
 	const activeButton = !!(formData.Name && formData.Username && formData.Email);
 
 	return (
-		<Container>
-			<EditContainer>
-				{openModal && (
-					<PhotoModalMain
-						Scrollbar={Scrollbar}
-						setOpenModal={setOpenModal}
-						setFormData={setFormData}
-						formData={formData}
-						setImageFile={setImageFile}
-						setUploadErroMessage={setUploadErroMessage}
-					/>
-				)}
-				<EditSidebar />
-				<EditMain>
-					<ChangePhotoSection>
-						<CurrentUserPhoto src={formData.image_link} alt={data?.me?.username} />
-						<UserNameAndChangeBtn>
-							<UserNameTitle>{data?.me?.username}</UserNameTitle>
-							<ChangeProfilePhoto
-								type="button"
-								onClick={() => {
-									Scrollbar("hide");
-									setOpenModal(true);
-								}}>
-								Change Profile Photo
-							</ChangeProfilePhoto>
-						</UserNameAndChangeBtn>
-					</ChangePhotoSection>
-					<form onSubmit={onSubmit}>
-						<EditFormInput
-							label="Name"
-							description="Help people discover your account by using the name you're known by: either your full name,
+		<SettingsContainer updated={updated} Scrollbar={Scrollbar} setOpenModal={setOpenModal}>
+			{openModal && (
+				<PhotoModalMain
+					Scrollbar={Scrollbar}
+					setOpenModal={setOpenModal}
+					setFormData={setFormData}
+					formData={formData}
+					setImageFile={setImageFile}
+					setUploadErroMessage={setUploadErroMessage}
+				/>
+			)}
+
+			<form onSubmit={onSubmit}>
+				<EditFormInput
+					label="Name"
+					description="Help people discover your account by using the name you're known by: either your full name,
 								nickname, or business name."
-							subDescription="You can only change your name twice within 14 days."
-							formData={formData}
-							setFormData={setFormData}
-							value={formData.Name}
-						/>
-						<EditFormInput
-							label="Username"
-							description="In most cases, you'll be able to change your username back to top.dankest.memes for another
+					subDescription="You can only change your name twice within 14 days."
+					formData={formData}
+					setFormData={setFormData}
+					value={formData.Name}
+				/>
+				<EditFormInput
+					label="Username"
+					description="In most cases, you'll be able to change your username back to top.dankest.memes for another
 								14 days."
-							formData={formData}
-							setFormData={setFormData}
-							value={formData.Username}
-						/>
-						<EditFormInput
-							label="Website"
-							formData={formData}
-							setFormData={setFormData}
-							value={formData.Website}
-							type="url"
-						/>
-						<EditFormInput
-							label="Bio"
-							descriptionTitle="Personal Information"
-							description="Provide your personal information, even if the account is used for a business, a pet or something else. This won't be a part of your public profile."
-							textArea
-							formData={formData}
-							setFormData={setFormData}
-							value={formData.Bio}
-						/>
-						<EditFormInput
-							label="Email"
-							type="email"
-							formData={formData}
-							setFormData={setFormData}
-							value={formData.Email}
-						/>
-						<EditFormInput
-							label="Phone Number"
-							type="number"
-							formData={formData}
-							setFormData={setFormData}
-							value={formData["Phone Number"]}
-						/>
-						<EditFormInput
-							label="Gender"
-							formData={formData}
-							setFormData={setFormData}
-							value={formData.Gender}
-						/>
-						<EditFormInput
-							type="checkbox"
-							label="Similar Account Suggestions"
-							description="Include your account when recommending similar accounts people might want to follow."
-							formData={formData}
-							setFormData={setFormData}
-							defaultChecked={formData["Similar Account Suggestions"]}
-						/>
-						<SubmitButtonSection>
-							<ButtonElement active={activeButton} type="submit" disabled={!activeButton}>
-								{loading ? (
-									<LoadingContainer>
-										<svg aria-label="Loading..." viewBox="0 0 100 100">
-											<rect
-												fill="#fafafa"
-												height="10"
-												opacity="0"
-												rx="5"
-												ry="5"
-												transform="rotate(-90 50 50)"
-												width="28"
-												x="67"
-												y="45"></rect>
-											<rect
-												fill="#fafafa"
-												height="10"
-												opacity="0.125"
-												rx="5"
-												ry="5"
-												transform="rotate(-45 50 50)"
-												width="28"
-												x="67"
-												y="45"></rect>
-											<rect
-												fill="#fafafa"
-												height="10"
-												opacity="0.25"
-												rx="5"
-												ry="5"
-												transform="rotate(0 50 50)"
-												width="28"
-												x="67"
-												y="45"></rect>
-											<rect
-												fill="#fafafa"
-												height="10"
-												opacity="0.375"
-												rx="5"
-												ry="5"
-												transform="rotate(45 50 50)"
-												width="28"
-												x="67"
-												y="45"></rect>
-											<rect
-												fill="#fafafa"
-												height="10"
-												opacity="0.5"
-												rx="5"
-												ry="5"
-												transform="rotate(90 50 50)"
-												width="28"
-												x="67"
-												y="45"></rect>
-											<rect
-												fill="#fafafa"
-												height="10"
-												opacity="0.625"
-												rx="5"
-												ry="5"
-												transform="rotate(135 50 50)"
-												width="28"
-												x="67"
-												y="45"></rect>
-											<rect
-												fill="#fafafa"
-												height="10"
-												opacity="0.75"
-												rx="5"
-												ry="5"
-												transform="rotate(180 50 50)"
-												width="28"
-												x="67"
-												y="45"></rect>
-											<rect
-												fill="#fafafa"
-												height="10"
-												opacity="0.875"
-												rx="5"
-												ry="5"
-												transform="rotate(225 50 50)"
-												width="28"
-												x="67"
-												y="45"></rect>
-										</svg>
-									</LoadingContainer>
-								) : (
-									"Submit"
-								)}
-							</ButtonElement>
-							<DisableAccount>Temporarily disable my account</DisableAccount>
-						</SubmitButtonSection>
-					</form>
-				</EditMain>
-			</EditContainer>
-			<UpdatedMessage updated={updated}>
-				<h1>Profile saved.</h1>
-			</UpdatedMessage>
-		</Container>
+					formData={formData}
+					setFormData={setFormData}
+					value={formData.Username}
+				/>
+				<EditFormInput
+					label="Website"
+					formData={formData}
+					setFormData={setFormData}
+					value={formData.Website}
+					type="url"
+				/>
+				<EditFormInput
+					label="Bio"
+					descriptionTitle="Personal Information"
+					description="Provide your personal information, even if the account is used for a business, a pet or something else. This won't be a part of your public profile."
+					textArea
+					formData={formData}
+					setFormData={setFormData}
+					value={formData.Bio}
+				/>
+				<EditFormInput
+					label="Email"
+					type="email"
+					formData={formData}
+					setFormData={setFormData}
+					value={formData.Email}
+				/>
+				<EditFormInput
+					label="Phone Number"
+					type="number"
+					formData={formData}
+					setFormData={setFormData}
+					value={formData["Phone Number"]}
+				/>
+				<EditFormInput
+					label="Gender"
+					formData={formData}
+					setFormData={setFormData}
+					value={formData.Gender}
+				/>
+				<EditFormInput
+					type="checkbox"
+					label="Similar Account Suggestions"
+					description="Include your account when recommending similar accounts people might want to follow."
+					formData={formData}
+					setFormData={setFormData}
+					defaultChecked={formData["Similar Account Suggestions"]}
+				/>
+				<SubmitButtonSection>
+					<SubmitButton active={activeButton} loading={loading} width={"90px"}>
+						Submit
+					</SubmitButton>
+					<DisableAccount>Temporarily disable my account</DisableAccount>
+				</SubmitButtonSection>
+			</form>
+		</SettingsContainer>
 	);
 };
 

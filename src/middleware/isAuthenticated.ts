@@ -6,7 +6,6 @@ export const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
 	if (!userId) {
 		return {
 			error: {
-				field: "authenticated",
 				message: "Unauthorized"
 			}
 		};

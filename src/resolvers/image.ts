@@ -122,7 +122,9 @@ export class ImageResolver {
 				.limit(minLimitPlusOne)
 				.getMany();
 		}
-
+		if (images[0].user.private) {
+			return { images: [], hasMore: false };
+		}
 		return { images: images.slice(0, minLimit), hasMore: images.length === minLimitPlusOne };
 	}
 

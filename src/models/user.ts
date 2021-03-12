@@ -77,3 +77,23 @@ export class responses {
 	@Field(() => [user_response])
 	users!: user_response[];
 }
+
+@ObjectType()
+export class successMessage {
+	@Field({ nullable: true })
+	message?: string;
+}
+
+@ObjectType()
+export class errorMessage {
+	@Field({ nullable: true })
+	message?: string;
+}
+
+@ObjectType()
+export class passwordVerification {
+	@Field({ nullable: true })
+	success?: successMessage;
+	@Field({ nullable: true })
+	error?: errorMessage;
+}

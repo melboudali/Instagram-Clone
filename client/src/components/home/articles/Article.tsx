@@ -89,7 +89,8 @@ const ArticleMore = styled.div`
 `;
 
 const ArticleImage = styled.img`
-	max-width: 100%;
+	max-width: 614px;
+	width: 100%;
 	display: block;
 `;
 

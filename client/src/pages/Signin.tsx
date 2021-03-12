@@ -253,10 +253,10 @@ const Signin = () => {
 									/>
 								</SigninInputsContainer>
 								<Button
-									active={!!userName.length && !!password.length}
+									active={!!userName && !!password}
+									type="submit"
 									loading={loginLoading}
-									onClickFunction={loginFunction}
-									type="submit">
+									onClickFunction={loginFunction}>
 									Log In
 								</Button>
 								<Divider />

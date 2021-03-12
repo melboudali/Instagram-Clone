@@ -5,13 +5,20 @@ import argon2 from "argon2";
 import { cookieName } from "../config/constants";
 import { getConnection } from "typeorm";
 import { isAuth } from "../middleware/isAuthenticated";
-import { register_inputs, response, responses, user_response } from "../models/user";
+import {
+	register_inputs,
+	response,
+	responses,
+	user_response,
+	passwordVerification
+} from "../models/user";
 import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { cloudinaryConfig } from "../models/images";
 import { v2 as cloudinary } from "cloudinary";
 
 @Resolver(User)
 export class UserResolver {
+	// Queries
 	@Query(() => user_response, { nullable: true })
 	async me(@Ctx() { req }: MyContext) {
 		if (!req.session!.user_id) {
@@ -20,6 +27,64 @@ export class UserResolver {
 		return await User.findOne(req.session.user_id);
 	}
 
+	@Query(() => response)
+	async getUser(@Arg("username") username: string): Promise<response> {
+		const user = await User.createQueryBuilder("user")
+			.loadRelationCountAndMap("user.images_length", "user.images", "image")
+			.where("username = :username", { username })
+			.getOne();
+
+		if (!user) {
+			return {
+				error: {
+					message: `User '${username}' not found!`
+				}
+			};
+		}
+
+		const {
+			id,
+			username: userName,
+			fullname,
+			image_link,
+			website,
+			bio,
+			private: isPrivate,
+			images_length,
+			disabled
+		} = user;
+
+		return {
+			user: {
+				id,
+				username: userName,
+				fullname,
+				image_link,
+				website,
+				bio,
+				private: isPrivate,
+				images_length,
+				disabled
+			}
+		};
+	}
+
+	@Query(() => responses)
+	@UseMiddleware(isAuth)
+	async suggestedUsers(@Ctx() { req }: MyContext): Promise<responses> {
+		const id = req.session.user_id;
+		const users = await User.createQueryBuilder()
+			.where("id != :id", { id })
+			.orderBy("id", "DESC")
+			.limit(4)
+			.getMany();
+
+		return {
+			users
+		};
+	}
+
+	// Mutations
 	@Mutation(() => response)
 	async register(
 		@Arg("registerInputs") registerInputs: register_inputs,
@@ -125,6 +190,7 @@ export class UserResolver {
 		};
 	}
 
+	// Edit Mutations
 	@Mutation(() => response)
 	@UseMiddleware(isAuth)
 	async editUser(
@@ -204,61 +270,25 @@ export class UserResolver {
 		};
 	}
 
-	@Query(() => response)
-	async getUser(@Arg("username") username: string): Promise<response> {
-		const user = await User.createQueryBuilder("user")
-			.loadRelationCountAndMap("user.images_length", "user.images", "image")
-			.where("username = :username", { username })
-			.getOne();
-
-		if (!user) {
-			return {
-				error: {
-					message: `User '${username}' not found!`
-				}
-			};
-		}
-
-		const {
-			id,
-			username: userName,
-			fullname,
-			image_link,
-			website,
-			bio,
-			private: isPrivate,
-			images_length,
-			disabled
-		} = user;
-
-		return {
-			user: {
-				id,
-				username: userName,
-				fullname,
-				image_link,
-				website,
-				bio,
-				private: isPrivate,
-				images_length,
-				disabled
-			}
-		};
-	}
-
-	@Query(() => responses)
+	@Mutation(() => passwordVerification)
 	@UseMiddleware(isAuth)
-	async suggestedUsers(@Ctx() { req }: MyContext): Promise<responses> {
+	async changePassword(
+		@Arg("oldPassword") oldPassword: string,
+		@Arg("newPassword") newPassword: string,
+		@Ctx() { req, res }: MyContext
+	) {
 		const id = req.session.user_id;
-		const users = await User.createQueryBuilder()
-			.where("id != :id", { id })
-			.orderBy("id", "DESC")
-			.limit(4)
-			.getMany();
-
-		return {
-			users
-		};
+		const user = await User.findOne({ select: ["id", "password"], where: { id } });
+		const passwordVerification =
+			user?.password && (await argon2.verify(user?.password!, oldPassword));
+		if (passwordVerification && user?.id) {
+			const nPassword = await argon2.hash(newPassword);
+			await User.update({ id }, { password: nPassword });
+			res.clearCookie(cookieName);
+			return { success: "Password Changed!" };
+		} else {
+			return { error: "Wrong Password!" };
+		}
 	}
 
 	@Mutation(() => Boolean)

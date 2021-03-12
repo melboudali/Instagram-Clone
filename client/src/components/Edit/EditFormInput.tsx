@@ -14,7 +14,7 @@ const EditFormInputContainer = styled.section`
 
 const InputSectionLabelContainer = styled.div<{ type: string | undefined }>`
 	@media (min-width: 800px) {
-		${({ type }) => (type !== "checkbox" ? "margin-top: 17px;" : "margin-top: 10px;")}
+		${({ type }) => (type !== "checkbox" ? "margin-top: 20px;" : "margin-top: 10px;")}
 		position: relative;
 		width: 160px;
 		margin-right: 30px;
@@ -53,32 +53,38 @@ const InputSectionInput = styled.input<{ type: string | undefined }>`
     width:100%; 
     margin: 10px 0;
     font-size: 1rem;
-	padding: 5px 7px;
+	padding: 10px 7px;
 	color: #262626;
     &::placeholder {
         color: #a5a5a5;
         font-weight: 300;
 	}`};
-	border: 1px solid #eee;
-	border-radius: 2px;
+	border: 2px solid #eee;
+	border-radius: 5px;
 	outline: none;
 	background: none;
+	&:focus {
+		border: 2px solid #000000;
+	}
 `;
 
 const InputSectionTextArea = styled.textarea`
 	width: 100%;
-	border: 1px solid #eee;
-	border-radius: 2px;
+	border: 2px solid #eee;
+	border-radius: 5px;
 	outline: none;
 	background: none;
 	font-size: 1rem;
-	padding: 5px 7px;
+	padding: 10px 7px;
 	margin: 10px 0;
 	color: #262626;
 	resize: vertical;
 	&::placeholder {
 		color: #a5a5a5;
 		font-weight: 300;
+	}
+	&:focus {
+		border: 2px solid #000000;
 	}
 `;
 
@@ -143,7 +149,7 @@ const EditFormInput = ({
 						autoComplete="off"
 						maxLength={100}
 						rows={5}
-						value={value!}
+						value={value || ""}
 						onChange={e =>
 							setFormData({
 								...formData,
@@ -160,9 +166,7 @@ const EditFormInput = ({
 						autoCorrect="off"
 						maxLength={50}
 						autoComplete="off"
-						{...(type === "checkbox"
-							? { defaultChecked: defaultChecked! }
-							: { value: value || undefined })}
+						{...(type === "checkbox" ? { defaultChecked: defaultChecked! } : { value: value || "" })}
 						onChange={e =>
 							setFormData({
 								...formData,

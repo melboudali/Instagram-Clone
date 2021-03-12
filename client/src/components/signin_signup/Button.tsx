@@ -48,7 +48,7 @@ interface ButtonProps {
 	onClickFunction: Function;
 }
 
-const Button = ({ active, loading, children, type, onClickFunction }: ButtonProps) => {
+const Button = ({ active, loading, children, onClickFunction, type }: ButtonProps) => {
 	return (
 		<ButtonContainer>
 			<ButtonElement
@@ -57,7 +57,8 @@ const Button = ({ active, loading, children, type, onClickFunction }: ButtonProp
 				onClick={e => {
 					e.preventDefault();
 					onClickFunction();
-				}}>
+				}}
+				disabled={!active}>
 				{loading ? (
 					<LoadingContainer>
 						<svg aria-label="Loading..." viewBox="0 0 100 100">

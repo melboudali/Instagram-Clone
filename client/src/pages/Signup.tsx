@@ -259,10 +259,10 @@ const Signup = () => {
 									setInputValue={setPassword}
 								/>
 								<Button
-									active={!!email.length && !!fullName.length && !!userName.length && !!password.length}
+									active={!!email && !!fullName && !!userName && !!password}
+									type="submit"
 									loading={signupLoading}
-									onClickFunction={signupFunction}
-									type="submit">
+									onClickFunction={signupFunction}>
 									Sign up
 								</Button>
 								{signupError && (
