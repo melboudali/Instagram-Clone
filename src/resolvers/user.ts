@@ -281,13 +281,21 @@ export class UserResolver {
 		const user = await User.findOne({ select: ["id", "password"], where: { id } });
 		const passwordVerification =
 			user?.password && (await argon2.verify(user?.password!, oldPassword));
-		if (passwordVerification && user?.id) {
+		if (passwordVerification) {
 			const nPassword = await argon2.hash(newPassword);
 			await User.update({ id }, { password: nPassword });
-			res.clearCookie(cookieName);
-			return { success: "Password Changed!" };
+			return new Promise(resolve => {
+				req.session?.destroy(err => {
+					res.clearCookie(cookieName);
+					if (err) {
+						resolve({ error: { message: "Wrong Password!" } });
+					} else {
+						resolve({ success: { message: "Password Changed!" } });
+					}
+				});
+			});
 		} else {
-			return { error: "Wrong Password!" };
+			return { error: { message: "Wrong Password!" } };
 		}
 	}
 

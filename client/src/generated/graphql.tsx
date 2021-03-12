@@ -106,6 +106,7 @@ export type Mutation = {
   register: Response;
   login: Response;
   editUser: Response;
+  changePassword: PasswordVerification;
   logout: Scalars['Boolean'];
   uploadImage: Image_Upload_Response;
 };
@@ -136,6 +137,12 @@ export type MutationEditUserArgs = {
 };
 
 
+export type MutationChangePasswordArgs = {
+  newPassword: Scalars['String'];
+  oldPassword: Scalars['String'];
+};
+
+
 export type MutationUploadImageArgs = {
   caption: Scalars['String'];
   file: Scalars['Upload'];
@@ -148,6 +155,22 @@ export type Register_Inputs = {
   fullName: Scalars['String'];
 };
 
+
+export type PasswordVerification = {
+  __typename?: 'passwordVerification';
+  success?: Maybe<SuccessMessage>;
+  error?: Maybe<ErrorMessage>;
+};
+
+export type SuccessMessage = {
+  __typename?: 'successMessage';
+  message?: Maybe<Scalars['String']>;
+};
+
+export type ErrorMessage = {
+  __typename?: 'errorMessage';
+  message?: Maybe<Scalars['String']>;
+};
 
 export type Image_Upload_Response = {
   __typename?: 'image_upload_response';
@@ -177,6 +200,26 @@ export type UserErrorFragmentFragment = (
 export type UserFragmentFragment = (
   { __typename?: 'user_response' }
   & Pick<User_Response, 'username' | 'fullname' | 'image_link'>
+);
+
+export type ChangePasswordMutationVariables = Exact<{
+  newPassword: Scalars['String'];
+  oldPassword: Scalars['String'];
+}>;
+
+
+export type ChangePasswordMutation = (
+  { __typename?: 'Mutation' }
+  & { changePassword: (
+    { __typename?: 'passwordVerification' }
+    & { success?: Maybe<(
+      { __typename?: 'successMessage' }
+      & Pick<SuccessMessage, 'message'>
+    )>, error?: Maybe<(
+      { __typename?: 'errorMessage' }
+      & Pick<ErrorMessage, 'message'>
+    )> }
+  ) }
 );
 
 export type EditUserMutationVariables = Exact<{
@@ -388,6 +431,44 @@ export const UserFragmentFragmentDoc = gql`
   image_link
 }
     `;
+export const ChangePasswordDocument = gql`
+    mutation ChangePassword($newPassword: String!, $oldPassword: String!) {
+  changePassword(newPassword: $newPassword, oldPassword: $oldPassword) {
+    success {
+      message
+    }
+    error {
+      message
+    }
+  }
+}
+    `;
+export type ChangePasswordMutationFn = Apollo.MutationFunction<ChangePasswordMutation, ChangePasswordMutationVariables>;
+
+/**
+ * __useChangePasswordMutation__
+ *
+ * To run a mutation, you first call `useChangePasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangePasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changePasswordMutation, { data, loading, error }] = useChangePasswordMutation({
+ *   variables: {
+ *      newPassword: // value for 'newPassword'
+ *      oldPassword: // value for 'oldPassword'
+ *   },
+ * });
+ */
+export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptions<ChangePasswordMutation, ChangePasswordMutationVariables>) {
+        return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument, baseOptions);
+      }
+export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
+export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
+export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
 export const EditUserDocument = gql`
     mutation EditUser($file: Upload, $name: String!, $username: String!, $image_link: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!) {
   editUser(

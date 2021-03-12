@@ -180,7 +180,11 @@ const Edit = ({}: EditProps) => {
 	const activeButton = !!(formData.Name && formData.Username && formData.Email);
 
 	return (
-		<SettingsContainer updated={updated} Scrollbar={Scrollbar} setOpenModal={setOpenModal}>
+		<SettingsContainer
+			updated={updated}
+			Scrollbar={Scrollbar}
+			setOpenModal={setOpenModal}
+			image_url={formData.image_link}>
 			{openModal && (
 				<PhotoModalMain
 					Scrollbar={Scrollbar}

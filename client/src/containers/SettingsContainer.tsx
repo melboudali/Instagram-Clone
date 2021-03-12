@@ -85,17 +85,19 @@ const ChangeProfilePhoto = styled.button`
 `;
 
 interface SettingsContainerProps {
-	updated: boolean;
+	updated?: boolean;
 	children: React.ReactNode;
 	Scrollbar?: Function;
 	setOpenModal?: Function;
+	image_url?: string;
 }
 
 const SettingsContainer = ({
 	updated,
 	children,
 	Scrollbar,
-	setOpenModal
+	setOpenModal,
+	image_url
 }: SettingsContainerProps) => {
 	const { data } = useMeQuery();
 
@@ -105,7 +107,10 @@ const SettingsContainer = ({
 				<EditSidebar />
 				<SettingsContainerMain>
 					<ChangePhotoSection>
-						<CurrentUserPhoto src={data?.me?.image_link} alt={data?.me?.username} />
+						<CurrentUserPhoto
+							src={image_url ? image_url : data?.me?.image_link}
+							alt={data?.me?.username}
+						/>
 						<UserNameAndChangeBtn>
 							<UserNameTitle>{data?.me?.username}</UserNameTitle>
 							{Scrollbar && setOpenModal && (
@@ -123,7 +128,7 @@ const SettingsContainer = ({
 					{children}
 				</SettingsContainerMain>
 			</SettingsContainerSection>
-			<UpdatedMessage updated={updated}>
+			<UpdatedMessage updated={updated!}>
 				<h1>Profile saved.</h1>
 			</UpdatedMessage>
 		</Container>

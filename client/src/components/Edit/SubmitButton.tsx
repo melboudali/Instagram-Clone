@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 
-const ButtonElement = styled.button<{ active: boolean }>`
+const ButtonElement = styled.button<{ active: boolean; width: string }>`
 	opacity: ${({ active }) => (active ? "1" : "0.3")};
 	border: none;
 	background-color: var(--buttonLightBlue);
@@ -13,6 +13,7 @@ const ButtonElement = styled.button<{ active: boolean }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	width: ${({ width }) => width};
 	cursor: ${({ active }) => (active ? "pointer" : "not-allowed")};
 `;
 
@@ -41,7 +42,7 @@ interface SubmitButtonProps {
 }
 
 const SubmitButton = ({ active, loading, width, children }: SubmitButtonProps) => (
-	<ButtonElement active={active} type="submit" disabled={!active}>
+	<ButtonElement active={active} type="submit" disabled={!active} width={width}>
 		{loading ? (
 			<LoadingContainer>
 				<svg aria-label="Loading..." viewBox="0 0 100 100">
