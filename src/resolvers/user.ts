@@ -37,7 +37,7 @@ export class UserResolver {
 		if (!user || user.disabled) {
 			return {
 				error: {
-					message: `User '${username}' not found!`
+					message: `Sorry, this page isn't available.`
 				}
 			};
 		}

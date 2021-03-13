@@ -14,7 +14,7 @@ const EditFormInputContainer = styled.section`
 
 const InputSectionLabelContainer = styled.div<{ type: string | undefined }>`
 	@media (min-width: 800px) {
-		${({ type }) => (type !== "checkbox" ? "margin-top: 20px;" : "margin-top: 10px;")}
+		${({ type }) => (type !== "checkbox" ? "margin-top: 20px;" : "margin-top: 17px;")}
 		position: relative;
 		width: 160px;
 		margin-right: 30px;
@@ -48,7 +48,8 @@ const InputSectionInput = styled.input<{ type: string | undefined }>`
 	${({ type }) =>
 		type && type === "checkbox"
 			? `width:fit-content;
-            margin-right: 10px;`
+            margin-right: 10px;
+			`
 			: `
     width:100%; 
     margin: 10px 0;
