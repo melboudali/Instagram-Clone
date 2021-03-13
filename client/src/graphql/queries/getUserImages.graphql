@@ -1,5 +1,5 @@
-query GetUserImages($userId: Int!, $limit: Int!, $cursor: String) {
-	getUserImages(userId: $userId, limit: $limit, cursor: $cursor) {
+query GetUserImages($userId: Int!, $isPrivate: Boolean!, $limit: Int!, $cursor: String) {
+	getUserImages(userId: $userId, isPrivate: $isPrivate, limit: $limit, cursor: $cursor) {
 		hasMore
 		images {
 			...imageFragment

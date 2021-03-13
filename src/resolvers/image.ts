@@ -102,9 +102,13 @@ export class ImageResolver {
 	@Query(() => PaginatedImages)
 	async getUserImages(
 		@Arg("userId", () => Int) userId: number,
+		@Arg("isPrivate", () => Boolean) isPrivate: boolean,
 		@Arg("limit", () => Int) limit: number,
 		@Arg("cursor", () => String, { nullable: true }) cursor: string | null
 	): Promise<PaginatedImages> {
+		if (isPrivate) {
+			return { images: [], hasMore: false };
+		}
 		const minLimit = Math.min(50, limit);
 		const minLimitPlusOne = minLimit + 1;
 		let images: image_data[] = [];
@@ -122,10 +126,7 @@ export class ImageResolver {
 				.limit(minLimitPlusOne)
 				.getMany();
 		}
-		// if (images[0].user.private) {
-		// 	// return { images: [], hasMore: false };
-		// }
-		console.log(images[0]);
+
 		return { images: images.slice(0, minLimit), hasMore: images.length === minLimitPlusOne };
 	}
 

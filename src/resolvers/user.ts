@@ -242,7 +242,7 @@ export class UserResolver {
 						if (error) {
 							return { error: { message: error.message } };
 						}
-						user = { ...user, image_link: result?.secure_url as string };
+						user.image_link = result?.secure_url as string;
 						try {
 							await User.update({ id }, user);
 						} catch (error) {

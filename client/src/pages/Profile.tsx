@@ -46,7 +46,10 @@ const Profile = ({ match }: ProfileProps) => {
 					) : (
 						<>
 							<ProfileMenu user={data.getUser.user} page="profile" />
-							<ProfilePosts userId={data.getUser.user.id} isPrivate={data.getUser.user.private} />
+							<ProfilePosts
+								userId={data.getUser.user.id}
+								isPrivate={data.getUser.user.private as boolean}
+							/>
 						</>
 					)}
 					{!loggedinUserData.me && <UnauthFooter />}

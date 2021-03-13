@@ -39,6 +39,7 @@ export type QueryGetAllImagesArgs = {
 export type QueryGetUserImagesArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
+  isPrivate: Scalars['Boolean'];
   userId: Scalars['Int'];
 };
 
@@ -375,6 +376,7 @@ export type GetSuggestedUsersQuery = (
 
 export type GetUserImagesQueryVariables = Exact<{
   userId: Scalars['Int'];
+  isPrivate: Scalars['Boolean'];
   limit: Scalars['Int'];
   cursor?: Maybe<Scalars['String']>;
 }>;
@@ -812,8 +814,13 @@ export type GetSuggestedUsersQueryHookResult = ReturnType<typeof useGetSuggested
 export type GetSuggestedUsersLazyQueryHookResult = ReturnType<typeof useGetSuggestedUsersLazyQuery>;
 export type GetSuggestedUsersQueryResult = Apollo.QueryResult<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>;
 export const GetUserImagesDocument = gql`
-    query GetUserImages($userId: Int!, $limit: Int!, $cursor: String) {
-  getUserImages(userId: $userId, limit: $limit, cursor: $cursor) {
+    query GetUserImages($userId: Int!, $isPrivate: Boolean!, $limit: Int!, $cursor: String) {
+  getUserImages(
+    userId: $userId
+    isPrivate: $isPrivate
+    limit: $limit
+    cursor: $cursor
+  ) {
     hasMore
     images {
       ...imageFragment
@@ -835,6 +842,7 @@ export const GetUserImagesDocument = gql`
  * const { data, loading, error } = useGetUserImagesQuery({
  *   variables: {
  *      userId: // value for 'userId'
+ *      isPrivate: // value for 'isPrivate'
  *      limit: // value for 'limit'
  *      cursor: // value for 'cursor'
  *   },

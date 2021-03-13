@@ -66,17 +66,18 @@ const PostCommentsContainer = styled.div`
 
 interface ProfilePostsProps {
 	userId: number;
-	isPrivate: boolean | null | undefined;
+	isPrivate: boolean;
 }
 
 const ProfilePosts = ({ userId, isPrivate }: ProfilePostsProps) => {
 	const { data, loading, error, fetchMore, variables } = useGetUserImagesQuery({
-		variables: { userId, limit: 6, cursor: null }
+		variables: { userId, isPrivate, limit: 6, cursor: null }
 	});
 
 	const { isBottom, setIsBottom } = useScrollBottom();
 
 	useEffect(() => {
+		console.log(isPrivate);
 		if (isBottom && data?.getUserImages.hasMore) {
 			fetchMore({
 				variables: {
@@ -94,7 +95,8 @@ const ProfilePosts = ({ userId, isPrivate }: ProfilePostsProps) => {
 		isBottom,
 		setIsBottom,
 		variables?.limit,
-		variables?.userId
+		variables?.userId,
+		isPrivate
 	]);
 
 	if (loading)
