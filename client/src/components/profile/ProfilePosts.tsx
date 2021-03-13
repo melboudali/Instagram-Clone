@@ -68,21 +68,24 @@ interface ProfilePostsProps {
 	userId: number;
 	isPrivate: boolean;
 	isDisabled: boolean;
+	currentUserId: number;
 }
 
-const ProfilePosts = ({ userId, isPrivate, isDisabled }: ProfilePostsProps) => {
+const ProfilePosts = ({ userId, isPrivate, isDisabled, currentUserId }: ProfilePostsProps) => {
 	const { data, loading, error, fetchMore, variables } = useGetUserImagesQuery({
-		variables: { userId, isPrivate, isDisabled, limit: 6, cursor: null }
+		variables: { userId, isPrivate, isDisabled, currentUserId, limit: 6, cursor: null }
 	});
 
 	const { isBottom, setIsBottom } = useScrollBottom();
 
 	useEffect(() => {
-		console.log(isPrivate);
 		if (isBottom && data?.getUserImages.hasMore) {
 			fetchMore({
 				variables: {
 					userId: variables?.userId,
+					isPrivate: variables?.isPrivate,
+					isDisabled: variables?.isDisabled,
+					currentUserId: variables?.currentUserId,
 					limit: variables?.limit,
 					cursor: data?.getUserImages.images[data?.getUserImages.images.length - 1].created_at
 				}
@@ -97,7 +100,9 @@ const ProfilePosts = ({ userId, isPrivate, isDisabled }: ProfilePostsProps) => {
 		setIsBottom,
 		variables?.limit,
 		variables?.userId,
-		isPrivate
+		variables?.isPrivate,
+		variables?.isDisabled,
+		variables?.currentUserId
 	]);
 
 	if (loading)

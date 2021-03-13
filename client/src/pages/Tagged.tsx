@@ -40,7 +40,7 @@ const Tagged = ({ match }: TaggedProps) => {
 							username={username}
 						/>
 
-						{data.getUser.user.private ? (
+						{data.getUser.user.private && loggedinUserData.me?.id !== data.getUser.user.id ? (
 							<ProfileEmptyPostsOrPrivate type="private" />
 						) : (
 							<>

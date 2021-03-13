@@ -39,6 +39,7 @@ export type QueryGetAllImagesArgs = {
 export type QueryGetUserImagesArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
+  currentUserId: Scalars['Int'];
   isDisabled: Scalars['Boolean'];
   isPrivate: Scalars['Boolean'];
   userId: Scalars['Int'];
@@ -381,6 +382,7 @@ export type GetUserImagesQueryVariables = Exact<{
   userId: Scalars['Int'];
   isPrivate: Scalars['Boolean'];
   isDisabled: Scalars['Boolean'];
+  currentUserId: Scalars['Int'];
   limit: Scalars['Int'];
   cursor?: Maybe<Scalars['String']>;
 }>;
@@ -820,11 +822,12 @@ export type GetSuggestedUsersQueryHookResult = ReturnType<typeof useGetSuggested
 export type GetSuggestedUsersLazyQueryHookResult = ReturnType<typeof useGetSuggestedUsersLazyQuery>;
 export type GetSuggestedUsersQueryResult = Apollo.QueryResult<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>;
 export const GetUserImagesDocument = gql`
-    query GetUserImages($userId: Int!, $isPrivate: Boolean!, $isDisabled: Boolean!, $limit: Int!, $cursor: String) {
+    query GetUserImages($userId: Int!, $isPrivate: Boolean!, $isDisabled: Boolean!, $currentUserId: Int!, $limit: Int!, $cursor: String) {
   getUserImages(
     userId: $userId
     isPrivate: $isPrivate
     isDisabled: $isDisabled
+    currentUserId: $currentUserId
     limit: $limit
     cursor: $cursor
   ) {
@@ -851,6 +854,7 @@ export const GetUserImagesDocument = gql`
  *      userId: // value for 'userId'
  *      isPrivate: // value for 'isPrivate'
  *      isDisabled: // value for 'isDisabled'
+ *      currentUserId: // value for 'currentUserId'
  *      limit: // value for 'limit'
  *      cursor: // value for 'cursor'
  *   },

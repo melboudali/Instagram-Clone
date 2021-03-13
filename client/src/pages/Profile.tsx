@@ -48,6 +48,7 @@ const Profile = ({ match }: ProfileProps) => {
 							<ProfileMenu user={data.getUser.user} page="profile" />
 							<ProfilePosts
 								userId={data.getUser.user.id}
+								currentUserId={loggedinUserData.me?.id as number}
 								isPrivate={data.getUser.user.private as boolean}
 								isDisabled={data.getUser.user.disabled as boolean}
 							/>
