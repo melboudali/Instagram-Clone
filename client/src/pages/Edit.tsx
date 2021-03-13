@@ -58,7 +58,8 @@ const Edit = ({}: EditProps) => {
 		Email: data?.me?.email,
 		Gender: data?.me?.gender,
 		"Phone Number": data?.me?.phone_number,
-		"Similar Account Suggestions": data?.me?.recomended!
+		"Similar Account Suggestions": data?.me?.recomended!,
+		Disabled: data?.me?.disabled!
 	});
 	const [loading, setLoading] = useState(false);
 	const [updated, setUpdated] = useState(false);
@@ -88,7 +89,8 @@ const Edit = ({}: EditProps) => {
 					bio: formData.Bio,
 					phoneNumber: Number(formData["Phone Number"]),
 					gender: formData.Gender,
-					similarAccountSuggestions: formData["Similar Account Suggestions"]
+					similarAccountSuggestions: formData["Similar Account Suggestions"],
+					disabled: formData.Disabled
 				},
 				update: (cache, { data }) => {
 					cache.writeQuery<MeQuery>({
@@ -151,7 +153,8 @@ const Edit = ({}: EditProps) => {
 										image_link: data?.editUser.user?.image_link || existedUser.getUser.user?.image_link!,
 										images_length: existedUser.getUser.user?.images_length,
 										private: existedUser.getUser.user?.private!,
-										recomended: formData["Similar Account Suggestions"]
+										recomended: formData["Similar Account Suggestions"],
+										disabled: formData.Disabled
 									},
 									error: {
 										__typename: existedUser.getUser.error?.__typename,
@@ -172,7 +175,7 @@ const Edit = ({}: EditProps) => {
 				setTimeout(() => setUpdated(false), 3000);
 			}
 		} catch (error) {
-			console.log("503 Service Unavailable");
+			console.error("503 Service Unavailable");
 		}
 		setLoading(false);
 	};
@@ -262,7 +265,11 @@ const Edit = ({}: EditProps) => {
 					<SubmitButton active={activeButton} loading={loading} width={"90px"}>
 						Submit
 					</SubmitButton>
-					<DisableAccount>Temporarily disable my account</DisableAccount>
+					<DisableAccount
+						type="button"
+						onClick={() => setFormData({ ...formData, Disabled: !formData.Disabled })}>{`${
+						formData.Disabled ? "Enable" : "Temporarily disable"
+					} my account`}</DisableAccount>
 				</SubmitButtonSection>
 			</form>
 		</SettingsContainer>

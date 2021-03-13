@@ -34,7 +34,7 @@ export class UserResolver {
 			.where("username = :username", { username })
 			.getOne();
 
-		if (!user) {
+		if (!user || user.disabled) {
 			return {
 				error: {
 					message: `User '${username}' not found!`
@@ -207,6 +207,7 @@ export class UserResolver {
 		phoneNumber: number | null,
 		@Arg("gender", () => String, { nullable: true }) gender: string | null,
 		@Arg("similarAccountSuggestions") similarAccountSuggestions: boolean,
+		@Arg("disabled") disabled: boolean,
 		@Ctx() { req }: MyContext
 	): Promise<response> {
 		if (name.length <= 3 || username.length <= 3 || email.length <= 3) {
@@ -231,7 +232,8 @@ export class UserResolver {
 			bio: bio!,
 			gender: gender!,
 			phone_number: phoneNumber!,
-			recomended: similarAccountSuggestions
+			recomended: similarAccountSuggestions,
+			disabled
 		};
 
 		if (File) {

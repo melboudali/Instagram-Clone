@@ -103,10 +103,11 @@ export class ImageResolver {
 	async getUserImages(
 		@Arg("userId", () => Int) userId: number,
 		@Arg("isPrivate", () => Boolean) isPrivate: boolean,
+		@Arg("isDisabled", () => Boolean) isDisabled: boolean,
 		@Arg("limit", () => Int) limit: number,
 		@Arg("cursor", () => String, { nullable: true }) cursor: string | null
 	): Promise<PaginatedImages> {
-		if (isPrivate) {
+		if (isPrivate || isDisabled) {
 			return { images: [], hasMore: false };
 		}
 		const minLimit = Math.min(50, limit);

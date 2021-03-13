@@ -1,5 +1,17 @@
-query GetUserImages($userId: Int!, $isPrivate: Boolean!, $limit: Int!, $cursor: String) {
-	getUserImages(userId: $userId, isPrivate: $isPrivate, limit: $limit, cursor: $cursor) {
+query GetUserImages(
+	$userId: Int!
+	$isPrivate: Boolean!
+	$isDisabled: Boolean!
+	$limit: Int!
+	$cursor: String
+) {
+	getUserImages(
+		userId: $userId
+		isPrivate: $isPrivate
+		isDisabled: $isDisabled
+		limit: $limit
+		cursor: $cursor
+	) {
 		hasMore
 		images {
 			...imageFragment

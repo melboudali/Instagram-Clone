@@ -39,6 +39,7 @@ export type QueryGetAllImagesArgs = {
 export type QueryGetUserImagesArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
+  isDisabled: Scalars['Boolean'];
   isPrivate: Scalars['Boolean'];
   userId: Scalars['Int'];
 };
@@ -125,6 +126,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationEditUserArgs = {
+  disabled: Scalars['Boolean'];
   similarAccountSuggestions: Scalars['Boolean'];
   gender?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['Int']>;
@@ -200,7 +202,7 @@ export type UserErrorFragmentFragment = (
 
 export type UserFragmentFragment = (
   { __typename?: 'user_response' }
-  & Pick<User_Response, 'username' | 'fullname' | 'image_link'>
+  & Pick<User_Response, 'id' | 'username' | 'fullname' | 'image_link'>
 );
 
 export type ChangePasswordMutationVariables = Exact<{
@@ -234,6 +236,7 @@ export type EditUserMutationVariables = Exact<{
   phoneNumber?: Maybe<Scalars['Int']>;
   gender?: Maybe<Scalars['String']>;
   similarAccountSuggestions: Scalars['Boolean'];
+  disabled: Scalars['Boolean'];
 }>;
 
 
@@ -243,7 +246,7 @@ export type EditUserMutation = (
     { __typename?: 'response' }
     & { user?: Maybe<(
       { __typename?: 'user_response' }
-      & Pick<User_Response, 'id' | 'website' | 'bio' | 'email' | 'phone_number' | 'gender' | 'recomended'>
+      & Pick<User_Response, 'website' | 'bio' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
@@ -263,7 +266,7 @@ export type GetUserQuery = (
     { __typename?: 'response' }
     & { user?: Maybe<(
       { __typename?: 'user_response' }
-      & Pick<User_Response, 'id' | 'images_length' | 'website' | 'bio' | 'private'>
+      & Pick<User_Response, 'images_length' | 'website' | 'bio' | 'private' | 'disabled'>
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
@@ -368,7 +371,7 @@ export type GetSuggestedUsersQuery = (
     { __typename?: 'responses' }
     & { users: Array<(
       { __typename?: 'user_response' }
-      & Pick<User_Response, 'id' | 'website' | 'bio' | 'private'>
+      & Pick<User_Response, 'website' | 'bio' | 'private'>
       & UserFragmentFragment
     )> }
   ) }
@@ -377,6 +380,7 @@ export type GetSuggestedUsersQuery = (
 export type GetUserImagesQueryVariables = Exact<{
   userId: Scalars['Int'];
   isPrivate: Scalars['Boolean'];
+  isDisabled: Scalars['Boolean'];
   limit: Scalars['Int'];
   cursor?: Maybe<Scalars['String']>;
 }>;
@@ -401,7 +405,7 @@ export type MeQuery = (
   { __typename?: 'Query' }
   & { me?: Maybe<(
     { __typename?: 'user_response' }
-    & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended'>
+    & Pick<User_Response, 'website' | 'bio' | 'private' | 'email' | 'phone_number' | 'gender' | 'recomended' | 'disabled'>
     & UserFragmentFragment
   )> }
 );
@@ -428,6 +432,7 @@ export const UserErrorFragmentFragmentDoc = gql`
     `;
 export const UserFragmentFragmentDoc = gql`
     fragment userFragment on user_response {
+  id
   username
   fullname
   image_link
@@ -472,7 +477,7 @@ export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswo
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
 export const EditUserDocument = gql`
-    mutation EditUser($file: Upload, $name: String!, $username: String!, $image_link: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!) {
+    mutation EditUser($file: Upload, $name: String!, $username: String!, $image_link: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!, $disabled: Boolean!) {
   editUser(
     file: $file
     name: $name
@@ -484,9 +489,9 @@ export const EditUserDocument = gql`
     phoneNumber: $phoneNumber
     gender: $gender
     similarAccountSuggestions: $similarAccountSuggestions
+    disabled: $disabled
   ) {
     user {
-      id
       ...userFragment
       website
       bio
@@ -494,6 +499,7 @@ export const EditUserDocument = gql`
       phone_number
       gender
       recomended
+      disabled
     }
     error {
       ...userErrorFragment
@@ -527,6 +533,7 @@ export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditU
  *      phoneNumber: // value for 'phoneNumber'
  *      gender: // value for 'gender'
  *      similarAccountSuggestions: // value for 'similarAccountSuggestions'
+ *      disabled: // value for 'disabled'
  *   },
  * });
  */
@@ -540,12 +547,12 @@ export const GetUserDocument = gql`
     query GetUser($username: String!) {
   getUser(username: $username) {
     user {
-      id
       ...userFragment
       images_length
       website
       bio
       private
+      disabled
     }
     error {
       ...userErrorFragment
@@ -779,7 +786,6 @@ export const GetSuggestedUsersDocument = gql`
     query GetSuggestedUsers {
   suggestedUsers {
     users {
-      id
       ...userFragment
       website
       bio
@@ -814,10 +820,11 @@ export type GetSuggestedUsersQueryHookResult = ReturnType<typeof useGetSuggested
 export type GetSuggestedUsersLazyQueryHookResult = ReturnType<typeof useGetSuggestedUsersLazyQuery>;
 export type GetSuggestedUsersQueryResult = Apollo.QueryResult<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>;
 export const GetUserImagesDocument = gql`
-    query GetUserImages($userId: Int!, $isPrivate: Boolean!, $limit: Int!, $cursor: String) {
+    query GetUserImages($userId: Int!, $isPrivate: Boolean!, $isDisabled: Boolean!, $limit: Int!, $cursor: String) {
   getUserImages(
     userId: $userId
     isPrivate: $isPrivate
+    isDisabled: $isDisabled
     limit: $limit
     cursor: $cursor
   ) {
@@ -843,6 +850,7 @@ export const GetUserImagesDocument = gql`
  *   variables: {
  *      userId: // value for 'userId'
  *      isPrivate: // value for 'isPrivate'
+ *      isDisabled: // value for 'isDisabled'
  *      limit: // value for 'limit'
  *      cursor: // value for 'cursor'
  *   },
@@ -868,6 +876,7 @@ export const MeDocument = gql`
     phone_number
     gender
     recomended
+    disabled
   }
 }
     ${UserFragmentFragmentDoc}`;

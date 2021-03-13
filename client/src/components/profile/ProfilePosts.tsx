@@ -67,11 +67,12 @@ const PostCommentsContainer = styled.div`
 interface ProfilePostsProps {
 	userId: number;
 	isPrivate: boolean;
+	isDisabled: boolean;
 }
 
-const ProfilePosts = ({ userId, isPrivate }: ProfilePostsProps) => {
+const ProfilePosts = ({ userId, isPrivate, isDisabled }: ProfilePostsProps) => {
 	const { data, loading, error, fetchMore, variables } = useGetUserImagesQuery({
-		variables: { userId, isPrivate, limit: 6, cursor: null }
+		variables: { userId, isPrivate, isDisabled, limit: 6, cursor: null }
 	});
 
 	const { isBottom, setIsBottom } = useScrollBottom();

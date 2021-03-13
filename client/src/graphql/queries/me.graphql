@@ -8,5 +8,6 @@ query Me {
 		phone_number
 		gender
 		recomended
+		disabled
 	}
 }

@@ -41,7 +41,7 @@ const Profile = ({ match }: ProfileProps) => {
 						loggedinUserData={loggedinUserData}
 						username={username}
 					/>
-					{data.getUser.user.private ? (
+					{data.getUser.user.private && loggedinUserData.me?.id !== data.getUser.user.id ? (
 						<ProfileEmptyPostsOrPrivate type="private" />
 					) : (
 						<>
@@ -49,6 +49,7 @@ const Profile = ({ match }: ProfileProps) => {
 							<ProfilePosts
 								userId={data.getUser.user.id}
 								isPrivate={data.getUser.user.private as boolean}
+								isDisabled={data.getUser.user.disabled as boolean}
 							/>
 						</>
 					)}

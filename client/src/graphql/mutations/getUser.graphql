@@ -1,12 +1,12 @@
 query GetUser($username: String!) {
 	getUser(username: $username) {
 		user {
-			id
 			...userFragment
 			images_length
 			website
 			bio
 			private
+			disabled
 		}
 		error {
 			...userErrorFragment
