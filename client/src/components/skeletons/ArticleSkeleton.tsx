@@ -51,42 +51,40 @@ const ArticleDescription = styled.div`
 	}
 `;
 
-const Article = () => {
-	return (
-		<ArticleContainer>
-			<ArticleHeader>
-				<Skeleton height="40px" width="40px" radius="50%" />
-				<ArticleNameContainer>
-					<Skeleton height="12px" width="100px" radius="2px" />
-				</ArticleNameContainer>
-			</ArticleHeader>
-			<Skeleton height="250px" width="612px" />
-			<ArticleDetails>
-				<ArticleIconsContainer>
-					<span>
-						<Skeleton height="30px" width="30px" />
-					</span>
-					<span>
-						<Skeleton height="30px" width="30px" />
-					</span>
-					<span>
-						<Skeleton height="30px" width="30px" />
-					</span>
-					<span>
-						<Skeleton height="30px" width="30px" />
-					</span>
-				</ArticleIconsContainer>
-				<div>
-					<ArticleDescription>
-						<Skeleton height="12px" width="100%" />
-						<Skeleton height="12px" width="100%" />
-						<Skeleton height="12px" width="100%" />
-						<Skeleton height="12px" width="100%" />
-					</ArticleDescription>
-				</div>
-			</ArticleDetails>
-		</ArticleContainer>
-	);
-};
+const Article = () => (
+	<ArticleContainer>
+		<ArticleHeader>
+			<Skeleton height="40px" width="40px" radius="50%" />
+			<ArticleNameContainer>
+				<Skeleton height="12px" width="100px" radius="2px" />
+			</ArticleNameContainer>
+		</ArticleHeader>
+		<Skeleton height="250px" width="612px" />
+		<ArticleDetails>
+			<ArticleIconsContainer>
+				<span>
+					<Skeleton height="30px" width="30px" />
+				</span>
+				<span>
+					<Skeleton height="30px" width="30px" />
+				</span>
+				<span>
+					<Skeleton height="30px" width="30px" />
+				</span>
+				<span>
+					<Skeleton height="30px" width="30px" />
+				</span>
+			</ArticleIconsContainer>
+			<div>
+				<ArticleDescription>
+					<Skeleton height="12px" width="100%" />
+					<Skeleton height="12px" width="100%" />
+					<Skeleton height="12px" width="100%" />
+					<Skeleton height="12px" width="100%" />
+				</ArticleDescription>
+			</div>
+		</ArticleDetails>
+	</ArticleContainer>
+);
 
 export default Article;

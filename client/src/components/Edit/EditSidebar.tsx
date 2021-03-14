@@ -34,17 +34,15 @@ const ElementLink = styled(NavLink).attrs<{ activeClassName: string }>({ activeC
 
 interface EditSidebarProps {}
 
-const EditSidebar = ({}: EditSidebarProps) => {
-	return (
-		<EditSidebarContainer>
-			<nav>
-				<ElementLink to="/accounts/edit">Edit Profile</ElementLink>
-				<ElementLink to="/accounts/password/change/">Change Password</ElementLink>
-				<ElementLink to="/accounts/privacy_and_security/">Privacy and Security</ElementLink>
-			</nav>
-		</EditSidebarContainer>
-	);
-};
+const EditSidebar = ({}: EditSidebarProps) => (
+	<EditSidebarContainer>
+		<nav>
+			<ElementLink to="/accounts/edit">Edit Profile</ElementLink>
+			<ElementLink to="/accounts/password/change/">Change Password</ElementLink>
+			<ElementLink to="/accounts/privacy_and_security/">Privacy and Security</ElementLink>
+		</nav>
+	</EditSidebarContainer>
+);
 
 EditSidebar.propTypes = {};
 

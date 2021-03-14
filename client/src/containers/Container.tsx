@@ -16,14 +16,12 @@ interface ContainerProps {
 	children: React.ReactNode;
 }
 
-const Container = ({ children }: ContainerProps) => {
-	return (
-		<Fragment>
-			<Navbar />
-			<Main>{children}</Main>
-		</Fragment>
-	);
-};
+const Container = ({ children }: ContainerProps) => (
+	<Fragment>
+		<Navbar />
+		<Main>{children}</Main>
+	</Fragment>
+);
 
 Container.propTypes = {
 	children: PropTypes.node.isRequired

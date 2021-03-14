@@ -57,22 +57,20 @@ interface NavbarMenuLinkProps {
 	children: React.ReactNode;
 }
 
-const NavbarMenuLink = ({ linkName, to, children }: NavbarMenuLinkProps) => {
-	return (
-		<MenuListLink to={to}>
-			<MenuListContainer>
-				<div>
-					<MenuIconContainer>{children}</MenuIconContainer>
-					<MenuListNameContainer>
-						<MenuListName>
-							<div>{linkName}</div>
-						</MenuListName>
-					</MenuListNameContainer>
-				</div>
-			</MenuListContainer>
-		</MenuListLink>
-	);
-};
+const NavbarMenuLink = ({ linkName, to, children }: NavbarMenuLinkProps) => (
+	<MenuListLink to={to}>
+		<MenuListContainer>
+			<div>
+				<MenuIconContainer>{children}</MenuIconContainer>
+				<MenuListNameContainer>
+					<MenuListName>
+						<div>{linkName}</div>
+					</MenuListName>
+				</MenuListNameContainer>
+			</div>
+		</MenuListContainer>
+	</MenuListLink>
+);
 
 NavbarMenuLink.propTypes = {
 	linkName: PropTypes.string.isRequired,

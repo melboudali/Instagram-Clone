@@ -13,14 +13,12 @@ const ConnectionErrorMessage = styled.h1`
 	color: #747474;
 `;
 
-const ConnectionError = () => {
-	return (
-		<Container>
-			<ConnectionErrorMain>
-				<ConnectionErrorMessage>503 Service Unavailable</ConnectionErrorMessage>
-			</ConnectionErrorMain>
-		</Container>
-	);
-};
+const ConnectionError = () => (
+	<Container>
+		<ConnectionErrorMain>
+			<ConnectionErrorMessage>503 Service Unavailable</ConnectionErrorMessage>
+		</ConnectionErrorMain>
+	</Container>
+);
 
 export default ConnectionError;

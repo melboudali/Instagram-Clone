@@ -134,60 +134,58 @@ const EditFormInput = ({
 	setFormData,
 	value,
 	defaultChecked
-}: EditFormInputProps) => {
-	return (
-		<EditFormInputContainer>
-			<InputSectionLabelContainer type={type}>
-				<InputSectionLabel htmlFor={label}>{label}</InputSectionLabel>
-			</InputSectionLabelContainer>
-			<InputSectionMain type={type}>
-				{textArea ? (
-					<InputSectionTextArea
-						placeholder={label}
-						id={label}
-						autoCapitalize="off"
-						autoCorrect="off"
-						autoComplete="off"
-						maxLength={100}
-						rows={5}
-						value={value || ""}
-						onChange={e =>
-							setFormData({
-								...formData,
-								[label]: e.target.value
-							})
-						}
-					/>
-				) : (
-					<InputSectionInput
-						type={type ? type : "text"}
-						placeholder={label}
-						id={label}
-						autoCapitalize="off"
-						autoCorrect="off"
-						maxLength={50}
-						autoComplete="off"
-						onChange={e =>
-							setFormData({
-								...formData,
-								[label]: type === "checkbox" ? !defaultChecked : e.target.value
-							})
-						}
-						{...(type === "checkbox" ? { defaultChecked: defaultChecked! } : { value: value || "" })}
-					/>
-				)}
+}: EditFormInputProps) => (
+	<EditFormInputContainer>
+		<InputSectionLabelContainer type={type}>
+			<InputSectionLabel htmlFor={label}>{label}</InputSectionLabel>
+		</InputSectionLabelContainer>
+		<InputSectionMain type={type}>
+			{textArea ? (
+				<InputSectionTextArea
+					placeholder={label}
+					id={label}
+					autoCapitalize="off"
+					autoCorrect="off"
+					autoComplete="off"
+					maxLength={100}
+					rows={5}
+					value={value || ""}
+					onChange={e =>
+						setFormData({
+							...formData,
+							[label]: e.target.value
+						})
+					}
+				/>
+			) : (
+				<InputSectionInput
+					type={type ? type : "text"}
+					placeholder={label}
+					id={label}
+					autoCapitalize="off"
+					autoCorrect="off"
+					maxLength={50}
+					autoComplete="off"
+					onChange={e =>
+						setFormData({
+							...formData,
+							[label]: type === "checkbox" ? !defaultChecked : e.target.value
+						})
+					}
+					{...(type === "checkbox" ? { defaultChecked: defaultChecked! } : { value: value || "" })}
+				/>
+			)}
 
-				{descriptionTitle && (
-					<InputSectionDescriptionTitle>{descriptionTitle}</InputSectionDescriptionTitle>
-				)}
-				<InputSectionDescription type={type}>
-					{description && description}
-					{subDescription && <span>{subDescription}</span>}
-				</InputSectionDescription>
-			</InputSectionMain>
-		</EditFormInputContainer>
-	);
-};
+			{descriptionTitle && (
+				<InputSectionDescriptionTitle>{descriptionTitle}</InputSectionDescriptionTitle>
+			)}
+			<InputSectionDescription type={type}>
+				{description && description}
+				{subDescription && <span>{subDescription}</span>}
+			</InputSectionDescription>
+		</InputSectionMain>
+	</EditFormInputContainer>
+);
 
 EditFormInput.propTypes = {
 	label: PropTypes.string.isRequired,

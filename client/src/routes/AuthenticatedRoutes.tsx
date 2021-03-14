@@ -10,19 +10,17 @@ const Profile = lazy(() => import("../pages/Profile"));
 const Tagged = lazy(() => import("../pages/Tagged"));
 const ErrorPage = lazy(() => import("../pages/ErrorPage"));
 
-const AuthenticatedApp = () => {
-	return (
-		<Switch>
-			<Route exact path="/" component={Home} />
-			<Route exact path="/accounts/edit" component={Edit} />
-			<Route exact path="/accounts/password/change" component={ChangePassword} />
-			<Route exact path="/accounts/privacy_and_security" component={PrivacyAndSecurity} />
+const AuthenticatedApp = () => (
+	<Switch>
+		<Route exact path="/" component={Home} />
+		<Route exact path="/accounts/edit" component={Edit} />
+		<Route exact path="/accounts/password/change" component={ChangePassword} />
+		<Route exact path="/accounts/privacy_and_security" component={PrivacyAndSecurity} />
 
-			<Route exact path="/:username" component={Profile} />
-			<Route exact path="/:username/tagged" component={Tagged} />
-			<Route exact path="*" component={ErrorPage} />
-		</Switch>
-	);
-};
+		<Route exact path="/:username" component={Profile} />
+		<Route exact path="/:username/tagged" component={Tagged} />
+		<Route exact path="*" component={ErrorPage} />
+	</Switch>
+);
 
 export default AuthenticatedApp;

@@ -24,9 +24,9 @@ interface ArticleProps {
 	radius?: string;
 }
 
-const Skeleton = ({ height, width, radius }: ArticleProps) => {
-	return <SkeletonElement height={height} width={width} radius={radius} />;
-};
+const Skeleton = ({ height, width, radius }: ArticleProps) => (
+	<SkeletonElement height={height} width={width} radius={radius} />
+);
 
 Skeleton.propTypes = {
 	height: PropTypes.string.isRequired,

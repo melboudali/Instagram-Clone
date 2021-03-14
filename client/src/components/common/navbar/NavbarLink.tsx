@@ -15,13 +15,11 @@ interface NavbarLinkProps {
 	children: React.ReactNode & React.SVGProps<SVGSVGElement>;
 }
 
-const NavbarLink = ({ path, children }: NavbarLinkProps) => {
-	return (
-		<LinkContainer>
-			<Link to={path}>{children}</Link>
-		</LinkContainer>
-	);
-};
+const NavbarLink = ({ path, children }: NavbarLinkProps) => (
+	<LinkContainer>
+		<Link to={path}>{children}</Link>
+	</LinkContainer>
+);
 
 NavbarLink.propTypes = {
 	path: PropTypes.string.isRequired,

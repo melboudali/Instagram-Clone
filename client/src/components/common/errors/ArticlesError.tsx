@@ -26,15 +26,13 @@ const NoPostsMessage = styled.h1`
 	color: #262626;
 `;
 
-const ArticlesError = () => {
-	return (
-		<>
-			<NoPostsLogoContainer>
-				<NoPostsLogo />
-			</NoPostsLogoContainer>
-			<NoPostsMessage>No Posts Yet</NoPostsMessage>
-		</>
-	);
-};
+const ArticlesError = () => (
+	<>
+		<NoPostsLogoContainer>
+			<NoPostsLogo />
+		</NoPostsLogoContainer>
+		<NoPostsMessage>No Posts Yet</NoPostsMessage>
+	</>
+);
 
 export default ArticlesError;
