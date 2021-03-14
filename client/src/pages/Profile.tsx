@@ -19,17 +19,17 @@ interface ProfileProps {
 }
 
 const Profile = ({ match }: ProfileProps) => {
-	const { data: loggedinUserData, error: loggedInError } = useMeQuery();
+	const { data: loggedInUserData, error: loggedInError } = useMeQuery();
 	const username = match.params.username.toLowerCase();
 	const { data, loading, error } = useGetUserQuery({
-		variables: { username }
+		variables: { username, currentUserId: loggedInUserData?.me?.id as number }
 	});
 
 	if (loading) {
 		return <LoadingFullScreen />;
 	}
 
-	if (!data || !data.getUser.user || !loggedinUserData || loggedInError || error)
+	if (!data || !data.getUser.user || !loggedInUserData || loggedInError || error)
 		return <ErrorPage />;
 
 	return (
@@ -38,23 +38,23 @@ const Profile = ({ match }: ProfileProps) => {
 				<ProfileContainer>
 					<ProfileHeader
 						user={data.getUser.user}
-						loggedinUserData={loggedinUserData}
+						loggedInUserData={loggedInUserData}
 						username={username}
 					/>
-					{data.getUser.user.private && loggedinUserData.me?.id !== data.getUser.user.id ? (
+					{data.getUser.user.private && loggedInUserData.me?.id !== data.getUser.user.id ? (
 						<ProfileEmptyPostsOrPrivate type="private" />
 					) : (
 						<>
 							<ProfileMenu user={data.getUser.user} page="profile" />
 							<ProfilePosts
 								userId={data.getUser.user.id}
-								currentUserId={loggedinUserData.me?.id as number}
+								currentUserId={loggedInUserData.me?.id as number}
 								isPrivate={data.getUser.user.private as boolean}
 								isDisabled={data.getUser.user.disabled as boolean}
 							/>
 						</>
 					)}
-					{!loggedinUserData.me && <UnauthFooter />}
+					{!loggedInUserData.me && <UnauthFooter />}
 				</ProfileContainer>
 			</Container>
 		</>

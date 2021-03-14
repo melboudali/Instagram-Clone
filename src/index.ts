@@ -4,7 +4,7 @@ import express, { Request, Response, NextFunction } from "express";
 import { Connection, createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
-import { cookieName, isProd } from "./config/constants";
+import { COOKIE_NAME, IS_PROD } from "./config/constants";
 import { UserResolver } from "./resolvers/user";
 import { ImageResolver } from "./resolvers/image";
 import { createUserLoader } from "./utils/createUserLoader";
@@ -28,14 +28,14 @@ const main = async () => {
 	const connection: Connection = await createConnection({
 		type: "postgres",
 		url: process.env.DATABASE_URL,
-		synchronize: !isProd,
-		logging: !isProd,
-		ssl: isProd ? { rejectUnauthorized: false } : false,
+		synchronize: !IS_PROD,
+		logging: !IS_PROD,
+		ssl: IS_PROD ? { rejectUnauthorized: false } : false,
 		entities: [User, Image, Like, Comment, Follower],
 		migrations: [path.join(__dirname, "migrations/*.js")]
 	});
 
-	isProd && (await connection.runMigrations());
+	IS_PROD && (await connection.runMigrations());
 
 	const RedisStore = connectRedis(session);
 	const redis = new Redis(process.env.REDIS_URL);
@@ -44,7 +44,7 @@ const main = async () => {
 	app.use(cors({ origin: process.env.CORS_DOMAIN!, credentials: true }));
 	app.use(
 		session({
-			name: cookieName,
+			name: COOKIE_NAME,
 			store: new RedisStore({ client: redis, disableTouch: true }),
 			cookie: {
 				maxAge: 1000 * 60 * 60 * 24 * 10,
@@ -80,7 +80,7 @@ const main = async () => {
 		res.status(500).json({ message: err.message });
 	});
 
-	if (isProd) {
+	if (IS_PROD) {
 		app.use(express.static(path.join(__dirname, "../client/build")));
 		app.get("*", (_, res) => {
 			res.sendFile(path.join(__dirname, "../client/build/index.html"));
@@ -94,4 +94,4 @@ const main = async () => {
 	);
 };
 
-main().catch(err => console.log(err));
+main().catch(err => console.error(err));

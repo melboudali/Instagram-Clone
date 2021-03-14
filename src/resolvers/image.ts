@@ -17,7 +17,7 @@ import { MyContext } from "../types";
 import { getConnection } from "typeorm";
 import { v2 as cloudinary } from "cloudinary";
 import {
-	cloudinaryConfig,
+	CLOUDINARY_CONFIG,
 	image_author,
 	image_data,
 	image_upload_response,
@@ -39,9 +39,7 @@ export class ImageResolver {
 				return;
 			}
 
-			const userId = req.session.user_id;
-
-			cloudinary.config(cloudinaryConfig);
+			cloudinary.config(CLOUDINARY_CONFIG);
 
 			createReadStream().pipe(
 				cloudinary.uploader.upload_stream(
@@ -50,11 +48,10 @@ export class ImageResolver {
 						if (error) {
 							reject({ error: { message: error.message } });
 						}
-						const image_url = result?.secure_url;
 						const post = await Image.create({
-							userId,
+							userId: req.session.user_id,
 							caption,
-							image_url
+							image_url: result?.secure_url
 						}).save();
 						resolve({ image: post });
 					}

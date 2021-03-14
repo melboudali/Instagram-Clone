@@ -1,5 +1,5 @@
-query GetUser($username: String!) {
-	getUser(username: $username) {
+query GetUser($username: String!, $currentUserId: Int!) {
+	getUser(username: $username, currentUserId: $currentUserId) {
 		user {
 			...userFragment
 			images_length

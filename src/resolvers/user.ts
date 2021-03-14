@@ -2,7 +2,7 @@ import { Arg, Ctx, Int, Mutation, Query, Resolver, UseMiddleware } from "type-gr
 import { User } from "../entities/user";
 import { MyContext } from "../types";
 import argon2 from "argon2";
-import { cookieName } from "../config/constants";
+import { COOKIE_NAME } from "../config/constants";
 import { getConnection } from "typeorm";
 import { isAuth } from "../middleware/isAuthenticated";
 import {
@@ -13,7 +13,7 @@ import {
 	passwordVerification
 } from "../models/user";
 import { FileUpload, GraphQLUpload } from "graphql-upload";
-import { cloudinaryConfig } from "../models/images";
+import { CLOUDINARY_CONFIG } from "../models/images";
 import { v2 as cloudinary } from "cloudinary";
 
 @Resolver(User)
@@ -28,13 +28,16 @@ export class UserResolver {
 	}
 
 	@Query(() => response)
-	async getUser(@Arg("username") username: string): Promise<response> {
+	async getUser(
+		@Arg("username") username: string,
+		@Arg("currentUserId", () => Int) currentUserId: number
+	): Promise<response> {
 		const user = await User.createQueryBuilder("user")
 			.loadRelationCountAndMap("user.images_length", "user.images", "image")
 			.where("username = :username", { username })
 			.getOne();
 
-		if (!user || user.disabled) {
+		if (!user || (user.disabled && currentUserId != user.id)) {
 			return {
 				error: {
 					message: `Sorry, this page isn't available.`
@@ -72,9 +75,8 @@ export class UserResolver {
 	@Query(() => responses)
 	@UseMiddleware(isAuth)
 	async suggestedUsers(@Ctx() { req }: MyContext): Promise<responses> {
-		const id = req.session.user_id;
 		const users = await User.createQueryBuilder()
-			.where("id != :id", { id })
+			.where("id != :id", { id: req.session.user_id })
 			.orderBy("id", "DESC")
 			.limit(4)
 			.getMany();
@@ -219,7 +221,7 @@ export class UserResolver {
 			return { error: { message: "Invalid email." } };
 		}
 		const id = req.session.user_id;
-		cloudinary.config(cloudinaryConfig);
+		cloudinary.config(CLOUDINARY_CONFIG);
 		const newUsername = username.toLowerCase().split(" ").join(".");
 
 		let user = {
@@ -288,7 +290,7 @@ export class UserResolver {
 			await User.update({ id }, { password: nPassword });
 			return new Promise(resolve => {
 				req.session?.destroy(err => {
-					res.clearCookie(cookieName);
+					res.clearCookie(COOKIE_NAME);
 					if (err) {
 						resolve({ error: { message: "Wrong Password!" } });
 					} else {
@@ -305,7 +307,7 @@ export class UserResolver {
 	logout(@Ctx() { req, res }: MyContext) {
 		return new Promise(resolve =>
 			req.session?.destroy(err => {
-				res.clearCookie(cookieName);
+				res.clearCookie(COOKIE_NAME);
 				if (err) {
 					resolve(false);
 					return;

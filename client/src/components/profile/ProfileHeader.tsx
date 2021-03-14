@@ -135,11 +135,11 @@ interface ProfileHeaderProps {
 		User_Response,
 		"image_link" | "username" | "private" | "fullname" | "bio" | "website" | "images_length"
 	>;
-	loggedinUserData: MeQuery;
+	loggedInUserData: MeQuery;
 	username: string;
 }
 
-const ProfileHeader = ({ user, loggedinUserData, username }: ProfileHeaderProps) => {
+const ProfileHeader = ({ user, loggedInUserData, username }: ProfileHeaderProps) => {
 	return (
 		<ProfileData>
 			<ProfileHeaderImage>
@@ -148,7 +148,7 @@ const ProfileHeader = ({ user, loggedinUserData, username }: ProfileHeaderProps)
 			<ProfileInformations>
 				<UsernameContainer>
 					<ProfileHeaderUsername>{user.username}</ProfileHeaderUsername>
-					{loggedinUserData.me && loggedinUserData.me.username === username ? (
+					{loggedInUserData.me && loggedInUserData.me.username === username ? (
 						<>
 							<ProfileHeaderEditButton to="/accounts/edit">Edit Profile</ProfileHeaderEditButton>
 						</>
@@ -183,7 +183,7 @@ const ProfileHeader = ({ user, loggedinUserData, username }: ProfileHeaderProps)
 
 ProfileHeader.propTypes = {
 	user: PropTypes.object.isRequired,
-	loggedinUserData: PropTypes.object.isRequired
+	loggedInUserData: PropTypes.object.isRequired
 };
 
 export default ProfileHeader;

@@ -26,6 +26,7 @@ export type Query = {
 
 
 export type QueryGetUserArgs = {
+  currentUserId: Scalars['Int'];
   username: Scalars['String'];
 };
 
@@ -258,6 +259,7 @@ export type EditUserMutation = (
 
 export type GetUserQueryVariables = Exact<{
   username: Scalars['String'];
+  currentUserId: Scalars['Int'];
 }>;
 
 
@@ -546,8 +548,8 @@ export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
 export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
 export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
 export const GetUserDocument = gql`
-    query GetUser($username: String!) {
-  getUser(username: $username) {
+    query GetUser($username: String!, $currentUserId: Int!) {
+  getUser(username: $username, currentUserId: $currentUserId) {
     user {
       ...userFragment
       images_length
@@ -577,6 +579,7 @@ ${UserErrorFragmentFragmentDoc}`;
  * const { data, loading, error } = useGetUserQuery({
  *   variables: {
  *      username: // value for 'username'
+ *      currentUserId: // value for 'currentUserId'
  *   },
  * });
  */
