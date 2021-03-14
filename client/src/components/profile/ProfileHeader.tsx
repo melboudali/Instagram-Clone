@@ -136,19 +136,23 @@ interface ProfileHeaderProps {
 		"image_link" | "username" | "private" | "fullname" | "bio" | "website" | "images_length"
 	>;
 	loggedInUserData: MeQuery;
-	username: string;
+	usernameParam: string;
 }
 
-const ProfileHeader = ({ user, loggedInUserData, username }: ProfileHeaderProps) => {
+const ProfileHeader = ({
+	user: { username, image_link, images_length, fullname, bio, website },
+	loggedInUserData: { me: Data },
+	usernameParam
+}: ProfileHeaderProps) => {
 	return (
 		<ProfileData>
 			<ProfileHeaderImage>
-				<img src={user.image_link} alt="profile" />
+				<img src={image_link} alt="profile" />
 			</ProfileHeaderImage>
 			<ProfileInformations>
 				<UsernameContainer>
-					<ProfileHeaderUsername>{user.username}</ProfileHeaderUsername>
-					{loggedInUserData.me && loggedInUserData.me.username === username ? (
+					<ProfileHeaderUsername>{username}</ProfileHeaderUsername>
+					{Data && Data.username === usernameParam ? (
 						<>
 							<ProfileHeaderEditButton to="/accounts/edit">Edit Profile</ProfileHeaderEditButton>
 						</>
@@ -158,7 +162,7 @@ const ProfileHeader = ({ user, loggedInUserData, username }: ProfileHeaderProps)
 				</UsernameContainer>
 				<PostsFollowersFollowingContainer>
 					<PostsFollowersFollowingCount>
-						<span>{user.images_length}</span>posts
+						<span>{images_length}</span>posts
 					</PostsFollowersFollowingCount>
 					<PostsFollowersFollowingCount>
 						<span>0</span>followers
@@ -167,13 +171,13 @@ const ProfileHeader = ({ user, loggedInUserData, username }: ProfileHeaderProps)
 						<span>0</span>following
 					</PostsFollowersFollowingCount>
 				</PostsFollowersFollowingContainer>
-				<ProfileHeaderFullname>{user.fullname}</ProfileHeaderFullname>
-				{user.bio && <ProfileHeaderBio>{user.bio}</ProfileHeaderBio>}
-				{user.website && (
+				<ProfileHeaderFullname>{fullname}</ProfileHeaderFullname>
+				{bio && <ProfileHeaderBio>{bio}</ProfileHeaderBio>}
+				{website && (
 					<ProfileHeaderWebsite
 						target="_blank"
-						href={user.website.includes("http") ? user.website : `https://${user.website}`}>
-						{user.website}
+						href={website.includes("http") ? website : `https://${website}`}>
+						{website}
 					</ProfileHeaderWebsite>
 				)}
 			</ProfileInformations>

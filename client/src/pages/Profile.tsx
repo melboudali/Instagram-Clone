@@ -39,7 +39,7 @@ const Profile = ({ match }: ProfileProps) => {
 					<ProfileHeader
 						user={data.getUser.user}
 						loggedInUserData={loggedInUserData}
-						username={username}
+						usernameParam={username}
 					/>
 					{data.getUser.user.private && loggedInUserData.me?.id !== data.getUser.user.id ? (
 						<ProfileEmptyPostsOrPrivate type="private" />
