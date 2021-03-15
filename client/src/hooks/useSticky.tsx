@@ -7,10 +7,10 @@ const useSticky = (top: number) => {
 
 	useEffect(() => {
 		const onScrollFunc = throttle(() => {
-			window.scrollY >= top ? setSticky(true) : setSticky(false);
+			globalThis.scrollY >= top ? setSticky(true) : setSticky(false);
 		}, 100);
-		window.addEventListener("scroll", onScrollFunc);
-		return () => window.removeEventListener("scroll", onScrollFunc);
+		globalThis.addEventListener("scroll", onScrollFunc);
+		return () => globalThis.removeEventListener("scroll", onScrollFunc);
 	}, [top]);
 	return sticky;
 };

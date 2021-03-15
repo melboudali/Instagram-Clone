@@ -12,13 +12,13 @@ const useScrollBottom = () => {
 				document.documentElement.scrollHeight,
 				document.documentElement.offsetHeight
 			);
-			if (window.innerHeight + window.pageYOffset >= docHeight) {
+			if (globalThis.innerHeight + globalThis.pageYOffset >= docHeight) {
 				setIsBottom(true);
 			}
 		}, 2000);
 
-		window.addEventListener("scroll", onScrollFunc);
-		return () => window.removeEventListener("scroll", onScrollFunc);
+		globalThis.addEventListener("scroll", onScrollFunc);
+		return () => globalThis.removeEventListener("scroll", onScrollFunc);
 	}, []);
 	return { isBottom, setIsBottom };
 };

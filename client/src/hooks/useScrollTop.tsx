@@ -5,7 +5,7 @@ const UseScrollTop = () => {
 	const history = useHistory();
 	useEffect(() =>
 		history.listen(() => {
-			window.scrollTo(0, 0);
+			globalThis.scrollTo(0, 0);
 		})
 	);
 	return null;
