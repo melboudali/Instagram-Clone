@@ -76,7 +76,7 @@ const Edit = ({}: EditProps) => {
 						query: GetAllImagesDocument,
 						variables: { limit: 3, cursor: null }
 					});
-					if (existedImages) {
+					if (existedImages?.getAllImages.images) {
 						const newImages = existedImages.getAllImages.images.map(image => {
 							if (image.user.username === formData.Username) {
 								return {
@@ -93,10 +93,9 @@ const Edit = ({}: EditProps) => {
 						cache.writeQuery<GetAllImagesQuery>({
 							query: GetAllImagesDocument,
 							data: {
-								__typename: existedImages.__typename,
+								...existedImages,
 								getAllImages: {
-									__typename: existedImages.getAllImages.__typename,
-									hasMore: existedImages.getAllImages.hasMore,
+									...existedImages.getAllImages,
 									images: newImages
 								}
 							}
@@ -107,34 +106,26 @@ const Edit = ({}: EditProps) => {
 						query: GetUserDocument,
 						variables: { username: formData.Username }
 					});
-					if (existedUser) {
+					if (existedUser?.getUser.user) {
 						cache.writeQuery<GetUserQuery>({
 							query: GetUserDocument,
 							data: {
-								__typename: existedUser.__typename,
+								...existedUser,
 								getUser: {
-									__typename: existedUser.getUser.__typename,
+									...existedUser.getUser,
 									user: {
-										__typename: existedUser.getUser.user?.__typename,
-										id: existedUser.getUser.user?.id!,
+										...existedUser.getUser.user,
 										username: formData.Username!,
 										fullname: formData.Name!,
 										website: formData.Website,
 										bio: formData.Bio,
 										image_link: data?.editUser.user?.image_link || existedUser.getUser.user?.image_link!,
-										images_length: existedUser.getUser.user?.images_length,
-										private: existedUser.getUser.user?.private!,
 										recomended: formData["Similar Account Suggestions"]
-									},
-									error: {
-										__typename: existedUser.getUser.error?.__typename,
-										message: existedUser.getUser.error?.message!
 									}
 								}
 							}
 						});
 					}
-					return;
 				}
 			});
 			if (res.data?.editUser.error) {

@@ -52,10 +52,10 @@ interface ProfileMenuProps {
 	page: pageType;
 }
 
-const ProfileMenu = ({ user, page }: ProfileMenuProps) => {
+const ProfileMenu = ({ user: { username }, page }: ProfileMenuProps) => {
 	return (
 		<PostAndTaggedMenu>
-			<PostsMenu to={`/${user.username}`} page={page}>
+			<PostsMenu to={`/${username}`} page={page}>
 				<svg
 					fill={page === "profile" ? "#262626" : "#8e8e8e"}
 					height="12"
@@ -68,7 +68,7 @@ const ProfileMenu = ({ user, page }: ProfileMenuProps) => {
 				</svg>
 				<span>Posts</span>
 			</PostsMenu>
-			<PostsMenu to={`/${user.username}/tagged`} page={page}>
+			<PostsMenu to={`/${username}/tagged`} page={page}>
 				<svg
 					fill={page === "tagged" ? "#262626" : "#8e8e8e"}
 					height="12"

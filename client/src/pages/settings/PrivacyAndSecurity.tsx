@@ -3,27 +3,94 @@ import { useRef, useState } from "react";
 import EditFormInput from "../../components/Edit/EditFormInput";
 import SubmitButton from "../../components/Edit/SubmitButton";
 import SettingsContainer from "../../containers/SettingsContainer";
-import { useMeQuery } from "../../generated/graphql";
+import {
+	useMeQuery,
+	useEditPrivacyMutation,
+	MeQuery,
+	MeDocument,
+	GetUserQuery,
+	GetUserDocument
+} from "../../generated/graphql";
 
 interface PrivacyAndSecurityProps {}
 
 const PrivacyAndSecurity = ({}: PrivacyAndSecurityProps) => {
-	const { data } = useMeQuery();
+	const { data: meData } = useMeQuery();
+	const [editPrivacy] = useEditPrivacyMutation();
+	const [updated, setUpdated] = useState(false);
 
 	const [formData, setFormData] = useState({
-		"Private Account": data?.me?.private as boolean,
-		"Disable Account": data?.me?.disabled as boolean
+		"Private Account": meData?.me?.private as boolean,
+		"Disable Account": meData?.me?.disabled as boolean
 	});
+
 	const [loading, setLoading] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 
-	const onSubmit = (e: React.FormEvent) => {
+	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
+		try {
+			const res = await editPrivacy({
+				variables: {
+					privateAccount: formData["Private Account"],
+					disableAccount: formData["Disable Account"]
+				},
+				update: (cache, { data }) => {
+					const existedMe = cache.readQuery<MeQuery>({
+						query: MeDocument
+					});
+					if (existedMe?.me) {
+						cache.writeQuery<MeQuery>({
+							query: MeDocument,
+							data: {
+								...existedMe,
+								me: {
+									...existedMe.me,
+									private: formData["Private Account"],
+									disabled: formData["Disable Account"]
+								}
+							}
+						});
+					}
+
+					const existedUser = cache.readQuery<GetUserQuery>({
+						query: GetUserDocument,
+						variables: { username: meData?.me?.username }
+					});
+					if (existedUser?.getUser.user) {
+						cache.writeQuery<GetUserQuery>({
+							query: GetUserDocument,
+							data: {
+								...existedUser,
+								getUser: {
+									...existedUser.getUser,
+									user: {
+										...existedUser.getUser.user,
+										private: formData["Private Account"],
+										disabled: formData["Disable Account"]
+									}
+								}
+							}
+						});
+					}
+				}
+			});
+			if (res.data?.editPrivacy.error?.message) {
+				throw new Error(res.data.editPrivacy.error.message);
+			}
+			if (res.data?.editPrivacy.success) {
+				setUpdated(true);
+				setTimeout(() => setUpdated(false), 3000);
+			}
+		} catch (error) {
+			setErrorMessage(error.message);
+		}
+		setLoading(false);
 	};
 
 	return (
-		<SettingsContainer>
+		<SettingsContainer updated={updated}>
 			<form onSubmit={onSubmit}>
 				<EditFormInput
 					type="checkbox"
@@ -41,10 +108,10 @@ const PrivacyAndSecurity = ({}: PrivacyAndSecurityProps) => {
 					setFormData={setFormData}
 					defaultChecked={formData["Disable Account"]}
 				/>
+				<SubmitButton loading={loading} width={"90px"}>
+					Submit
+				</SubmitButton>
 			</form>
-			<SubmitButton loading={loading} width={"90px"}>
-				Submit
-			</SubmitButton>
 		</SettingsContainer>
 	);
 };

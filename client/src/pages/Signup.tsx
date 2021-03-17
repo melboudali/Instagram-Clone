@@ -204,7 +204,6 @@ const Signup = () => {
 			setSignupLoading(false);
 			setSignupError("503 Service Unavailable");
 		}
-		return;
 	};
 
 	return (

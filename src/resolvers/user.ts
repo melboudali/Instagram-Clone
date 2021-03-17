@@ -308,6 +308,22 @@ export class UserResolver {
 		}
 	}
 
+	@Mutation(() => passwordVerification)
+	@UseMiddleware(isAuth)
+	async editPrivacy(
+		@Arg("privateAccount") privateAccount: boolean,
+		@Arg("disableAccount") disableAccount: boolean,
+		@Ctx() { req }: MyContext
+	) {
+		const id = req.session.user_id;
+		try {
+			await User.update({ id }, { private: privateAccount, disabled: disableAccount });
+			return { success: { message: "Privacy and security settings updated." } };
+		} catch (error) {
+			return { error: { message: "couldn't update privacy and security settings" } };
+		}
+	}
+
 	@Mutation(() => Boolean)
 	logout(@Ctx() { req, res }: MyContext) {
 		return new Promise(resolve =>
@@ -315,7 +331,6 @@ export class UserResolver {
 				res.clearCookie(COOKIE_NAME);
 				if (err) {
 					resolve(false);
-					return;
 				} else {
 					resolve(true);
 				}

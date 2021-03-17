@@ -71,7 +71,6 @@ const LogoutLink = ({ children }: LogoutLinkProps) => {
 				});
 			}
 		});
-		return;
 	};
 
 	return (

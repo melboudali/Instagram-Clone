@@ -1,0 +1,10 @@
+mutation EditPrivacy($disableAccount: Boolean!, $privateAccount: Boolean!) {
+	editPrivacy(disableAccount: $disableAccount, privateAccount: $privateAccount) {
+		success {
+			message
+		}
+		error {
+			message
+		}
+	}
+}

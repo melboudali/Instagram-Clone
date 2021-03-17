@@ -164,7 +164,7 @@ interface SuggestionsProps {
 	meData: Partial<User_Response>;
 }
 
-const Suggestions = ({ meData }: SuggestionsProps) => {
+const Suggestions = ({ meData: { username, image_link, fullname } }: SuggestionsProps) => {
 	const sticky = useSticky(337);
 
 	const onClick = (buttonName: string) => {
@@ -191,13 +191,13 @@ const Suggestions = ({ meData }: SuggestionsProps) => {
 			<CurrentUserContainer>
 				<CurrentUserSubContainer>
 					<CurrentUserProfileImage>
-						<CurrentUserProfileImageLink to={`/${meData.username}`}>
-							<img src={meData.image_link} alt={`${meData.image_link}'s profile`} />
+						<CurrentUserProfileImageLink to={`/${username}`}>
+							<img src={image_link} alt={`${image_link}'s profile`} />
 						</CurrentUserProfileImageLink>
 					</CurrentUserProfileImage>
 					<CurrentUser>
-						<CurrentUserUsername to={`/${meData.username}`}>{meData.username}</CurrentUserUsername>
-						<span>{meData.fullname}</span>
+						<CurrentUserUsername to={`/${username}`}>{username}</CurrentUserUsername>
+						<span>{fullname}</span>
 					</CurrentUser>
 					<SwitchUserContainer>
 						<SwitchUserContainer>

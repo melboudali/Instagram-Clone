@@ -89,7 +89,7 @@ const main = async () => {
 
 	app.listen(PORT, () =>
 		console.log(
-			`⚡️[server] => Server is running: \n - Home: http://localhost:${PORT} \n - Graphql: http://localhost:${PORT}/graphql`
+			`⚡️[server] => Server is running: \n - Home: http://localhost:3000 \n - Graphql: http://localhost:${PORT}/graphql`
 		)
 	);
 };

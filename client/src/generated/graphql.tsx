@@ -111,6 +111,7 @@ export type Mutation = {
   login: Response;
   editUser: Response;
   changePassword: PasswordVerification;
+  editPrivacy: PasswordVerification;
   logout: Scalars['Boolean'];
   uploadImage: Image_Upload_Response;
 };
@@ -144,6 +145,12 @@ export type MutationEditUserArgs = {
 export type MutationChangePasswordArgs = {
   newPassword: Scalars['String'];
   oldPassword: Scalars['String'];
+};
+
+
+export type MutationEditPrivacyArgs = {
+  disableAccount: Scalars['Boolean'];
+  privateAccount: Scalars['Boolean'];
 };
 
 
@@ -215,6 +222,26 @@ export type ChangePasswordMutationVariables = Exact<{
 export type ChangePasswordMutation = (
   { __typename?: 'Mutation' }
   & { changePassword: (
+    { __typename?: 'passwordVerification' }
+    & { success?: Maybe<(
+      { __typename?: 'successMessage' }
+      & Pick<SuccessMessage, 'message'>
+    )>, error?: Maybe<(
+      { __typename?: 'errorMessage' }
+      & Pick<ErrorMessage, 'message'>
+    )> }
+  ) }
+);
+
+export type EditPrivacyMutationVariables = Exact<{
+  disableAccount: Scalars['Boolean'];
+  privateAccount: Scalars['Boolean'];
+}>;
+
+
+export type EditPrivacyMutation = (
+  { __typename?: 'Mutation' }
+  & { editPrivacy: (
     { __typename?: 'passwordVerification' }
     & { success?: Maybe<(
       { __typename?: 'successMessage' }
@@ -478,6 +505,44 @@ export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptio
 export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
+export const EditPrivacyDocument = gql`
+    mutation EditPrivacy($disableAccount: Boolean!, $privateAccount: Boolean!) {
+  editPrivacy(disableAccount: $disableAccount, privateAccount: $privateAccount) {
+    success {
+      message
+    }
+    error {
+      message
+    }
+  }
+}
+    `;
+export type EditPrivacyMutationFn = Apollo.MutationFunction<EditPrivacyMutation, EditPrivacyMutationVariables>;
+
+/**
+ * __useEditPrivacyMutation__
+ *
+ * To run a mutation, you first call `useEditPrivacyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditPrivacyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editPrivacyMutation, { data, loading, error }] = useEditPrivacyMutation({
+ *   variables: {
+ *      disableAccount: // value for 'disableAccount'
+ *      privateAccount: // value for 'privateAccount'
+ *   },
+ * });
+ */
+export function useEditPrivacyMutation(baseOptions?: Apollo.MutationHookOptions<EditPrivacyMutation, EditPrivacyMutationVariables>) {
+        return Apollo.useMutation<EditPrivacyMutation, EditPrivacyMutationVariables>(EditPrivacyDocument, baseOptions);
+      }
+export type EditPrivacyMutationHookResult = ReturnType<typeof useEditPrivacyMutation>;
+export type EditPrivacyMutationResult = Apollo.MutationResult<EditPrivacyMutation>;
+export type EditPrivacyMutationOptions = Apollo.BaseMutationOptions<EditPrivacyMutation, EditPrivacyMutationVariables>;
 export const EditUserDocument = gql`
     mutation EditUser($file: Upload, $name: String!, $username: String!, $image_link: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!) {
   editUser(

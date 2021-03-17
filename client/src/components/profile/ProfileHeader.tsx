@@ -97,9 +97,9 @@ const PostsFollowersFollowingContainer = styled.div`
 
 const PostsFollowersFollowingCount = styled.div`
 	& + & {
-		margin-top: 10px;
+		margin: 10px 0 0;
 		@media (min-width: 800px) {
-			margin-left: 40px;
+			margin: 0 0 0 40px;
 		}
 	}
 	span {

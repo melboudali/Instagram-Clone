@@ -197,7 +197,6 @@ const Modal = ({
 				setUploadLoading(false);
 			}
 		}
-		return;
 	};
 
 	if (error) setConnectionError(true);
