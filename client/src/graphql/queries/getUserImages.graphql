@@ -2,7 +2,7 @@ query GetUserImages(
 	$userId: Int!
 	$isPrivate: Boolean!
 	$isDisabled: Boolean!
-	$currentUserId: Int!
+	$currentUserId: Int
 	$limit: Int!
 	$cursor: String
 ) {

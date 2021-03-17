@@ -68,7 +68,7 @@ interface ProfilePostsProps {
 	userId: number;
 	isPrivate: boolean;
 	isDisabled: boolean;
-	currentUserId: number;
+	currentUserId?: number;
 }
 
 const ProfilePosts = ({ userId, isPrivate, isDisabled, currentUserId }: ProfilePostsProps) => {

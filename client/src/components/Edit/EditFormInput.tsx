@@ -5,7 +5,7 @@ const EditFormInputContainer = styled.section`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 	@media (min-width: 800px) {
 		flex-direction: row;
 		justify-content: left;
@@ -14,14 +14,13 @@ const EditFormInputContainer = styled.section`
 
 const InputSectionLabelContainer = styled.div<{ type: string | undefined }>`
 	@media (min-width: 800px) {
-		${({ type }) => (type !== "checkbox" ? "margin-top: 20px;" : "margin-top: 17px;")}
 		position: relative;
 		width: 160px;
 		margin-right: 30px;
 	}
 `;
 
-const InputSectionLabel = styled.label`
+const InputSectionLabel = styled.label<{ type: string | undefined }>`
 	font-size: 1rem;
 	font-weight: 600;
 	color: #262626;
@@ -30,6 +29,11 @@ const InputSectionLabel = styled.label`
 		position: absolute;
 		top: 0;
 		right: 0;
+		${({ type }) =>
+			type !== "checkbox" &&
+			`
+			margin-top: 12px;
+        `};
 	}
 `;
 
@@ -38,9 +42,11 @@ const InputSectionMain = styled.div<{ type: string | undefined }>`
 	${({ type }) =>
 		type === "checkbox" &&
 		`display: flex;
-        align-items: center;
         justify-content: left;
-        margin-top: 10px;
+		margin-top: 10px;
+		@media (min-width: 800px) {
+			margin-top: 0;
+		}
         `};
 `;
 
@@ -48,18 +54,21 @@ const InputSectionInput = styled.input<{ type: string | undefined }>`
 	${({ type }) =>
 		type && type === "checkbox"
 			? `width:fit-content;
-            margin-right: 10px;
+            margin: 4px 10px 0 0;
 			`
 			: `
-    width:100%; 
-    margin: 10px 0;
-    font-size: 1rem;
-	padding: 10px 7px;
-	color: #262626;
-    &::placeholder {
-        color: #a5a5a5;
-        font-weight: 300;
-	}`};
+			width:100%; 
+			margin: 6px 0 5px;
+			font-size: 1rem;
+			padding: 10px 7px;
+			color: #262626;
+			&::placeholder {
+				color: #a5a5a5;
+				font-weight: 300;
+			}
+			@media (min-width: 800px) {
+				margin: 0 0 4px;
+			}`};
 	border: 2px solid #eee;
 	border-radius: 5px;
 	outline: none;
@@ -77,7 +86,7 @@ const InputSectionTextArea = styled.textarea`
 	background: none;
 	font-size: 1rem;
 	padding: 10px 7px;
-	margin: 10px 0;
+	margin: 6px 0 5px;
 	color: #262626;
 	resize: vertical;
 	&::placeholder {
@@ -86,6 +95,9 @@ const InputSectionTextArea = styled.textarea`
 	}
 	&:focus {
 		border: 2px solid #000000;
+	}
+	@media (min-width: 800px) {
+		margin: 0 0 5px;
 	}
 `;
 
@@ -105,7 +117,6 @@ const InputSectionDescription = styled.p<{ type: string | undefined }>`
 			: `font-size: 0.7rem;
         color: #8e8e8e;
         span {
-            margin-top: 5px;
             display: block;
         }`};
 `;
@@ -137,7 +148,9 @@ const EditFormInput = ({
 }: EditFormInputProps) => (
 	<EditFormInputContainer>
 		<InputSectionLabelContainer type={type}>
-			<InputSectionLabel htmlFor={label}>{label}</InputSectionLabel>
+			<InputSectionLabel htmlFor={label} type={type}>
+				{label}
+			</InputSectionLabel>
 		</InputSectionLabelContainer>
 		<InputSectionMain type={type}>
 			{textArea ? (

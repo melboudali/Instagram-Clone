@@ -30,14 +30,14 @@ export class UserResolver {
 	@Query(() => response)
 	async getUser(
 		@Arg("username") username: string,
-		@Arg("currentUserId", () => Int) currentUserId: number
+		@Arg("currentUserId", () => Int, { nullable: true }) currentUserId: number | null
 	): Promise<response> {
 		const user = await User.createQueryBuilder("user")
 			.loadRelationCountAndMap("user.images_length", "user.images", "image")
 			.where("username = :username", { username })
 			.getOne();
 
-		if (!user || (user.disabled && currentUserId != user.id)) {
+		if (!user || (user.disabled && (!currentUserId || currentUserId != user.id))) {
 			return {
 				error: {
 					message: `Sorry, this page isn't available.`
@@ -216,7 +216,6 @@ export class UserResolver {
 		phoneNumber: number | null,
 		@Arg("gender", () => String, { nullable: true }) gender: string | null,
 		@Arg("similarAccountSuggestions") similarAccountSuggestions: boolean,
-		@Arg("disabled") disabled: boolean,
 		@Ctx() { req }: MyContext
 	): Promise<response> {
 		if (name.length <= 3 || username.length <= 3 || email.length <= 3) {
@@ -241,8 +240,7 @@ export class UserResolver {
 			bio: bio!,
 			gender: gender!,
 			phone_number: phoneNumber!,
-			recomended: similarAccountSuggestions,
-			disabled
+			recomended: similarAccountSuggestions
 		};
 
 		if (File) {

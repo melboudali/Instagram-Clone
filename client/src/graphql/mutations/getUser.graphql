@@ -1,4 +1,4 @@
-query GetUser($username: String!, $currentUserId: Int!) {
+query GetUser($username: String!, $currentUserId: Int) {
 	getUser(username: $username, currentUserId: $currentUserId) {
 		user {
 			...userFragment

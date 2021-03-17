@@ -22,7 +22,7 @@ const Profile = ({ match }: ProfileProps) => {
 	const { data: loggedInUserData, error: loggedInError } = useMeQuery();
 	const username = match.params.username.toLowerCase();
 	const { data, loading, error } = useGetUserQuery({
-		variables: { username, currentUserId: loggedInUserData?.me?.id as number }
+		variables: { username, currentUserId: loggedInUserData?.me?.id }
 	});
 
 	if (loading) {
@@ -48,7 +48,7 @@ const Profile = ({ match }: ProfileProps) => {
 							<ProfileMenu user={data.getUser.user} page="profile" />
 							<ProfilePosts
 								userId={data.getUser.user.id}
-								currentUserId={loggedInUserData.me?.id as number}
+								currentUserId={loggedInUserData.me?.id}
 								isPrivate={data.getUser.user.private as boolean}
 								isDisabled={data.getUser.user.disabled as boolean}
 							/>

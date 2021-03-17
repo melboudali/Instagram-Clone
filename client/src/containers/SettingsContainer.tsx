@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Prompt } from "react-router";
 import styled from "styled-components";
 import EditSidebar from "../components/Edit/EditSidebar";
 import { useMeQuery } from "../generated/graphql";
@@ -103,6 +104,7 @@ const SettingsContainer = ({
 
 	return (
 		<Container>
+			<Prompt message="You have unsaved changes, are you sure you want to leave?" />
 			<SettingsContainerSection>
 				<EditSidebar />
 				<SettingsContainerMain>

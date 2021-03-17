@@ -26,7 +26,7 @@ export type Query = {
 
 
 export type QueryGetUserArgs = {
-  currentUserId: Scalars['Int'];
+  currentUserId?: Maybe<Scalars['Int']>;
   username: Scalars['String'];
 };
 
@@ -40,7 +40,7 @@ export type QueryGetAllImagesArgs = {
 export type QueryGetUserImagesArgs = {
   cursor?: Maybe<Scalars['String']>;
   limit: Scalars['Int'];
-  currentUserId: Scalars['Int'];
+  currentUserId?: Maybe<Scalars['Int']>;
   isDisabled: Scalars['Boolean'];
   isPrivate: Scalars['Boolean'];
   userId: Scalars['Int'];
@@ -128,7 +128,6 @@ export type MutationLoginArgs = {
 
 
 export type MutationEditUserArgs = {
-  disabled: Scalars['Boolean'];
   similarAccountSuggestions: Scalars['Boolean'];
   gender?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['Int']>;
@@ -238,7 +237,6 @@ export type EditUserMutationVariables = Exact<{
   phoneNumber?: Maybe<Scalars['Int']>;
   gender?: Maybe<Scalars['String']>;
   similarAccountSuggestions: Scalars['Boolean'];
-  disabled: Scalars['Boolean'];
 }>;
 
 
@@ -259,7 +257,7 @@ export type EditUserMutation = (
 
 export type GetUserQueryVariables = Exact<{
   username: Scalars['String'];
-  currentUserId: Scalars['Int'];
+  currentUserId?: Maybe<Scalars['Int']>;
 }>;
 
 
@@ -384,7 +382,7 @@ export type GetUserImagesQueryVariables = Exact<{
   userId: Scalars['Int'];
   isPrivate: Scalars['Boolean'];
   isDisabled: Scalars['Boolean'];
-  currentUserId: Scalars['Int'];
+  currentUserId?: Maybe<Scalars['Int']>;
   limit: Scalars['Int'];
   cursor?: Maybe<Scalars['String']>;
 }>;
@@ -481,7 +479,7 @@ export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswo
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
 export const EditUserDocument = gql`
-    mutation EditUser($file: Upload, $name: String!, $username: String!, $image_link: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!, $disabled: Boolean!) {
+    mutation EditUser($file: Upload, $name: String!, $username: String!, $image_link: String!, $email: String!, $website: String, $bio: String, $phoneNumber: Int, $gender: String, $similarAccountSuggestions: Boolean!) {
   editUser(
     file: $file
     name: $name
@@ -493,7 +491,6 @@ export const EditUserDocument = gql`
     phoneNumber: $phoneNumber
     gender: $gender
     similarAccountSuggestions: $similarAccountSuggestions
-    disabled: $disabled
   ) {
     user {
       ...userFragment
@@ -537,7 +534,6 @@ export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditU
  *      phoneNumber: // value for 'phoneNumber'
  *      gender: // value for 'gender'
  *      similarAccountSuggestions: // value for 'similarAccountSuggestions'
- *      disabled: // value for 'disabled'
  *   },
  * });
  */
@@ -548,7 +544,7 @@ export type EditUserMutationHookResult = ReturnType<typeof useEditUserMutation>;
 export type EditUserMutationResult = Apollo.MutationResult<EditUserMutation>;
 export type EditUserMutationOptions = Apollo.BaseMutationOptions<EditUserMutation, EditUserMutationVariables>;
 export const GetUserDocument = gql`
-    query GetUser($username: String!, $currentUserId: Int!) {
+    query GetUser($username: String!, $currentUserId: Int) {
   getUser(username: $username, currentUserId: $currentUserId) {
     user {
       ...userFragment
@@ -825,7 +821,7 @@ export type GetSuggestedUsersQueryHookResult = ReturnType<typeof useGetSuggested
 export type GetSuggestedUsersLazyQueryHookResult = ReturnType<typeof useGetSuggestedUsersLazyQuery>;
 export type GetSuggestedUsersQueryResult = Apollo.QueryResult<GetSuggestedUsersQuery, GetSuggestedUsersQueryVariables>;
 export const GetUserImagesDocument = gql`
-    query GetUserImages($userId: Int!, $isPrivate: Boolean!, $isDisabled: Boolean!, $currentUserId: Int!, $limit: Int!, $cursor: String) {
+    query GetUserImages($userId: Int!, $isPrivate: Boolean!, $isDisabled: Boolean!, $currentUserId: Int, $limit: Int!, $cursor: String) {
   getUserImages(
     userId: $userId
     isPrivate: $isPrivate

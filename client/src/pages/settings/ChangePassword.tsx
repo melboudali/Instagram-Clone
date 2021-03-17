@@ -1,24 +1,11 @@
 import { useState } from "react";
-import EditFormInput from "../components/Edit/EditFormInput";
-import SubmitButton from "../components/Edit/SubmitButton";
-import SettingsContainer from "../containers/SettingsContainer";
-import { MeDocument, MeQuery, useChangePasswordMutation } from "../generated/graphql";
+import EditFormInput from "../../components/Edit/EditFormInput";
+import SubmitButton from "../../components/Edit/SubmitButton";
+import SettingsContainer from "../../containers/SettingsContainer";
+import { MeDocument, MeQuery, useChangePasswordMutation } from "../../generated/graphql";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import { useHistory } from "react-router";
-
-const SubmitButtonSection = styled.section`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 15px 0;
-	@media (min-width: 800px) {
-		flex-direction: row;
-		justify-content: space-between;
-		margin-left: 157px;
-	}
-`;
+import PropTypes from "prop-types";
 
 const ErroMessage = styled.h1`
 	color: var(--textErrorColor);
@@ -102,18 +89,14 @@ const ChangePassword = ({}: ChangePasswordProps) => {
 					value={formData["Confirm New Password"]}
 					type="password"
 				/>
-				<SubmitButtonSection>
-					<SubmitButton
-						active={
-							!!formData["Old Password"] &&
-							!!formData["New Password"] &&
-							!!formData["Confirm New Password"]
-						}
-						loading={loading}
-						width="150px">
-						Change Password
-					</SubmitButton>
-				</SubmitButtonSection>
+				<SubmitButton
+					active={
+						!!formData["Old Password"] && !!formData["New Password"] && !!formData["Confirm New Password"]
+					}
+					loading={loading}
+					width="150px">
+					Change Password
+				</SubmitButton>
 			</form>
 			{errorMessage && <ErroMessage>{errorMessage}</ErroMessage>}
 		</SettingsContainer>

@@ -9,7 +9,6 @@ mutation EditUser(
 	$phoneNumber: Int
 	$gender: String
 	$similarAccountSuggestions: Boolean!
-	$disabled: Boolean!
 ) {
 	editUser(
 		file: $file
@@ -22,7 +21,6 @@ mutation EditUser(
 		phoneNumber: $phoneNumber
 		gender: $gender
 		similarAccountSuggestions: $similarAccountSuggestions
-		disabled: $disabled
 	) {
 		user {
 			...userFragment

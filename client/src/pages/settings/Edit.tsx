@@ -1,5 +1,5 @@
 import { useState } from "react";
-import EditFormInput from "../components/Edit/EditFormInput";
+import EditFormInput from "../../components/Edit/EditFormInput";
 import {
 	GetAllImagesDocument,
 	GetAllImagesQuery,
@@ -9,39 +9,12 @@ import {
 	MeQuery,
 	useEditUserMutation,
 	useMeQuery
-} from "../generated/graphql";
-import PhotoModalMain from "../components/Edit/PhotoModal";
-import SettingsContainer from "../containers/SettingsContainer";
+} from "../../generated/graphql";
+import PhotoModalMain from "../../components/Edit/PhotoModal";
+import SettingsContainer from "../../containers/SettingsContainer";
 import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
-import SubmitButton from "../components/Edit/SubmitButton";
-
-const SubmitButtonSection = styled.section`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	padding: 15px 0;
-	@media (min-width: 800px) {
-		flex-direction: row;
-		justify-content: space-between;
-		margin-left: 157px;
-	}
-`;
-
-const DisableAccount = styled.button`
-	margin: 20px 0 0 0;
-	padding: 0;
-	border: none;
-	outline: none;
-	color: #0095f6;
-	font-size: 0.9rem;
-	font-weight: 600;
-	cursor: pointer;
-	@media (min-width: 800px) {
-		margin: 0;
-	}
-`;
+import SubmitButton from "../../components/Edit/SubmitButton";
 
 interface EditProps {}
 
@@ -58,8 +31,7 @@ const Edit = ({}: EditProps) => {
 		Email: data?.me?.email,
 		Gender: data?.me?.gender,
 		"Phone Number": data?.me?.phone_number,
-		"Similar Account Suggestions": data?.me?.recomended!,
-		Disabled: data?.me?.disabled!
+		"Similar Account Suggestions": data?.me?.recomended!
 	});
 	const [loading, setLoading] = useState(false);
 	const [updated, setUpdated] = useState(false);
@@ -89,8 +61,7 @@ const Edit = ({}: EditProps) => {
 					bio: formData.Bio,
 					phoneNumber: Number(formData["Phone Number"]),
 					gender: formData.Gender,
-					similarAccountSuggestions: formData["Similar Account Suggestions"],
-					disabled: formData.Disabled
+					similarAccountSuggestions: formData["Similar Account Suggestions"]
 				},
 				update: (cache, { data }) => {
 					cache.writeQuery<MeQuery>({
@@ -153,8 +124,7 @@ const Edit = ({}: EditProps) => {
 										image_link: data?.editUser.user?.image_link || existedUser.getUser.user?.image_link!,
 										images_length: existedUser.getUser.user?.images_length,
 										private: existedUser.getUser.user?.private!,
-										recomended: formData["Similar Account Suggestions"],
-										disabled: formData.Disabled
+										recomended: formData["Similar Account Suggestions"]
 									},
 									error: {
 										__typename: existedUser.getUser.error?.__typename,
@@ -261,16 +231,9 @@ const Edit = ({}: EditProps) => {
 					setFormData={setFormData}
 					defaultChecked={formData["Similar Account Suggestions"]}
 				/>
-				<SubmitButtonSection>
-					<SubmitButton active={activeButton} loading={loading} width={"90px"}>
-						Submit
-					</SubmitButton>
-					<DisableAccount
-						type="button"
-						onClick={() => setFormData({ ...formData, Disabled: !formData.Disabled })}>{`${
-						formData.Disabled ? "Enable" : "Temporarily disable"
-					} my account`}</DisableAccount>
-				</SubmitButtonSection>
+				<SubmitButton active={activeButton} loading={loading} width={"90px"}>
+					Submit
+				</SubmitButton>
 			</form>
 		</SettingsContainer>
 	);

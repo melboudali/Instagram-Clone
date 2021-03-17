@@ -2,9 +2,9 @@ import { lazy } from "react";
 import { Switch, Route } from "react-router-dom";
 
 const Home = lazy(() => import("../pages/Home"));
-const Edit = lazy(() => import("../pages/Edit"));
-const ChangePassword = lazy(() => import("../pages/ChangePassword"));
-const PrivacyAndSecurity = lazy(() => import("../pages/PrivacyAndSecurity"));
+const Edit = lazy(() => import("../pages/settings/Edit"));
+const ChangePassword = lazy(() => import("../pages/settings/ChangePassword"));
+const PrivacyAndSecurity = lazy(() => import("../pages/settings/PrivacyAndSecurity"));
 
 const Profile = lazy(() => import("../pages/Profile"));
 const Tagged = lazy(() => import("../pages/Tagged"));

@@ -1,10 +1,10 @@
 import { lazy } from "react";
 import { Switch, Route } from "react-router-dom";
-import Tagged from "../pages/Tagged";
 
+const Signin = lazy(() => import("../pages/Signin"));
 const Signup = lazy(() => import("../pages/Signup"));
 const Profile = lazy(() => import("../pages/Profile"));
-const Signin = lazy(() => import("../pages/Signin"));
+const Tagged = lazy(() => import("../pages/Tagged"));
 const ErrorPage = lazy(() => import("../pages/ErrorPage"));
 
 const UnauthenticatedApp = () => (
