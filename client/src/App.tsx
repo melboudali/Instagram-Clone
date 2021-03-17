@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense } from "react";
 import { createGlobalStyle } from "styled-components";
-import ErrorBoundary from "./pages/ErrorBoundary";
+import ErrorBoundary from "./pages/error/ErrorBoundary";
 import LoadingFullScreen from "./components/common/LoadingFullScreen";
 import AppContainer from "./containers/AppContainer";
 

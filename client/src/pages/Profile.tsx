@@ -7,7 +7,7 @@ import ProfileEmptyPostsOrPrivate from "../components/profile/ProfileEmptyPostsO
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileMenu from "../components/profile/ProfileMenu";
 import LoadingFullScreen from "../components/common/LoadingFullScreen";
-import ErrorPage from "./ErrorPage";
+import ErrorPage from "./error/ErrorPage";
 import PropTypes from "prop-types";
 
 const ProfileContainer = styled.div`

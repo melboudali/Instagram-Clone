@@ -179,7 +179,7 @@ const Modal = ({
 			try {
 				const res = await uploadImageFunc({
 					variables: { file: imageFile, caption: caption },
-					update: (cache, { data }) => {
+					update: cache => {
 						cache.evict({ fieldName: "getAllImages" });
 						cache.evict({ fieldName: "getUserImages" });
 					}

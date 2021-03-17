@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Container from "../containers/Container";
-import Footer from "../components/common/footer/Footer";
-import UnauthFooter from "../components/common/footer/UnauthFooter";
-import { useMeQuery } from "../generated/graphql";
+import Container from "../../containers/Container";
+import Footer from "../../components/common/footer/Footer";
+import UnauthFooter from "../../components/common/footer/UnauthFooter";
+import { useMeQuery } from "../../generated/graphql";
 
 const ErroPageContainer = styled.div`
 	text-align: center;

@@ -6,7 +6,7 @@ import ProfileEmptyPostsOrPrivate from "../components/profile/ProfileEmptyPostsO
 import LoadingFullScreen from "../components/common/LoadingFullScreen";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileMenu from "../components/profile/ProfileMenu";
-import ErrorPage from "./ErrorPage";
+import ErrorPage from "./error/ErrorPage";
 import PropTypes from "prop-types";
 
 const TaggedContainer = styled.div`

@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { useMeQuery } from "../generated/graphql";
 
 const LoadingFullScreen = lazy(() => import("../components/common/LoadingFullScreen"));
-const ErrorPage = lazy(() => import("../pages/ErrorPage"));
+const ErrorPage = lazy(() => import("../pages/error/ErrorPage"));
 const AuthenticatedApp = lazy(() => import("../routes/AuthenticatedRoutes"));
 const UnauthenticatedApp = lazy(() => import("../routes/UnauthenticatedRoutes"));
 
