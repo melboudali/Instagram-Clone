@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Caption from "../components/home/articles/common/Caption";
 import CommentInput from "../components/home/articles/common/CommentInput";
 import Header from "../components/home/articles/common/Header";
 import { useGetImageQuery } from "../generated/graphql";
@@ -42,6 +43,13 @@ const ImageElement = styled.img`
 	object-fit: cover;
 `;
 
+const ImageDescription = styled.section`
+	background-color: red;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+`;
+
 const CommentInputContainer = styled.section`
 	margin-top: auto;
 `;
@@ -69,6 +77,13 @@ const Image = ({
 					logo={data?.getImage.image?.user.image_link!}
 				/>
 				<ImageElement src={data?.getImage.image?.image_url} />
+				<ImageDescription>
+					<Caption
+						name={data?.getImage.image?.user.username!}
+						description={data?.getImage.image?.caption!}
+					/>
+				</ImageDescription>
+
 				<CommentInputContainer>
 					<CommentInput />
 				</CommentInputContainer>

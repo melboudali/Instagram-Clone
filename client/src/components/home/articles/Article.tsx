@@ -8,6 +8,7 @@ import Header from "./common/Header";
 import Icons from "./common/Icons";
 import CommentInput from "./common/CommentInput";
 import Comment from "./common/Comment";
+import Caption from "./common/Caption";
 
 const ArticleContainer = styled.article`
 	display: block;
@@ -49,18 +50,6 @@ const ArticleOtherButton = styled.button`
 	padding: 0;
 	background: none;
 	${LikesCss}
-`;
-
-const ArticleDescription = styled.div`
-	display: flex;
-	margin-bottom: 4px;
-	color: #262626;
-`;
-
-const ArticleDescriptionLink = styled(Link)`
-	color: #262626;
-	font-weight: 600;
-	margin-right: 4px;
 `;
 
 const ArticleCommentsCount = styled.div`
@@ -140,12 +129,7 @@ const Article = ({
 					</div>
 				</ArticleLikesContainer>
 				<>
-					<ArticleDescription>
-						<span>
-							<ArticleDescriptionLink to={`/${name}`}>{name}</ArticleDescriptionLink>
-							{description}
-						</span>
-					</ArticleDescription>
+					<Caption name={name} description={description} />
 					<ArticleCommentsCount>
 						<ArticleCommentsCountLink to="/p/articleIdHere">{`View all ${commentsLength.toString()} comments`}</ArticleCommentsCountLink>
 					</ArticleCommentsCount>

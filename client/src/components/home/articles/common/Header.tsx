@@ -82,7 +82,10 @@ interface HeaderProps {
 	logo: string;
 }
 
-const Header = ({ logo, name }: HeaderProps) => {
+const Header = ({
+	logo = "https://res.cloudinary.com/elboudali/image/upload/v1615221365/Instagram-Clone/44884218_345707102882519_2446069589734326272_n_htmp8n.jpg",
+	name
+}: HeaderProps) => {
 	return (
 		<ArticleHeaderContainer>
 			<ArticleLogoContainer>
