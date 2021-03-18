@@ -20,12 +20,14 @@ import {
 	CLOUDINARY_CONFIG,
 	image_author,
 	image_data,
+	image_res,
 	image_upload_response,
 	PaginatedImages
 } from "../models/images";
 
 @Resolver(Image)
 export class ImageResolver {
+	// Mutations
 	@Mutation(() => image_upload_response)
 	@UseMiddleware(isAuth)
 	async uploadImage(
@@ -60,6 +62,7 @@ export class ImageResolver {
 		});
 	}
 
+	// Queries
 	@Query(() => PaginatedImages)
 	@UseMiddleware(isAuth)
 	async getAllImages(
@@ -127,6 +130,20 @@ export class ImageResolver {
 		}
 
 		return { images: images.slice(0, minLimit), hasMore: images.length === minLimitPlusOne };
+	}
+
+	@Query(() => image_res)
+	async getImage(@Arg("imageId", () => Int) imageId: number): Promise<image_res> {
+		if (imageId) {
+			const res = await Image.findOne(imageId);
+			if (res) {
+				return { image: res };
+			} else {
+				return { error: { message: "error" } };
+			}
+		} else {
+			return { error: { message: "Image not found!" } };
+		}
 	}
 
 	@FieldResolver(() => image_author)

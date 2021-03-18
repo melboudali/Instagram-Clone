@@ -49,6 +49,30 @@ export class PaginatedImages {
 	hasMore!: boolean;
 }
 
+// @ObjectType()
+// export class image {
+// 	@Field()
+// 	id!: string;
+// 	@Field()
+// 	caption!: string;
+// 	@Field()
+// 	image_url!: string;
+// 	@Field()
+// 	likes!: number;
+// 	@Field({ nullable: true })
+// 	like_status!: string;
+// 	@Field(() => String)
+// 	created_at!: Date;
+// }
+
+@ObjectType()
+export class image_res {
+	@Field(() => image_data, { nullable: true })
+	image?: Image;
+	@Field(() => image_error, { nullable: true })
+	error?: image_error;
+}
+
 export const CLOUDINARY_CONFIG = {
 	CLOUD_NAME: process.env.CLOUD_NAME,
 	API_KEY: process.env.API_KEY,

@@ -88,10 +88,13 @@ const ArticleMore = styled.div`
 	}
 `;
 
-const ArticleImage = styled.img`
+const ArticleImage = styled(Link)`
 	max-width: 614px;
-	width: 100%;
-	display: block;
+	text-decoration: none;
+	img {
+		width: 100%;
+		height: auto;
+	}
 `;
 
 const ArticleDetails = styled.div`
@@ -236,6 +239,7 @@ const ArticleSubmitButton = styled.button<{ Active: boolean }>`
 `;
 
 interface ArticleProps {
+	id: string;
 	name: string;
 	logo: string;
 	image: string;
@@ -249,6 +253,7 @@ interface ArticleProps {
 }
 
 const Article = ({
+	id,
 	name,
 	logo,
 	image,
@@ -287,7 +292,9 @@ const Article = ({
 					</button>
 				</ArticleMore>
 			</ArticleHeader>
-			<ArticleImage src={image} alt={`Photo by ${name}`} />
+			<ArticleImage to={`/p/${id}`}>
+				<img src={image} alt={`by ${name}`} />
+			</ArticleImage>
 			<ArticleDetails>
 				<ArticleIconsContainer>
 					<span>
