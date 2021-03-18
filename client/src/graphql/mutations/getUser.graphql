@@ -9,7 +9,7 @@ query GetUser($username: String!, $currentUserId: Int) {
 			disabled
 		}
 		error {
-			...userErrorFragment
+			...errorFragment
 		}
 	}
 }

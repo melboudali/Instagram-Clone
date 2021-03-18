@@ -11,7 +11,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BackgroundImage from "../assets/images/43cc71bb1b43.png";
 import Assets from "../assets/images/32f0a4f27407.png";
-import { lessThan768px } from "../config/MediaQueries";
 
 const SigninContainer = styled.section`
 	display: flex;
@@ -35,7 +34,7 @@ const SigninLeftComponent = styled.div`
 	flex-basis: 454px;
 	height: 618px;
 	overflow: hidden;
-	${lessThan768px} {
+	@media (max-width: 800px) {
 		flex-basis: 0px;
 		margin: 0;
 	}

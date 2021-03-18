@@ -133,7 +133,7 @@ export class ImageResolver {
 	}
 
 	@Query(() => image_res)
-	async getImage(@Arg("imageId", () => Int) imageId: number): Promise<image_res> {
+	async getImage(@Arg("imageId") imageId: string): Promise<image_res> {
 		if (imageId) {
 			const res = await Image.findOne(imageId);
 			if (res) {

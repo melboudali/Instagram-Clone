@@ -1,0 +1,22 @@
+query GetImage($imageId: String!) {
+	getImage(imageId: $imageId) {
+		image {
+			id
+			caption
+			image_url
+			likes
+			like_status
+			userId
+			created_at
+			updated_at
+			user {
+				id
+				username
+				image_link
+			}
+		}
+		error {
+			message
+		}
+	}
+}

@@ -11,7 +11,7 @@ mutation Register($registerInputs: register_inputs!) {
 			recomended
 		}
 		error {
-			...userErrorFragment
+			...errorFragment
 		}
 	}
 }

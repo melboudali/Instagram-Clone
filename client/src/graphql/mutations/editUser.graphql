@@ -33,7 +33,7 @@ mutation EditUser(
 			disabled
 		}
 		error {
-			...userErrorFragment
+			...errorFragment
 		}
 	}
 }

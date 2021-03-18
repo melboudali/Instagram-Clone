@@ -11,7 +11,7 @@ mutation Login($userNameOrEmail: String!, $password: String!) {
 			recomended
 		}
 		error {
-			...userErrorFragment
+			...errorFragment
 		}
 	}
 }

@@ -1,0 +1,3 @@
+fragment errorFragment on error {
+	message
+}

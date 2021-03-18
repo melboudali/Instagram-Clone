@@ -1,3 +1,0 @@
-fragment userErrorFragment on error {
-	message
-}

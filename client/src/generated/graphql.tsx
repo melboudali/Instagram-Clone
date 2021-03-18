@@ -22,6 +22,7 @@ export type Query = {
   suggestedUsers: Responses;
   getAllImages: PaginatedImages;
   getUserImages: PaginatedImages;
+  getImage: Image_Res;
 };
 
 
@@ -44,6 +45,11 @@ export type QueryGetUserImagesArgs = {
   isDisabled: Scalars['Boolean'];
   isPrivate: Scalars['Boolean'];
   userId: Scalars['Int'];
+};
+
+
+export type QueryGetImageArgs = {
+  imageId: Scalars['String'];
 };
 
 export type User_Response = {
@@ -103,6 +109,17 @@ export type Image_Author = {
   id: Scalars['Float'];
   username: Scalars['String'];
   image_link: Scalars['String'];
+};
+
+export type Image_Res = {
+  __typename?: 'image_res';
+  image?: Maybe<Image_Data>;
+  error?: Maybe<Image_Error>;
+};
+
+export type Image_Error = {
+  __typename?: 'image_error';
+  message: Scalars['String'];
 };
 
 export type Mutation = {
@@ -189,10 +206,10 @@ export type Image_Upload_Response = {
   error?: Maybe<Image_Error>;
 };
 
-export type Image_Error = {
-  __typename?: 'image_error';
-  message: Scalars['String'];
-};
+export type ErrorFragmentFragment = (
+  { __typename?: 'error' }
+  & Pick<Error, 'message'>
+);
 
 export type ImageFragmentFragment = (
   { __typename?: 'image_data' }
@@ -201,11 +218,6 @@ export type ImageFragmentFragment = (
     { __typename?: 'image_author' }
     & Pick<Image_Author, 'id' | 'username' | 'image_link'>
   ) }
-);
-
-export type UserErrorFragmentFragment = (
-  { __typename?: 'error' }
-  & Pick<Error, 'message'>
 );
 
 export type UserFragmentFragment = (
@@ -277,7 +289,7 @@ export type EditUserMutation = (
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
-      & UserErrorFragmentFragment
+      & ErrorFragmentFragment
     )> }
   ) }
 );
@@ -298,7 +310,7 @@ export type GetUserQuery = (
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
-      & UserErrorFragmentFragment
+      & ErrorFragmentFragment
     )> }
   ) }
 );
@@ -319,7 +331,7 @@ export type LoginMutation = (
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
-      & UserErrorFragmentFragment
+      & ErrorFragmentFragment
     )> }
   ) }
 );
@@ -347,7 +359,7 @@ export type RegisterMutation = (
       & UserFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'error' }
-      & UserErrorFragmentFragment
+      & ErrorFragmentFragment
     )> }
   ) }
 );
@@ -386,6 +398,29 @@ export type GetAllImagesQuery = (
     & { images: Array<(
       { __typename?: 'image_data' }
       & ImageFragmentFragment
+    )> }
+  ) }
+);
+
+export type GetImageQueryVariables = Exact<{
+  imageId: Scalars['String'];
+}>;
+
+
+export type GetImageQuery = (
+  { __typename?: 'Query' }
+  & { getImage: (
+    { __typename?: 'image_res' }
+    & { image?: Maybe<(
+      { __typename?: 'image_data' }
+      & Pick<Image_Data, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'userId' | 'created_at' | 'updated_at'>
+      & { user: (
+        { __typename?: 'image_author' }
+        & Pick<Image_Author, 'id' | 'username' | 'image_link'>
+      ) }
+    )>, error?: Maybe<(
+      { __typename?: 'image_error' }
+      & Pick<Image_Error, 'message'>
     )> }
   ) }
 );
@@ -439,6 +474,11 @@ export type MeQuery = (
   )> }
 );
 
+export const ErrorFragmentFragmentDoc = gql`
+    fragment errorFragment on error {
+  message
+}
+    `;
 export const ImageFragmentFragmentDoc = gql`
     fragment imageFragment on image_data {
   id
@@ -452,11 +492,6 @@ export const ImageFragmentFragmentDoc = gql`
     username
     image_link
   }
-}
-    `;
-export const UserErrorFragmentFragmentDoc = gql`
-    fragment userErrorFragment on error {
-  message
 }
     `;
 export const UserFragmentFragmentDoc = gql`
@@ -568,12 +603,12 @@ export const EditUserDocument = gql`
       disabled
     }
     error {
-      ...userErrorFragment
+      ...errorFragment
     }
   }
 }
     ${UserFragmentFragmentDoc}
-${UserErrorFragmentFragmentDoc}`;
+${ErrorFragmentFragmentDoc}`;
 export type EditUserMutationFn = Apollo.MutationFunction<EditUserMutation, EditUserMutationVariables>;
 
 /**
@@ -620,12 +655,12 @@ export const GetUserDocument = gql`
       disabled
     }
     error {
-      ...userErrorFragment
+      ...errorFragment
     }
   }
 }
     ${UserFragmentFragmentDoc}
-${UserErrorFragmentFragmentDoc}`;
+${ErrorFragmentFragmentDoc}`;
 
 /**
  * __useGetUserQuery__
@@ -667,12 +702,12 @@ export const LoginDocument = gql`
       recomended
     }
     error {
-      ...userErrorFragment
+      ...errorFragment
     }
   }
 }
     ${UserFragmentFragmentDoc}
-${UserErrorFragmentFragmentDoc}`;
+${ErrorFragmentFragmentDoc}`;
 export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
 
 /**
@@ -742,12 +777,12 @@ export const RegisterDocument = gql`
       recomended
     }
     error {
-      ...userErrorFragment
+      ...errorFragment
     }
   }
 }
     ${UserFragmentFragmentDoc}
-${UserErrorFragmentFragmentDoc}`;
+${ErrorFragmentFragmentDoc}`;
 export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, RegisterMutationVariables>;
 
 /**
@@ -848,6 +883,56 @@ export function useGetAllImagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetAllImagesQueryHookResult = ReturnType<typeof useGetAllImagesQuery>;
 export type GetAllImagesLazyQueryHookResult = ReturnType<typeof useGetAllImagesLazyQuery>;
 export type GetAllImagesQueryResult = Apollo.QueryResult<GetAllImagesQuery, GetAllImagesQueryVariables>;
+export const GetImageDocument = gql`
+    query GetImage($imageId: String!) {
+  getImage(imageId: $imageId) {
+    image {
+      id
+      caption
+      image_url
+      likes
+      like_status
+      userId
+      created_at
+      updated_at
+      user {
+        id
+        username
+        image_link
+      }
+    }
+    error {
+      message
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetImageQuery__
+ *
+ * To run a query within a React component, call `useGetImageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetImageQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetImageQuery({
+ *   variables: {
+ *      imageId: // value for 'imageId'
+ *   },
+ * });
+ */
+export function useGetImageQuery(baseOptions: Apollo.QueryHookOptions<GetImageQuery, GetImageQueryVariables>) {
+        return Apollo.useQuery<GetImageQuery, GetImageQueryVariables>(GetImageDocument, baseOptions);
+      }
+export function useGetImageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetImageQuery, GetImageQueryVariables>) {
+          return Apollo.useLazyQuery<GetImageQuery, GetImageQueryVariables>(GetImageDocument, baseOptions);
+        }
+export type GetImageQueryHookResult = ReturnType<typeof useGetImageQuery>;
+export type GetImageLazyQueryHookResult = ReturnType<typeof useGetImageLazyQuery>;
+export type GetImageQueryResult = Apollo.QueryResult<GetImageQuery, GetImageQueryVariables>;
 export const GetSuggestedUsersDocument = gql`
     query GetSuggestedUsers {
   suggestedUsers {
