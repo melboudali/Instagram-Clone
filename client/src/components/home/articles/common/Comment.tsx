@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 
 const CommentContainer = styled.div`
 	display: flex;
-	align-items: flex-start;
 	margin-bottom: 4px;
 	span {
+		width: calc(100% - 12px);
+		word-wrap: break-word;
 		padding-right: 10px;
 	}
 `;

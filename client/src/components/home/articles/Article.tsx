@@ -61,10 +61,7 @@ const ArticleCommentsCountLink = styled(Link)`
 `;
 
 const ArticleCommentAndCreatedtimeContainer = styled.div`
-	margin-bottom: 4px;
-	&:last-child {
-		margin-bottom: 8px;
-	}
+	margin-bottom: 8px;
 `;
 
 const ArticleCreatedTime = styled(Link)`
@@ -133,10 +130,11 @@ const Article = ({
 					<ArticleCommentsCount>
 						<ArticleCommentsCountLink to="/p/articleIdHere">{`View all ${commentsLength.toString()} comments`}</ArticleCommentsCountLink>
 					</ArticleCommentsCount>
-					{comments.map(({ user, comment }, id) => (
-						<Comment key={id} user={user} comment={comment} />
-					))}
+
 					<ArticleCommentAndCreatedtimeContainer>
+						{comments.map(({ user, comment }, id) => (
+							<Comment key={id} user={user} comment={comment} />
+						))}
 						<ArticleCreatedTime to="/p/articleIdHere">{`${timeDifference(
 							createdTime
 						)} ago`}</ArticleCreatedTime>
