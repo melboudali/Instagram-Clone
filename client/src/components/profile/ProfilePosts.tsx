@@ -6,6 +6,7 @@ import LoadingSpinner from "../common/LoadingSpinner";
 import Skeleton from "../skeletons/Skeleton";
 import ProfileEmptyPostsOrPrivate from "./ProfileEmptyPostsOrPrivate";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const LikesAndComments = css`
 	display: flex;
@@ -36,7 +37,7 @@ const ImageAndCommentsCount = styled.div`
 	background: rgba(0, 0, 0, 0.3);
 `;
 
-const ProfilePostsImages = styled.div`
+const ProfilePostsImages = styled(Link)`
 	width: 100%;
 	height: 293px;
 	position: relative;
@@ -120,9 +121,9 @@ const ProfilePosts = ({ userId, isPrivate, isDisabled, currentUserId }: ProfileP
 	return (
 		<>
 			<ProfilePostsContainer>
-				{data.getUserImages.images.map((image, id) => (
-					<ProfilePostsImages key={id}>
-						<PostImage src={image.image_url} alt="post" />
+				{data.getUserImages.images.map(({ id, image_url }) => (
+					<ProfilePostsImages key={id} to={`/p/${id}`}>
+						<PostImage src={image_url} alt="post" />
 						<ImageAndCommentsCount>
 							<PostLikesContainer>
 								<svg

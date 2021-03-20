@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import PropTypes from "prop-types";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Caption from "../components/home/articles/common/Caption";
 import Comment from "../components/home/articles/common/Comment";
 import CommentInput from "../components/home/articles/common/CommentInput";
 import Header from "../components/home/articles/common/Header";
 import { useGetImageQuery } from "../generated/graphql";
+import { usePalette } from "react-palette";
 
 const ImageContainer = styled.main`
 	background-color: black;
@@ -43,6 +45,7 @@ const ImageWrapper = styled.main`
 	width: 100%;
 	height: 100%;
 	background-color: var(--backgroudColor);
+
 	@media (min-width: 800px) {
 		width: 90%;
 		height: 90%;
@@ -51,16 +54,40 @@ const ImageWrapper = styled.main`
 	}
 `;
 
-const ImageMain = styled.section`
+const BlurBackground = styled.div<{ backgroundColor: string }>`
+	position: absolute;
+	background-image: url(${({ backgroundColor }) => backgroundColor});
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+	opacity: 0.5;
+	&:before {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		backdrop-filter: blur(2px);
+	}
+`;
+
+const ImageMain = styled.a<{ backgroundColor: string }>`
 	--displayValue: none;
+	position: relative;
+	text-decoration: none;
 	display: var(--displayValue) !important;
 	width: 100%;
 	height: 100%;
-	background-color: #161616;
+	background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : "#161616")};
 	img {
 		max-width: 100%;
 		max-height: 100%;
 		object-fit: cover;
+		z-index: 1;
+	}
+	&:hover {
+		cursor: zoom-in;
 	}
 	@media (min-width: 800px) {
 		--displayValue: flex;
@@ -74,6 +101,11 @@ const ImageAside = styled.aside`
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
+	a {
+		text-decoration: none;
+		width: 100%;
+		max-height: 60%;
+	}
 	@media (min-width: 800px) {
 		width: 700px;
 	}
@@ -81,9 +113,12 @@ const ImageAside = styled.aside`
 
 const ImageElement = styled.img`
 	width: 100%;
-	max-height: 60%;
+	max-height: 100%;
 	object-fit: cover;
-
+	text-decoration: none;
+	&:hover {
+		cursor: zoom-in;
+	}
 	@media (min-width: 800px) {
 		display: none;
 	}
@@ -119,6 +154,9 @@ const Image = ({
 }: ImageProps) => {
 	const history = useHistory();
 	const { data } = useGetImageQuery({ variables: { imageId } });
+	const {
+		data: { darkMuted }
+	} = usePalette(data?.getImage.image?.image_url as string);
 	const comments = [
 		{ user: "brown.julianna", comment: "❤️❤️❤️" },
 		{ user: "faybrookepracht", comment: "😍" },
@@ -137,8 +175,25 @@ const Image = ({
 		{ user: "brown.julianna", comment: "❤️❤️❤️" },
 		{ user: "faybrookepracht", comment: "😍" },
 		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" }
+		{ user: "faybrookepracht", comment: "😍" },
+		{ user: "faybrookepracht", comment: "😍" },
+		{ user: "brown.julianna", comment: "❤️❤️❤️" },
+		{ user: "faybrookepracht", comment: "😍" },
+		{ user: "brown.julianna", comment: "❤️❤️❤️" },
+		{ user: "faybrookepracht", comment: "😍" },
+		{ user: "brown.julianna", comment: "❤️❤️❤️" },
+		{ user: "faybrookepracht", comment: "😍" },
+		{ user: "brown.julianna", comment: "❤️❤️❤️" },
+		{ user: "faybrookepracht", comment: "😍" },
+		{ user: "brown.julianna", comment: "❤️❤️❤️" },
+		{ user: "faybrookepracht", comment: "😍" },
+		{ user: "brown.julianna", comment: "❤️❤️❤️" },
+		{ user: "faybrookepracht", comment: "😍" },
+		{ user: "brown.julianna", comment: "❤️❤️❤️" },
+		{ user: "faybrookepracht", comment: "😍" },
+		{ user: "brown.julianna", comment: "❤️❤️❤️" }
 	];
+
 	return (
 		<ImageContainer>
 			<ModalClose onClick={() => history.goBack()}>
@@ -147,7 +202,11 @@ const Image = ({
 				</svg>
 			</ModalClose>
 			<ImageWrapper>
-				<ImageMain>
+				<ImageMain
+					backgroundColor={darkMuted!}
+					href={data?.getImage.image?.image_url}
+					target="_noblank">
+					<BlurBackground backgroundColor={data?.getImage.image?.image_url!} />
 					<img src={data?.getImage.image?.image_url} alt={data?.getImage.image?.caption} />
 				</ImageMain>
 				<ImageAside>
@@ -156,7 +215,9 @@ const Image = ({
 						logo={data?.getImage.image?.user.image_link!}
 						showCloseBtn={true}
 					/>
-					<ImageElement src={data?.getImage.image?.image_url} />
+					<a href={data?.getImage.image?.image_url} target="_noblank">
+						<ImageElement src={data?.getImage.image?.image_url} />
+					</a>
 					<ImageDescriptionContainer>
 						<ImageDescription>
 							<Caption
