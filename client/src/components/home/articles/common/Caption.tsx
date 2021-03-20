@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const CaptionContainer = styled.div<{ article: boolean }>`
 	display: flex;
 	align-self: flex-start;
-	margin: 8px 0 10px;
+	margin: 10px 0 10px;
 	color: #262626;
 	${({ article }) =>
 		article &&

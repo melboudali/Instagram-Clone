@@ -20,6 +20,7 @@ const ImageContainer = styled.main`
 `;
 
 const ModalClose = styled.button`
+	display: none;
 	position: absolute;
 	background: none;
 	border: none;
@@ -32,20 +33,60 @@ const ModalClose = styled.button`
 		height: 24px;
 		width: 24px;
 	}
+	@media (min-width: 800px) {
+		display: block;
+	}
 `;
 
 const ImageWrapper = styled.main`
-	width: 90%;
-	height: 90%;
+	display: block;
+	width: 100%;
+	height: 100%;
 	background-color: var(--backgroudColor);
+	@media (min-width: 800px) {
+		width: 90%;
+		height: 90%;
+		display: flex;
+		flex-direction: row;
+	}
+`;
+
+const ImageMain = styled.section`
+	--displayValue: none;
+	display: var(--displayValue) !important;
+	width: 100%;
+	height: 100%;
+	background-color: #161616;
+	img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: cover;
+	}
+	@media (min-width: 800px) {
+		--displayValue: flex;
+		align-items: center;
+		justify-content: center;
+	}
+`;
+
+const ImageAside = styled.aside`
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	@media (min-width: 800px) {
+		width: 700px;
+	}
 `;
 
 const ImageElement = styled.img`
 	width: 100%;
-	height: 20%;
+	max-height: 60%;
 	object-fit: cover;
+
+	@media (min-width: 800px) {
+		display: none;
+	}
 `;
 
 const ImageDescriptionContainer = styled.div`
@@ -106,26 +147,32 @@ const Image = ({
 				</svg>
 			</ModalClose>
 			<ImageWrapper>
-				<Header
-					name={data?.getImage.image?.user.username!}
-					logo={data?.getImage.image?.user.image_link!}
-				/>
-				<ImageElement src={data?.getImage.image?.image_url} />
-				<ImageDescriptionContainer>
-					<ImageDescription>
-						<Caption
-							name={data?.getImage.image?.user.username!}
-							description={data?.getImage.image?.caption!}
-							image={data?.getImage.image?.user.image_link}
-						/>
-						{comments.map(({ user, comment }, id) => (
-							<Comment key={id} user={user} comment={comment} />
-						))}
-					</ImageDescription>
-				</ImageDescriptionContainer>
-				<CommentInputContainer>
-					<CommentInput />
-				</CommentInputContainer>
+				<ImageMain>
+					<img src={data?.getImage.image?.image_url} alt={data?.getImage.image?.caption} />
+				</ImageMain>
+				<ImageAside>
+					<Header
+						name={data?.getImage.image?.user.username!}
+						logo={data?.getImage.image?.user.image_link!}
+						showCloseBtn={true}
+					/>
+					<ImageElement src={data?.getImage.image?.image_url} />
+					<ImageDescriptionContainer>
+						<ImageDescription>
+							<Caption
+								name={data?.getImage.image?.user.username!}
+								description={data?.getImage.image?.caption!}
+								image={data?.getImage.image?.user.image_link}
+							/>
+							{comments.map(({ user, comment }, id) => (
+								<Comment key={id} user={user} comment={comment} />
+							))}
+						</ImageDescription>
+					</ImageDescriptionContainer>
+					<CommentInputContainer>
+						<CommentInput />
+					</CommentInputContainer>
+				</ImageAside>
 			</ImageWrapper>
 		</ImageContainer>
 	);
