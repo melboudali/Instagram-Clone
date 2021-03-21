@@ -8,6 +8,7 @@ import CommentInput from "../components/home/articles/common/CommentInput";
 import Header from "../components/home/articles/common/Header";
 import { useGetImageQuery } from "../generated/graphql";
 import { usePalette } from "react-palette";
+import Icons from "../components/home/articles/common/Icons";
 
 const ImageContainer = styled.main`
 	background-color: black;
@@ -139,8 +140,20 @@ const ImageDescription = styled.section`
 	box-sizing: content-box;
 `;
 
+const EmptyComments = styled.div`
+	height: calc(100% - 57px);
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	h1 {
+		color: var(--textColorDarkGray);
+	}
+`;
+
 const CommentInputContainer = styled.section`
 	margin-top: auto;
+	padding: 0 10px;
 `;
 
 interface ImageProps {
@@ -157,41 +170,41 @@ const Image = ({
 	const {
 		data: { darkMuted }
 	} = usePalette(data?.getImage.image?.image_url as string);
-	const comments = [
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" }
+	const comments: { user: string; comment: string }[] = [
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" },
+		// { user: "faybrookepracht", comment: "😍" },
+		// { user: "brown.julianna", comment: "❤️❤️❤️" }
 	];
 
 	return (
@@ -225,12 +238,17 @@ const Image = ({
 								description={data?.getImage.image?.caption!}
 								image={data?.getImage.image?.user.image_link}
 							/>
-							{comments.map(({ user, comment }, id) => (
-								<Comment key={id} user={user} comment={comment} />
-							))}
+							{comments && comments.length > 0 ? (
+								comments.map(({ user, comment }, id) => <Comment key={id} user={user} comment={comment} />)
+							) : (
+								<EmptyComments>
+									<h1>No Comments</h1>
+								</EmptyComments>
+							)}
 						</ImageDescription>
 					</ImageDescriptionContainer>
 					<CommentInputContainer>
+						<Icons liked={true} />
 						<CommentInput />
 					</CommentInputContainer>
 				</ImageAside>

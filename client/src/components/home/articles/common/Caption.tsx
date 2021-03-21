@@ -10,7 +10,8 @@ const CaptionContainer = styled.div<{ article: boolean }>`
 	${({ article }) =>
 		article &&
 		`border-bottom: 1px solid #efefef;
-		 padding-bottom: 10px;`}
+		 padding-bottom: 10px;
+		 margin-left: 13px;`}
 `;
 
 const CaptionElement = styled.span<{ article: boolean }>`
