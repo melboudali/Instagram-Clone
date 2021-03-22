@@ -7,6 +7,7 @@ import { buildSchema } from "type-graphql";
 import { COOKIE_NAME, IS_PROD } from "./config/constants";
 import { UserResolver } from "./resolvers/user";
 import { ImageResolver } from "./resolvers/image";
+import { CommentResolver } from "./resolvers/comment";
 import { createUserLoader } from "./utils/createUserLoader";
 import Redis from "ioredis";
 import session from "express-session";
@@ -61,7 +62,10 @@ const main = async () => {
 
 	const apolloServer = new ApolloServer({
 		uploads: false,
-		schema: await buildSchema({ resolvers: [UserResolver, ImageResolver], validate: false }),
+		schema: await buildSchema({
+			resolvers: [UserResolver, ImageResolver, CommentResolver],
+			validate: false
+		}),
 		context: ({ req, res }) => ({
 			req,
 			res,

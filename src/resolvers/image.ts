@@ -27,41 +27,6 @@ import {
 
 @Resolver(Image)
 export class ImageResolver {
-	// Mutations
-	@Mutation(() => image_upload_response)
-	@UseMiddleware(isAuth)
-	async uploadImage(
-		@Arg("file", () => GraphQLUpload) { createReadStream }: FileUpload,
-		@Arg("caption") caption: string,
-		@Ctx() { req }: MyContext
-	): Promise<image_upload_response> {
-		return new Promise((resolve, reject) => {
-			if (!caption || caption.length <= 3) {
-				reject({ error: { message: "Title should be greater than 3!" } });
-				return;
-			}
-
-			cloudinary.config(CLOUDINARY_CONFIG);
-
-			createReadStream().pipe(
-				cloudinary.uploader.upload_stream(
-					{ folder: process.env.CLOUDINARY_FOLDER },
-					async (error, result) => {
-						if (error) {
-							reject({ error: { message: error.message } });
-						}
-						const post = await Image.create({
-							userId: req.session.user_id,
-							caption,
-							image_url: result?.secure_url
-						}).save();
-						resolve({ image: post });
-					}
-				)
-			);
-		});
-	}
-
 	// Queries
 	@Query(() => PaginatedImages)
 	@UseMiddleware(isAuth)
@@ -149,5 +114,40 @@ export class ImageResolver {
 	@FieldResolver(() => image_author)
 	user(@Root() image: Image, @Ctx() { userLoader }: MyContext) {
 		return userLoader.load(image.userId);
+	}
+
+	// Mutations
+	@Mutation(() => image_upload_response)
+	@UseMiddleware(isAuth)
+	async uploadImage(
+		@Arg("file", () => GraphQLUpload) { createReadStream }: FileUpload,
+		@Arg("caption") caption: string,
+		@Ctx() { req }: MyContext
+	): Promise<image_upload_response> {
+		return new Promise((resolve, reject) => {
+			if (!caption || caption.length <= 3) {
+				reject({ error: { message: "Title should be greater than 3!" } });
+				return;
+			}
+
+			cloudinary.config(CLOUDINARY_CONFIG);
+
+			createReadStream().pipe(
+				cloudinary.uploader.upload_stream(
+					{ folder: process.env.CLOUDINARY_FOLDER },
+					async (error, result) => {
+						if (error) {
+							reject({ error: { message: error.message } });
+						}
+						const post = await Image.create({
+							userId: req.session.user_id,
+							caption,
+							image_url: result?.secure_url
+						}).save();
+						resolve({ image: post });
+					}
+				)
+			);
+		});
 	}
 }

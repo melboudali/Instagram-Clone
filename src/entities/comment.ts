@@ -28,7 +28,7 @@ export class Comment extends BaseEntity {
 
 	@Field()
 	@Column()
-	imageId!: number;
+	imageId!: string;
 
 	@Field(() => User)
 	@ManyToOne(() => User, user => user.comments, { onDelete: "CASCADE" })
