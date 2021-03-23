@@ -30,13 +30,11 @@ export class Comment extends BaseEntity {
 	@Column()
 	imageId!: string;
 
-	@Field(() => User)
 	@ManyToOne(() => User, user => user.comments, { onDelete: "CASCADE" })
 	user!: User;
 
-	@Field(() => Image)
 	@ManyToOne(() => Image, image => image.comment, { onDelete: "CASCADE" })
-	image!: User;
+	image!: Image;
 
 	@Field(() => String)
 	@CreateDateColumn()

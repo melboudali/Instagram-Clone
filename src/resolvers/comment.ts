@@ -11,8 +11,7 @@ import {
 	Root,
 	UseMiddleware
 } from "type-graphql";
-import { image_author } from "../models/images";
-import { Image } from "../entities/image";
+import { comment_author } from "../models/comment";
 
 @Resolver(Comment)
 export class CommentResolver {
@@ -39,8 +38,8 @@ export class CommentResolver {
 		return "Comment inserted";
 	}
 
-	@FieldResolver(() => image_author)
-	user(@Root() image: Image, @Ctx() { userLoader }: MyContext) {
-		return userLoader.load(image.userId);
+	@FieldResolver(() => comment_author)
+	user(@Root() comment: Comment, @Ctx() { userLoader }: MyContext) {
+		return userLoader.load(comment.userId);
 	}
 }

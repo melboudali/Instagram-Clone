@@ -23,6 +23,7 @@ export type Query = {
   getAllImages: PaginatedImages;
   getUserImages: PaginatedImages;
   getImage: Image_Res;
+  getImageComments: Array<Comment>;
 };
 
 
@@ -49,6 +50,11 @@ export type QueryGetUserImagesArgs = {
 
 
 export type QueryGetImageArgs = {
+  imageId: Scalars['String'];
+};
+
+
+export type QueryGetImageCommentsArgs = {
   imageId: Scalars['String'];
 };
 
@@ -122,6 +128,23 @@ export type Image_Error = {
   message: Scalars['String'];
 };
 
+export type Comment = {
+  __typename?: 'Comment';
+  id: Scalars['Float'];
+  text: Scalars['String'];
+  userId: Scalars['Float'];
+  imageId: Scalars['String'];
+  created_at: Scalars['String'];
+  updated_at: Scalars['String'];
+  user: Comment_Author;
+};
+
+export type Comment_Author = {
+  __typename?: 'comment_author';
+  id: Scalars['Float'];
+  username: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   register: Response;
@@ -131,6 +154,7 @@ export type Mutation = {
   editPrivacy: PasswordVerification;
   logout: Scalars['Boolean'];
   uploadImage: Image_Upload_Response;
+  insertComment: Scalars['String'];
 };
 
 
@@ -174,6 +198,12 @@ export type MutationEditPrivacyArgs = {
 export type MutationUploadImageArgs = {
   caption: Scalars['String'];
   file: Scalars['Upload'];
+};
+
+
+export type MutationInsertCommentArgs = {
+  imageId: Scalars['String'];
+  comment: Scalars['String'];
 };
 
 export type Register_Inputs = {
@@ -313,6 +343,17 @@ export type GetUserQuery = (
       & ErrorFragmentFragment
     )> }
   ) }
+);
+
+export type InsertCommentMutationVariables = Exact<{
+  imageId: Scalars['String'];
+  comment: Scalars['String'];
+}>;
+
+
+export type InsertCommentMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'insertComment'>
 );
 
 export type LoginMutationVariables = Exact<{
@@ -688,6 +729,37 @@ export function useGetUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Ge
 export type GetUserQueryHookResult = ReturnType<typeof useGetUserQuery>;
 export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
+export const InsertCommentDocument = gql`
+    mutation InsertComment($imageId: String!, $comment: String!) {
+  insertComment(imageId: $imageId, comment: $comment)
+}
+    `;
+export type InsertCommentMutationFn = Apollo.MutationFunction<InsertCommentMutation, InsertCommentMutationVariables>;
+
+/**
+ * __useInsertCommentMutation__
+ *
+ * To run a mutation, you first call `useInsertCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertCommentMutation, { data, loading, error }] = useInsertCommentMutation({
+ *   variables: {
+ *      imageId: // value for 'imageId'
+ *      comment: // value for 'comment'
+ *   },
+ * });
+ */
+export function useInsertCommentMutation(baseOptions?: Apollo.MutationHookOptions<InsertCommentMutation, InsertCommentMutationVariables>) {
+        return Apollo.useMutation<InsertCommentMutation, InsertCommentMutationVariables>(InsertCommentDocument, baseOptions);
+      }
+export type InsertCommentMutationHookResult = ReturnType<typeof useInsertCommentMutation>;
+export type InsertCommentMutationResult = Apollo.MutationResult<InsertCommentMutation>;
+export type InsertCommentMutationOptions = Apollo.BaseMutationOptions<InsertCommentMutation, InsertCommentMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($userNameOrEmail: String!, $password: String!) {
   login(userNameOrEmail: $userNameOrEmail, password: $password) {

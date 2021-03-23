@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import { useInsertCommentMutation } from "../../../../generated/graphql";
 import styled from "styled-components";
 
 const CommentInputContainer = styled.div`
@@ -41,10 +42,22 @@ const CommentInputSubmitButton = styled.button<{ Active: boolean }>`
 interface CommentInputProps {}
 
 const CommentInput = ({}: CommentInputProps) => {
-	const [textareaValue, setTextAreaValue] = useState<string | null>(null);
-	const onClick = (buttonName: string) => {
-		// TODO: Edit this later
-		console.log(`${buttonName} Button Clicked.`);
+	const [textareaValue, setTextAreaValue] = useState<string>("");
+	const [insertComment] = useInsertCommentMutation();
+	const onClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		e.preventDefault();
+		try {
+			const res = await insertComment({
+				variables: { imageId: "", comment: textareaValue },
+				update: cache => {
+					cache.evict({ fieldName: "getAllImages" });
+					cache.evict({ fieldName: "getUserImages" });
+				}
+			});
+			if (res.data?.insertComment === "Comment inserted") {
+				console.log("Comment inserted");
+			}
+		} catch (error) {}
 	};
 	return (
 		<CommentInputContainer>
@@ -55,12 +68,7 @@ const CommentInput = ({}: CommentInputProps) => {
 					autoCorrect="off"
 					onChange={e => setTextAreaValue(e.target.value)}
 				/>
-				<CommentInputSubmitButton
-					Active={!!textareaValue}
-					onClick={e => {
-						e.preventDefault();
-						onClick("Submit");
-					}}>
+				<CommentInputSubmitButton Active={!!textareaValue} onClick={onClick}>
 					Post
 				</CommentInputSubmitButton>
 			</CommentInputForm>
