@@ -59,7 +59,6 @@ const InputSectionInput = styled.input<{ type: string | undefined }>`
 			: `
 			width:100%; 
 			margin: 6px 0 5px;
-			font-size: 1rem;
 			padding: 10px 7px;
 			color: #262626;
 			&::placeholder {
@@ -84,7 +83,6 @@ const InputSectionTextArea = styled.textarea`
 	border-radius: 5px;
 	outline: none;
 	background: none;
-	font-size: 1rem;
 	padding: 10px 7px;
 	margin: 6px 0 5px;
 	color: #262626;
