@@ -78,8 +78,6 @@ interface ArticleProps {
 	image: string;
 	description: string;
 	likes: string;
-	comments: { user: string; comment: string }[];
-	commentsLength: number;
 	createdTime: string;
 	meData: Partial<User_Response>;
 	liked: boolean;
@@ -92,8 +90,6 @@ const Article = ({
 	image,
 	description,
 	likes,
-	comments,
-	commentsLength,
 	createdTime,
 	meData,
 	liked
@@ -129,7 +125,7 @@ const Article = ({
 				<>
 					<Caption name={name} description={description} />
 					<ArticleCommentAndCreatedtimeContainer>
-						{data?.getImageComments && data?.getImageComments.length > 0 && (
+						{data && data?.getImageComments.length > 0 && (
 							<>
 								<ArticleCommentsCount>
 									<ArticleCommentsCountLink
@@ -157,13 +153,6 @@ Article.propTypes = {
 	image: PropTypes.string.isRequired,
 	description: PropTypes.string.isRequired,
 	likes: PropTypes.string.isRequired,
-	comments: PropTypes.arrayOf(
-		PropTypes.shape({
-			user: PropTypes.string.isRequired,
-			comment: PropTypes.string.isRequired
-		})
-	).isRequired,
-	commentsLength: PropTypes.number.isRequired,
 	createdTime: PropTypes.string.isRequired,
 	meData: PropTypes.object.isRequired,
 	liked: PropTypes.bool.isRequired

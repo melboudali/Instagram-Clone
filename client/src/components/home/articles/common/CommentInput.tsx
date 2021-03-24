@@ -26,7 +26,7 @@ const CommentInputForm = styled.form`
 	flex: 1 1 100%;
 `;
 
-const CommentInputTextArea = styled.textarea`
+const CommentInputElement = styled.input`
 	height: 18px;
 	background: none;
 	border: 0;
@@ -125,7 +125,7 @@ const CommentInput = ({ imageId }: CommentInputProps) => {
 		<CommentInputContainer>
 			<InsertCommentResponse inserted={inserted} insertedError={insertedError} />
 			<CommentInputForm onSubmit={onSubmit}>
-				<CommentInputTextArea
+				<CommentInputElement
 					placeholder="Add a comment…"
 					autoComplete="off"
 					autoCorrect="off"

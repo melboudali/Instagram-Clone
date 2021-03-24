@@ -6,7 +6,7 @@ import Caption from "../components/home/articles/common/Caption";
 import Comment from "../components/home/articles/common/Comment";
 import CommentInput from "../components/home/articles/common/CommentInput";
 import Header from "../components/home/articles/common/Header";
-import { useGetImageQuery } from "../generated/graphql";
+import { useGetImageCommentsQuery, useGetImageQuery } from "../generated/graphql";
 import { usePalette } from "react-palette";
 import Icons from "../components/home/articles/common/Icons";
 
@@ -166,46 +166,12 @@ const Image = ({
 	}
 }: ImageProps) => {
 	const history = useHistory();
+	const { data: comments } = useGetImageCommentsQuery({ variables: { imageId } });
+
 	const { data } = useGetImageQuery({ variables: { imageId } });
 	const {
 		data: { darkMuted }
 	} = usePalette(data?.getImage.image?.image_url as string);
-	const comments: { user: string; comment: string }[] = [
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" },
-		{ user: "faybrookepracht", comment: "😍" },
-		{ user: "brown.julianna", comment: "❤️❤️❤️" }
-	];
 
 	return (
 		<ImageContainer>
@@ -238,8 +204,10 @@ const Image = ({
 								description={data?.getImage.image?.caption!}
 								image={data?.getImage.image?.user.image_link}
 							/>
-							{comments && comments.length > 0 ? (
-								comments.map(({ user, comment }, id) => <Comment key={id} user={user} comment={comment} />)
+							{comments && comments.getImageComments.length > 0 ? (
+								comments.getImageComments.map(({ id, text, user: { username } }) => (
+									<Comment key={id} user={username} comment={text} />
+								))
 							) : (
 								<EmptyComments>
 									<h1>No Comments</h1>

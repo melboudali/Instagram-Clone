@@ -97,11 +97,6 @@ const Articles = ({ meData }: ArticleProps) => {
 						image={image_url}
 						description={caption}
 						likes={`MedEL and ${likes} persons.`}
-						comments={[
-							{ user: "brown.julianna", comment: "❤️❤️❤️" },
-							{ user: "faybrookepracht", comment: "😍" }
-						]}
-						commentsLength={543}
 						createdTime={created_at}
 						meData={meData}
 						liked={!!liked}
