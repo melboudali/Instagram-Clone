@@ -154,7 +154,7 @@ export type Mutation = {
   editPrivacy: PasswordVerification;
   logout: Scalars['Boolean'];
   uploadImage: Image_Upload_Response;
-  insertComment: Scalars['String'];
+  insertComment: Insert_Comment;
 };
 
 
@@ -234,6 +234,12 @@ export type Image_Upload_Response = {
   __typename?: 'image_upload_response';
   image?: Maybe<Image_Data>;
   error?: Maybe<Image_Error>;
+};
+
+export type Insert_Comment = {
+  __typename?: 'insert_comment';
+  inserted: Scalars['Boolean'];
+  message?: Maybe<Scalars['String']>;
 };
 
 export type ErrorFragmentFragment = (
@@ -353,7 +359,10 @@ export type InsertCommentMutationVariables = Exact<{
 
 export type InsertCommentMutation = (
   { __typename?: 'Mutation' }
-  & Pick<Mutation, 'insertComment'>
+  & { insertComment: (
+    { __typename?: 'insert_comment' }
+    & Pick<Insert_Comment, 'inserted' | 'message'>
+  ) }
 );
 
 export type LoginMutationVariables = Exact<{
@@ -731,7 +740,10 @@ export type GetUserLazyQueryHookResult = ReturnType<typeof useGetUserLazyQuery>;
 export type GetUserQueryResult = Apollo.QueryResult<GetUserQuery, GetUserQueryVariables>;
 export const InsertCommentDocument = gql`
     mutation InsertComment($imageId: String!, $comment: String!) {
-  insertComment(imageId: $imageId, comment: $comment)
+  insertComment(imageId: $imageId, comment: $comment) {
+    inserted
+    message
+  }
 }
     `;
 export type InsertCommentMutationFn = Apollo.MutationFunction<InsertCommentMutation, InsertCommentMutationVariables>;

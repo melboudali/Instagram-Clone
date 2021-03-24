@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useInsertCommentMutation } from "../../../../generated/graphql";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+import SubmitButton from "../../../Edit/SubmitButton";
+import InsertCommentResponse from "./InsertCommentResponse";
 
 const CommentInputContainer = styled.div`
 	display: flex;
@@ -29,14 +31,43 @@ const CommentInputTextArea = styled.textarea`
 	resize: none;
 `;
 
-const CommentInputSubmitButton = styled.button<{ Active: boolean }>`
-	cursor: pointer;
-	background: 0 0;
+const CommentInputSubmitButton = styled.button<{ active: boolean }>`
+	background: none;
 	outline: 0;
-	border: 0;
 	font-weight: 600;
-	color: #0095f6;
-	${({ Active }) => !Active && "opacity:0.3"}
+	color: var(--buttonLightBlue);
+	opacity: ${({ active }) => (active ? "1" : "0.3")};
+	border: none;
+	font-weight: 600;
+	font-size: 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 10px;
+	cursor: ${({ active }) => (active ? "pointer" : "not-allowed")};
+`;
+
+const LoadingAnimation = keyframes`
+	0% {
+		transform: rotate(180deg);
+	}
+	to {
+		transform: rotate(540deg);
+	}
+`;
+
+const LoadingContainer = styled.div`
+	height: 18px;
+	width: 18px;
+	svg {
+		animation: ${LoadingAnimation} 0.8s steps(8) infinite;
+	}
+`;
+
+const Rect = styled.rect`
+	fill: var(--buttonLightBlue);
+	height: 10px;
+	width: 28px;
 `;
 
 interface CommentInputProps {
@@ -44,34 +75,59 @@ interface CommentInputProps {
 }
 
 const CommentInput = ({ imageId }: CommentInputProps) => {
-	const [textareaValue, setTextAreaValue] = useState<string>("");
 	const [insertComment] = useInsertCommentMutation();
-	const onClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+	const [textareaValue, setTextAreaValue] = useState("");
+	const [loading, setLoading] = useState(false);
+	const [inserted, setInserted] = useState(false);
+	const [insertedError, setInsertedError] = useState("");
+
+	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		setLoading(true);
 		try {
 			const res = await insertComment({
-				variables: { imageId, comment: textareaValue },
-				update: cache => {
-					cache.evict({ fieldName: "getAllImages" });
-					cache.evict({ fieldName: "getUserImages" });
-				}
+				variables: { imageId, comment: textareaValue }
 			});
-			if (res.data?.insertComment === "Comment inserted") {
-				console.log("Comment inserted");
+			if (res.data?.insertComment.inserted) {
+				setTextAreaValue("");
+			} else {
+				setInsertedError(res.data?.insertComment.message!);
 			}
-		} catch (error) {}
+		} catch (error) {
+			setInsertedError(error.message);
+		}
+		setLoading(false);
+		setInserted(true);
+		setTimeout(() => setInserted(false), 3000);
 	};
 	return (
 		<CommentInputContainer>
-			<CommentInputForm>
+			<InsertCommentResponse inserted={inserted} insertedError={insertedError} />
+			<CommentInputForm onSubmit={onSubmit}>
 				<CommentInputTextArea
 					placeholder="Add a comment…"
 					autoComplete="off"
 					autoCorrect="off"
+					value={textareaValue}
 					onChange={e => setTextAreaValue(e.target.value)}
 				/>
-				<CommentInputSubmitButton Active={!!textareaValue} onClick={onClick}>
-					Post
+				<CommentInputSubmitButton active={!!textareaValue} type="submit">
+					{loading ? (
+						<LoadingContainer>
+							<svg viewBox="0 0 100 100">
+								<Rect opacity="0" rx="5" ry="5" transform="rotate(-90 50 50)" x="67" y="45"></Rect>
+								<Rect opacity="0.125" rx="5" ry="5" transform="rotate(-45 50 50)" x="67" y="45"></Rect>
+								<Rect opacity="0.25" rx="5" ry="5" transform="rotate(0 50 50)" x="67" y="45"></Rect>
+								<Rect opacity="0.375" rx="5" ry="5" transform="rotate(45 50 50)" x="67" y="45"></Rect>
+								<Rect opacity="0.5" rx="5" ry="5" transform="rotate(90 50 50)" x="67" y="45"></Rect>
+								<Rect opacity="0.625" rx="5" ry="5" transform="rotate(135 50 50)" x="67" y="45"></Rect>
+								<Rect opacity="0.75" rx="5" ry="5" transform="rotate(180 50 50)" x="67" y="45"></Rect>
+								<Rect opacity="0.875" rx="5" ry="5" transform="rotate(225 50 50)" x="67" y="45"></Rect>
+							</svg>
+						</LoadingContainer>
+					) : (
+						"Post"
+					)}
 				</CommentInputSubmitButton>
 			</CommentInputForm>
 		</CommentInputContainer>

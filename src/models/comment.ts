@@ -9,3 +9,11 @@ export class comment_author {
 	// @Field()
 	// image_link!: string;
 }
+
+@ObjectType()
+export class insert_comment {
+	@Field()
+	inserted!: boolean;
+	@Field({ nullable: true })
+	message?: string;
+}

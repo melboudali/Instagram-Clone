@@ -1,3 +1,6 @@
 mutation InsertComment($imageId: String!, $comment: String!) {
-	insertComment(imageId: $imageId, comment: $comment)
+	insertComment(imageId: $imageId, comment: $comment) {
+		inserted
+		message
+	}
 }
