@@ -45,6 +45,7 @@ export class Image extends BaseEntity {
 	@OneToMany(() => Like, like => like.image)
 	like!: Like[];
 
+	@Field(() => [Comment], { nullable: true })
 	@OneToMany(() => Comment, comment => comment.image)
 	comment!: Comment[];
 

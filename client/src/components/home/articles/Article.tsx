@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { User_Response } from "../../../generated/graphql";
+import { useGetImageCommentsQuery, User_Response } from "../../../generated/graphql";
 import timeDifference from "../../../utils/timeDefference";
 import PropTypes from "prop-types";
 import Header from "./common/Header";
@@ -98,6 +98,7 @@ const Article = ({
 	meData,
 	liked
 }: ArticleProps) => {
+	const { data } = useGetImageCommentsQuery({ variables: { imageId: id } });
 	const onClick = (buttonName: string) => {
 		// TODO: Edit this later
 		console.log(`${buttonName} Button Clicked.`);
@@ -127,15 +128,19 @@ const Article = ({
 				</ArticleLikesContainer>
 				<>
 					<Caption name={name} description={description} />
-					<ArticleCommentsCount>
-						<ArticleCommentsCountLink to="/p/articleIdHere">{`View all ${commentsLength.toString()} comments`}</ArticleCommentsCountLink>
-					</ArticleCommentsCount>
-
 					<ArticleCommentAndCreatedtimeContainer>
-						{comments.map(({ user, comment }, id) => (
-							<Comment key={id} user={user} comment={comment} />
-						))}
-						<ArticleCreatedTime to="/p/articleIdHere">{`${timeDifference(
+						{data?.getImageComments && data?.getImageComments.length > 0 && (
+							<>
+								<ArticleCommentsCount>
+									<ArticleCommentsCountLink
+										to={`/p/${id}`}>{`View all ${data?.getImageComments.length} comments`}</ArticleCommentsCountLink>
+								</ArticleCommentsCount>
+								{data?.getImageComments.map(({ id, text, user: { username } }) => (
+									<Comment key={id} user={username} comment={text} />
+								))}
+							</>
+						)}
+						<ArticleCreatedTime to={`/p/${id}`}>{`${timeDifference(
 							createdTime
 						)} ago`}</ArticleCreatedTime>
 					</ArticleCommentAndCreatedtimeContainer>

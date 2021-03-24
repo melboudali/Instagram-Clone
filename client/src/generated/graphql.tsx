@@ -105,9 +105,27 @@ export type Image_Data = {
   likes: Scalars['Float'];
   like_status?: Maybe<Scalars['String']>;
   userId: Scalars['Float'];
+  comment?: Maybe<Array<Comment>>;
   created_at: Scalars['String'];
   updated_at: Scalars['String'];
   user: Image_Author;
+};
+
+export type Comment = {
+  __typename?: 'Comment';
+  id: Scalars['Float'];
+  text: Scalars['String'];
+  userId: Scalars['Float'];
+  imageId: Scalars['String'];
+  created_at: Scalars['String'];
+  updated_at: Scalars['String'];
+  user: Comment_Author;
+};
+
+export type Comment_Author = {
+  __typename?: 'comment_author';
+  id: Scalars['Float'];
+  username: Scalars['String'];
 };
 
 export type Image_Author = {
@@ -126,23 +144,6 @@ export type Image_Res = {
 export type Image_Error = {
   __typename?: 'image_error';
   message: Scalars['String'];
-};
-
-export type Comment = {
-  __typename?: 'Comment';
-  id: Scalars['Float'];
-  text: Scalars['String'];
-  userId: Scalars['Float'];
-  imageId: Scalars['String'];
-  created_at: Scalars['String'];
-  updated_at: Scalars['String'];
-  user: Comment_Author;
-};
-
-export type Comment_Author = {
-  __typename?: 'comment_author';
-  id: Scalars['Float'];
-  username: Scalars['String'];
 };
 
 export type Mutation = {
@@ -240,6 +241,7 @@ export type Insert_Comment = {
   __typename?: 'insert_comment';
   inserted: Scalars['Boolean'];
   message?: Maybe<Scalars['String']>;
+  comment?: Maybe<Comment>;
 };
 
 export type ErrorFragmentFragment = (
@@ -362,6 +364,14 @@ export type InsertCommentMutation = (
   & { insertComment: (
     { __typename?: 'insert_comment' }
     & Pick<Insert_Comment, 'inserted' | 'message'>
+    & { comment?: Maybe<(
+      { __typename?: 'Comment' }
+      & Pick<Comment, 'id' | 'text' | 'userId' | 'imageId' | 'created_at'>
+      & { user: (
+        { __typename?: 'comment_author' }
+        & Pick<Comment_Author, 'id' | 'username'>
+      ) }
+    )> }
   ) }
 );
 
@@ -450,6 +460,23 @@ export type GetAllImagesQuery = (
       & ImageFragmentFragment
     )> }
   ) }
+);
+
+export type GetImageCommentsQueryVariables = Exact<{
+  imageId: Scalars['String'];
+}>;
+
+
+export type GetImageCommentsQuery = (
+  { __typename?: 'Query' }
+  & { getImageComments: Array<(
+    { __typename?: 'Comment' }
+    & Pick<Comment, 'id' | 'text' | 'userId' | 'imageId' | 'created_at'>
+    & { user: (
+      { __typename?: 'comment_author' }
+      & Pick<Comment_Author, 'id' | 'username'>
+    ) }
+  )> }
 );
 
 export type GetImageQueryVariables = Exact<{
@@ -743,6 +770,17 @@ export const InsertCommentDocument = gql`
   insertComment(imageId: $imageId, comment: $comment) {
     inserted
     message
+    comment {
+      id
+      text
+      userId
+      imageId
+      created_at
+      user {
+        id
+        username
+      }
+    }
   }
 }
     `;
@@ -967,6 +1005,47 @@ export function useGetAllImagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetAllImagesQueryHookResult = ReturnType<typeof useGetAllImagesQuery>;
 export type GetAllImagesLazyQueryHookResult = ReturnType<typeof useGetAllImagesLazyQuery>;
 export type GetAllImagesQueryResult = Apollo.QueryResult<GetAllImagesQuery, GetAllImagesQueryVariables>;
+export const GetImageCommentsDocument = gql`
+    query GetImageComments($imageId: String!) {
+  getImageComments(imageId: $imageId) {
+    id
+    text
+    userId
+    imageId
+    created_at
+    user {
+      id
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetImageCommentsQuery__
+ *
+ * To run a query within a React component, call `useGetImageCommentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetImageCommentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetImageCommentsQuery({
+ *   variables: {
+ *      imageId: // value for 'imageId'
+ *   },
+ * });
+ */
+export function useGetImageCommentsQuery(baseOptions: Apollo.QueryHookOptions<GetImageCommentsQuery, GetImageCommentsQueryVariables>) {
+        return Apollo.useQuery<GetImageCommentsQuery, GetImageCommentsQueryVariables>(GetImageCommentsDocument, baseOptions);
+      }
+export function useGetImageCommentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetImageCommentsQuery, GetImageCommentsQueryVariables>) {
+          return Apollo.useLazyQuery<GetImageCommentsQuery, GetImageCommentsQueryVariables>(GetImageCommentsDocument, baseOptions);
+        }
+export type GetImageCommentsQueryHookResult = ReturnType<typeof useGetImageCommentsQuery>;
+export type GetImageCommentsLazyQueryHookResult = ReturnType<typeof useGetImageCommentsLazyQuery>;
+export type GetImageCommentsQueryResult = Apollo.QueryResult<GetImageCommentsQuery, GetImageCommentsQueryVariables>;
 export const GetImageDocument = gql`
     query GetImage($imageId: String!) {
   getImage(imageId: $imageId) {

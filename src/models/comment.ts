@@ -1,3 +1,4 @@
+import { Comment } from "../entities/comment";
 import { Field, ObjectType } from "type-graphql";
 
 @ObjectType()
@@ -16,4 +17,6 @@ export class insert_comment {
 	inserted!: boolean;
 	@Field({ nullable: true })
 	message?: string;
+	@Field({ nullable: true })
+	comment?: Comment;
 }

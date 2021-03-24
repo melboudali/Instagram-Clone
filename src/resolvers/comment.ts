@@ -12,6 +12,7 @@ import {
 	UseMiddleware
 } from "type-graphql";
 import { comment_author, insert_comment } from "../models/comment";
+import { getConnection } from "typeorm";
 
 @Resolver(Comment)
 export class CommentResolver {
@@ -30,12 +31,24 @@ export class CommentResolver {
 		@Arg("imageId") imageId: string,
 		@Ctx() { req }: MyContext
 	): Promise<insert_comment> {
+		let insertedComment;
 		try {
-			await Comment.insert({ text: comment, imageId, userId: req.session.user_id });
+			const result = await getConnection()
+				.createQueryBuilder()
+				.insert()
+				.into(Comment)
+				.values({
+					text: comment,
+					imageId,
+					userId: req.session.user_id
+				})
+				.returning("*")
+				.execute();
+			insertedComment = result.raw[0];
 		} catch (_) {
 			return { inserted: false, message: "An error occurred. Try again later" };
 		}
-		return { inserted: true };
+		return { inserted: true, comment: insertedComment };
 	}
 
 	@FieldResolver(() => comment_author)

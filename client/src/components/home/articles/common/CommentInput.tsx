@@ -1,6 +1,12 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useInsertCommentMutation } from "../../../../generated/graphql";
+import {
+	GetAllImagesDocument,
+	GetAllImagesQuery,
+	GetImageCommentsDocument,
+	GetImageCommentsQuery,
+	useInsertCommentMutation
+} from "../../../../generated/graphql";
 import styled, { keyframes } from "styled-components";
 import SubmitButton from "../../../Edit/SubmitButton";
 import InsertCommentResponse from "./InsertCommentResponse";
@@ -86,7 +92,22 @@ const CommentInput = ({ imageId }: CommentInputProps) => {
 		setLoading(true);
 		try {
 			const res = await insertComment({
-				variables: { imageId, comment: textareaValue }
+				variables: { imageId, comment: textareaValue },
+				update: (cache, { data }) => {
+					const existedComments = cache.readQuery<GetImageCommentsQuery>({
+						query: GetImageCommentsDocument,
+						variables: { imageId }
+					});
+					if (existedComments?.getImageComments && data?.insertComment.comment) {
+						cache.writeQuery<GetImageCommentsQuery>({
+							query: GetImageCommentsDocument,
+							variables: { imageId },
+							data: {
+								getImageComments: [...existedComments.getImageComments, data?.insertComment.comment]
+							}
+						});
+					}
+				}
 			});
 			if (res.data?.insertComment.inserted) {
 				setTextAreaValue("");
