@@ -141,7 +141,7 @@ const Article = ({
 					</ArticleCommentAndCreatedtimeContainer>
 				</>
 			</ArticleDetails>
-			<CommentInput />
+			<CommentInput imageId={id!} />
 		</ArticleContainer>
 	);
 };

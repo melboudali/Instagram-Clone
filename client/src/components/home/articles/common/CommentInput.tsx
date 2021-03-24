@@ -39,16 +39,18 @@ const CommentInputSubmitButton = styled.button<{ Active: boolean }>`
 	${({ Active }) => !Active && "opacity:0.3"}
 `;
 
-interface CommentInputProps {}
+interface CommentInputProps {
+	imageId: string;
+}
 
-const CommentInput = ({}: CommentInputProps) => {
+const CommentInput = ({ imageId }: CommentInputProps) => {
 	const [textareaValue, setTextAreaValue] = useState<string>("");
 	const [insertComment] = useInsertCommentMutation();
 	const onClick = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 		e.preventDefault();
 		try {
 			const res = await insertComment({
-				variables: { imageId: "", comment: textareaValue },
+				variables: { imageId, comment: textareaValue },
 				update: cache => {
 					cache.evict({ fieldName: "getAllImages" });
 					cache.evict({ fieldName: "getUserImages" });

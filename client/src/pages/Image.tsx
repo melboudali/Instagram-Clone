@@ -249,7 +249,7 @@ const Image = ({
 					</ImageDescriptionContainer>
 					<CommentInputContainer>
 						<Icons liked={true} />
-						<CommentInput />
+						<CommentInput imageId={data?.getImage.image?.id!} />
 					</CommentInputContainer>
 				</ImageAside>
 			</ImageWrapper>
