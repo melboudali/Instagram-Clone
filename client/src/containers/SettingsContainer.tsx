@@ -109,10 +109,7 @@ const SettingsContainer = ({
 				<EditSidebar />
 				<SettingsContainerMain>
 					<ChangePhotoSection>
-						<CurrentUserPhoto
-							src={image_url ? image_url : data?.me?.image_link}
-							alt={data?.me?.username}
-						/>
+						<CurrentUserPhoto src={image_url ?? data?.me?.image_link} alt={data?.me?.username} />
 						<UserNameAndChangeBtn>
 							<UserNameTitle>{data?.me?.username}</UserNameTitle>
 							{Scrollbar && setOpenModal && (

@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import EditFormInput from "../../components/Edit/EditFormInput";
 import SubmitButton from "../../components/Edit/SubmitButton";
 import SettingsContainer from "../../containers/SettingsContainer";
@@ -11,6 +10,7 @@ import {
 	GetUserQuery,
 	GetUserDocument
 } from "../../generated/graphql";
+import PropTypes from "prop-types";
 
 interface PrivacyAndSecurityProps {}
 

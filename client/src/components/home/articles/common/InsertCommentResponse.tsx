@@ -35,7 +35,7 @@ interface InsertCommentResponseProps {
 const InsertCommentResponse = ({ inserted, insertedError }: InsertCommentResponseProps) => {
 	return (
 		<InsertCommentResponseContainer inserted={inserted} insertedError={insertedError}>
-			<h1>{insertedError ? insertedError : "Comment Inserted"}</h1>
+			<h1>{insertedError ?? "Comment Inserted"}</h1>
 		</InsertCommentResponseContainer>
 	);
 };

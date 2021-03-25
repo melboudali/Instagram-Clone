@@ -26,18 +26,6 @@ const IconsContainer = styled.section`
 	}
 `;
 
-const CommentLink = styled(Link)`
-	text-decoration: none;
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 8px;
-	svg {
-		display: block;
-	}
-`;
-
 interface IconsProps {
 	liked: boolean;
 	articleId: string;
