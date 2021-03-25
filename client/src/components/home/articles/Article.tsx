@@ -107,7 +107,7 @@ const Article = ({
 				<img src={image} alt={`by ${name}`} />
 			</ArticleImage>
 			<ArticleDetails>
-				<Icons liked={liked} />
+				<Icons liked={liked} articleId={id} />
 				<ArticleLikesContainer>
 					<div>
 						Liked by
