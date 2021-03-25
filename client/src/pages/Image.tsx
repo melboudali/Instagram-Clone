@@ -206,7 +206,7 @@ const Image = ({
 							/>
 							{comments && comments.getImageComments.length > 0 ? (
 								comments.getImageComments.map(({ id, text, user: { username } }) => (
-									<Comment key={id} user={username} comment={text} />
+									<Comment key={id} username={username} text={text} />
 								))
 							) : (
 								<EmptyComments>

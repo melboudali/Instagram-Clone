@@ -132,7 +132,7 @@ const Article = ({
 										to={`/p/${id}`}>{`View all ${data?.getImageComments.length} comments`}</ArticleCommentsCountLink>
 								</ArticleCommentsCount>
 								{data?.getImageComments.map(({ id, text, user: { username } }) => (
-									<Comment key={id} user={username} comment={text} />
+									<Comment key={id} username={username} text={text} />
 								))}
 							</>
 						)}
