@@ -216,7 +216,7 @@ const Image = ({
 						</ImageDescription>
 					</ImageDescriptionContainer>
 					<CommentInputContainer>
-						<Icons liked={false} articleId={data?.getImage.image?.id!} showComment={false} />
+						<Icons liked={true} imageId={data?.getImage.image?.id!} showComment={false} />
 						<CommentInput imageId={data?.getImage.image?.id!} />
 					</CommentInputContainer>
 				</ImageAside>

@@ -102,13 +102,37 @@ export type Image_Data = {
   id: Scalars['String'];
   caption: Scalars['String'];
   image_url: Scalars['String'];
-  likes: Scalars['Float'];
   like_status?: Maybe<Scalars['String']>;
   userId: Scalars['Float'];
-  comment?: Maybe<Array<Comment>>;
   created_at: Scalars['String'];
   updated_at: Scalars['String'];
   user: Image_Author;
+  like?: Maybe<Array<Like>>;
+};
+
+export type Image_Author = {
+  __typename?: 'image_author';
+  id: Scalars['Float'];
+  username: Scalars['String'];
+  image_link: Scalars['String'];
+};
+
+export type Like = {
+  __typename?: 'Like';
+  userId: Scalars['Float'];
+  imageId: Scalars['String'];
+  user: Image_Author;
+};
+
+export type Image_Res = {
+  __typename?: 'image_res';
+  image?: Maybe<Image_Data>;
+  error?: Maybe<Image_Error>;
+};
+
+export type Image_Error = {
+  __typename?: 'image_error';
+  message: Scalars['String'];
 };
 
 export type Comment = {
@@ -128,24 +152,6 @@ export type Comment_Author = {
   username: Scalars['String'];
 };
 
-export type Image_Author = {
-  __typename?: 'image_author';
-  id: Scalars['Float'];
-  username: Scalars['String'];
-  image_link: Scalars['String'];
-};
-
-export type Image_Res = {
-  __typename?: 'image_res';
-  image?: Maybe<Image_Data>;
-  error?: Maybe<Image_Error>;
-};
-
-export type Image_Error = {
-  __typename?: 'image_error';
-  message: Scalars['String'];
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   register: Response;
@@ -156,6 +162,7 @@ export type Mutation = {
   logout: Scalars['Boolean'];
   uploadImage: Image_Upload_Response;
   insertComment: Insert_Comment;
+  likeImage: Like_Image;
 };
 
 
@@ -207,6 +214,11 @@ export type MutationInsertCommentArgs = {
   comment: Scalars['String'];
 };
 
+
+export type MutationLikeImageArgs = {
+  imageId: Scalars['String'];
+};
+
 export type Register_Inputs = {
   userName: Scalars['String'];
   email: Scalars['String'];
@@ -244,6 +256,12 @@ export type Insert_Comment = {
   comment?: Maybe<Comment>;
 };
 
+export type Like_Image = {
+  __typename?: 'like_image';
+  liked: Scalars['Boolean'];
+  message?: Maybe<Scalars['String']>;
+};
+
 export type ErrorFragmentFragment = (
   { __typename?: 'error' }
   & Pick<Error, 'message'>
@@ -251,11 +269,18 @@ export type ErrorFragmentFragment = (
 
 export type ImageFragmentFragment = (
   { __typename?: 'image_data' }
-  & Pick<Image_Data, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'created_at'>
+  & Pick<Image_Data, 'id' | 'caption' | 'image_url' | 'like_status' | 'created_at'>
   & { user: (
     { __typename?: 'image_author' }
     & Pick<Image_Author, 'id' | 'username' | 'image_link'>
-  ) }
+  ), like?: Maybe<Array<(
+    { __typename?: 'Like' }
+    & Pick<Like, 'userId' | 'imageId'>
+    & { user: (
+      { __typename?: 'image_author' }
+      & Pick<Image_Author, 'id' | 'username' | 'image_link'>
+    ) }
+  )>> }
 );
 
 export type UserFragmentFragment = (
@@ -375,6 +400,19 @@ export type InsertCommentMutation = (
   ) }
 );
 
+export type LikeImageMutationVariables = Exact<{
+  imageId: Scalars['String'];
+}>;
+
+
+export type LikeImageMutation = (
+  { __typename?: 'Mutation' }
+  & { likeImage: (
+    { __typename?: 'like_image' }
+    & Pick<Like_Image, 'liked' | 'message'>
+  ) }
+);
+
 export type LoginMutationVariables = Exact<{
   userNameOrEmail: Scalars['String'];
   password: Scalars['String'];
@@ -490,11 +528,7 @@ export type GetImageQuery = (
     { __typename?: 'image_res' }
     & { image?: Maybe<(
       { __typename?: 'image_data' }
-      & Pick<Image_Data, 'id' | 'caption' | 'image_url' | 'likes' | 'like_status' | 'userId' | 'created_at' | 'updated_at'>
-      & { user: (
-        { __typename?: 'image_author' }
-        & Pick<Image_Author, 'id' | 'username' | 'image_link'>
-      ) }
+      & ImageFragmentFragment
     )>, error?: Maybe<(
       { __typename?: 'image_error' }
       & Pick<Image_Error, 'message'>
@@ -561,13 +595,21 @@ export const ImageFragmentFragmentDoc = gql`
   id
   caption
   image_url
-  likes
   like_status
   created_at
   user {
     id
     username
     image_link
+  }
+  like {
+    userId
+    imageId
+    user {
+      id
+      username
+      image_link
+    }
   }
 }
     `;
@@ -810,6 +852,39 @@ export function useInsertCommentMutation(baseOptions?: Apollo.MutationHookOption
 export type InsertCommentMutationHookResult = ReturnType<typeof useInsertCommentMutation>;
 export type InsertCommentMutationResult = Apollo.MutationResult<InsertCommentMutation>;
 export type InsertCommentMutationOptions = Apollo.BaseMutationOptions<InsertCommentMutation, InsertCommentMutationVariables>;
+export const LikeImageDocument = gql`
+    mutation LikeImage($imageId: String!) {
+  likeImage(imageId: $imageId) {
+    liked
+    message
+  }
+}
+    `;
+export type LikeImageMutationFn = Apollo.MutationFunction<LikeImageMutation, LikeImageMutationVariables>;
+
+/**
+ * __useLikeImageMutation__
+ *
+ * To run a mutation, you first call `useLikeImageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLikeImageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [likeImageMutation, { data, loading, error }] = useLikeImageMutation({
+ *   variables: {
+ *      imageId: // value for 'imageId'
+ *   },
+ * });
+ */
+export function useLikeImageMutation(baseOptions?: Apollo.MutationHookOptions<LikeImageMutation, LikeImageMutationVariables>) {
+        return Apollo.useMutation<LikeImageMutation, LikeImageMutationVariables>(LikeImageDocument, baseOptions);
+      }
+export type LikeImageMutationHookResult = ReturnType<typeof useLikeImageMutation>;
+export type LikeImageMutationResult = Apollo.MutationResult<LikeImageMutation>;
+export type LikeImageMutationOptions = Apollo.BaseMutationOptions<LikeImageMutation, LikeImageMutationVariables>;
 export const LoginDocument = gql`
     mutation Login($userNameOrEmail: String!, $password: String!) {
   login(userNameOrEmail: $userNameOrEmail, password: $password) {
@@ -1050,26 +1125,14 @@ export const GetImageDocument = gql`
     query GetImage($imageId: String!) {
   getImage(imageId: $imageId) {
     image {
-      id
-      caption
-      image_url
-      likes
-      like_status
-      userId
-      created_at
-      updated_at
-      user {
-        id
-        username
-        image_link
-      }
+      ...imageFragment
     }
     error {
       message
     }
   }
 }
-    `;
+    ${ImageFragmentFragmentDoc}`;
 
 /**
  * __useGetImageQuery__

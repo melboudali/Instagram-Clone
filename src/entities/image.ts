@@ -13,8 +13,8 @@ import { User } from "./user";
 import { Like } from "./like";
 import { Comment } from "./comment";
 
-@ObjectType()
 @Entity()
+@ObjectType()
 export class Image extends BaseEntity {
 	@Field()
 	@PrimaryGeneratedColumn("uuid")
@@ -27,10 +27,6 @@ export class Image extends BaseEntity {
 	@Field()
 	@Column()
 	image_url!: string;
-
-	@Field()
-	@Column({ default: 0 })
-	likes!: number;
 
 	@Field(() => String, { nullable: true })
 	like_status!: string;
@@ -45,7 +41,6 @@ export class Image extends BaseEntity {
 	@OneToMany(() => Like, like => like.image)
 	like!: Like[];
 
-	@Field(() => [Comment], { nullable: true })
 	@OneToMany(() => Comment, comment => comment.image)
 	comment!: Comment[];
 

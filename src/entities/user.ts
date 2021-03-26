@@ -13,8 +13,8 @@ import { Comment } from "./comment";
 import { Like } from "./like";
 import { Follower } from "./follower";
 
-@ObjectType()
 @Entity()
+@ObjectType()
 export class User extends BaseEntity {
 	@Field()
 	@PrimaryGeneratedColumn()
@@ -89,7 +89,7 @@ export class User extends BaseEntity {
 	// following: Follower[];
 
 	@OneToMany(() => Like, like => like.user)
-	likes!: Like[];
+	like!: Like[];
 
 	@OneToMany(() => Comment, comment => comment.user)
 	comments!: Comment[];

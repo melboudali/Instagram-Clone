@@ -14,7 +14,7 @@ import { GraphQLUpload, FileUpload } from "graphql-upload";
 import { Image } from "../entities/image";
 import { isAuth } from "../middleware/isAuthenticated";
 import { MyContext } from "../types";
-import { getConnection } from "typeorm";
+import { getConnection, getRepository } from "typeorm";
 import { v2 as cloudinary } from "cloudinary";
 import {
 	CLOUDINARY_CONFIG,
@@ -100,8 +100,14 @@ export class ImageResolver {
 	@Query(() => image_res)
 	async getImage(@Arg("imageId") imageId: string): Promise<image_res> {
 		if (imageId) {
-			const res = await Image.findOne(imageId);
+			const res = await getRepository(Image)
+				.createQueryBuilder("image")
+				.leftJoinAndSelect("image.like", "like")
+				.where("image.id = :imageId", { imageId })
+				.getOne();
+
 			if (res) {
+				console.log(res);
 				return { image: res };
 			} else {
 				return { error: { message: "error" } };

@@ -18,7 +18,7 @@ const ArticlesAndSuggestionsContainer = () => {
 
 	return (
 		<ArticlesAndSuggestionsMain>
-			<Articles meData={data.me} />
+			<Articles />
 			<Suggestion meData={data.me} />
 		</ArticlesAndSuggestionsMain>
 	);

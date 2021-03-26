@@ -20,8 +20,8 @@ export class user_image_data {
 	caption!: string;
 	@Field()
 	image_url!: string;
-	@Field()
-	likes!: number;
+	// @Field()
+	// like!: number;
 	@Field({ nullable: true })
 	like_status!: string;
 	@Field(() => String)

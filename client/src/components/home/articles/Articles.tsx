@@ -31,11 +31,7 @@ const ArticlesLoadingSpinner = styled.div<{ padding: string; margin: boolean }>`
 	${({ margin }) => margin && "margin: -40px 0 20px 0;"}
 `;
 
-interface ArticleProps {
-	meData: Partial<User_Response>;
-}
-
-const Articles = ({ meData }: ArticleProps) => {
+const Articles = () => {
 	const { data: images, loading: imagesLoading, error, fetchMore, variables } = useGetAllImagesQuery(
 		{
 			variables: { limit: 3, cursor: null }
@@ -79,27 +75,17 @@ const Articles = ({ meData }: ArticleProps) => {
 
 	return (
 		<ArticlesContainer>
-			{images.getAllImages.images?.map(
-				({
-					id,
-					caption,
-					likes,
-					image_url,
-					like_status: liked,
-					user: { image_link, username },
-					created_at
-				}) => (
+			{images.getAllImages.images.map(
+				({ id, caption, image_url, like_status, created_at, user, like }) => (
 					<Article
 						key={id}
 						id={id}
-						name={username}
-						logo={image_link}
-						image={image_url}
-						description={caption}
-						likes={`MedEL and ${likes} persons.`}
-						createdTime={created_at}
-						meData={meData}
-						liked={!!liked}
+						caption={caption}
+						image_url={image_url}
+						like_status={like_status}
+						created_at={created_at}
+						user={user}
+						like={like}
 					/>
 				)
 			)}
@@ -110,10 +96,6 @@ const Articles = ({ meData }: ArticleProps) => {
 			)}
 		</ArticlesContainer>
 	);
-};
-
-Articles.propTypes = {
-	meData: PropTypes.object.isRequired
 };
 
 export default Articles;

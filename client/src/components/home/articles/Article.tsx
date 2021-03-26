@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useGetImageCommentsQuery, User_Response } from "../../../generated/graphql";
+import { Image_Data, Like, useGetImageCommentsQuery } from "../../../generated/graphql";
 import timeDifference from "../../../utils/timeDefference";
 import PropTypes from "prop-types";
 import Header from "./common/Header";
@@ -45,10 +44,8 @@ const ArticleLikesLink = styled(Link)`
 	${LikesCss}
 `;
 
-const ArticleOtherButton = styled.button`
-	border: 0;
-	padding: 0;
-	background: none;
+const ArticleOtherLink = styled(Link)`
+	text-decoration: none;
 	${LikesCss}
 `;
 
@@ -73,26 +70,22 @@ const ArticleCreatedTime = styled(Link)`
 
 interface ArticleProps {
 	id: string;
-	name: string;
-	logo: string;
-	image: string;
-	description: string;
-	likes: string;
-	createdTime: string;
-	meData: Partial<User_Response>;
-	liked: boolean;
+	caption: string;
+	image_url: string;
+	like_status: any;
+	created_at: string;
+	user: { id: number; username: string; image_link: string };
+	like: any;
 }
 
 const Article = ({
 	id,
-	name,
-	logo,
-	image,
-	description,
-	likes,
-	createdTime,
-	meData,
-	liked
+	caption,
+	image_url,
+	like_status,
+	created_at,
+	user: { image_link, username },
+	like
 }: ArticleProps) => {
 	const { data } = useGetImageCommentsQuery({ variables: { imageId: id } });
 	const onClick = (buttonName: string) => {
@@ -102,28 +95,28 @@ const Article = ({
 
 	return (
 		<ArticleContainer>
-			<Header logo={logo} name={name} />
+			<Header logo={image_link} name={username} />
 			<ArticleImage to={`/p/${id}`}>
-				<img src={image} alt={`by ${name}`} />
+				<img src={image_url} alt={`by ${username}`} />
 			</ArticleImage>
 			<ArticleDetails>
-				<Icons liked={liked} articleId={id} />
-				<ArticleLikesContainer>
-					<div>
-						Liked by
-						<span>
-							<ArticleLikesLink to={`/${meData.username === likes ? "/profile" : likes}`}>
-								{likes}
-							</ArticleLikesLink>
-						</span>
-						and
-						<ArticleOtherButton type="button" onClick={() => onClick("Others")}>
-							others.
-						</ArticleOtherButton>
-					</div>
-				</ArticleLikesContainer>
+				<Icons liked={!!like_status} imageId={id} />
+				{like && (
+					<ArticleLikesContainer>
+						<div>
+							Liked by
+							<span>
+								<ArticleLikesLink to={`/${like[0].user.username}`}>
+									{like[0].user.username}
+								</ArticleLikesLink>
+							</span>
+							and
+							<ArticleOtherLink to={`/p/${id}`}>others.</ArticleOtherLink>
+						</div>
+					</ArticleLikesContainer>
+				)}
 				<>
-					<Caption name={name} description={description} />
+					<Caption name={username} description={caption} />
 					<ArticleCommentAndCreatedtimeContainer>
 						{data && !!data?.getImageComments.length && (
 							<>
@@ -136,9 +129,7 @@ const Article = ({
 								))}
 							</>
 						)}
-						<ArticleCreatedTime to={`/p/${id}`}>{`${timeDifference(
-							createdTime
-						)} ago`}</ArticleCreatedTime>
+						<ArticleCreatedTime to={`/p/${id}`}>{`${timeDifference(created_at)} ago`}</ArticleCreatedTime>
 					</ArticleCommentAndCreatedtimeContainer>
 				</>
 			</ArticleDetails>
@@ -147,15 +138,6 @@ const Article = ({
 	);
 };
 
-Article.propTypes = {
-	name: PropTypes.string.isRequired,
-	logo: PropTypes.string.isRequired,
-	image: PropTypes.string.isRequired,
-	description: PropTypes.string.isRequired,
-	likes: PropTypes.string.isRequired,
-	createdTime: PropTypes.string.isRequired,
-	meData: PropTypes.object.isRequired,
-	liked: PropTypes.bool.isRequired
-};
+Article.propTypes = {};
 
 export default Article;

@@ -1,5 +1,6 @@
 import { Image } from "../entities/image";
 import { Field, ObjectType } from "type-graphql";
+import { Like } from "../entities/like";
 
 @ObjectType()
 export class image_author {
@@ -19,10 +20,10 @@ export class image_data extends Image {
 	caption!: string;
 	@Field()
 	image_url!: string;
-	@Field()
-	likes!: number;
 	@Field({ nullable: true })
 	like_status!: string;
+	@Field(() => [Like], { nullable: true })
+	like!: Like[];
 	@Field(() => String)
 	created_at!: Date;
 }
@@ -68,7 +69,7 @@ export class PaginatedImages {
 @ObjectType()
 export class image_res {
 	@Field(() => image_data, { nullable: true })
-	image?: Image;
+	image?: image_data;
 	@Field(() => image_error, { nullable: true })
 	error?: image_error;
 }

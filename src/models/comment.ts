@@ -7,8 +7,6 @@ export class comment_author {
 	id!: number;
 	@Field()
 	username!: string;
-	// @Field()
-	// image_link!: string;
 }
 
 @ObjectType()

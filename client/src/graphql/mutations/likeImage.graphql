@@ -1,0 +1,6 @@
+mutation LikeImage($imageId: String!) {
+	likeImage(imageId: $imageId) {
+		liked
+		message
+	}
+}

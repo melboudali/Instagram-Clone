@@ -11,8 +11,8 @@ import { Field, ObjectType } from "type-graphql";
 import { User } from "./user";
 import { Image } from "./image";
 
-@ObjectType()
 @Entity()
+@ObjectType()
 export class Comment extends BaseEntity {
 	@Field()
 	@PrimaryGeneratedColumn()
