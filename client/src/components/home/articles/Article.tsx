@@ -125,7 +125,7 @@ const Article = ({
 				<>
 					<Caption name={name} description={description} />
 					<ArticleCommentAndCreatedtimeContainer>
-						{data && data?.getImageComments.length > 0 && (
+						{data && !!data?.getImageComments.length && (
 							<>
 								<ArticleCommentsCount>
 									<ArticleCommentsCountLink

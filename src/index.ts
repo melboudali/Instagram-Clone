@@ -20,6 +20,7 @@ import { Comment } from "./entities/comment";
 import { Follower } from "./entities/follower";
 import { graphqlUploadExpress } from "graphql-upload";
 import path from "path";
+import { LikeResolver } from "./resolvers/like";
 
 const PORT = process.env.PORT || 5000;
 
@@ -63,7 +64,7 @@ const main = async () => {
 	const apolloServer = new ApolloServer({
 		uploads: false,
 		schema: await buildSchema({
-			resolvers: [UserResolver, ImageResolver, CommentResolver],
+			resolvers: [UserResolver, ImageResolver, CommentResolver, LikeResolver],
 			validate: false
 		}),
 		context: ({ req, res }) => ({

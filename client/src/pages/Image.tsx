@@ -80,7 +80,7 @@ const ImageMain = styled.a<{ backgroundColor: string }>`
 	display: var(--displayValue) !important;
 	width: 100%;
 	height: 100%;
-	background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : "#161616")};
+	background-color: ${({ backgroundColor }) => backgroundColor ?? "#161616"};
 	img {
 		max-width: 100%;
 		max-height: 100%;
@@ -204,7 +204,7 @@ const Image = ({
 								description={data?.getImage.image?.caption!}
 								image={data?.getImage.image?.user.image_link}
 							/>
-							{comments && comments.getImageComments.length > 0 ? (
+							{comments && !!comments.getImageComments.length ? (
 								comments.getImageComments.map(({ id, text, user: { username } }) => (
 									<Comment key={id} username={username} text={text} />
 								))

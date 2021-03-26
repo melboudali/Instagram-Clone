@@ -40,7 +40,7 @@ const Span = styled.span<{ value: string }>`
 	transform-origin: left;
 	transition: transform ease-out 0.1s;
 
-	${({ value }) => value.length > 0 && "transform: scale(.83333) translateY(-10px);"}
+	${({ value }) => value.length && "transform: scale(.83333) translateY(-10px);"}
 	transition: transform ease-out .1s,-webkit-transform ease-out .1s;
 	user-select: none;
 	cursor: text;
@@ -54,7 +54,7 @@ const Input = styled.input<{ value: string }>`
 	text-overflow: ellipsis;
 	border-radius: 3px;
 	${({ value }) =>
-		value.length > 0
+		value.length
 			? "font-size: 12px; padding: 14px 8px 2px;"
 			: "font-size: 16px; padding: 9px 8px 7px;"};
 	cursor: text;
@@ -122,7 +122,7 @@ const FromInput = ({
 						autoComplete="off"
 						onChange={onChangeFunction}
 					/>
-					{type === "password" && inputValue.length > 0 && (
+					{type === "password" && !!inputValue.length && (
 						<ShowButton type="button" onClick={onClickFunction}>
 							{showPassword ? "hide" : "show"}
 						</ShowButton>
