@@ -46,31 +46,34 @@ const Icons = ({ liked, imageId, showComment = true }: IconsProps) => {
 				const res = await likeImage({
 					variables: { imageId },
 					update: cache => {
-						const existedImages = cache.readQuery<GetAllImagesQuery>({
-							query: GetAllImagesDocument,
-							variables: { limit: 3, cursor: null }
-						});
-
-						if (existedImages?.getAllImages.images) {
-							const newImages = existedImages.getAllImages.images.map(image => {
-								if (image.id === imageId) {
-									return {
-										...image,
-										like_status: imageId
-									};
-								}
-								return image;
-							});
-							cache.writeQuery<GetAllImagesQuery>({
+						if (showComment) {
+							const existedImages = cache.readQuery<GetAllImagesQuery>({
 								query: GetAllImagesDocument,
-								data: {
-									...existedImages,
-									getAllImages: {
-										...existedImages.getAllImages,
-										images: newImages
-									}
-								}
+								variables: { limit: 3, cursor: null }
 							});
+
+							if (existedImages?.getAllImages.images) {
+								const newImages = existedImages.getAllImages.images.map(image => {
+									if (image.id === imageId) {
+										return {
+											...image,
+											like_status: imageId
+										};
+									}
+									return image;
+								});
+								cache.writeQuery<GetAllImagesQuery>({
+									query: GetAllImagesDocument,
+									data: {
+										...existedImages,
+										getAllImages: {
+											...existedImages.getAllImages,
+											images: newImages
+										}
+									}
+								});
+							}
+						} else {
 						}
 					}
 				});
