@@ -16,22 +16,15 @@ import { Comment } from "./comment";
 @Entity()
 @ObjectType()
 export class Image extends BaseEntity {
-	@Field()
 	@PrimaryGeneratedColumn("uuid")
 	id!: string;
 
-	@Field()
 	@Column()
 	caption!: string;
 
-	@Field()
 	@Column()
 	image_url!: string;
 
-	@Field(() => String, { nullable: true })
-	like_status!: string;
-
-	@Field()
 	@Column()
 	userId!: number;
 
@@ -44,11 +37,9 @@ export class Image extends BaseEntity {
 	@OneToMany(() => Comment, comment => comment.image)
 	comment!: Comment[];
 
-	@Field(() => String)
 	@CreateDateColumn()
 	created_at!: Date;
 
-	@Field(() => String)
 	@UpdateDateColumn()
 	updated_at!: Date;
 }

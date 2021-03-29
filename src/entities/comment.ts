@@ -14,19 +14,15 @@ import { Image } from "./image";
 @Entity()
 @ObjectType()
 export class Comment extends BaseEntity {
-	@Field()
 	@PrimaryGeneratedColumn()
 	id!: number;
 
-	@Field()
 	@Column()
 	text!: string;
 
-	@Field()
 	@Column()
 	userId!: number;
 
-	@Field()
 	@Column()
 	imageId!: string;
 
@@ -36,11 +32,9 @@ export class Comment extends BaseEntity {
 	@ManyToOne(() => Image, image => image.comment, { onDelete: "CASCADE" })
 	image!: Image;
 
-	@Field(() => String)
 	@CreateDateColumn()
 	created_at!: Date;
 
-	@Field(() => String)
 	@UpdateDateColumn()
 	updated_at!: Date;
 }

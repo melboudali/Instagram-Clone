@@ -49,17 +49,25 @@ export class ImageResolver {
 			cursorId = queryParams.length;
 		}
 
-		const images = await getConnection().query(
-			`
-		select i.*, 
-		(select "imageId" from "like" where "userId" = $2 and "imageId" = i.id) like_status
-		from image i
-		${cursor ? `where i.created_at < $${cursorId}` : ""}
-		order by i.created_at DESC
-		limit $1
-		`,
-			queryParams
-		);
+		// const images = await getConnection().query(
+		// 	`
+		// select i.*,
+		// (select "imageId" from "like" where "userId" = $2 and "imageId" = i.id) like_status
+		// from image i
+		// ${cursor ? `where i.created_at < $${cursorId}` : ""}
+		// order by i.created_at DESC
+		// limit $1
+		// `,
+		// 	queryParams
+		// );
+
+		const images = await getRepository(Image)
+			.createQueryBuilder("image")
+			.leftJoinAndSelect("image.like", "like_status")
+			.where("like.userId = :userId", { userId: queryParams[1] })
+			.where(cursor ? `image.created_at < $${cursorId}` : "")
+			.orderBy("image.created_at", "DESC")
+			.getMany();
 
 		return { images: images.slice(0, minLimit), hasMore: images.length === minLimitPlusOne };
 	}

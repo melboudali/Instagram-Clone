@@ -237,20 +237,33 @@ const Image = ({
 					</ImageDescriptionContainer>
 					<CommentInputContainer>
 						<Icons liked={true} imageId={data?.getImage.image?.id!} showComment={false} />
-						{data?.getImage.image?.like && (
-							<ArticleLikesContainer>
-								<div>
-									Liked by
-									<span>
-										<ArticleLikesLink to={`/${data?.getImage.image?.like[0].user.username}`}>
-											{data?.getImage.image?.like[0].user.username}
-										</ArticleLikesLink>
-									</span>
-									and
-									<ArticleOtherLink to={`/p/${data?.getImage.image?.id}`}>others.</ArticleOtherLink>
-								</div>
-							</ArticleLikesContainer>
-						)}
+						{!!data?.getImage.image?.like &&
+							(data?.getImage.image?.like.length >= 2 ? (
+								<ArticleLikesContainer>
+									<div>
+										Liked by
+										<span>
+											<ArticleLikesLink to={`/${data?.getImage.image?.like[0].user.username}`}>
+												{data?.getImage.image?.like[0].user.username}
+											</ArticleLikesLink>
+										</span>
+										and
+										<ArticleOtherLink to={`/p/${data?.getImage.image?.id}`}>others.</ArticleOtherLink>
+									</div>
+								</ArticleLikesContainer>
+							) : (
+								<ArticleLikesContainer>
+									<div>
+										Liked by
+										<span>
+											<ArticleLikesLink to={`/${data?.getImage.image?.like[0].user.username}`}>
+												{data?.getImage.image?.like[0].user.username}
+											</ArticleLikesLink>
+										</span>
+										.
+									</div>
+								</ArticleLikesContainer>
+							))}
 						<CommentInput imageId={data?.getImage.image?.id!} />
 					</CommentInputContainer>
 				</ImageAside>

@@ -13,7 +13,7 @@ export class image_author {
 }
 
 @ObjectType()
-export class image_data extends Image {
+export class image_data {
 	@Field()
 	id!: string;
 	@Field()
@@ -21,7 +21,7 @@ export class image_data extends Image {
 	@Field()
 	image_url!: string;
 	@Field({ nullable: true })
-	like_status!: string;
+	like_status?: string;
 	@Field(() => [Like], { nullable: true })
 	like!: Like[];
 	@Field(() => String)
@@ -49,22 +49,6 @@ export class PaginatedImages {
 	@Field(() => Boolean)
 	hasMore!: boolean;
 }
-
-// @ObjectType()
-// export class image {
-// 	@Field()
-// 	id!: string;
-// 	@Field()
-// 	caption!: string;
-// 	@Field()
-// 	image_url!: string;
-// 	@Field()
-// 	likes!: number;
-// 	@Field({ nullable: true })
-// 	like_status!: string;
-// 	@Field(() => String)
-// 	created_at!: Date;
-// }
 
 @ObjectType()
 export class image_res {
