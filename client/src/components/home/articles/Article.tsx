@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-import { Image_Data, Like, useGetImageCommentsQuery } from "../../../generated/graphql";
+import { Image_Data, Like, Maybe, useGetImageCommentsQuery } from "../../../generated/graphql";
 import timeDifference from "../../../utils/timeDefference";
 import PropTypes from "prop-types";
 import Header from "./common/Header";
@@ -8,6 +8,7 @@ import Icons from "./common/Icons";
 import CommentInput from "./common/CommentInput";
 import Comment from "./common/Comment";
 import Caption from "./common/Caption";
+import { useEffect } from "react";
 
 const ArticleContainer = styled.article`
 	display: block;
@@ -75,7 +76,7 @@ interface ArticleProps {
 	like_status: any;
 	created_at: string;
 	user: { id: number; username: string; image_link: string };
-	like: any;
+	like: Maybe<Like[]> | undefined;
 }
 
 const Article = ({
@@ -88,10 +89,10 @@ const Article = ({
 	like
 }: ArticleProps) => {
 	const { data } = useGetImageCommentsQuery({ variables: { imageId: id } });
-	const onClick = (buttonName: string) => {
-		// TODO: Edit this later
-		console.log(`${buttonName} Button Clicked.`);
-	};
+
+	useEffect(() => {
+		console.log(like);
+	}, [like]);
 
 	return (
 		<ArticleContainer>

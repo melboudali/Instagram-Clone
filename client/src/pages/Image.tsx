@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
-import styled from "styled-components";
+import { Link, useHistory } from "react-router-dom";
+import styled, { css } from "styled-components";
 import Caption from "../components/home/articles/common/Caption";
 import Comment from "../components/home/articles/common/Comment";
 import CommentInput from "../components/home/articles/common/CommentInput";
@@ -156,6 +156,26 @@ const CommentInputContainer = styled.section`
 	padding: 0 10px;
 `;
 
+const LikesCss = css`
+	color: #262626;
+	margin: 0 3px;
+	font-weight: 600;
+	cursor: pointer;
+`;
+
+const ArticleLikesContainer = styled.section`
+	margin-bottom: 8px;
+`;
+
+const ArticleLikesLink = styled(Link)`
+	${LikesCss}
+`;
+
+const ArticleOtherLink = styled(Link)`
+	text-decoration: none;
+	${LikesCss}
+`;
+
 interface ImageProps {
 	match: { params: { imageId: string } };
 }
@@ -217,6 +237,20 @@ const Image = ({
 					</ImageDescriptionContainer>
 					<CommentInputContainer>
 						<Icons liked={true} imageId={data?.getImage.image?.id!} showComment={false} />
+						{data?.getImage.image?.like && (
+							<ArticleLikesContainer>
+								<div>
+									Liked by
+									<span>
+										<ArticleLikesLink to={`/${data?.getImage.image?.like[0].user.username}`}>
+											{data?.getImage.image?.like[0].user.username}
+										</ArticleLikesLink>
+									</span>
+									and
+									<ArticleOtherLink to={`/p/${data?.getImage.image?.id}`}>others.</ArticleOtherLink>
+								</div>
+							</ArticleLikesContainer>
+						)}
 						<CommentInput imageId={data?.getImage.image?.id!} />
 					</CommentInputContainer>
 				</ImageAside>
