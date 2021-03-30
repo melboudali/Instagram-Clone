@@ -6,7 +6,7 @@ import Caption from "../components/home/articles/common/Caption";
 import Comment from "../components/home/articles/common/Comment";
 import CommentInput from "../components/home/articles/common/CommentInput";
 import Header from "../components/home/articles/common/Header";
-import { useGetImageCommentsQuery, useGetImageQuery } from "../generated/graphql";
+import { useGetImageCommentsQuery, useGetImageQuery, useMeQuery } from "../generated/graphql";
 import { usePalette } from "react-palette";
 import Icons from "../components/home/articles/common/Icons";
 
@@ -186,6 +186,7 @@ const Image = ({
 	}
 }: ImageProps) => {
 	const history = useHistory();
+	const { data: me } = useMeQuery();
 	const { data: comments } = useGetImageCommentsQuery({ variables: { imageId } });
 
 	const { data } = useGetImageQuery({ variables: { imageId } });
@@ -236,34 +237,27 @@ const Image = ({
 						</ImageDescription>
 					</ImageDescriptionContainer>
 					<CommentInputContainer>
-						<Icons liked={true} imageId={data?.getImage.image?.id!} showComment={false} />
-						{!!data?.getImage.image?.like &&
-							(data?.getImage.image?.like.length >= 2 ? (
-								<ArticleLikesContainer>
-									<div>
-										Liked by
-										<span>
-											<ArticleLikesLink to={`/${data?.getImage.image?.like[0].user.username}`}>
-												{data?.getImage.image?.like[0].user.username}
-											</ArticleLikesLink>
-										</span>
-										and
-										<ArticleOtherLink to={`/p/${data?.getImage.image?.id}`}>others.</ArticleOtherLink>
-									</div>
-								</ArticleLikesContainer>
-							) : (
-								<ArticleLikesContainer>
-									<div>
-										Liked by
-										<span>
-											<ArticleLikesLink to={`/${data?.getImage.image?.like[0].user.username}`}>
-												{data?.getImage.image?.like[0].user.username}
-											</ArticleLikesLink>
-										</span>
-										.
-									</div>
-								</ArticleLikesContainer>
-							))}
+						<Icons liked={true} imageId={data?.getImage.image?.id!} showComment={false} me={me} />
+						{!!data?.getImage.image?.like && (
+							<ArticleLikesContainer>
+								<div>
+									Liked by
+									<span>
+										<ArticleLikesLink to={`/${data?.getImage.image?.like[0].user.username}`}>
+											{data?.getImage.image?.like[0].user.username}
+										</ArticleLikesLink>
+									</span>
+									{data?.getImage.image?.like.length >= 2 ? (
+										<>
+											and
+											<ArticleOtherLink to={`/p/${data?.getImage.image?.id}`}>others.</ArticleOtherLink>
+										</>
+									) : (
+										<>.</>
+									)}
+								</div>
+							</ArticleLikesContainer>
+						)}
 						<CommentInput imageId={data?.getImage.image?.id!} />
 					</CommentInputContainer>
 				</ImageAside>

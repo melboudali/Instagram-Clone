@@ -3,7 +3,9 @@ import styled from "styled-components";
 import {
 	GetAllImagesDocument,
 	GetAllImagesQuery,
-	useLikeImageMutation
+	MeQuery,
+	useLikeImageMutation,
+	useMeQuery
 } from "../../../../generated/graphql";
 import PropTypes from "prop-types";
 
@@ -35,9 +37,10 @@ interface IconsProps {
 	liked: boolean;
 	imageId: string;
 	showComment?: boolean;
+	me: MeQuery | undefined;
 }
 
-const Icons = ({ liked, imageId, showComment = true }: IconsProps) => {
+const Icons = ({ me, liked, imageId, showComment = true }: IconsProps) => {
 	const history = useHistory();
 	const [likeImage] = useLikeImageMutation();
 	const onClick = async () => {
@@ -57,7 +60,7 @@ const Icons = ({ liked, imageId, showComment = true }: IconsProps) => {
 									if (image.id === imageId) {
 										return {
 											...image,
-											like_status: imageId
+											like: [{ user: { username: me?.me?.username! } }]
 										};
 									}
 									return image;

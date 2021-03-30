@@ -1,6 +1,6 @@
 import Article from "./Article";
 import styled from "styled-components";
-import { useGetAllImagesQuery, User_Response } from "../../../generated/graphql";
+import { useGetAllImagesQuery, useMeQuery, User_Response } from "../../../generated/graphql";
 import ArticlesError from "../../common/errors/ArticlesError";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { useEffect } from "react";
@@ -32,13 +32,13 @@ const ArticlesLoadingSpinner = styled.div<{ padding: string; margin: boolean }>`
 `;
 
 const Articles = () => {
+	const { isBottom, setIsBottom } = useScrollBottom();
+	const { data } = useMeQuery();
 	const { data: images, loading: imagesLoading, error, fetchMore, variables } = useGetAllImagesQuery(
 		{
 			variables: { limit: 3, cursor: null }
 		}
 	);
-
-	const { isBottom, setIsBottom } = useScrollBottom();
 
 	useEffect(() => {
 		if (isBottom && images?.getAllImages.hasMore) {
@@ -75,20 +75,18 @@ const Articles = () => {
 
 	return (
 		<ArticlesContainer>
-			{images.getAllImages.images.map(
-				({ id, caption, image_url, like_status, created_at, user, like }) => (
-					<Article
-						key={id}
-						id={id}
-						caption={caption}
-						image_url={image_url}
-						like_status={like_status}
-						created_at={created_at}
-						user={user}
-						like={like}
-					/>
-				)
-			)}
+			{images.getAllImages.images.map(({ id, caption, image_url, created_at, user, like }) => (
+				<Article
+					key={id}
+					id={id}
+					caption={caption}
+					image_url={image_url}
+					created_at={created_at}
+					user={user}
+					like={like}
+					me={data}
+				/>
+			))}
 			{images.getAllImages.hasMore && (
 				<ArticlesLoadingSpinner padding="0" margin={true}>
 					<LoadingSpinner margin="0 auto" />

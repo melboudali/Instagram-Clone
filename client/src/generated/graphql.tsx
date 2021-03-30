@@ -11,6 +11,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
   /** The `Upload` scalar type represents a file upload. */
   Upload: any;
 };
@@ -20,10 +22,10 @@ export type Query = {
   me?: Maybe<User_Response>;
   getUser: Response;
   suggestedUsers: Responses;
-  getAllImages: PaginatedImages;
-  getUserImages: PaginatedImages;
+  getAllImages: Images;
+  getUserImages: Images;
   getImage: Image_Res;
-  getImageComments: Array<Comment>;
+  getImageComments: Array<Comment_Res>;
 };
 
 
@@ -91,8 +93,8 @@ export type Responses = {
   users: Array<User_Response>;
 };
 
-export type PaginatedImages = {
-  __typename?: 'PaginatedImages';
+export type Images = {
+  __typename?: 'images';
   images: Array<Image_Data>;
   hasMore: Scalars['Boolean'];
 };
@@ -102,12 +104,11 @@ export type Image_Data = {
   id: Scalars['String'];
   caption: Scalars['String'];
   image_url: Scalars['String'];
-  like_status?: Maybe<Scalars['String']>;
   userId: Scalars['Float'];
   created_at: Scalars['String'];
   updated_at: Scalars['String'];
   user: Image_Author;
-  like?: Maybe<Array<Like>>;
+  like: Array<Like>;
 };
 
 export type Image_Author = {
@@ -121,7 +122,12 @@ export type Like = {
   __typename?: 'Like';
   userId: Scalars['Float'];
   imageId: Scalars['String'];
-  user: Image_Author;
+  user: Like_Author;
+};
+
+export type Like_Author = {
+  __typename?: 'like_author';
+  username: Scalars['String'];
 };
 
 export type Image_Res = {
@@ -135,16 +141,17 @@ export type Image_Error = {
   message: Scalars['String'];
 };
 
-export type Comment = {
-  __typename?: 'Comment';
+export type Comment_Res = {
+  __typename?: 'comment_res';
   id: Scalars['Float'];
   text: Scalars['String'];
   userId: Scalars['Float'];
   imageId: Scalars['String'];
-  created_at: Scalars['String'];
+  created_at: Scalars['DateTime'];
   updated_at: Scalars['String'];
   user: Comment_Author;
 };
+
 
 export type Comment_Author = {
   __typename?: 'comment_author';
@@ -253,7 +260,7 @@ export type Insert_Comment = {
   __typename?: 'insert_comment';
   inserted: Scalars['Boolean'];
   message?: Maybe<Scalars['String']>;
-  comment?: Maybe<Comment>;
+  comment: Comment_Res;
 };
 
 export type Like_Image = {
@@ -269,18 +276,17 @@ export type ErrorFragmentFragment = (
 
 export type ImageFragmentFragment = (
   { __typename?: 'image_data' }
-  & Pick<Image_Data, 'id' | 'caption' | 'image_url' | 'like_status' | 'created_at'>
+  & Pick<Image_Data, 'id' | 'caption' | 'image_url' | 'created_at'>
   & { user: (
     { __typename?: 'image_author' }
     & Pick<Image_Author, 'id' | 'username' | 'image_link'>
-  ), like?: Maybe<Array<(
+  ), like: Array<(
     { __typename?: 'Like' }
-    & Pick<Like, 'userId' | 'imageId'>
     & { user: (
-      { __typename?: 'image_author' }
-      & Pick<Image_Author, 'id' | 'username' | 'image_link'>
+      { __typename?: 'like_author' }
+      & Pick<Like_Author, 'username'>
     ) }
-  )>> }
+  )> }
 );
 
 export type UserFragmentFragment = (
@@ -389,14 +395,14 @@ export type InsertCommentMutation = (
   & { insertComment: (
     { __typename?: 'insert_comment' }
     & Pick<Insert_Comment, 'inserted' | 'message'>
-    & { comment?: Maybe<(
-      { __typename?: 'Comment' }
-      & Pick<Comment, 'id' | 'text' | 'userId' | 'imageId' | 'created_at'>
+    & { comment: (
+      { __typename?: 'comment_res' }
+      & Pick<Comment_Res, 'id' | 'text' | 'userId' | 'imageId' | 'created_at'>
       & { user: (
         { __typename?: 'comment_author' }
         & Pick<Comment_Author, 'id' | 'username'>
       ) }
-    )> }
+    ) }
   ) }
 );
 
@@ -491,8 +497,8 @@ export type GetAllImagesQueryVariables = Exact<{
 export type GetAllImagesQuery = (
   { __typename?: 'Query' }
   & { getAllImages: (
-    { __typename?: 'PaginatedImages' }
-    & Pick<PaginatedImages, 'hasMore'>
+    { __typename?: 'images' }
+    & Pick<Images, 'hasMore'>
     & { images: Array<(
       { __typename?: 'image_data' }
       & ImageFragmentFragment
@@ -508,8 +514,8 @@ export type GetImageCommentsQueryVariables = Exact<{
 export type GetImageCommentsQuery = (
   { __typename?: 'Query' }
   & { getImageComments: Array<(
-    { __typename?: 'Comment' }
-    & Pick<Comment, 'id' | 'text' | 'userId' | 'imageId' | 'created_at'>
+    { __typename?: 'comment_res' }
+    & Pick<Comment_Res, 'id' | 'text' | 'imageId' | 'created_at'>
     & { user: (
       { __typename?: 'comment_author' }
       & Pick<Comment_Author, 'id' | 'username'>
@@ -564,8 +570,8 @@ export type GetUserImagesQueryVariables = Exact<{
 export type GetUserImagesQuery = (
   { __typename?: 'Query' }
   & { getUserImages: (
-    { __typename?: 'PaginatedImages' }
-    & Pick<PaginatedImages, 'hasMore'>
+    { __typename?: 'images' }
+    & Pick<Images, 'hasMore'>
     & { images: Array<(
       { __typename?: 'image_data' }
       & ImageFragmentFragment
@@ -595,7 +601,6 @@ export const ImageFragmentFragmentDoc = gql`
   id
   caption
   image_url
-  like_status
   created_at
   user {
     id
@@ -603,12 +608,8 @@ export const ImageFragmentFragmentDoc = gql`
     image_link
   }
   like {
-    userId
-    imageId
     user {
-      id
       username
-      image_link
     }
   }
 }
@@ -1085,7 +1086,6 @@ export const GetImageCommentsDocument = gql`
   getImageComments(imageId: $imageId) {
     id
     text
-    userId
     imageId
     created_at
     user {

@@ -1,6 +1,14 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-import { Image_Data, Like, Maybe, useGetImageCommentsQuery } from "../../../generated/graphql";
+import {
+	Image_Data,
+	Like,
+	Like_Author,
+	Maybe,
+	MeQuery,
+	useGetImageCommentsQuery,
+	useMeQuery
+} from "../../../generated/graphql";
 import timeDifference from "../../../utils/timeDefference";
 import PropTypes from "prop-types";
 import Header from "./common/Header";
@@ -73,26 +81,28 @@ interface ArticleProps {
 	id: string;
 	caption: string;
 	image_url: string;
-	like_status: any;
 	created_at: string;
 	user: { id: number; username: string; image_link: string };
-	like: Maybe<Like[]> | undefined;
+	like: ({
+		__typename?: "Like" | undefined;
+	} & {
+		user: {
+			__typename?: "like_author" | undefined;
+		} & Pick<Like_Author, "username">;
+	})[];
+	me: MeQuery | undefined;
 }
 
 const Article = ({
 	id,
 	caption,
 	image_url,
-	like_status,
 	created_at,
 	user: { image_link, username },
-	like
+	like,
+	me
 }: ArticleProps) => {
 	const { data } = useGetImageCommentsQuery({ variables: { imageId: id } });
-
-	useEffect(() => {
-		console.log(like);
-	}, [like]);
 
 	return (
 		<ArticleContainer>
@@ -101,25 +111,38 @@ const Article = ({
 				<img src={image_url} alt={`by ${username}`} />
 			</ArticleImage>
 			<ArticleDetails>
-				<Icons liked={!!like_status} imageId={id} />
-				{like && (
-					<ArticleLikesContainer>
-						<div>
-							Liked by
-							<span>
-								<ArticleLikesLink to={`/${like[0].user.username}`}>
-									{like[0].user.username}
-								</ArticleLikesLink>
-							</span>
-							and
-							<ArticleOtherLink to={`/p/${id}`}>others.</ArticleOtherLink>
-						</div>
-					</ArticleLikesContainer>
-				)}
+				<Icons liked={!!like.find(u => u.user.username === me?.me?.username)} imageId={id} me={me} />
+				{!!like.length &&
+					(like.length > 1 ? (
+						<ArticleLikesContainer>
+							<div>
+								Liked by
+								<span>
+									<ArticleLikesLink to={`/${like[0].user.username}`}>
+										{like[0].user.username}
+									</ArticleLikesLink>
+								</span>
+								and
+								<ArticleOtherLink to={`/p/${id}`}>others.</ArticleOtherLink>
+							</div>
+						</ArticleLikesContainer>
+					) : (
+						<ArticleLikesContainer>
+							<div>
+								Liked by
+								<span>
+									<ArticleLikesLink to={`/${like[0].user.username}`}>
+										{like[0].user.username}
+									</ArticleLikesLink>
+								</span>
+								.
+							</div>
+						</ArticleLikesContainer>
+					))}
 				<>
 					<Caption name={username} description={caption} />
 					<ArticleCommentAndCreatedtimeContainer>
-						{data && !!data?.getImageComments.length && (
+						{!!data?.getImageComments.length && (
 							<>
 								<ArticleCommentsCount>
 									<ArticleCommentsCountLink

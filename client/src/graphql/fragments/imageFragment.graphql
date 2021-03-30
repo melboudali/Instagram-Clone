@@ -2,7 +2,6 @@ fragment imageFragment on image_data {
 	id
 	caption
 	image_url
-	like_status
 	created_at
 	user {
 		id
@@ -10,12 +9,8 @@ fragment imageFragment on image_data {
 		image_link
 	}
 	like {
-		userId
-		imageId
 		user {
-			id
 			username
-			image_link
 		}
 	}
 }

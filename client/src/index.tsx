@@ -6,7 +6,7 @@ import UseScrollTop from "./hooks/useScrollTop";
 import reportWebVitals from "./reportWebVitals";
 import { createUploadLink } from "apollo-upload-client";
 import { showFooterValue } from "./graphql/cache/cache";
-import { PaginatedImages } from "./generated/graphql";
+import { Images } from "./generated/graphql";
 
 const link = createUploadLink({
 	uri:
@@ -29,7 +29,7 @@ const client = new ApolloClient({
 					},
 					getAllImages: {
 						keyArgs: ["limit"],
-						merge(existing: PaginatedImages | undefined, incoming: PaginatedImages): PaginatedImages {
+						merge(existing: Images | undefined, incoming: Images): Images {
 							return {
 								...incoming,
 								images: [...(existing?.images || []), ...incoming.images]
@@ -38,7 +38,7 @@ const client = new ApolloClient({
 					},
 					getUserImages: {
 						keyArgs: ["userId"],
-						merge(existing: PaginatedImages | undefined, incoming: PaginatedImages): PaginatedImages {
+						merge(existing: Images | undefined, incoming: Images): Images {
 							return {
 								...incoming,
 								images: [...(existing?.images || []), ...incoming.images]

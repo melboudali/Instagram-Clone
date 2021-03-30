@@ -2,7 +2,6 @@ query GetImageComments($imageId: String!) {
 	getImageComments(imageId: $imageId) {
 		id
 		text
-		userId
 		imageId
 		created_at
 		user {
