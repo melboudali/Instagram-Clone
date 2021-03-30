@@ -85,7 +85,7 @@ const CommentInput = ({ imageId }: CommentInputProps) => {
 	const [textareaValue, setTextAreaValue] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [inserted, setInserted] = useState(false);
-	const [insertedError, setInsertedError] = useState("");
+	const [insertedError, setInsertedError] = useState<string | null>(null);
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();

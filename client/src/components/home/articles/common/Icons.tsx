@@ -3,6 +3,8 @@ import styled from "styled-components";
 import {
 	GetAllImagesDocument,
 	GetAllImagesQuery,
+	GetImageDocument,
+	GetImageQuery,
 	MeQuery,
 	useLikeImageMutation,
 	useMeQuery
@@ -77,6 +79,26 @@ const Icons = ({ me, liked, imageId, showComment = true }: IconsProps) => {
 								});
 							}
 						} else {
+							const existedImage = cache.readQuery<GetImageQuery>({
+								query: GetImageDocument,
+								variables: { imageId }
+							});
+
+							if (existedImage) {
+								cache.writeQuery<GetImageQuery>({
+									query: GetImageDocument,
+									data: {
+										...existedImage,
+										getImage: {
+											...existedImage.getImage,
+											image: {
+												...existedImage.getImage.image!,
+												like: [...existedImage.getImage.image?.like!, { user: { username: me?.me?.username! } }]
+											}
+										}
+									}
+								});
+							}
 						}
 					}
 				});

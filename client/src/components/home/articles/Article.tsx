@@ -112,50 +112,21 @@ const Article = ({
 			</ArticleImage>
 			<ArticleDetails>
 				<Icons liked={!!like.find(u => u.user.username === me?.me?.username)} imageId={id} me={me} />
-				{!!like.length &&
-					(like.length > 1 ? (
-						<ArticleLikesContainer>
-							<div>
-								Liked by
-								<span>
-									<ArticleLikesLink to={`/${like[0].user.username}`}>
-										{like[0].user.username}
-									</ArticleLikesLink>
-								</span>
-								and
-								<ArticleOtherLink to={`/p/${id}`}>others.</ArticleOtherLink>
-							</div>
-						</ArticleLikesContainer>
-					) : (
-						<ArticleLikesContainer>
-							<div>
-								Liked by
-								<span>
-									<ArticleLikesLink to={`/${like[0].user.username}`}>
-										{like[0].user.username}
-									</ArticleLikesLink>
-								</span>
-								.
-							</div>
-						</ArticleLikesContainer>
-					))}
-				<>
-					<Caption name={username} description={caption} />
-					<ArticleCommentAndCreatedtimeContainer>
-						{!!data?.getImageComments.length && (
-							<>
-								<ArticleCommentsCount>
-									<ArticleCommentsCountLink
-										to={`/p/${id}`}>{`View all ${data?.getImageComments.length} comments`}</ArticleCommentsCountLink>
-								</ArticleCommentsCount>
-								{data?.getImageComments.map(({ id, text, user: { username } }) => (
-									<Comment key={id} username={username} text={text} />
-								))}
-							</>
-						)}
-						<ArticleCreatedTime to={`/p/${id}`}>{`${timeDifference(created_at)} ago`}</ArticleCreatedTime>
-					</ArticleCommentAndCreatedtimeContainer>
-				</>
+				<Caption name={username} description={caption} />
+				<ArticleCommentAndCreatedtimeContainer>
+					{!!data?.getImageComments.length && (
+						<>
+							<ArticleCommentsCount>
+								<ArticleCommentsCountLink
+									to={`/p/${id}`}>{`View all ${data?.getImageComments.length} comments`}</ArticleCommentsCountLink>
+							</ArticleCommentsCount>
+							{data?.getImageComments.map(({ id, text, user: { username } }) => (
+								<Comment key={id} username={username} text={text} />
+							))}
+						</>
+					)}
+					<ArticleCreatedTime to={`/p/${id}`}>{`${timeDifference(created_at)} ago`}</ArticleCreatedTime>
+				</ArticleCommentAndCreatedtimeContainer>
 			</ArticleDetails>
 			<CommentInput imageId={id!} />
 		</ArticleContainer>

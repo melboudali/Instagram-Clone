@@ -55,7 +55,7 @@ const ImageWrapper = styled.main`
 	}
 `;
 
-const BlurBackground = styled.div<{ backgroundColor: string }>`
+const BlurBackground = styled.div<{ backgroundColor: string | undefined }>`
 	position: absolute;
 	background-image: url(${({ backgroundColor }) => backgroundColor});
 	background-position: center;
@@ -73,7 +73,7 @@ const BlurBackground = styled.div<{ backgroundColor: string }>`
 	}
 `;
 
-const ImageMain = styled.a<{ backgroundColor: string }>`
+const ImageMain = styled.a<{ backgroundColor: string | undefined }>`
 	--displayValue: none;
 	position: relative;
 	text-decoration: none;
@@ -202,11 +202,8 @@ const Image = ({
 				</svg>
 			</ModalClose>
 			<ImageWrapper>
-				<ImageMain
-					backgroundColor={darkMuted!}
-					href={data?.getImage.image?.image_url}
-					target="_noblank">
-					<BlurBackground backgroundColor={data?.getImage.image?.image_url!} />
+				<ImageMain backgroundColor={darkMuted} href={data?.getImage.image?.image_url} target="_noblank">
+					<BlurBackground backgroundColor={data?.getImage.image?.image_url} />
 					<img src={data?.getImage.image?.image_url} alt={data?.getImage.image?.caption} />
 				</ImageMain>
 				<ImageAside>
@@ -237,7 +234,12 @@ const Image = ({
 						</ImageDescription>
 					</ImageDescriptionContainer>
 					<CommentInputContainer>
-						<Icons liked={true} imageId={data?.getImage.image?.id!} showComment={false} me={me} />
+						<Icons
+							liked={!!data?.getImage.image?.like.find(u => u.user.username === me?.me?.username)}
+							imageId={data?.getImage.image?.id!}
+							showComment={false}
+							me={me}
+						/>
 						{!!data?.getImage.image?.like && (
 							<ArticleLikesContainer>
 								<div>

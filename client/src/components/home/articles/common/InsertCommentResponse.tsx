@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const InsertCommentResponseContainer = styled.div<{ inserted: boolean; insertedError: string }>`
+const InsertCommentResponseContainer = styled.div<{
+	inserted: boolean;
+	insertedError: string | null;
+}>`
 	position: fixed;
 	display: flex;
 	align-items: center;
@@ -29,7 +32,7 @@ const InsertCommentResponseContainer = styled.div<{ inserted: boolean; insertedE
 
 interface InsertCommentResponseProps {
 	inserted: boolean;
-	insertedError: string;
+	insertedError: string | null;
 }
 
 const InsertCommentResponse = ({ inserted, insertedError }: InsertCommentResponseProps) => {
