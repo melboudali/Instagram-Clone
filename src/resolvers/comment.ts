@@ -11,13 +11,13 @@ import {
 	Root,
 	UseMiddleware
 } from "type-graphql";
-import { comment_author, insert_comment } from "../models/comment";
+import { comment_author, comment_res, insert_comment } from "../models/comment";
 import { getConnection } from "typeorm";
 
 @Resolver(Comment)
 export class CommentResolver {
 	// Queries
-	@Query(() => [Comment])
+	@Query(() => [comment_res])
 	@UseMiddleware(isAuth)
 	async getImageComments(@Arg("imageId") imageId: string) {
 		const res = await Comment.find({ where: { imageId } });

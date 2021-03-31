@@ -10,11 +10,23 @@ export class comment_author {
 }
 
 @ObjectType()
+export class comment_res extends Comment {
+	@Field()
+	id!: number;
+	@Field()
+	text!: string;
+	@Field()
+	imageId!: string;
+	@Field()
+	created_at!: Date;
+}
+
+@ObjectType()
 export class insert_comment {
 	@Field()
 	inserted!: boolean;
 	@Field({ nullable: true })
 	message?: string;
-	@Field({ nullable: true })
-	comment?: Comment;
+	@Field(() => comment_res)
+	comment?: comment_res;
 }

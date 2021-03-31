@@ -14,7 +14,7 @@ import { GraphQLUpload, FileUpload } from "graphql-upload";
 import { Image } from "../entities/image";
 import { isAuth } from "../middleware/isAuthenticated";
 import { MyContext } from "../types";
-import { getConnection, getRepository } from "typeorm";
+import { getRepository } from "typeorm";
 import { v2 as cloudinary } from "cloudinary";
 import {
 	CLOUDINARY_CONFIG,
@@ -22,32 +22,33 @@ import {
 	image_data,
 	image_res,
 	image_upload_response,
-	PaginatedImages
+	images
 } from "../models/images";
+import { Like } from "../entities/like";
 
 @Resolver(Image)
 export class ImageResolver {
 	// Queries
-	@Query(() => PaginatedImages)
+	@Query(() => images)
 	@UseMiddleware(isAuth)
 	async getAllImages(
 		@Arg("limit", () => Int) limit: number,
 		@Arg("cursor", () => String, { nullable: true }) cursor: string | null,
 		@Ctx() { req }: MyContext
-	): Promise<PaginatedImages> {
+	): Promise<images> {
 		const minLimit = Math.min(50, limit);
 		const minLimitPlusOne = minLimit + 1;
-		const userId = req.session.user_id;
+		// const userId = req.session.user_id;
 
-		const queryParams: (number | Date)[] = [minLimitPlusOne];
-		if (userId) {
-			queryParams.push(userId);
-		}
-		let cursorId = 3;
-		if (cursor) {
-			queryParams.push(new Date(parseInt(cursor)));
-			cursorId = queryParams.length;
-		}
+		// const queryParams: (number | Date | undefined)[] = [minLimitPlusOne];
+		// if (userId) {
+		// 	queryParams.push(userId);
+		// }
+		// let cursorId = 3;
+		// if (cursor) {
+		// 	queryParams.push(new Date(parseInt(cursor)));
+		// 	cursorId = queryParams.length;
+		// }
 
 		// const images = await getConnection().query(
 		// 	`
@@ -60,19 +61,33 @@ export class ImageResolver {
 		// `,
 		// 	queryParams
 		// );
+		const getRepo = cursor
+			? getRepository(Image)
+					.createQueryBuilder("image")
+					.leftJoinAndSelect("image.like", "like", "like.imageId = id AND like.userId = :userId", {
+						userId: req.session.user_id
+					})
+					.where(`image.created_at < :cursor`, {
+						cursor: new Date(parseInt(cursor))
+					})
+					.orderBy("image.created_at", "DESC")
+					.limit(minLimitPlusOne)
+					.getMany()
+			: getRepository(Image)
+					.createQueryBuilder("image")
+					.leftJoinAndSelect("image.like", "like", "like.imageId = id AND like.userId = :userId", {
+						userId: req.session.user_id
+					})
+					.orderBy("image.created_at", "DESC")
+					.limit(minLimitPlusOne)
+					.getMany();
 
-		const images = await getRepository(Image)
-			.createQueryBuilder("image")
-			.leftJoinAndSelect("image.like", "like_status")
-			.where("like.userId = :userId", { userId: queryParams[1] })
-			.where(cursor ? `image.created_at < $${cursorId}` : "")
-			.orderBy("image.created_at", "DESC")
-			.getMany();
+		const images = await getRepo;
 
 		return { images: images.slice(0, minLimit), hasMore: images.length === minLimitPlusOne };
 	}
 
-	@Query(() => PaginatedImages)
+	@Query(() => images)
 	async getUserImages(
 		@Arg("userId", () => Int) userId: number,
 		@Arg("isPrivate", () => Boolean) isPrivate: boolean,
@@ -80,7 +95,7 @@ export class ImageResolver {
 		@Arg("currentUserId", () => Int, { nullable: true }) currentUserId: number | null,
 		@Arg("limit", () => Int) limit: number,
 		@Arg("cursor", () => String, { nullable: true }) cursor: string | null
-	): Promise<PaginatedImages> {
+	): Promise<images> {
 		if ((isPrivate || isDisabled) && (!currentUserId || currentUserId !== userId)) {
 			return { images: [], hasMore: false };
 		}
@@ -125,11 +140,6 @@ export class ImageResolver {
 		}
 	}
 
-	@FieldResolver(() => image_author)
-	user(@Root() image: Image, @Ctx() { userLoader }: MyContext) {
-		return userLoader.load(image.userId);
-	}
-
 	// Mutations
 	@Mutation(() => image_upload_response)
 	@UseMiddleware(isAuth)
@@ -163,5 +173,10 @@ export class ImageResolver {
 				)
 			);
 		});
+	}
+
+	@FieldResolver(() => image_author)
+	user(@Root() image: Image, @Ctx() { userLoader }: MyContext) {
+		return userLoader.load(image.userId);
 	}
 }

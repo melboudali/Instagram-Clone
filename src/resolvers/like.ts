@@ -1,9 +1,8 @@
 import { Like } from "../entities/like";
 import { isAuth } from "../middleware/isAuthenticated";
-import { like_image } from "../models/like";
+import { like_author, like_image } from "../models/like";
 import { MyContext } from "../types";
 import { Arg, Ctx, FieldResolver, Mutation, Resolver, Root, UseMiddleware } from "type-graphql";
-import { image_author } from "../models/images";
 
 @Resolver(Like)
 export class LikeResolver {
@@ -19,7 +18,7 @@ export class LikeResolver {
 		return { liked: true };
 	}
 
-	@FieldResolver(() => image_author)
+	@FieldResolver(() => like_author)
 	user(@Root() like: Like, @Ctx() { userLoader }: MyContext) {
 		return userLoader.load(like.userId);
 	}
