@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const CaptionContainer = styled.div<{ article: boolean }>`
 	display: flex;
 	align-self: flex-start;
-	margin: 7px 0;
+	margin: 17px 0 7px;
 	color: #262626;
 	${({ article }) =>
 		article &&
@@ -17,6 +17,8 @@ const CaptionContainer = styled.div<{ article: boolean }>`
 const CaptionElement = styled.span<{ article: boolean }>`
 	width: ${({ article }) => (article ? "calc(100% - 35px)" : "100%")};
 	word-wrap: break-word;
+	display: flex;
+	align-items: center;
 `;
 
 const ArticleLogo = styled.img`
@@ -31,6 +33,9 @@ const UserName = styled(Link)`
 	color: #262626;
 	font-weight: 600;
 	margin-right: 4px;
+	flex: 0;
+	display: flex;
+	align-items: center;
 `;
 
 interface CaptionProps {
