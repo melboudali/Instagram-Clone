@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Assets from "../assets/images/32f0a4f27407.png";
+import onClickFunction from "../utils/onClick";
 
 const SignupContainer = styled.section`
 	margin: 32px auto 0;
@@ -216,7 +217,7 @@ const Signup = () => {
 							<SignupForm>
 								<SignupTitle>Sign up to see photos and videos from your friends.</SignupTitle>
 								<SignupFBButtonContainer>
-									<SignupFBButton type="button" onClick={e => e.preventDefault()}>
+									<SignupFBButton type="button" onClick={onClickFunction}>
 										<span></span>
 										Log in with Facebook
 									</SignupFBButton>

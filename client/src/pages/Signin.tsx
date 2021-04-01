@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BackgroundImage from "../assets/images/43cc71bb1b43.png";
 import Assets from "../assets/images/32f0a4f27407.png";
+import onClickFunction from "../utils/onClick";
 
 const SigninContainer = styled.section`
 	display: flex;
@@ -259,7 +260,7 @@ const Signin = () => {
 								</Button>
 								<Divider />
 								<SigninFBButtonContainer>
-									<SigninFBButton type="button" onClick={e => e.preventDefault()}>
+									<SigninFBButton type="button" onClick={onClickFunction}>
 										<SigninFBLogo />
 										<SigninButtonText>Log in with Facebook</SigninButtonText>
 									</SigninFBButton>

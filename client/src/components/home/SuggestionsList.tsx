@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SuggestionsError from "../common/errors/SuggestionsError";
 import LoadingSpinner from "../common/LoadingSpinner";
 import PropTypes from "prop-types";
+import { MouseEventHandler } from "react";
 
 const EllipsisText = css`
 	white-space: nowrap;
@@ -94,7 +95,7 @@ const SuggestedSwitchButton = styled.button`
 `;
 
 interface SuggestionsListProps {
-	onClickFunction: (arg: string) => void;
+	onClickFunction: MouseEventHandler<HTMLButtonElement>;
 }
 
 const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
@@ -109,7 +110,7 @@ const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
 			<>
 				<SuggestionsTitleContainer>
 					<span>Suggestions For You</span>
-					<SeeAllLink to="/fixLater">See All</SeeAllLink>
+					<SeeAllLink to="#">See All</SeeAllLink>
 				</SuggestionsTitleContainer>
 				{data.suggestedUsers.users.map(({ id, username, image_link }) => (
 					<SuggestionContainer key={id}>
@@ -123,7 +124,7 @@ const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
 							<span>New to Instagram</span>
 						</SuggestedProfileName>
 						<SuggestedSwitchButtonContainer>
-							<SuggestedSwitchButton type="button" onClick={() => onClickFunction("Follow")}>
+							<SuggestedSwitchButton type="button" onClick={onClickFunction}>
 								Follow
 							</SuggestedSwitchButton>
 						</SuggestedSwitchButtonContainer>

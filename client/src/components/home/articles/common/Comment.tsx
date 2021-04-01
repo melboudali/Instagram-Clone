@@ -33,9 +33,6 @@ interface CommentProps {
 }
 
 const Comment = ({ username, text }: CommentProps) => {
-	// const onClick = (buttonName: string) => {
-	// 	console.log(`${buttonName} Button Clicked.`);
-	// };
 	return (
 		<CommentContainer>
 			<span>

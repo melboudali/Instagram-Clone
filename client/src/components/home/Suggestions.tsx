@@ -4,6 +4,7 @@ import { User_Response } from "../../generated/graphql";
 import useSticky from "../../hooks/useSticky";
 import SuggestionsList from "./SuggestionsList";
 import PropTypes from "prop-types";
+import onClickFunction from "../../utils/onClick";
 
 const EllipsisText = css`
 	white-space: nowrap;
@@ -167,11 +168,6 @@ interface SuggestionsProps {
 const Suggestions = ({ meData: { username, image_link, fullname } }: SuggestionsProps) => {
 	const sticky = useSticky(337);
 
-	const onClick = (buttonName: string) => {
-		// TODO: Edit this later
-		console.log(`${buttonName} Button Clicked.`);
-	};
-
 	const linksData: string[] = [
 		"About",
 		"Help",
@@ -201,7 +197,7 @@ const Suggestions = ({ meData: { username, image_link, fullname } }: Suggestions
 					</CurrentUser>
 					<SwitchUserContainer>
 						<SwitchUserContainer>
-							<SwitchUserSwitchButton type="button" onClick={() => onClick("Switch Account")}>
+							<SwitchUserSwitchButton type="button" onClick={onClickFunction}>
 								Switch
 							</SwitchUserSwitchButton>
 						</SwitchUserContainer>
@@ -209,7 +205,7 @@ const Suggestions = ({ meData: { username, image_link, fullname } }: Suggestions
 				</CurrentUserSubContainer>
 			</CurrentUserContainer>
 			<SuggestionsMain>
-				<SuggestionsList onClickFunction={onClick} />
+				<SuggestionsList onClickFunction={onClickFunction} />
 			</SuggestionsMain>
 			<div>
 				<SuggestionsLinksContainer>
