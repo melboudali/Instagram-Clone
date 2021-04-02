@@ -18,7 +18,7 @@ const CaptionElement = styled.span<{ article: boolean }>`
 	width: ${({ article }) => (article ? "calc(100% - 35px)" : "100%")};
 	word-wrap: break-word;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 `;
 
 const ArticleLogo = styled.img`

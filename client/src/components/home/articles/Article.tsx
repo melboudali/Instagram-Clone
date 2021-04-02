@@ -111,7 +111,7 @@ const Article = ({
 				<img src={image_url} alt={`by ${username}`} />
 			</ArticleImage>
 			<ArticleDetails>
-				<Icons liked={!!like.length} imageId={id} me={me} />
+				<Icons liked={like && !!like.length} imageId={id} me={me} />
 				<Caption name={username} description={caption} />
 				<ArticleCommentAndCreatedtimeContainer>
 					{!!data?.getImageComments.length && (
