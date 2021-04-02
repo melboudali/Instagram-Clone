@@ -1,6 +1,7 @@
-import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
+import onClickFunction from "../../../../utils/onClick";
+import PropTypes from "prop-types";
 
 const ArticleHeaderContainer = styled.header`
 	position: relative;
@@ -120,7 +121,7 @@ const Header = ({
 				<ArticleName to={`/${name}`}>{name}</ArticleName>
 			</ArticleNameContainer>
 			<ArticleMore>
-				<button type="button">
+				<button type="button" onClick={onClickFunction}>
 					<svg fill="#262626" height="16" viewBox="0 0 48 48" width="16">
 						<circle clipRule="evenodd" cx="8" cy="24" fillRule="evenodd" r="4.5" />
 						<circle clipRule="evenodd" cx="24" cy="24" fillRule="evenodd" r="4.5" />
