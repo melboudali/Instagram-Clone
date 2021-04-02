@@ -74,8 +74,7 @@ const ModalImageContainer = styled.img`
 	max-height: 450px;
 	object-fit: cover;
 	@media (min-width: 800px) {
-		border-bottom-left-radius: 8px;
-		border-top-left-radius: 8px;
+		border-radius: 8px 0 0 8px;
 	}
 `;
 
