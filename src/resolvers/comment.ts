@@ -11,17 +11,21 @@ import {
 	Root,
 	UseMiddleware
 } from "type-graphql";
-import { comment_author, comment_res, insert_comment } from "../models/comment";
+import { comment_author, get_comment, insert_comment } from "../models/comment";
 import { getConnection } from "typeorm";
 
 @Resolver(Comment)
 export class CommentResolver {
 	// Queries
-	@Query(() => [comment_res])
+	@Query(() => get_comment)
 	@UseMiddleware(isAuth)
 	async getImageComments(@Arg("imageId") imageId: string) {
-		const res = await Comment.find({ where: { imageId } });
-		return res;
+		try {
+			const res = await Comment.find({ where: { imageId } });
+			return { comment: res };
+		} catch (error) {
+			return { error: { message: "An error occurred. Try again later" } };
+		}
 	}
 	// Mutations
 	@Mutation(() => insert_comment)

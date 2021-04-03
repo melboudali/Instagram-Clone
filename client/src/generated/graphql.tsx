@@ -25,7 +25,7 @@ export type Query = {
   getAllImages: Images;
   getUserImages: Images;
   getImage: Image_Res;
-  getImageComments: Array<Comment_Res>;
+  getImageComments: Get_Comment;
 };
 
 
@@ -108,7 +108,7 @@ export type Image_Data = {
   created_at: Scalars['String'];
   updated_at: Scalars['String'];
   user: Image_Author;
-  like: Array<Like>;
+  like?: Maybe<Array<Like>>;
 };
 
 export type Image_Author = {
@@ -138,6 +138,17 @@ export type Image_Res = {
 
 export type Image_Error = {
   __typename?: 'image_error';
+  message: Scalars['String'];
+};
+
+export type Get_Comment = {
+  __typename?: 'get_comment';
+  error?: Maybe<Error_Res>;
+  comment?: Maybe<Array<Comment_Res>>;
+};
+
+export type Error_Res = {
+  __typename?: 'error_res';
   message: Scalars['String'];
 };
 
@@ -260,7 +271,7 @@ export type Insert_Comment = {
   __typename?: 'insert_comment';
   inserted: Scalars['Boolean'];
   message?: Maybe<Scalars['String']>;
-  comment: Comment_Res;
+  comment?: Maybe<Comment_Res>;
 };
 
 export type Like_Image = {
@@ -280,13 +291,13 @@ export type ImageFragmentFragment = (
   & { user: (
     { __typename?: 'image_author' }
     & Pick<Image_Author, 'id' | 'username' | 'image_link'>
-  ), like: Array<(
+  ), like?: Maybe<Array<(
     { __typename?: 'Like' }
     & { user: (
       { __typename?: 'like_author' }
       & Pick<Like_Author, 'username'>
     ) }
-  )> }
+  )>> }
 );
 
 export type UserFragmentFragment = (
@@ -395,14 +406,14 @@ export type InsertCommentMutation = (
   & { insertComment: (
     { __typename?: 'insert_comment' }
     & Pick<Insert_Comment, 'inserted' | 'message'>
-    & { comment: (
+    & { comment?: Maybe<(
       { __typename?: 'comment_res' }
       & Pick<Comment_Res, 'id' | 'text' | 'userId' | 'imageId' | 'created_at'>
       & { user: (
         { __typename?: 'comment_author' }
         & Pick<Comment_Author, 'id' | 'username'>
       ) }
-    ) }
+    )> }
   ) }
 );
 
@@ -513,14 +524,20 @@ export type GetImageCommentsQueryVariables = Exact<{
 
 export type GetImageCommentsQuery = (
   { __typename?: 'Query' }
-  & { getImageComments: Array<(
-    { __typename?: 'comment_res' }
-    & Pick<Comment_Res, 'id' | 'text' | 'imageId' | 'created_at'>
-    & { user: (
-      { __typename?: 'comment_author' }
-      & Pick<Comment_Author, 'id' | 'username'>
-    ) }
-  )> }
+  & { getImageComments: (
+    { __typename?: 'get_comment' }
+    & { comment?: Maybe<Array<(
+      { __typename?: 'comment_res' }
+      & Pick<Comment_Res, 'id' | 'text' | 'imageId' | 'created_at'>
+      & { user: (
+        { __typename?: 'comment_author' }
+        & Pick<Comment_Author, 'id' | 'username'>
+      ) }
+    )>>, error?: Maybe<(
+      { __typename?: 'error_res' }
+      & Pick<Error_Res, 'message'>
+    )> }
+  ) }
 );
 
 export type GetImageQueryVariables = Exact<{
@@ -1084,13 +1101,18 @@ export type GetAllImagesQueryResult = Apollo.QueryResult<GetAllImagesQuery, GetA
 export const GetImageCommentsDocument = gql`
     query GetImageComments($imageId: String!) {
   getImageComments(imageId: $imageId) {
-    id
-    text
-    imageId
-    created_at
-    user {
+    comment {
       id
-      username
+      text
+      imageId
+      created_at
+      user {
+        id
+        username
+      }
+    }
+    error {
+      message
     }
   }
 }

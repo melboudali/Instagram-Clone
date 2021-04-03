@@ -9,6 +9,8 @@ import Header from "../components/home/articles/common/Header";
 import { useGetImageCommentsQuery, useGetImageQuery, useMeQuery } from "../generated/graphql";
 import { usePalette } from "react-palette";
 import Icons from "../components/home/articles/common/Icons";
+import LoadingFullScreen from "../components/common/LoadingFullScreen";
+import ErrorPage from "./error/ErrorPage";
 
 const ImageContainer = styled.main`
 	background-color: black;
@@ -160,7 +162,6 @@ const LikesCss = css`
 	color: #262626;
 	margin: 0 3px;
 	font-weight: 600;
-	cursor: pointer;
 `;
 
 const ArticleLikesContainer = styled.section`
@@ -169,9 +170,10 @@ const ArticleLikesContainer = styled.section`
 
 const ArticleLikesLink = styled(Link)`
 	${LikesCss}
+	cursor: pointer;
 `;
 
-const ArticleOtherLink = styled(Link)`
+const ArticleOtherLink = styled.span`
 	text-decoration: none;
 	${LikesCss}
 `;
@@ -186,13 +188,21 @@ const Image = ({
 	}
 }: ImageProps) => {
 	const history = useHistory();
-	const { data: me } = useMeQuery();
-	const { data: comments } = useGetImageCommentsQuery({ variables: { imageId } });
+	const { data: me, loading: meLoading, error: meError } = useMeQuery();
+	const {
+		data: comments,
+		loading: loadingComments,
+		error: errorComments
+	} = useGetImageCommentsQuery({ variables: { imageId } });
 
-	const { data } = useGetImageQuery({ variables: { imageId } });
+	const { data, loading, error } = useGetImageQuery({ variables: { imageId } });
 	const {
 		data: { darkMuted }
 	} = usePalette(data?.getImage.image?.image_url as string);
+
+	if (meLoading || loadingComments || loading) return <LoadingFullScreen />;
+
+	if (meError || errorComments || error || !data?.getImage.image) return <ErrorPage />;
 
 	return (
 		<ImageContainer>
@@ -222,8 +232,8 @@ const Image = ({
 								description={data?.getImage.image?.caption!}
 								image={data?.getImage.image?.user.image_link}
 							/>
-							{comments && !!comments.getImageComments.length ? (
-								comments.getImageComments.map(({ id, text, user: { username } }) => (
+							{comments && !!comments.getImageComments.comment?.length ? (
+								comments.getImageComments.comment.map(({ id, text, user: { username } }) => (
 									<Comment key={id} username={username} text={text} />
 								))
 							) : (
@@ -235,12 +245,16 @@ const Image = ({
 					</ImageDescriptionContainer>
 					<CommentInputContainer>
 						<Icons
-							liked={!!data?.getImage.image?.like.find(u => u.user.username === me?.me?.username)}
+							liked={
+								data.getImage.image.like
+									? !!data.getImage.image.like.find(u => u.user.username === me?.me?.username)
+									: false
+							}
 							imageId={data?.getImage.image?.id!}
 							showComment={false}
 							me={me}
 						/>
-						{!!data?.getImage.image?.like && (
+						{data?.getImage.image?.like && !!data?.getImage.image?.like?.length && (
 							<ArticleLikesContainer>
 								<div>
 									Liked by
@@ -252,7 +266,7 @@ const Image = ({
 									{data?.getImage.image?.like.length >= 2 ? (
 										<>
 											and
-											<ArticleOtherLink to={`/p/${data?.getImage.image?.id}`}>others.</ArticleOtherLink>
+											<ArticleOtherLink>others.</ArticleOtherLink>
 										</>
 									) : (
 										<>.</>

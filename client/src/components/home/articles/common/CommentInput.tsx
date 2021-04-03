@@ -98,12 +98,16 @@ const CommentInput = ({ imageId }: CommentInputProps) => {
 						query: GetImageCommentsDocument,
 						variables: { imageId }
 					});
-					if (existedComments?.getImageComments && data?.insertComment.comment) {
+					if (existedComments?.getImageComments.comment && data?.insertComment.comment) {
 						cache.writeQuery<GetImageCommentsQuery>({
 							query: GetImageCommentsDocument,
 							variables: { imageId },
 							data: {
-								getImageComments: [...existedComments.getImageComments, data?.insertComment.comment]
+								...existedComments,
+								getImageComments: {
+									...existedComments.getImageComments,
+									comment: [...existedComments.getImageComments.comment, data?.insertComment.comment]
+								}
 							}
 						});
 					}

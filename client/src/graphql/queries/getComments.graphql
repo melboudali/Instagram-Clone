@@ -1,12 +1,17 @@
 query GetImageComments($imageId: String!) {
 	getImageComments(imageId: $imageId) {
-		id
-		text
-		imageId
-		created_at
-		user {
+		comment {
 			id
-			username
+			text
+			imageId
+			created_at
+			user {
+				id
+				username
+			}
+		}
+		error {
+			message
 		}
 	}
 }

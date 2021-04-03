@@ -83,13 +83,17 @@ interface ArticleProps {
 	image_url: string;
 	created_at: string;
 	user: { id: number; username: string; image_link: string };
-	like: ({
-		__typename?: "Like" | undefined;
-	} & {
-		user: {
-			__typename?: "like_author" | undefined;
-		} & Pick<Like_Author, "username">;
-	})[];
+	like:
+		| Maybe<
+				({
+					__typename?: "Like" | undefined;
+				} & {
+					user: {
+						__typename?: "like_author" | undefined;
+					} & Pick<Like_Author, "username">;
+				})[]
+		  >
+		| undefined;
 	me: MeQuery | undefined;
 }
 
@@ -111,16 +115,16 @@ const Article = ({
 				<img src={image_url} alt={`by ${username}`} />
 			</ArticleImage>
 			<ArticleDetails>
-				<Icons liked={like && !!like.length} imageId={id} me={me} />
+				<Icons liked={like ? !!like.length : false} imageId={id} me={me} />
 				<Caption name={username} description={caption} />
 				<ArticleCommentAndCreatedtimeContainer>
-					{!!data?.getImageComments.length && (
+					{!!data?.getImageComments.comment?.length && (
 						<>
 							<ArticleCommentsCount>
 								<ArticleCommentsCountLink
-									to={`/p/${id}`}>{`View all ${data?.getImageComments.length} comments`}</ArticleCommentsCountLink>
+									to={`/p/${id}`}>{`View all ${data?.getImageComments.comment.length} comments`}</ArticleCommentsCountLink>
 							</ArticleCommentsCount>
-							{data?.getImageComments.map(({ id, text, user: { username } }) => (
+							{data?.getImageComments.comment.map(({ id, text, user: { username } }) => (
 								<Comment key={id} username={username} text={text} />
 							))}
 						</>

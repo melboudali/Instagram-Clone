@@ -123,17 +123,15 @@ export class ImageResolver {
 	@Query(() => image_res)
 	async getImage(@Arg("imageId") imageId: string): Promise<image_res> {
 		if (imageId) {
-			const res = await getRepository(Image)
-				.createQueryBuilder("image")
-				.leftJoinAndSelect("image.like", "like")
-				.where("image.id = :imageId", { imageId })
-				.getOne();
-
-			if (res) {
-				console.log(res);
+			try {
+				const res = await getRepository(Image)
+					.createQueryBuilder("image")
+					.leftJoinAndSelect("image.like", "like")
+					.where("image.id = :imageId", { imageId })
+					.getOne();
 				return { image: res };
-			} else {
-				return { error: { message: "error" } };
+			} catch (error) {
+				return { error: { message: "Image not found!" } };
 			}
 		} else {
 			return { error: { message: "Image not found!" } };
