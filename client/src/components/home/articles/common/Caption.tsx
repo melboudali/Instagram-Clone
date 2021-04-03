@@ -35,7 +35,7 @@ const UserName = styled(Link)`
 	margin-right: 4px;
 	flex: 0;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 `;
 
 interface CaptionProps {
