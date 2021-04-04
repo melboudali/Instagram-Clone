@@ -11,6 +11,7 @@ import {
 	GetUserDocument
 } from "../../generated/graphql";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 
 interface PrivacyAndSecurityProps {}
 
@@ -91,6 +92,12 @@ const PrivacyAndSecurity = ({}: PrivacyAndSecurityProps) => {
 
 	return (
 		<SettingsContainer updated={updated}>
+			<Helmet>
+				<title>Privacy And Security</title>
+				<meta name="title" content="Privacy And Security" />
+				<meta property="og:title" content="Privacy And Security" />
+				<meta property="twitter:title" content="Privacy And Security" />
+			</Helmet>
 			<form onSubmit={onSubmit}>
 				<EditFormInput
 					type="checkbox"

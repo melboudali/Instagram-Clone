@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import BackgroundImage from "../assets/images/43cc71bb1b43.png";
 import Assets from "../assets/images/32f0a4f27407.png";
 import onClickFunction from "../utils/onClick";
+import { Helmet } from "react-helmet";
 
 const SigninContainer = styled.section`
 	display: flex;
@@ -223,6 +224,12 @@ const Signin = () => {
 
 	return (
 		<Fragment>
+			<Helmet>
+				<title>Signin</title>
+				<meta name="title" content="Signin" />
+				<meta property="og:title" content="Signin" />
+				<meta property="twitter:title" content="Signin" />
+			</Helmet>
 			<SigninContainer>
 				<SigninLeftComponent>
 					<Carousel />

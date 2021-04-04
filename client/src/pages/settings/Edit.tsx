@@ -15,6 +15,7 @@ import SettingsContainer from "../../containers/SettingsContainer";
 import styled, { keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import SubmitButton from "../../components/Edit/SubmitButton";
+import { Helmet } from "react-helmet";
 
 interface EditProps {}
 
@@ -149,6 +150,12 @@ const Edit = ({}: EditProps) => {
 			Scrollbar={Scrollbar}
 			setOpenModal={setOpenModal}
 			image_url={formData.image_link}>
+			<Helmet>
+				<title>Edit Account</title>
+				<meta name="title" content="Edit Account" />
+				<meta property="og:title" content="Edit Account" />
+				<meta property="twitter:title" content="Edit Account" />
+			</Helmet>
 			{openModal && (
 				<PhotoModalMain
 					Scrollbar={Scrollbar}

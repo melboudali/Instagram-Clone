@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Container from "../../containers/Container";
@@ -85,6 +86,12 @@ const Static = ({
 }: StaticProps) => {
 	return (
 		<Container>
+			<Helmet>
+				<title>{staticPage(pageName).title}</title>
+				<meta name="title" content={staticPage(pageName).title} />
+				<meta property="og:title" content={staticPage(pageName).title} />
+				<meta property="twitter:title" content={staticPage(pageName).title} />
+			</Helmet>
 			<StaticContainerSection>
 				<StaticSidebarContainer>
 					<StaticPageNav>

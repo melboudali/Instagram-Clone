@@ -6,6 +6,7 @@ import { MeDocument, MeQuery, useChangePasswordMutation } from "../../generated/
 import styled from "styled-components";
 import { useHistory } from "react-router";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 
 const ErroMessage = styled.h1`
 	color: var(--textErrorColor);
@@ -67,6 +68,12 @@ const ChangePassword = ({}: ChangePasswordProps) => {
 	};
 	return (
 		<SettingsContainer>
+			<Helmet>
+				<title>Change Password</title>
+				<meta name="title" content="Change Password" />
+				<meta property="og:title" content="Change Password" />
+				<meta property="twitter:title" content="Change Password" />
+			</Helmet>
 			<form onSubmit={onSubmit}>
 				<EditFormInput
 					label="Old Password"

@@ -8,6 +8,7 @@ import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileMenu from "../components/profile/ProfileMenu";
 import ErrorPage from "./error/ErrorPage";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 
 const TaggedContainer = styled.div`
 	margin: 30px auto 0;
@@ -28,34 +29,62 @@ const Tagged = ({ match }: TaggedProps) => {
 		return <LoadingFullScreen />;
 	}
 
-	if (!data || !data.getUser.user || !loggedInUserData || loggedInError || error)
+	if (
+		!data ||
+		!data.getUser.user ||
+		!loggedInUserData ||
+		loggedInError ||
+		error ||
+		data.getUser.error
+	)
 		return <ErrorPage />;
 
 	return (
 		<>
-			{data.getUser.user && !data.getUser.error ? (
-				<Container>
-					<TaggedContainer>
-						<ProfileHeader
-							user={data.getUser.user}
-							loggedInUserData={loggedInUserData}
-							usernameParam={username}
-						/>
+			<Helmet>
+				<title>{`${data.getUser.user.fullname}
+				(@${data.getUser.user.username}) - Instagram Clone`}</title>
+				<meta
+					name="title"
+					content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`}
+				/>
+				<meta
+					property="og:title"
+					content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`}
+				/>
+				<meta
+					property="twitter:title"
+					content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`}
+				/>
+				<meta name="description" content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`} />
+				<meta
+					property="og:description"
+					content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`}
+				/>
+				<meta
+					property="twitter:description"
+					content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`}
+				/>
+			</Helmet>
+			<Container>
+				<TaggedContainer>
+					<ProfileHeader
+						user={data.getUser.user}
+						loggedInUserData={loggedInUserData}
+						usernameParam={username}
+					/>
 
-						{data.getUser.user.private && loggedInUserData.me?.id !== data.getUser.user.id ? (
-							<ProfileEmptyPostsOrPrivate type="private" />
-						) : (
-							<>
-								<ProfileMenu user={data.getUser.user} page="tagged" />
-								<ProfileEmptyPostsOrPrivate type="emptyTagged" />
-							</>
-						)}
-						{!loggedInUserData.me && <UnauthFooter />}
-					</TaggedContainer>
-				</Container>
-			) : (
-				<ErrorPage />
-			)}
+					{data.getUser.user.private && loggedInUserData.me?.id !== data.getUser.user.id ? (
+						<ProfileEmptyPostsOrPrivate type="private" />
+					) : (
+						<>
+							<ProfileMenu user={data.getUser.user} page="tagged" />
+							<ProfileEmptyPostsOrPrivate type="emptyTagged" />
+						</>
+					)}
+					{!loggedInUserData.me && <UnauthFooter />}
+				</TaggedContainer>
+			</Container>
 		</>
 	);
 };

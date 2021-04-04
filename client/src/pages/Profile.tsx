@@ -9,6 +9,7 @@ import ProfileMenu from "../components/profile/ProfileMenu";
 import LoadingFullScreen from "../components/common/LoadingFullScreen";
 import ErrorPage from "./error/ErrorPage";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 
 const ProfileContainer = styled.div`
 	margin: 30px auto 0;
@@ -34,6 +35,31 @@ const Profile = ({ match }: ProfileProps) => {
 
 	return (
 		<>
+			<Helmet>
+				<title>{`${data.getUser.user.fullname}
+				(@${data.getUser.user.username}) - Instagram Clone`}</title>
+				<meta
+					name="title"
+					content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`}
+				/>
+				<meta
+					property="og:title"
+					content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`}
+				/>
+				<meta
+					property="twitter:title"
+					content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`}
+				/>
+				<meta name="description" content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`} />
+				<meta
+					property="og:description"
+					content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`}
+				/>
+				<meta
+					property="twitter:description"
+					content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`}
+				/>
+			</Helmet>
 			<Container>
 				<ProfileContainer>
 					<ProfileHeader

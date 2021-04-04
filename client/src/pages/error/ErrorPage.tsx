@@ -4,6 +4,7 @@ import Container from "../../containers/Container";
 import Footer from "../../components/common/footer/Footer";
 import UnauthFooter from "../../components/common/footer/UnauthFooter";
 import { useMeQuery } from "../../generated/graphql";
+import { Helmet } from "react-helmet";
 
 const ErroPageContainer = styled.div`
 	text-align: center;
@@ -33,6 +34,12 @@ const ErroPage = () => {
 
 	return (
 		<Container>
+			<Helmet>
+				<title>Page Not Found</title>
+				<meta name="title" content="Page Not Found" />
+				<meta property="og:title" content="Page Not Found" />
+				<meta property="twitter:title" content="Page Not Found" />
+			</Helmet>
 			<ErroPageContainer>
 				<ErroTitle>Sorry, this page isn't available.</ErroTitle>
 				<ErroMessage>

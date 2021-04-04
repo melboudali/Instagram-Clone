@@ -11,6 +11,7 @@ import { usePalette } from "react-palette";
 import Icons from "../components/home/articles/common/Icons";
 import LoadingFullScreen from "../components/common/LoadingFullScreen";
 import ErrorPage from "./error/ErrorPage";
+import { Helmet } from "react-helmet";
 
 const ImageContainer = styled.main`
 	background-color: black;
@@ -206,6 +207,15 @@ const Image = ({
 
 	return (
 		<ImageContainer>
+			<Helmet>
+				<title>{data?.getImage.image?.user.username}</title>
+				<meta name="title" content={data?.getImage.image?.user.username} />
+				<meta property="og:title" content={data?.getImage.image?.user.username} />
+				<meta property="twitter:title" content={data?.getImage.image?.user.username} />
+				<meta name="description" content={data?.getImage.image?.caption} />
+				<meta property="og:description" content={data?.getImage.image?.caption} />
+				<meta property="twitter:description" content={data?.getImage.image?.caption} />
+			</Helmet>
 			<ModalClose onClick={() => history.goBack()}>
 				<svg viewBox="0 0 48 48">
 					<path d="M41.8 9.8L27.5 24l14.2 14.2c.6.6.6 1.5 0 2.1l-1.4 1.4c-.6.6-1.5.6-2.1 0L24 27.5 9.8 41.8c-.6.6-1.5.6-2.1 0l-1.4-1.4c-.6-.6-.6-1.5 0-2.1L20.5 24 6.2 9.8c-.6-.6-.6-1.5 0-2.1l1.4-1.4c.6-.6 1.5-.6 2.1 0L24 20.5 38.3 6.2c.6-.6 1.5-.6 2.1 0l1.4 1.4c.6.6.6 1.6 0 2.2z"></path>
