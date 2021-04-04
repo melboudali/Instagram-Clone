@@ -212,7 +212,7 @@ const Suggestions = ({ meData: { username, image_link, fullname } }: Suggestions
 					<SuggestionsLinksList>
 						{linksData.map((link, id) => (
 							<SuggestionsLinkItem key={id}>
-								<SuggestionsListLink to={`/${link}`}>{link}</SuggestionsListLink>
+								<SuggestionsListLink to={`/page/${link}`}>{link}</SuggestionsListLink>
 							</SuggestionsLinkItem>
 						))}
 					</SuggestionsLinksList>
