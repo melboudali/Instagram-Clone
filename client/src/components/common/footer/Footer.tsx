@@ -63,84 +63,84 @@ const Footer = () => (
 			<FooterLinks>
 				<div>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/about">
 							<div>about</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/blog">
 							<div>blog</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/jobs">
 							<div>jobs</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
-							<div>aPI</div>
+						<FooterLinkTag to="/page/api">
+							<div>api</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/privacy">
 							<div>privacy</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/terms">
 							<div>terms</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/top accounts">
 							<div>top accounts</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/hashtags">
 							<div>hashtags</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/locations">
 							<div>locations</div>
 						</FooterLinkTag>
 					</FooterLink>
 				</div>
 				<div>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/beauty">
 							<div>beauty</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/dance & performance">
 							<div>dance & performance</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/fitness">
 							<div>fitness</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/food & drink">
 							<div>food & drink</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/home & garden">
 							<div>home & garden</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/music">
 							<div>music</div>
 						</FooterLinkTag>
 					</FooterLink>
 					<FooterLink>
-						<FooterLinkTag to="/about">
+						<FooterLinkTag to="/page/visual arts">
 							<div>visual arts</div>
 						</FooterLinkTag>
 					</FooterLink>
@@ -150,7 +150,7 @@ const Footer = () => (
 				<div>
 					English
 					<span>
-						<svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<svg width="11" height="6" viewBox="0 0 11 6" fill="none">
 							<path d="M1 1L5.5 5L10 1" stroke="#8E8E8E" strokeLinecap="round" strokeLinejoin="round" />
 						</svg>
 					</span>
