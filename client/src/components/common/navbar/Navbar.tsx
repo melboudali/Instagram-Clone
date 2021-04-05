@@ -68,8 +68,6 @@ const MidNav = styled.div`
 	input[type="text"] {
 		color: var(--textColorGray);
 		font-size: 14px;
-		outline: none;
-		border: none;
 		padding: 0 10px 0 0;
 		height: 100%;
 		width: calc(100% - 30px);

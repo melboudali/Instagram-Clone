@@ -13,19 +13,19 @@ const ErroPageContainer = styled.div`
 `;
 
 const ErroTitle = styled.h2`
-	color: #262625;
+	color: var(--textColorDarkGray);
 	font-weight: 600;
 	font-size: 22px;
 `;
 
 const ErroMessage = styled.p`
 	font-size: 16px;
-	color: #262625;
+	color: var(--textColorDarkGray);
 	margin: 40px 0;
 `;
 
 const GoBackLink = styled(Link)`
-	color: #00376b;
+	color: var(--linkColorTwo);
 	margin-left: 5px;
 `;
 

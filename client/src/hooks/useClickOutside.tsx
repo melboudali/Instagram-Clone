@@ -20,10 +20,7 @@ const useClickOutside = (ref: React.RefObject<HTMLDivElement>) => {
 };
 
 useClickOutside.propTypes = {
-	ref: PropTypes.oneOfType([
-		PropTypes.func,
-		PropTypes.shape({ current: PropTypes.instanceOf(Element) })
-	])
+	ref: PropTypes.oneOfType([PropTypes.func, PropTypes.shape({ current: PropTypes.instanceOf(Element) })])
 };
 
 export default useClickOutside;

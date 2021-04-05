@@ -3,12 +3,12 @@ import styled from "styled-components";
 import Container from "../containers/Container";
 import UnauthFooter from "../components/common/footer/UnauthFooter";
 import ProfileEmptyPostsOrPrivate from "../components/profile/ProfileEmptyPostsOrPrivate";
-import LoadingFullScreen from "../components/common/LoadingFullScreen";
+import LoadingFullScreen from "./others/LoadingFullScreen";
 import ProfileHeader from "../components/profile/ProfileHeader";
 import ProfileMenu from "../components/profile/ProfileMenu";
 import ErrorPage from "./error/ErrorPage";
-import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
+import PropTypes from "prop-types";
 
 const TaggedContainer = styled.div`
 	margin: 30px auto 0;
@@ -19,60 +19,33 @@ interface TaggedProps {
 }
 
 const Tagged = ({ match }: TaggedProps) => {
-	const { data: loggedInUserData, error: loggedInError } = useMeQuery();
+	const { data: loggedInUserData, loading: meLoading, error: loggedInError } = useMeQuery();
 	const username = match.params.username.toLowerCase();
 	const { data, loading, error } = useGetUserQuery({
 		variables: { username, currentUserId: loggedInUserData?.me?.id as number }
 	});
 
-	if (loading) {
+	if (loading || meLoading) {
 		return <LoadingFullScreen />;
 	}
 
-	if (
-		!data ||
-		!data.getUser.user ||
-		!loggedInUserData ||
-		loggedInError ||
-		error ||
-		data.getUser.error
-	)
-		return <ErrorPage />;
+	if (!data || !data.getUser.user || !loggedInUserData || loggedInError || error || data.getUser.error) return <ErrorPage />;
 
 	return (
 		<>
 			<Helmet>
 				<title>{`${data.getUser.user.fullname}
 				(@${data.getUser.user.username}) - Instagram Clone`}</title>
-				<meta
-					name="title"
-					content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`}
-				/>
-				<meta
-					property="og:title"
-					content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`}
-				/>
-				<meta
-					property="twitter:title"
-					content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`}
-				/>
+				<meta name="title" content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`} />
+				<meta property="og:title" content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`} />
+				<meta property="twitter:title" content={`${data.getUser.user.fullname} (@${data.getUser.user.username}) - Instagram Clone`} />
 				<meta name="description" content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`} />
-				<meta
-					property="og:description"
-					content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`}
-				/>
-				<meta
-					property="twitter:description"
-					content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`}
-				/>
+				<meta property="og:description" content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`} />
+				<meta property="twitter:description" content={`${data.getUser.user.fullname} - ${data.getUser.user.bio}`} />
 			</Helmet>
 			<Container>
 				<TaggedContainer>
-					<ProfileHeader
-						user={data.getUser.user}
-						loggedInUserData={loggedInUserData}
-						usernameParam={username}
-					/>
+					<ProfileHeader user={data.getUser.user} loggedInUserData={loggedInUserData} usernameParam={username} />
 
 					{data.getUser.user.private && loggedInUserData.me?.id !== data.getUser.user.id ? (
 						<ProfileEmptyPostsOrPrivate type="private" />

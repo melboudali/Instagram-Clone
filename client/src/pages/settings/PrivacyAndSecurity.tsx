@@ -2,20 +2,10 @@ import { useState } from "react";
 import EditFormInput from "../../components/Edit/EditFormInput";
 import SubmitButton from "../../components/Edit/SubmitButton";
 import SettingsContainer from "../../containers/SettingsContainer";
-import {
-	useMeQuery,
-	useEditPrivacyMutation,
-	MeQuery,
-	MeDocument,
-	GetUserQuery,
-	GetUserDocument
-} from "../../generated/graphql";
-import PropTypes from "prop-types";
+import { useMeQuery, useEditPrivacyMutation, MeQuery, MeDocument, GetUserQuery, GetUserDocument } from "../../generated/graphql";
 import { Helmet } from "react-helmet";
 
-interface PrivacyAndSecurityProps {}
-
-const PrivacyAndSecurity = ({}: PrivacyAndSecurityProps) => {
+const PrivacyAndSecurity = () => {
 	const { data: meData } = useMeQuery();
 	const [editPrivacy] = useEditPrivacyMutation();
 	const [updated, setUpdated] = useState(false);
@@ -26,7 +16,7 @@ const PrivacyAndSecurity = ({}: PrivacyAndSecurityProps) => {
 	});
 
 	const [loading, setLoading] = useState(false);
-	const [errorMessage, setErrorMessage] = useState("");
+	const [_, setErrorMessage] = useState("");
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -37,7 +27,7 @@ const PrivacyAndSecurity = ({}: PrivacyAndSecurityProps) => {
 					privateAccount: formData["Private Account"],
 					disableAccount: formData["Disable Account"]
 				},
-				update: (cache, { data }) => {
+				update: cache => {
 					const existedMe = cache.readQuery<MeQuery>({
 						query: MeDocument
 					});
@@ -122,7 +112,5 @@ const PrivacyAndSecurity = ({}: PrivacyAndSecurityProps) => {
 		</SettingsContainer>
 	);
 };
-
-PrivacyAndSecurity.propTypes = {};
 
 export default PrivacyAndSecurity;

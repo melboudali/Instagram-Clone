@@ -7,8 +7,7 @@ const DividerContainer = styled.div`
 
 const LeftLine = styled.div`
 	position: relative;
-	flex-grow: 1;
-	flex-shrink: 1;
+	flex: 1 1;
 	background-color: var(--borderColor);
 	height: 1px;
 	top: 0.45em;
@@ -16,8 +15,7 @@ const LeftLine = styled.div`
 
 const OrText = styled.div`
 	color: var(--textColorGray);
-	flex-grow: 0;
-	flex-shrink: 0;
+	flex: 0 0;
 	font-size: 13px;
 	font-weight: 600;
 	line-height: 15px;
@@ -27,8 +25,7 @@ const OrText = styled.div`
 
 const RightLine = styled.div`
 	position: relative;
-	flex-grow: 1;
-	flex-shrink: 1;
+	flex: 1;
 	background-color: var(--borderColor);
 	height: 1px;
 	top: 0.45em;

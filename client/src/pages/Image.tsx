@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import styled, { css } from "styled-components";
 import Caption from "../components/home/articles/common/Caption";
@@ -9,9 +8,10 @@ import Header from "../components/home/articles/common/Header";
 import { useGetImageCommentsQuery, useGetImageQuery, useMeQuery } from "../generated/graphql";
 import { usePalette } from "react-palette";
 import Icons from "../components/home/articles/common/Icons";
-import LoadingFullScreen from "../components/common/LoadingFullScreen";
+import LoadingFullScreen from "./others/LoadingFullScreen";
 import ErrorPage from "./error/ErrorPage";
 import { Helmet } from "react-helmet";
+import PropTypes from "prop-types";
 
 const ImageContainer = styled.main`
 	background-color: black;
@@ -28,14 +28,10 @@ const ImageContainer = styled.main`
 const ModalClose = styled.button`
 	display: none;
 	position: absolute;
-	background: none;
-	border: none;
-	outline: none;
 	top: 10px;
 	right: 10px;
-	cursor: pointer;
 	svg {
-		fill: #ffffff;
+		fill: var(--whiteColor);
 		height: 24px;
 		width: 24px;
 	}
@@ -79,11 +75,10 @@ const BlurBackground = styled.div<{ backgroundColor: string | undefined }>`
 const ImageMain = styled.a<{ backgroundColor: string | undefined }>`
 	--displayValue: none;
 	position: relative;
-	text-decoration: none;
 	display: var(--displayValue) !important;
 	width: 100%;
 	height: 100%;
-	background-color: ${({ backgroundColor }) => backgroundColor ?? "#161616"};
+	background-color: ${({ backgroundColor }) => backgroundColor ?? "var(--textColorDarkGray)"};
 	img {
 		max-width: 100%;
 		max-height: 100%;
@@ -106,7 +101,6 @@ const ImageAside = styled.aside`
 	width: 100%;
 	height: 100%;
 	a {
-		text-decoration: none;
 		width: 100%;
 		max-height: 60%;
 	}
@@ -119,7 +113,6 @@ const ImageElement = styled.img`
 	width: 100%;
 	max-height: 100%;
 	object-fit: cover;
-	text-decoration: none;
 	&:hover {
 		cursor: zoom-in;
 	}
@@ -160,7 +153,7 @@ const CommentInputContainer = styled.section`
 `;
 
 const LikesCss = css`
-	color: #262626;
+	color: var(--textColorDarkGray);
 	margin: 0 3px;
 	font-weight: 600;
 `;
@@ -175,7 +168,6 @@ const ArticleLikesLink = styled(Link)`
 `;
 
 const ArticleOtherLink = styled.span`
-	text-decoration: none;
 	${LikesCss}
 `;
 
@@ -190,11 +182,7 @@ const Image = ({
 }: ImageProps) => {
 	const history = useHistory();
 	const { data: me, loading: meLoading, error: meError } = useMeQuery();
-	const {
-		data: comments,
-		loading: loadingComments,
-		error: errorComments
-	} = useGetImageCommentsQuery({ variables: { imageId } });
+	const { data: comments, loading: loadingComments, error: errorComments } = useGetImageCommentsQuery({ variables: { imageId } });
 
 	const { data, loading, error } = useGetImageQuery({ variables: { imageId } });
 	const {
@@ -227,11 +215,7 @@ const Image = ({
 					<img src={data?.getImage.image?.image_url} alt={data?.getImage.image?.caption} />
 				</ImageMain>
 				<ImageAside>
-					<Header
-						name={data?.getImage.image?.user.username!}
-						logo={data?.getImage.image?.user.image_link!}
-						showCloseBtn={true}
-					/>
+					<Header name={data?.getImage.image?.user.username!} logo={data?.getImage.image?.user.image_link!} showCloseBtn={true} />
 					<a href={data?.getImage.image?.image_url} target="_noblank">
 						<ImageElement src={data?.getImage.image?.image_url} />
 					</a>
@@ -243,9 +227,7 @@ const Image = ({
 								image={data?.getImage.image?.user.image_link}
 							/>
 							{comments && !!comments.getImageComments.comment?.length ? (
-								comments.getImageComments.comment.map(({ id, text, user: { username } }) => (
-									<Comment key={id} username={username} text={text} />
-								))
+								comments.getImageComments.comment.map(({ id, text, user: { username } }) => <Comment key={id} username={username} text={text} />)
 							) : (
 								<EmptyComments>
 									<h1>No Comments</h1>
@@ -255,11 +237,7 @@ const Image = ({
 					</ImageDescriptionContainer>
 					<CommentInputContainer>
 						<Icons
-							liked={
-								data.getImage.image.like
-									? !!data.getImage.image.like.find(u => u.user.username === me?.me?.username)
-									: false
-							}
+							liked={data.getImage.image.like ? !!data.getImage.image.like.find(u => u.user.username === me?.me?.username) : false}
 							imageId={data?.getImage.image?.id!}
 							showComment={false}
 							me={me}

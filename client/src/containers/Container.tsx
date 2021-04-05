@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import styled from "styled-components";
 import Navbar from "../components/common/navbar/Navbar";
 import PropTypes from "prop-types";
@@ -17,10 +16,10 @@ interface ContainerProps {
 }
 
 const Container = ({ children }: ContainerProps) => (
-	<Fragment>
+	<>
 		<Navbar />
 		<Main>{children}</Main>
-	</Fragment>
+	</>
 );
 
 Container.propTypes = {

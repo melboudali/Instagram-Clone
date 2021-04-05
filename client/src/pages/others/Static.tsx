@@ -3,10 +3,11 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import Container from "../../containers/Container";
 import staticPage from "../../utils/staticPagesData";
+import PropTypes from "prop-types";
 
 const StaticContainerSection = styled.section`
-	background-color: #fff;
-	border: 1px solid #dbdbdb;
+	background-color: var(--whiteColor);
+	border: 1px solid var(--borderColor);
 	border-radius: 3px;
 	margin: 30px 0 0;
 	display: flex;
@@ -68,7 +69,7 @@ const StaticContainerMain = styled.main`
 const StaticPageTitle = styled.h1`
 	font-size: 1.5rem;
 	font-weight: 500;
-	color: #262626;
+	color: var(--textColorDarkGray);
 	text-align: center;
 	margin: 30px 0 50px;
 	text-transform: uppercase;
@@ -107,6 +108,14 @@ const Static = ({
 			</StaticContainerSection>
 		</Container>
 	);
+};
+
+Static.propTypes = {
+	match: PropTypes.shape({
+		params: PropTypes.shape({
+			imageId: PropTypes.string.isRequired
+		})
+	})
 };
 
 export default Static;

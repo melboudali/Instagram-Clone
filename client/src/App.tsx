@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense } from "react";
 import { createGlobalStyle } from "styled-components";
 import ErrorBoundary from "./pages/error/ErrorBoundary";
-import LoadingFullScreen from "./components/common/LoadingFullScreen";
+import LoadingFullScreen from "./pages/others/LoadingFullScreen";
 import AppContainer from "./containers/AppContainer";
 
 const GlobalStyle = createGlobalStyle`

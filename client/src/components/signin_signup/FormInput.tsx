@@ -39,9 +39,8 @@ const Span = styled.span<{ value: string }>`
 	text-overflow: ellipsis;
 	transform-origin: left;
 	transition: transform ease-out 0.1s;
-
 	${({ value }) => value.length && "transform: scale(.83333) translateY(-10px);"}
-	transition: transform ease-out .1s,-webkit-transform ease-out .1s;
+	transition: transform ease-out .1s;
 	user-select: none;
 	cursor: text;
 `;
@@ -53,18 +52,12 @@ const Input = styled.input<{ value: string }>`
 	margin: 0;
 	text-overflow: ellipsis;
 	border-radius: 3px;
-	${({ value }) =>
-		value.length
-			? "font-size: 12px; padding: 14px 8px 2px;"
-			: "font-size: 16px; padding: 9px 8px 7px;"};
+	${({ value }) => (value.length ? "font-size: 12px; padding: 14px 8px 2px;" : "font-size: 16px; padding: 9px 8px 7px;")};
 	cursor: text;
 `;
 
 const ShowButton = styled.button`
-	background: none;
 	color: var(--textColorDarkGray);
-	border: none;
-	cursor: pointer;
 	font-weight: 600;
 	padding: 9px 4px;
 	text-align: center;
@@ -82,21 +75,12 @@ interface FormInputProps {
 	setInputValue: Function;
 }
 
-const FromInput = ({
-	labelText,
-	required,
-	maxlength,
-	name,
-	type,
-	inputValue,
-	setInputValue
-}: FormInputProps) => {
+const FromInput = ({ labelText, required, maxlength, name, type, inputValue, setInputValue }: FormInputProps) => {
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
 	const onChangeFunction = (e: React.ChangeEvent<HTMLInputElement>): void => {
 		e.preventDefault();
-		const value = e.target.value;
-		setInputValue(value);
+		setInputValue(e.target.value);
 	};
 
 	const onClickFunction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {

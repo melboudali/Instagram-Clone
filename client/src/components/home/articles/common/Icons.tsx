@@ -25,9 +25,6 @@ const IconsContainer = styled.section`
 		}
 		button {
 			align-items: center;
-			background: 0 0;
-			border: 0;
-			cursor: pointer;
 			display: flex;
 			justify-content: center;
 			padding: 8px;

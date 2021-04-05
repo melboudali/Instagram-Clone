@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
 import { Prompt } from "react-router";
 import styled from "styled-components";
 import EditSidebar from "../components/Edit/EditSidebar";
 import { useMeQuery } from "../generated/graphql";
 import Container from "./Container";
+import PropTypes from "prop-types";
 
 const SettingsContainerSection = styled.section`
-	background-color: #fff;
-	border: 1px solid #dbdbdb;
+	background-color: var(--whiteColor);
+	border: 1px solid var(--borderColor);
 	border-radius: 3px;
 	margin: 30px 0 0;
 	display: flex;
@@ -71,18 +71,14 @@ const UserNameAndChangeBtn = styled.div`
 const UserNameTitle = styled.h1`
 	font-size: 1.1rem;
 	font-weight: 500;
-	color: #262626;
+	color: var(--textColorDarkGray);
 `;
 
 const ChangeProfilePhoto = styled.button`
-	background: none;
-	border: none;
-	outline: none;
-	color: #0095f6;
+	color: var(--buttonLightBlue);
 	font-size: 0.9rem;
 	font-weight: 500;
 	margin-top: 5px;
-	cursor: pointer;
 `;
 
 interface SettingsContainerProps {
@@ -93,13 +89,7 @@ interface SettingsContainerProps {
 	image_url?: string;
 }
 
-const SettingsContainer = ({
-	updated,
-	children,
-	Scrollbar,
-	setOpenModal,
-	image_url
-}: SettingsContainerProps) => {
+const SettingsContainer = ({ updated, children, Scrollbar, setOpenModal, image_url }: SettingsContainerProps) => {
 	const { data } = useMeQuery();
 
 	return (
@@ -134,6 +124,12 @@ const SettingsContainer = ({
 	);
 };
 
-SettingsContainer.propTypes = {};
+SettingsContainer.propTypes = {
+	updated: PropTypes.bool,
+	children: PropTypes.node.isRequired,
+	Scrollbar: PropTypes.func,
+	setOpenModal: PropTypes.func,
+	image_url: PropTypes.string
+};
 
 export default SettingsContainer;

@@ -5,7 +5,6 @@ import SettingsContainer from "../../containers/SettingsContainer";
 import { MeDocument, MeQuery, useChangePasswordMutation } from "../../generated/graphql";
 import styled from "styled-components";
 import { useHistory } from "react-router";
-import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 
 const ErroMessage = styled.h1`
@@ -19,9 +18,7 @@ const ErroMessage = styled.h1`
 	}
 `;
 
-interface ChangePasswordProps {}
-
-const ChangePassword = ({}: ChangePasswordProps) => {
+const ChangePassword = () => {
 	const history = useHistory();
 	const [changePassword] = useChangePasswordMutation();
 	const [formData, setFormData] = useState({
@@ -75,20 +72,8 @@ const ChangePassword = ({}: ChangePasswordProps) => {
 				<meta property="twitter:title" content="Change Password" />
 			</Helmet>
 			<form onSubmit={onSubmit}>
-				<EditFormInput
-					label="Old Password"
-					formData={formData}
-					setFormData={setFormData}
-					value={formData["Old Password"]}
-					type="password"
-				/>
-				<EditFormInput
-					label="New Password"
-					formData={formData}
-					setFormData={setFormData}
-					value={formData["New Password"]}
-					type="password"
-				/>
+				<EditFormInput label="Old Password" formData={formData} setFormData={setFormData} value={formData["Old Password"]} type="password" />
+				<EditFormInput label="New Password" formData={formData} setFormData={setFormData} value={formData["New Password"]} type="password" />
 				<EditFormInput
 					label="Confirm New Password"
 					formData={formData}
@@ -97,9 +82,7 @@ const ChangePassword = ({}: ChangePasswordProps) => {
 					type="password"
 				/>
 				<SubmitButton
-					active={
-						!!formData["Old Password"] && !!formData["New Password"] && !!formData["Confirm New Password"]
-					}
+					active={!!formData["Old Password"] && !!formData["New Password"] && !!formData["Confirm New Password"]}
 					loading={loading}
 					width="150px">
 					Change Password
@@ -109,7 +92,5 @@ const ChangePassword = ({}: ChangePasswordProps) => {
 		</SettingsContainer>
 	);
 };
-
-ChangePassword.propTypes = {};
 
 export default ChangePassword;

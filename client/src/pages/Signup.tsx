@@ -20,7 +20,7 @@ const SignupContainer = styled.section`
 `;
 
 const SignupMain = styled.div`
-	background-color: #fff;
+	background-color: var(--whiteColor);
 	border: 1px solid var(--borderColor);
 	border-radius: 1px;
 	margin: 0 0 10px;
@@ -74,8 +74,7 @@ const SignupFBButton = styled.button`
 	border: 1px solid transparent;
 	background-color: var(--buttonLightBlue);
 	border-radius: 4px;
-	color: #fff;
-	cursor: pointer;
+	color: var(--whiteColor);
 	font-weight: 600;
 	padding: 5px 9px;
 	text-align: center;
@@ -257,14 +256,7 @@ const Signup = () => {
 									inputValue={userName}
 									setInputValue={setUsername}
 								/>
-								<FormINput
-									labelText="Password"
-									required={true}
-									name="password"
-									type="password"
-									inputValue={password}
-									setInputValue={setPassword}
-								/>
+								<FormINput labelText="Password" required={true} name="password" type="password" inputValue={password} setInputValue={setPassword} />
 								<Button
 									active={!!email && !!fullName && !!userName && !!password}
 									type="submit"

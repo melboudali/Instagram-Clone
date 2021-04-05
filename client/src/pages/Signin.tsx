@@ -52,7 +52,7 @@ const SigninRightComponent = styled.div`
 `;
 
 const SigninLoginContainer = styled.div`
-	background-color: #fff;
+	background-color: var(--whiteColor);
 	border: 1px solid var(--borderColor);
 	border-radius: 1px;
 	margin: 0 0 10px;
@@ -92,11 +92,7 @@ const SigninFBButtonContainer = styled.div`
 
 const SigninFBButton = styled.button`
 	display: flex;
-	cursor: pointer;
 	font-weight: 600;
-	border: none;
-	outline: none;
-	background: none;
 `;
 
 const SigninFBLogo = styled.span`
@@ -258,11 +254,7 @@ const Signin = () => {
 										setInputValue={setPassword}
 									/>
 								</SigninInputsContainer>
-								<Button
-									active={!!userName && !!password}
-									type="submit"
-									loading={loginLoading}
-									onClickFunction={loginFunction}>
+								<Button active={!!userName && !!password} type="submit" loading={loginLoading} onClickFunction={loginFunction}>
 									Log In
 								</Button>
 								<Divider />

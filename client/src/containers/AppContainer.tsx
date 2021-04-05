@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { useMeQuery } from "../generated/graphql";
 
-const LoadingFullScreen = lazy(() => import("../components/common/LoadingFullScreen"));
+const LoadingFullScreen = lazy(() => import("../pages/others/LoadingFullScreen"));
 const ErrorPage = lazy(() => import("../pages/error/ErrorPage"));
 const AuthenticatedApp = lazy(() => import("../routes/AuthenticatedRoutes"));
 const UnauthenticatedApp = lazy(() => import("../routes/UnauthenticatedRoutes"));
@@ -11,7 +11,7 @@ const AppContainer = () => {
 
 	if (loading) return <LoadingFullScreen />;
 
-	if (!data || error) return <ErrorPage />;
+	if (!data || !data.me || error) return <ErrorPage />;
 
 	return <>{data.me ? <AuthenticatedApp /> : <UnauthenticatedApp />}</>;
 };

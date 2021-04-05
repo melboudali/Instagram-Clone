@@ -12,14 +12,10 @@ import {
 } from "../../generated/graphql";
 import PhotoModalMain from "../../components/Edit/PhotoModal";
 import SettingsContainer from "../../containers/SettingsContainer";
-import styled, { keyframes } from "styled-components";
-import PropTypes from "prop-types";
 import SubmitButton from "../../components/Edit/SubmitButton";
 import { Helmet } from "react-helmet";
 
-interface EditProps {}
-
-const Edit = ({}: EditProps) => {
+const Edit = () => {
 	const { data } = useMeQuery();
 	const [editUser] = useEditUserMutation();
 
@@ -39,12 +35,10 @@ const Edit = ({}: EditProps) => {
 	const [openModal, setOpenModal] = useState(false);
 
 	const [imageFile, setImageFile] = useState<File | null>(null);
-	const [uploadErrorMessage, setUploadErroMessage] = useState<string | null>(null);
+	const [_, setUploadErroMessage] = useState<string | null>(null);
 
 	const Scrollbar = (arg: "show" | "hide") => {
-		arg === "show"
-			? (document.documentElement.style.overflowY = "visible")
-			: (document.documentElement.style.overflowY = "hidden");
+		arg === "show" ? (document.documentElement.style.overflowY = "visible") : (document.documentElement.style.overflowY = "hidden");
 	};
 
 	const onSubmit = async (e: React.FormEvent) => {
@@ -142,14 +136,8 @@ const Edit = ({}: EditProps) => {
 		setLoading(false);
 	};
 
-	const activeButton = !!(formData.Name && formData.Username && formData.Email);
-
 	return (
-		<SettingsContainer
-			updated={updated}
-			Scrollbar={Scrollbar}
-			setOpenModal={setOpenModal}
-			image_url={formData.image_link}>
+		<SettingsContainer updated={updated} Scrollbar={Scrollbar} setOpenModal={setOpenModal} image_url={formData.image_link}>
 			<Helmet>
 				<title>Edit Account</title>
 				<meta name="title" content="Edit Account" />
@@ -185,13 +173,7 @@ const Edit = ({}: EditProps) => {
 					setFormData={setFormData}
 					value={formData.Username}
 				/>
-				<EditFormInput
-					label="Website"
-					formData={formData}
-					setFormData={setFormData}
-					value={formData.Website}
-					type="url"
-				/>
+				<EditFormInput label="Website" formData={formData} setFormData={setFormData} value={formData.Website} type="url" />
 				<EditFormInput
 					label="Bio"
 					descriptionTitle="Personal Information"
@@ -201,26 +183,9 @@ const Edit = ({}: EditProps) => {
 					setFormData={setFormData}
 					value={formData.Bio}
 				/>
-				<EditFormInput
-					label="Email"
-					type="email"
-					formData={formData}
-					setFormData={setFormData}
-					value={formData.Email}
-				/>
-				<EditFormInput
-					label="Phone Number"
-					type="number"
-					formData={formData}
-					setFormData={setFormData}
-					value={formData["Phone Number"]}
-				/>
-				<EditFormInput
-					label="Gender"
-					formData={formData}
-					setFormData={setFormData}
-					value={formData.Gender}
-				/>
+				<EditFormInput label="Email" type="email" formData={formData} setFormData={setFormData} value={formData.Email} />
+				<EditFormInput label="Phone Number" type="number" formData={formData} setFormData={setFormData} value={formData["Phone Number"]} />
+				<EditFormInput label="Gender" formData={formData} setFormData={setFormData} value={formData.Gender} />
 				<EditFormInput
 					type="checkbox"
 					label="Similar Account Suggestions"
@@ -229,14 +194,12 @@ const Edit = ({}: EditProps) => {
 					setFormData={setFormData}
 					defaultChecked={formData["Similar Account Suggestions"]}
 				/>
-				<SubmitButton active={activeButton} loading={loading} width={"90px"}>
+				<SubmitButton active={!!(formData.Name && formData.Username && formData.Email)} loading={loading} width={"90px"}>
 					Submit
 				</SubmitButton>
 			</form>
 		</SettingsContainer>
 	);
 };
-
-Edit.propTypes = {};
 
 export default Edit;

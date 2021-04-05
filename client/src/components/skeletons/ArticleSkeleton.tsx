@@ -3,8 +3,8 @@ import Skeleton from "./Skeleton";
 
 const ArticleContainer = styled.article`
 	display: block;
-	background-color: #fff;
-	border: 1px solid #dbdbdb;
+	background-color: var(--whiteColor);
+	border: 1px solid var(--borderColor);
 	border-radius: 3px;
 	margin-bottom: 60px;
 `;
