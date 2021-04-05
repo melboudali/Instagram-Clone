@@ -8,7 +8,7 @@ const NoPostsLogoContainer = styled.div`
 	width: 62px;
 	height: 62px;
 	margin: 0 auto 32px;
-	border: 2px solid #262626;
+	border: 2px solid var(--textColorDarkGray);
 	border-radius: 50%;
 `;
 
@@ -23,7 +23,7 @@ const NoPostsLogo = styled.span`
 const NoPostsMessage = styled.h1`
 	font-size: 28px;
 	font-weight: 300;
-	color: #262626;
+	color: var(--textColorDarkGray);
 `;
 
 const ArticlesError = () => (

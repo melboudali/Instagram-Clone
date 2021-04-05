@@ -8,6 +8,9 @@ const LinkContainer = styled.div`
 	margin: 0 0 0 22px;
 	width: 22px;
 	height: 22px;
+	svg {
+		fill: var(--textColorDarkGray);
+	}
 `;
 
 interface NavbarLinkProps {

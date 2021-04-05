@@ -6,7 +6,7 @@ const LogoutLinkContainer = styled.div`
 	cursor: pointer;
 	outline: 0;
 	&:hover > div {
-		background: #fafafa;
+		background: var(--backgroudColor);
 	}
 `;
 
@@ -27,6 +27,11 @@ const LogoutLinkIconContainer = styled.div`
 	svg {
 		width: 16px;
 		height: 16px;
+		stroke-width: 2;
+		stroke: var(--textColorDarkGray);
+		fill: none;
+		stroke-linecap: round;
+		stroke-linejoin: round;
 	}
 `;
 
@@ -42,13 +47,12 @@ const LogoutLinkName = styled.div`
 	display: flex;
 	height: 28px;
 	width: 170px;
-
 	div {
 		align-self: center;
 		font-weight: 400;
 		font-size: 14px;
 		text-transform: capitalize;
-		color: #262626;
+		color: var(--textColorDarkGray);
 	}
 `;
 

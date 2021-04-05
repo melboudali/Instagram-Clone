@@ -10,7 +10,7 @@ const ConnectionErrorMain = styled.div`
 
 const ConnectionErrorMessage = styled.h1`
 	align-self: center;
-	color: #747474;
+	color: var(--textColorGray);
 `;
 
 const ConnectionError = () => (

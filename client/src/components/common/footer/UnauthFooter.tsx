@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
-import styled, { css, keyframes } from "styled-components";
 import Assets from "../../../assets/images/9813fcc3aa16.png";
 import { showFooterValue } from "../../../graphql/cache/cache";
+import styled, { css, keyframes } from "styled-components";
 
 const UnauthFooterContainer = styled.div<{ closed: boolean }>`
 	display: ${({ closed }) => (closed ? "none" : "block")};
@@ -66,7 +66,7 @@ const UnauthFooterLoginMessage = styled.div`
 	flex: 1 1 auto;
 	margin-left: 12px;
 	div {
-		color: #fff;
+		color: var(--whiteColor);
 		line-height: 25px;
 		&:nth-child(1) {
 			font-weight: 600;
@@ -93,7 +93,7 @@ const ButtonsCss = css`
 const UnauthFooterLoginButton = styled(Link)`
 	${ButtonsCss}
 	background: var(--buttonLightBlue);
-	color: #fff;
+	color: var(--whiteColor);
 	border-radius: 4px;
 	padding: 6px 10px;
 `;

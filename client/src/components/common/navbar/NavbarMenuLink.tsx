@@ -3,9 +3,8 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const MenuListLink = styled(Link)`
-	cursor: pointer;
 	&:hover > div {
-		background: #fafafa;
+		background: var(--backgroudColor);
 	}
 `;
 
@@ -26,6 +25,7 @@ const MenuIconContainer = styled.div`
 	svg {
 		width: 16px;
 		height: 16px;
+		fill: var(--textColorDarkGray);
 	}
 `;
 
@@ -41,13 +41,12 @@ const MenuListName = styled.div`
 	display: flex;
 	height: 28px;
 	width: 170px;
-
 	div {
 		align-self: center;
 		font-weight: 400;
 		font-size: 14px;
 		text-transform: capitalize;
-		color: #262626;
+		color: var(--textColorDarkGray);
 	}
 `;
 

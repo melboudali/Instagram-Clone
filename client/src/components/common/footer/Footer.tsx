@@ -24,7 +24,6 @@ const FooterLang = styled.div`
 	display: flex;
 	margin: 12px 0;
 	justify-content: center;
-
 	color: var(--textColorGray);
 	div {
 		font-size: 12px;
@@ -39,6 +38,9 @@ const FooterLang = styled.div`
 		}
 		svg {
 			margin-left: 4px;
+			stroke: var(--textColorGray);
+			stroke-linecap: round;
+			stroke-linejoin: round;
 		}
 	}
 `;
@@ -151,7 +153,7 @@ const Footer = () => (
 					English
 					<span>
 						<svg width="11" height="6" viewBox="0 0 11 6" fill="none">
-							<path d="M1 1L5.5 5L10 1" stroke="#8E8E8E" strokeLinecap="round" strokeLinejoin="round" />
+							<path d="M1 1L5.5 5L10 1" />
 						</svg>
 					</span>
 				</div>

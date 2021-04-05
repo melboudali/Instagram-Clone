@@ -6,6 +6,7 @@ import AppContainer from "./containers/AppContainer";
 
 const GlobalStyle = createGlobalStyle`
   :root{
+    --whiteColor: #fff;
     --backgroudColor: #FAFAFA;
     --borderColor: #DBDBDB;
     --borderDarkColor: #A8A8A8;
