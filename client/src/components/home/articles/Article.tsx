@@ -1,34 +1,24 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
-import {
-	Image_Data,
-	Like,
-	Like_Author,
-	Maybe,
-	MeQuery,
-	useGetImageCommentsQuery,
-	useMeQuery
-} from "../../../generated/graphql";
+import { Like_Author, Maybe, MeQuery, useGetImageCommentsQuery } from "../../../generated/graphql";
 import timeDifference from "../../../utils/timeDefference";
-import PropTypes from "prop-types";
 import Header from "./common/Header";
 import Icons from "./common/Icons";
 import CommentInput from "./common/CommentInput";
 import Comment from "./common/Comment";
 import Caption from "./common/Caption";
-import { useEffect } from "react";
+import PropTypes from "prop-types";
 
 const ArticleContainer = styled.article`
 	display: block;
-	background-color: #fff;
-	border: 1px solid #dbdbdb;
+	background-color: var(--whiteColor);
+	border: 1px solid var(--borderColor);
 	border-radius: 3px;
 	margin-bottom: 60px;
 `;
 
 const ArticleImage = styled(Link)`
 	max-width: 614px;
-	text-decoration: none;
 	img {
 		width: 100%;
 		height: auto;
@@ -39,31 +29,12 @@ const ArticleDetails = styled.div`
 	padding: 0 16px;
 `;
 
-const LikesCss = css`
-	color: #262626;
-	margin: 0 3px;
-	font-weight: 600;
-	cursor: pointer;
-`;
-const ArticleLikesContainer = styled.section`
-	margin-bottom: 8px;
-`;
-
-const ArticleLikesLink = styled(Link)`
-	${LikesCss}
-`;
-
-const ArticleOtherLink = styled(Link)`
-	text-decoration: none;
-	${LikesCss}
-`;
-
 const ArticleCommentsCount = styled.div`
 	margin-bottom: 4px;
 `;
 
 const ArticleCommentsCountLink = styled(Link)`
-	color: #8e8e8e;
+	color: var(--textColorGray);
 `;
 
 const ArticleCommentAndCreatedtimeContainer = styled.div`
@@ -73,7 +44,7 @@ const ArticleCommentAndCreatedtimeContainer = styled.div`
 const ArticleCreatedTime = styled(Link)`
 	font-size: 10px;
 	letter-spacing: 0.2px;
-	color: #8e8e8e;
+	color: var(--textColorGray);
 	text-transform: uppercase;
 `;
 
@@ -97,15 +68,7 @@ interface ArticleProps {
 	me: MeQuery | undefined;
 }
 
-const Article = ({
-	id,
-	caption,
-	image_url,
-	created_at,
-	user: { image_link, username },
-	like,
-	me
-}: ArticleProps) => {
+const Article = ({ id, caption, image_url, created_at, user: { image_link, username }, like, me }: ArticleProps) => {
 	const { data } = useGetImageCommentsQuery({ variables: { imageId: id } });
 
 	return (
@@ -121,8 +84,7 @@ const Article = ({
 					{!!data?.getImageComments.comment?.length && (
 						<>
 							<ArticleCommentsCount>
-								<ArticleCommentsCountLink
-									to={`/p/${id}`}>{`View all ${data?.getImageComments.comment.length} comments`}</ArticleCommentsCountLink>
+								<ArticleCommentsCountLink to={`/p/${id}`}>{`View all ${data?.getImageComments.comment.length} comments`}</ArticleCommentsCountLink>
 							</ArticleCommentsCount>
 							{data?.getImageComments.comment.map(({ id, text, user: { username } }) => (
 								<Comment key={id} username={username} text={text} />
@@ -137,6 +99,14 @@ const Article = ({
 	);
 };
 
-Article.propTypes = {};
+Article.propTypes = {
+	id: PropTypes.string.isRequired,
+	caption: PropTypes.string.isRequired,
+	image_url: PropTypes.string.isRequired,
+	created_at: PropTypes.string.isRequired,
+	user: PropTypes.object.isRequired,
+	like: PropTypes.array,
+	me: PropTypes.object
+};
 
 export default Article;

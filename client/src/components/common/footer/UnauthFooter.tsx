@@ -17,11 +17,7 @@ const UnauthFooterContainer = styled.div<{ closed: boolean }>`
 `;
 
 const UnauthFooterCloseButton = styled.button`
-	cursor: pointer;
 	position: absolute;
-	background: none;
-	border: 0;
-	padding: 0;
 	right: 4px;
 	top: 4px;
 	height: 40px;
@@ -129,9 +125,7 @@ const UnauthFooter = () => {
 				<UnauthFooterLogo />
 				<UnauthFooterLoginMessage>
 					<div>Log In to Instagram</div>
-					<div>
-						Log in to see photos and videos from friends and discover other accounts you'll love.
-					</div>
+					<div>Log in to see photos and videos from friends and discover other accounts you'll love.</div>
 				</UnauthFooterLoginMessage>
 				<UnauthFooterButtons>
 					<UnauthFooterLoginButton to="/">Log In</UnauthFooterLoginButton>

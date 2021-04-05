@@ -49,6 +49,14 @@ const GlobalStyle = createGlobalStyle`
   a, a:visited {
     text-decoration: none;
   }
+
+  button{
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+	  padding: 0;
+  }
 `;
 
 const App = () => {

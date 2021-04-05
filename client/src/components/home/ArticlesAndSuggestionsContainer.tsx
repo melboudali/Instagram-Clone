@@ -2,6 +2,7 @@ import Articles from "./articles/Articles";
 import Suggestion from "./Suggestions";
 import { useMeQuery } from "../../generated/graphql";
 import styled from "styled-components";
+import ArticlesError from "../common/errors/ArticlesError";
 
 const ArticlesAndSuggestionsMain = styled.div`
 	position: relative;
@@ -11,10 +12,20 @@ const ArticlesAndSuggestionsMain = styled.div`
 	}
 `;
 
+const ErrorContainer = styled.div`
+	text-align: center;
+	padding-top: 20px;
+`;
+
 const ArticlesAndSuggestionsContainer = () => {
 	const { data, error } = useMeQuery();
 
-	if (error || !data || !data.me) return null;
+	if (!error || !data || !data.me)
+		return (
+			<ErrorContainer>
+				<ArticlesError />
+			</ErrorContainer>
+		);
 
 	return (
 		<ArticlesAndSuggestionsMain>

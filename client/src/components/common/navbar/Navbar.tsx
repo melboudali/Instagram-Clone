@@ -132,10 +132,7 @@ const NavbarProfileImage = styled.span`
 `;
 
 const NavbarLoginButton = styled.button`
-	cursor: pointer;
 	background: var(--buttonLightBlue);
-	border: 0;
-	outline: 0;
 	color: var(--whiteColor);
 	font-weight: 600;
 	font-size: 14px;
@@ -144,11 +141,6 @@ const NavbarLoginButton = styled.button`
 `;
 
 const NavbarSignUpButton = styled.button`
-	cursor: pointer;
-	padding: 0;
-	background: none;
-	border: 0;
-	outline: 0;
 	color: var(--buttonLightBlue);
 	font-weight: 600;
 	font-size: 14px;

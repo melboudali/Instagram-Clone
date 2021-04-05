@@ -14,9 +14,7 @@ const NavbarMenuMenu = styled.div<{ showMenu: boolean }>`
 	position: absolute;
 	transform-origin: top center;
 	${({ showMenu }) =>
-		showMenu
-			? "transform: translateY(0);opacity: 1;visibility: visible;"
-			: "opacity: 0;transform: translateY(-10px);visibility:hidden;"}
+		showMenu ? "transform: translateY(0);opacity: 1;visibility: visible;" : "opacity: 0;transform: translateY(-10px);visibility:hidden;"}
 	transition: opacity 75ms linear, transform 38ms ease-out, visibility 75ms linear;
 	background: var(--whiteColor);
 	border-radius: 6px;

@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const InsertCommentResponseContainer = styled.div<{
-	inserted: boolean;
-	insertedError: string | null;
-}>`
+const InsertCommentResponseContainer = styled.div<{ inserted: boolean; insertedError: string | null }>`
 	position: fixed;
 	display: flex;
 	align-items: center;
@@ -14,7 +11,7 @@ const InsertCommentResponseContainer = styled.div<{
 	right: 20%;
 	bottom: 10px;
 	z-index: 1;
-	background-color: ${({ insertedError }) => (insertedError ? "#ed4956" : "#37bf6e")};
+	background-color: ${({ insertedError }) => (insertedError ? "var(--textErrorColor)" : "var(--textColorGreen)")};
 	border-radius: 5px;
 	padding: 0 30px;
 	transform: ${({ inserted }) => (inserted ? "translateY(0)" : "translateY(70px)")};
@@ -43,6 +40,6 @@ const InsertCommentResponse = ({ inserted, insertedError }: InsertCommentRespons
 	);
 };
 
-InsertCommentResponse.propTypes = {};
+InsertCommentResponse.propTypes = { inserted: PropTypes.bool.isRequired, insertedError: PropTypes.string };
 
 export default InsertCommentResponse;

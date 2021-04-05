@@ -17,8 +17,8 @@ import ferrari from "../../../assets/images/ferrari.jpg";
 const StoriesContainer = styled.div`
 	position: relative;
 	height: 116px;
-	background-color: #fff;
-	border: 1px solid #dbdbdb;
+	background-color: var(--whiteColor);
+	border: 1px solid var(--borderColor);
 	border-radius: 3px;
 	margin: 24px 0;
 	overflow: hidden;
@@ -36,11 +36,7 @@ const StoriesMain = styled.div<{ translateValue: number }>`
 
 const NextButton = styled.button`
 	right: 0;
-	cursor: pointer;
-	background: 0 0;
-	border: 0;
 	justify-self: center;
-	outline: 0;
 	padding: 16px 8px;
 	position: absolute;
 	top: 50%;
@@ -57,12 +53,7 @@ const NextClickable = styled.div`
 
 const PrevButton = styled.button`
 	left: 0;
-	cursor: pointer;
-	padding: 0;
-	background: 0 0;
-	border: 0;
 	justify-self: center;
-	outline: 0;
 	padding: 16px 8px;
 	position: absolute;
 	top: 50%;

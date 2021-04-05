@@ -1,12 +1,11 @@
 import Article from "./Article";
 import styled from "styled-components";
-import { useGetAllImagesQuery, useMeQuery, User_Response } from "../../../generated/graphql";
+import { useGetAllImagesQuery, useMeQuery } from "../../../generated/graphql";
 import ArticlesError from "../../common/errors/ArticlesError";
 import LoadingSpinner from "../../common/LoadingSpinner";
 import { useEffect } from "react";
 import useScrollBottom from "../../../hooks/useScrollBottom";
 import { default as ArticleSkeleton } from "../../skeletons/ArticleSkeleton";
-import PropTypes from "prop-types";
 
 const ArticlesContainer = styled.main`
 	--ArticleMargin: 0;
@@ -34,11 +33,9 @@ const ArticlesLoadingSpinner = styled.div<{ padding: string; margin: boolean }>`
 const Articles = () => {
 	const { isBottom, setIsBottom } = useScrollBottom();
 	const { data } = useMeQuery();
-	const { data: images, loading: imagesLoading, error, fetchMore, variables } = useGetAllImagesQuery(
-		{
-			variables: { limit: 3, cursor: null }
-		}
-	);
+	const { data: images, loading: imagesLoading, error, fetchMore, variables } = useGetAllImagesQuery({
+		variables: { limit: 3, cursor: null }
+	});
 
 	useEffect(() => {
 		if (isBottom && images?.getAllImages.hasMore) {
@@ -50,14 +47,7 @@ const Articles = () => {
 			});
 			setIsBottom(false);
 		}
-	}, [
-		fetchMore,
-		images?.getAllImages.hasMore,
-		images?.getAllImages.images,
-		isBottom,
-		variables?.limit,
-		setIsBottom
-	]);
+	}, [fetchMore, images?.getAllImages.hasMore, images?.getAllImages.images, isBottom, variables?.limit, setIsBottom]);
 
 	if (imagesLoading)
 		return (
@@ -76,16 +66,7 @@ const Articles = () => {
 	return (
 		<ArticlesContainer>
 			{images.getAllImages.images.map(({ id, caption, image_url, created_at, user, like }) => (
-				<Article
-					key={id}
-					id={id}
-					caption={caption}
-					image_url={image_url}
-					created_at={created_at}
-					user={user}
-					like={like}
-					me={data}
-				/>
+				<Article key={id} id={id} caption={caption} image_url={image_url} created_at={created_at} user={user} like={like} me={data} />
 			))}
 			{images.getAllImages.hasMore && (
 				<ArticlesLoadingSpinner padding="0" margin={true}>

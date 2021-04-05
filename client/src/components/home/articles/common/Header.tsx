@@ -24,7 +24,7 @@ const ArticleLogoContainer = styled.div`
 `;
 
 const ArticleLogoBackground = styled.div`
-	background: #fff;
+	background: var(--whiteColor);
 	height: 100%;
 	border-radius: 50%;
 	padding: 2px;
@@ -42,7 +42,7 @@ const ArticleNameContainer = styled.div`
 `;
 
 const ArticleName = styled(Link)`
-	color: #262626;
+	color: var(--textColorDarkGray);
 	border: 0;
 	display: inline;
 	padding: 0;
@@ -60,18 +60,14 @@ const ArticleName = styled(Link)`
 const ModalClose = styled.button`
 	--displayValue: block;
 	display: var(--displayValue) !important;
-	background: none;
-	border: none;
-	outline: none;
 	top: 0;
 	right: 0;
 	bottom: 0;
-	cursor: pointer;
 	@media (min-width: 800px) {
 		--displayValue: none;
 	}
 	svg {
-		fill: #262626;
+		fill: var(--textColorDarkGray);
 		height: 20px;
 		width: 20px;
 	}
@@ -90,11 +86,13 @@ const ArticleMore = styled.div`
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border: 0;
-		background: none;
-		cursor: pointer;
 		padding: 8px;
 		margin: 0;
+		svg {
+			fill: var(--textColorDarkGray);
+			height: 16;
+			width: 16;
+		}
 	}
 `;
 
@@ -122,7 +120,7 @@ const Header = ({
 			</ArticleNameContainer>
 			<ArticleMore>
 				<button type="button" onClick={onClickFunction}>
-					<svg fill="#262626" height="16" viewBox="0 0 48 48" width="16">
+					<svg viewBox="0 0 48 48">
 						<circle clipRule="evenodd" cx="8" cy="24" fillRule="evenodd" r="4.5" />
 						<circle clipRule="evenodd" cx="24" cy="24" fillRule="evenodd" r="4.5" />
 						<circle clipRule="evenodd" cx="40" cy="24" fillRule="evenodd" r="4.5" />
@@ -140,6 +138,10 @@ const Header = ({
 	);
 };
 
-Header.propTypes = {};
+Header.propTypes = {
+	name: PropTypes.string.isRequired,
+	logo: PropTypes.string.isRequired,
+	showCloseBtn: PropTypes.bool
+};
 
 export default Header;

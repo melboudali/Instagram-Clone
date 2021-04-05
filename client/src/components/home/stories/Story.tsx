@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const StoryContainer = styled.div`
@@ -20,7 +21,7 @@ const StoryLogoContainer = styled.div`
 `;
 
 const StoryLogoBackground = styled.div`
-	background: #fff;
+	background: var(--whiteColor);
 	height: 100%;
 	border-radius: 50%;
 	padding: 2px;
@@ -42,7 +43,7 @@ const StoryName = styled.h1`
 	font-size: 12px;
 	line-height: 14px;
 	font-weight: normal;
-	color: #262626;
+	color: var(--textColorDarkGray);
 	text-align: center;
 	text-overflow: ellipsis;
 	overflow: hidden;
@@ -67,6 +68,11 @@ const Story = ({ name, image }: StoryProps) => {
 			</StoryNameContainer>
 		</StoryContainer>
 	);
+};
+
+Story.propTypes = {
+	name: PropTypes.string.isRequired,
+	image: PropTypes.string.isRequired
 };
 
 export default Story;

@@ -30,7 +30,7 @@ const ArticleLogo = styled.img`
 `;
 
 const UserName = styled(Link)`
-	color: #262626;
+	color: var(--textColorDarkGray);
 	font-weight: 600;
 	margin-right: 4px;
 	flex: 0;
@@ -44,18 +44,20 @@ interface CaptionProps {
 	image?: string;
 }
 
-const Caption = ({ name, description, image }: CaptionProps) => {
-	return (
-		<CaptionContainer article={!!image}>
-			{image && <ArticleLogo src={image} alt="logo" />}
-			<CaptionElement article={!!image}>
-				<UserName to={`/${name}`}>{name}</UserName>
-				{description}
-			</CaptionElement>
-		</CaptionContainer>
-	);
-};
+const Caption = ({ name, description, image }: CaptionProps) => (
+	<CaptionContainer article={!!image}>
+		{image && <ArticleLogo src={image} alt="logo" />}
+		<CaptionElement article={!!image}>
+			<UserName to={`/${name}`}>{name}</UserName>
+			{description}
+		</CaptionElement>
+	</CaptionContainer>
+);
 
-Caption.propTypes = { name: PropTypes.string.isRequired, description: PropTypes.string.isRequired };
+Caption.propTypes = {
+	name: PropTypes.string.isRequired,
+	description: PropTypes.string.isRequired,
+	image: PropTypes.string
+};
 
 export default Caption;

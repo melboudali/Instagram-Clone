@@ -12,7 +12,7 @@ const EditFormInputContainer = styled.section`
 	}
 `;
 
-const InputSectionLabelContainer = styled.div<{ type: string | undefined }>`
+const InputSectionLabelContainer = styled.div`
 	@media (min-width: 800px) {
 		position: relative;
 		width: 160px;
@@ -23,17 +23,13 @@ const InputSectionLabelContainer = styled.div<{ type: string | undefined }>`
 const InputSectionLabel = styled.label<{ type: string | undefined }>`
 	font-size: 1rem;
 	font-weight: 600;
-	color: #262626;
+	color: var(--textColorDarkGray);
 	text-align: right;
 	@media (min-width: 800px) {
 		position: absolute;
 		top: 0;
 		right: 0;
-		${({ type }) =>
-			type !== "checkbox" &&
-			`
-			margin-top: 12px;
-        `};
+		${({ type }) => type !== "checkbox" && "margin-top: 12px;"};
 	}
 `;
 
@@ -60,9 +56,9 @@ const InputSectionInput = styled.input<{ type: string | undefined }>`
 			width:100%; 
 			margin: 6px 0 5px;
 			padding: 10px 7px;
-			color: #262626;
+			color: var(--textColorDarkGray);
 			&::placeholder {
-				color: #a5a5a5;
+				color: var(--borderDarkColor);
 				font-weight: 300;
 			}
 			@media (min-width: 800px) {
@@ -73,7 +69,7 @@ const InputSectionInput = styled.input<{ type: string | undefined }>`
 	outline: none;
 	background: none;
 	&:focus {
-		border: 2px solid #000000;
+		border: 2px solid #000;
 	}
 `;
 
@@ -88,11 +84,11 @@ const InputSectionTextArea = styled.textarea`
 	color: #262626;
 	resize: vertical;
 	&::placeholder {
-		color: #a5a5a5;
+		color: var(--borderDarkColor);
 		font-weight: 300;
 	}
 	&:focus {
-		border: 2px solid #000000;
+		border: 2px solid #000;
 	}
 	@media (min-width: 800px) {
 		margin: 0 0 5px;
@@ -101,7 +97,7 @@ const InputSectionTextArea = styled.textarea`
 
 const InputSectionDescriptionTitle = styled.p`
 	font-size: 0.8rem;
-	color: #8e8e8e;
+	color: var(--textColorGray);
 	margin-bottom: 5px;
 	font-weight: 700;
 `;
@@ -111,11 +107,11 @@ const InputSectionDescription = styled.p<{ type: string | undefined }>`
 		type === "checkbox"
 			? `font-size: 0.9rem;
             font-weight: 500;
-        color: #262626;`
+        	color: var(--textColorDarkGray);`
 			: `font-size: 0.7rem;
-        color: #8e8e8e;
-        span {
-            display: block;
+        	color: var(--textColorGray);
+       		span {
+            	display: block;
         }`};
 `;
 
@@ -145,7 +141,7 @@ const EditFormInput = ({
 	defaultChecked
 }: EditFormInputProps) => (
 	<EditFormInputContainer>
-		<InputSectionLabelContainer type={type}>
+		<InputSectionLabelContainer>
 			<InputSectionLabel htmlFor={label} type={type}>
 				{label}
 			</InputSectionLabel>
@@ -186,10 +182,7 @@ const EditFormInput = ({
 					{...(type === "checkbox" ? { defaultChecked: defaultChecked! } : { value: value || "" })}
 				/>
 			)}
-
-			{descriptionTitle && (
-				<InputSectionDescriptionTitle>{descriptionTitle}</InputSectionDescriptionTitle>
-			)}
+			{descriptionTitle && <InputSectionDescriptionTitle>{descriptionTitle}</InputSectionDescriptionTitle>}
 			<InputSectionDescription type={type}>
 				{description && description}
 				{subDescription && <span>{subDescription}</span>}

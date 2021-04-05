@@ -1,6 +1,5 @@
-import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const EditSidebarContainer = styled.aside`
 	width: 100%;
@@ -32,9 +31,7 @@ const ElementLink = styled(NavLink).attrs<{ activeClassName: string }>({ activeC
 	}
 `;
 
-interface EditSidebarProps {}
-
-const EditSidebar = ({}: EditSidebarProps) => (
+const EditSidebar = () => (
 	<EditSidebarContainer>
 		<nav>
 			<ElementLink to="/accounts/edit">Edit Profile</ElementLink>
@@ -43,7 +40,5 @@ const EditSidebar = ({}: EditSidebarProps) => (
 		</nav>
 	</EditSidebarContainer>
 );
-
-EditSidebar.propTypes = {};
 
 export default EditSidebar;

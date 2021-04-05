@@ -1,15 +1,8 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
-import {
-	GetAllImagesDocument,
-	GetAllImagesQuery,
-	GetImageCommentsDocument,
-	GetImageCommentsQuery,
-	useInsertCommentMutation
-} from "../../../../generated/graphql";
+import { GetImageCommentsDocument, GetImageCommentsQuery, useInsertCommentMutation } from "../../../../generated/graphql";
 import styled, { keyframes } from "styled-components";
-import SubmitButton from "../../../Edit/SubmitButton";
 import InsertCommentResponse from "./InsertCommentResponse";
+import PropTypes from "prop-types";
 
 const CommentInputContainer = styled.div`
 	display: flex;
@@ -30,7 +23,7 @@ const CommentInputElement = styled.input`
 	height: 18px;
 	background: none;
 	border: 0;
-	color: #262626;
+	color: var(--textColorDarkGray);
 	flex-grow: 1;
 	outline: 0;
 	padding: 0;
@@ -38,12 +31,9 @@ const CommentInputElement = styled.input`
 `;
 
 const CommentInputSubmitButton = styled.button<{ active: boolean }>`
-	background: none;
-	outline: 0;
 	font-weight: 600;
 	color: var(--buttonLightBlue);
 	opacity: ${({ active }) => (active ? "1" : "0.3")};
-	border: none;
 	font-weight: 600;
 	font-size: 14px;
 	display: flex;
@@ -136,7 +126,7 @@ const CommentInput = ({ imageId }: CommentInputProps) => {
 					value={textareaValue}
 					onChange={e => setTextAreaValue(e.target.value)}
 				/>
-				<CommentInputSubmitButton active={!!textareaValue} type="submit">
+				<CommentInputSubmitButton active={!!textareaValue} type="submit" disabled={!textareaValue}>
 					{loading ? (
 						<LoadingContainer>
 							<svg viewBox="0 0 100 100">
@@ -159,6 +149,6 @@ const CommentInput = ({ imageId }: CommentInputProps) => {
 	);
 };
 
-CommentInput.propTypes = {};
+CommentInput.propTypes = { imageId: PropTypes.string.isRequired };
 
 export default CommentInput;

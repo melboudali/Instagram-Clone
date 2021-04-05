@@ -13,7 +13,6 @@ const SubmitButtonSection = styled.section`
 
 const ButtonElement = styled.button<{ active: boolean; width: string }>`
 	opacity: ${({ active }) => (active ? "1" : "0.3")};
-	border: none;
 	background-color: var(--buttonLightBlue);
 	border-radius: 4px;
 	color: #fff;
@@ -41,6 +40,11 @@ const LoadingContainer = styled.div`
 	width: 18px;
 	svg {
 		animation: ${LoadingAnimation} 0.8s steps(8) infinite;
+		rect {
+			fill: var(--backgroudColor);
+			height: 10px;
+			width: 28px;
+		}
 	}
 `;
 
@@ -57,86 +61,14 @@ const SubmitButton = ({ active = true, loading, width, children }: SubmitButtonP
 			{loading ? (
 				<LoadingContainer>
 					<svg aria-label="Loading..." viewBox="0 0 100 100">
-						<rect
-							fill="#fafafa"
-							height="10"
-							opacity="0"
-							rx="5"
-							ry="5"
-							transform="rotate(-90 50 50)"
-							width="28"
-							x="67"
-							y="45"></rect>
-						<rect
-							fill="#fafafa"
-							height="10"
-							opacity="0.125"
-							rx="5"
-							ry="5"
-							transform="rotate(-45 50 50)"
-							width="28"
-							x="67"
-							y="45"></rect>
-						<rect
-							fill="#fafafa"
-							height="10"
-							opacity="0.25"
-							rx="5"
-							ry="5"
-							transform="rotate(0 50 50)"
-							width="28"
-							x="67"
-							y="45"></rect>
-						<rect
-							fill="#fafafa"
-							height="10"
-							opacity="0.375"
-							rx="5"
-							ry="5"
-							transform="rotate(45 50 50)"
-							width="28"
-							x="67"
-							y="45"></rect>
-						<rect
-							fill="#fafafa"
-							height="10"
-							opacity="0.5"
-							rx="5"
-							ry="5"
-							transform="rotate(90 50 50)"
-							width="28"
-							x="67"
-							y="45"></rect>
-						<rect
-							fill="#fafafa"
-							height="10"
-							opacity="0.625"
-							rx="5"
-							ry="5"
-							transform="rotate(135 50 50)"
-							width="28"
-							x="67"
-							y="45"></rect>
-						<rect
-							fill="#fafafa"
-							height="10"
-							opacity="0.75"
-							rx="5"
-							ry="5"
-							transform="rotate(180 50 50)"
-							width="28"
-							x="67"
-							y="45"></rect>
-						<rect
-							fill="#fafafa"
-							height="10"
-							opacity="0.875"
-							rx="5"
-							ry="5"
-							transform="rotate(225 50 50)"
-							width="28"
-							x="67"
-							y="45"></rect>
+						<rect opacity="0" rx="5" ry="5" transform="rotate(-90 50 50)" x="67" y="45" />
+						<rect opacity="0.125" rx="5" ry="5" transform="rotate(-45 50 50)" x="67" y="45" />
+						<rect opacity="0.25" rx="5" ry="5" transform="rotate(0 50 50)" x="67" y="45" />
+						<rect opacity="0.375" rx="5" ry="5" transform="rotate(45 50 50)" x="67" y="45" />
+						<rect opacity="0.5" rx="5" ry="5" transform="rotate(90 50 50)" x="67" y="45" />
+						<rect opacity="0.625" rx="5" ry="5" transform="rotate(135 50 50)" x="67" y="45" />
+						<rect opacity="0.75" rx="5" ry="5" transform="rotate(180 50 50)" x="67" y="45" />
+						<rect opacity="0.875" rx="5" ry="5" transform="rotate(225 50 50)" x="67" y="45" />
 					</svg>
 				</LoadingContainer>
 			) : (
@@ -146,6 +78,11 @@ const SubmitButton = ({ active = true, loading, width, children }: SubmitButtonP
 	</SubmitButtonSection>
 );
 
-SubmitButton.propTypes = {};
+SubmitButton.propTypes = {
+	active: PropTypes.bool,
+	loading: PropTypes.bool.isRequired,
+	children: PropTypes.node.isRequired,
+	width: PropTypes.string.isRequired
+};
 
 export default SubmitButton;

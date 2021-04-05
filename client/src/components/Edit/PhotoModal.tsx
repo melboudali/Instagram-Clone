@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
-import PropTypes from "prop-types";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
+import PropTypes from "prop-types";
 
 const PhotoModalContainer = styled.main`
 	background-color: rgba(0, 0, 0, 0.87);
@@ -49,14 +49,6 @@ const PhotoModalTitle = styled.h1`
 	${SharedStyle}
 `;
 
-const ButtonStyle = css`
-	font-size: 0.9rem;
-	border: none;
-	outline: none;
-	background: none;
-	cursor: pointer;
-`;
-
 const ChangePhotoButton = styled.div`
 	position: relative;
 	font-size: 0.9rem;
@@ -83,17 +75,17 @@ const FileInput = styled.input`
 `;
 
 const RemovePhotoButton = styled.button`
-	${ButtonStyle}
 	${SharedStyle}
 	color: var(--textErrorColor);
+	font-size: 0.9rem;
 `;
 
 const CancelButton = styled.button`
-	${ButtonStyle}
 	color: var(--textColorDarkGray);
 	width: 100%;
 	text-align: center;
 	padding: 20px 0;
+	font-size: 0.9rem;
 `;
 
 interface PhotoModalProps {
@@ -105,14 +97,7 @@ interface PhotoModalProps {
 	setUploadErroMessage: Function;
 }
 
-const PhotoModal = ({
-	setOpenModal,
-	Scrollbar,
-	setFormData,
-	formData,
-	setImageFile,
-	setUploadErroMessage
-}: PhotoModalProps) => {
+const PhotoModal = ({ setOpenModal, Scrollbar, setFormData, formData, setImageFile, setUploadErroMessage }: PhotoModalProps) => {
 	const ref = useRef<HTMLDivElement>(null);
 	const { clickOutside } = useClickOutside(ref);
 
@@ -134,7 +119,7 @@ const PhotoModal = ({
 					fr.readAsDataURL(Files[0]);
 					fr.onload = () => {
 						setUploadErroMessage(null);
-						setFormData({ ...formData, image_link: fr.result as string });
+						setFormData({ ...formData, image_link: fr.result! });
 						setImageFile(Files[0]);
 						Scrollbar("show");
 						setOpenModal(false);
@@ -166,13 +151,7 @@ const PhotoModal = ({
 				<PhotoModalTitle>Change Profile Photo</PhotoModalTitle>
 				<ChangePhotoButton>
 					Upload Photo
-					<FileInput
-						type="file"
-						title="Choose a file or drag it here."
-						accept="image/jpeg,image/png"
-						multiple
-						onChange={onChange}
-					/>
+					<FileInput type="file" title="Choose a file or drag it here." accept="image/jpeg,image/png" multiple onChange={onChange} />
 				</ChangePhotoButton>
 				<RemovePhotoButton onClick={RemovePhoto}>Remove Current Photo</RemovePhotoButton>
 				<CancelButton
@@ -187,6 +166,13 @@ const PhotoModal = ({
 	);
 };
 
-PhotoModal.propTypes = {};
+PhotoModal.propTypes = {
+	setOpenModal: PropTypes.func.isRequired,
+	Scrollbar: PropTypes.func.isRequired,
+	setFormData: PropTypes.func.isRequired,
+	formData: PropTypes.object.isRequired,
+	setImageFile: PropTypes.func.isRequired,
+	setUploadErroMessage: PropTypes.func.isRequired
+};
 
 export default PhotoModal;
