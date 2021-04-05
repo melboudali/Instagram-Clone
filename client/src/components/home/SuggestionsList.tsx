@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import SuggestionsError from "../common/errors/SuggestionsError";
 import LoadingSpinner from "../common/LoadingSpinner";
-import PropTypes from "prop-types";
 import { MouseEventHandler } from "react";
+import PropTypes from "prop-types";
 
 const EllipsisText = css`
 	white-space: nowrap;
@@ -21,14 +21,14 @@ const SuggestionsTitleContainer = styled.div`
 	line-height: 14px;
 	margin: -2px 0 -3px;
 	span {
-		color: #8e8e8e;
+		color: var(--textColorGray);
 		flex: 1 1 auto;
 		font-weight: 600;
 	}
 `;
 
 const SeeAllLink = styled(Link)`
-	color: #262626;
+	color: var(--textColorDarkGray);
 	font-weight: 600;
 `;
 
@@ -60,7 +60,7 @@ const SuggestedProfileName = styled.div`
 	justify-content: center;
 	flex: 1 1 auto;
 	span {
-		color: #8e8e8e;
+		color: var(--textColorGray);
 		font-weight: 400;
 		font-size: 12px;
 		line-height: 14px;
@@ -69,7 +69,7 @@ const SuggestedProfileName = styled.div`
 `;
 
 const SuggestedUserName = styled(Link)`
-	color: #262626;
+	color: var(--textColorDarkGray);
 	font-weight: 600;
 	margin: -3px 0 -2px;
 	${EllipsisText}
@@ -83,13 +83,8 @@ const SuggestedSwitchButtonContainer = styled.div`
 `;
 
 const SuggestedSwitchButton = styled.button`
-	cursor: pointer;
-	color: #0095f6;
+	color: var(--buttonLightBlue);
 	font-weight: 600;
-	padding: 0;
-	background: 0 0;
-	border: 0;
-	outline: 0;
 	font-size: 12px;
 	margin: -2px 0 -3px;
 `;
@@ -107,30 +102,28 @@ const SuggestionsList = ({ onClickFunction }: SuggestionsListProps) => {
 
 	return (
 		<>
-			<>
-				<SuggestionsTitleContainer>
-					<span>Suggestions For You</span>
-					<SeeAllLink to="#">See All</SeeAllLink>
-				</SuggestionsTitleContainer>
-				{data.suggestedUsers.users.map(({ id, username, image_link }) => (
-					<SuggestionContainer key={id}>
-						<SuggestedProfileImage>
-							<SuggestedProfileImageLink to={`/${username}`}>
-								<img src={image_link} alt={`${username}'s profile`} />
-							</SuggestedProfileImageLink>
-						</SuggestedProfileImage>
-						<SuggestedProfileName>
-							<SuggestedUserName to={`/${username}`}>{username}</SuggestedUserName>
-							<span>New to Instagram</span>
-						</SuggestedProfileName>
-						<SuggestedSwitchButtonContainer>
-							<SuggestedSwitchButton type="button" onClick={onClickFunction}>
-								Follow
-							</SuggestedSwitchButton>
-						</SuggestedSwitchButtonContainer>
-					</SuggestionContainer>
-				))}
-			</>
+			<SuggestionsTitleContainer>
+				<span>Suggestions For You</span>
+				<SeeAllLink to="#">See All</SeeAllLink>
+			</SuggestionsTitleContainer>
+			{data.suggestedUsers.users.map(({ id, username, image_link }) => (
+				<SuggestionContainer key={id}>
+					<SuggestedProfileImage>
+						<SuggestedProfileImageLink to={`/${username}`}>
+							<img src={image_link} alt={`${username}'s profile`} />
+						</SuggestedProfileImageLink>
+					</SuggestedProfileImage>
+					<SuggestedProfileName>
+						<SuggestedUserName to={`/${username}`}>{username}</SuggestedUserName>
+						<span>New to Instagram</span>
+					</SuggestedProfileName>
+					<SuggestedSwitchButtonContainer>
+						<SuggestedSwitchButton type="button" onClick={onClickFunction}>
+							Follow
+						</SuggestedSwitchButton>
+					</SuggestedSwitchButtonContainer>
+				</SuggestionContainer>
+			))}
 		</>
 	);
 };

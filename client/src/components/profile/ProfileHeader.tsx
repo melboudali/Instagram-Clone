@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { MeQuery, User_Response } from "../../generated/graphql";
 import PropTypes from "prop-types";
+import onClickFunction from "../../utils/onClick";
 
 const ProfileData = styled.header`
 	display: flex;
@@ -52,7 +53,7 @@ const UsernameContainer = styled.div`
 const ProfileHeaderUsername = styled.h2`
 	font-weight: 400;
 	font-size: 22px;
-	color: #262626;
+	color: var(--textColorDarkGray);
 	margin: -3px 0 0;
 	text-align: left;
 	@media (min-width: 800px) {
@@ -60,9 +61,9 @@ const ProfileHeaderUsername = styled.h2`
 	}
 `;
 
-const ProfileHeaderFollowButton = styled(Link)`
+const ProfileHeaderFollowButton = styled.button`
 	background: var(--buttonLightBlue);
-	color: #fff;
+	color: var(--whiteColor);
 	font-weight: 600;
 	border-radius: 4px;
 	padding: 5px 9px;
@@ -72,8 +73,8 @@ const ProfileHeaderFollowButton = styled(Link)`
 
 const ProfileHeaderEditButton = styled(Link)`
 	margin-left: 20px;
-	border: 1px solid #dbdbdb;
-	color: #262626;
+	border: 1px solid var(--borderColor);
+	color: var(--textColorDarkGray);
 	border-radius: 4px;
 	font-weight: 600;
 	padding: 5px 9px;
@@ -83,21 +84,20 @@ const ProfileHeaderEditButton = styled(Link)`
 const PostsFollowersFollowingContainer = styled.div`
 	display: flex;
 	align-items: center;
-	flex-direction: column;
 	justify-content: center;
 	width: 100%;
-	color: #262626;
-	font-size: 16px;
+	color: var(--textColorDarkGray);
+	font-size: 14px;
 	margin-bottom: 20px;
 	@media (min-width: 800px) {
-		flex-direction: row;
-		justify-content: stretch;
+		font-size: 16px;
+		justify-content: flex-start;
 	}
 `;
 
 const PostsFollowersFollowingCount = styled.div`
 	& + & {
-		margin: 10px 0 0;
+		margin: 0 0 0 20px;
 		@media (min-width: 800px) {
 			margin: 0 0 0 40px;
 		}
@@ -112,29 +112,26 @@ const ProfileHeaderFullname = styled.h1`
 	display: block;
 	font-size: 16px;
 	font-weight: 600;
-	color: #262626;
+	color: var(--textColorDarkGray);
 	margin: 0;
 `;
 
 const ProfileHeaderBio = styled.p`
 	display: block;
 	font-size: 16px;
-	color: #262626;
+	color: var(--textColorDarkGray);
 	margin: 3px 0;
 `;
 
 const ProfileHeaderWebsite = styled.a`
 	display: block;
 	font-weight: 600;
-	color: #00376b;
+	color: var(--linkColorTwo);
 	font-size: 16px;
 `;
 
 interface ProfileHeaderProps {
-	user: Pick<
-		User_Response,
-		"image_link" | "username" | "private" | "fullname" | "bio" | "website" | "images_length"
-	>;
+	user: Pick<User_Response, "image_link" | "username" | "private" | "fullname" | "bio" | "website" | "images_length">;
 	loggedInUserData: MeQuery;
 	usernameParam: string;
 }
@@ -157,7 +154,9 @@ const ProfileHeader = ({
 							<ProfileHeaderEditButton to="/accounts/edit">Edit Profile</ProfileHeaderEditButton>
 						</>
 					) : (
-						<ProfileHeaderFollowButton to="/">Follow</ProfileHeaderFollowButton>
+						<ProfileHeaderFollowButton type="button" onClick={onClickFunction}>
+							Follow
+						</ProfileHeaderFollowButton>
 					)}
 				</UsernameContainer>
 				<PostsFollowersFollowingContainer>
@@ -174,9 +173,7 @@ const ProfileHeader = ({
 				<ProfileHeaderFullname>{fullname}</ProfileHeaderFullname>
 				{bio && <ProfileHeaderBio>{bio}</ProfileHeaderBio>}
 				{website && (
-					<ProfileHeaderWebsite
-						target="_blank"
-						href={website.includes("http") ? website : `https://${website}`}>
+					<ProfileHeaderWebsite target="_blank" href={website.includes("http") ? website : `https://${website}`}>
 						{website}
 					</ProfileHeaderWebsite>
 				)}
@@ -187,7 +184,8 @@ const ProfileHeader = ({
 
 ProfileHeader.propTypes = {
 	user: PropTypes.object.isRequired,
-	loggedInUserData: PropTypes.object.isRequired
+	loggedInUserData: PropTypes.object.isRequired,
+	usernameParam: PropTypes.string.isRequired
 };
 
 export default ProfileHeader;

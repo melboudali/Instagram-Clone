@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 import { User_Response } from "../../generated/graphql";
 import useSticky from "../../hooks/useSticky";
 import SuggestionsList from "./SuggestionsList";
-import PropTypes from "prop-types";
 import onClickFunction from "../../utils/onClick";
+import PropTypes from "prop-types";
 
 const EllipsisText = css`
 	white-space: nowrap;
@@ -16,6 +16,7 @@ const EllipsisText = css`
 const SuggestionsContainer = styled.div<{ sticky: boolean }>`
 	right: 0;
 	top: 0;
+	width: 293px;
 	${({ sticky }) =>
 		sticky
 			? `
@@ -39,8 +40,6 @@ const SuggestionsContainer = styled.div<{ sticky: boolean }>`
 			: `
 		top: 18px;
 		position: absolute;`}
-
-	width: 293px;
 	@media only screen and (max-width: 1000px) {
 		display: none;
 		flex: 0 0 0%;
@@ -61,8 +60,6 @@ const CurrentUserProfileImage = styled.div`
 	margin-right: 12px;
 	width: 56px;
 	height: 56px;
-	a {
-	}
 `;
 
 const CurrentUserProfileImageLink = styled(Link)`
@@ -81,14 +78,14 @@ const CurrentUser = styled.div`
 	justify-content: center;
 	flex: 1 1 auto;
 	span {
-		color: #8e8e8e;
+		color: var(--textColorGray);
 		font-weight: 400;
 		${EllipsisText}
 	}
 `;
 
 const CurrentUserUsername = styled(Link)`
-	color: #262626;
+	color: var(--textColorDarkGray);
 	font-weight: 600;
 	margin: -3px 0 -2px;
 	${EllipsisText}
@@ -102,20 +99,15 @@ const SwitchUserContainer = styled.div`
 `;
 
 const SwitchUserSwitchButton = styled.button`
-	cursor: pointer;
-	color: #0095f6;
+	color: var(--buttonLightBlue);
 	font-weight: 600;
-	padding: 0;
-	background: 0 0;
-	border: 0;
-	outline: 0;
 	font-size: 12px;
 	line-height: 14px;
 	margin: -2px 0 -3px;
 `;
 
 const SuggestionsMain = styled.div`
-	background-color: #fafafa;
+	background-color: var(--backgroudColor);
 	margin: 0 0 12px -16px;
 	width: calc(100% + 32px);
 `;
@@ -157,7 +149,7 @@ const SignatureContainer = styled.span`
 	font-size: 11px;
 	font-weight: 400;
 	line-height: 13px;
-	color: #8e8e8e;
+	color: var(--textColorGray);
 	padding-bottom: 50px;
 `;
 
@@ -217,7 +209,7 @@ const Suggestions = ({ meData: { username, image_link, fullname } }: Suggestions
 						))}
 					</SuggestionsLinksList>
 				</SuggestionsLinksContainer>
-				<SignatureContainer>© 2021 Instagram from Facebook</SignatureContainer>
+				<SignatureContainer>© {new Date().getFullYear()} Instagram from Facebook</SignatureContainer>
 			</div>
 		</SuggestionsContainer>
 	);

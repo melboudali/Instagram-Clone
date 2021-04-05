@@ -5,8 +5,8 @@ import Footer from "../common/footer/Footer";
 import PropTypes from "prop-types";
 
 const PrivateContainer = styled.div`
-	background-color: #fff;
-	border-top: 1px solid #dbdbdb;
+	background-color: var(--whiteColor);
+	border-top: 1px solid var(--borderColor);
 	border-left: 1px solid #efefef;
 	border-bottom: 1px solid #efefef;
 	border-right: 1px solid #efefef;
@@ -37,18 +37,18 @@ const PrivateHeader = styled.h1`
 	font-size: 16px;
 	font-weight: 600;
 	margin-bottom: 25px;
-	color: #262626;
+	color: var(--textColorDarkGray);
 `;
 
 const PrivateMessage = styled.p`
 	font-size: 14px;
-	color: #262626;
+	color: var(--textColorDarkGray);
 `;
 
 const EmptyMessage = styled.h1`
 	font-size: 28px;
 	font-weight: 300;
-	color: #262626;
+	color: var(--textColorDarkGray);
 `;
 
 interface ProfileEmptyPostsOrPrivateProps {

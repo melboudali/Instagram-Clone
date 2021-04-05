@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import styled, { css } from "styled-components";
 import { useGetUserImagesQuery } from "../../generated/graphql";
 import useScrollBottom from "../../hooks/useScrollBottom";
 import LoadingSpinner from "../common/LoadingSpinner";
 import Skeleton from "../skeletons/Skeleton";
 import ProfileEmptyPostsOrPrivate from "./ProfileEmptyPostsOrPrivate";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
 
 const LikesAndComments = css`
 	display: flex;
 	align-items: center;
-	color: #fff;
+	color: var(--whiteColor);
 	font-size: 18px;
 	font-weight: 500;
 	svg {
@@ -115,23 +115,17 @@ const ProfilePosts = ({ userId, isPrivate, isDisabled, currentUserId }: ProfileP
 			</ProfilePostsContainer>
 		);
 
-	if (!data?.getUserImages.images.length || error)
-		return <ProfileEmptyPostsOrPrivate type="emptyImages" />;
+	if (!data?.getUserImages.images.length || error) return <ProfileEmptyPostsOrPrivate type="emptyImages" />;
 
 	return (
 		<>
 			<ProfilePostsContainer>
 				{data.getUserImages.images.map(({ id, image_url }) => (
 					<ProfilePostsImages key={id} to={`/p/${id}`}>
-						<PostImage src={image_url} alt="post" />
+						<PostImage src={image_url} alt="article" />
 						<ImageAndCommentsCount>
 							<PostLikesContainer>
-								<svg
-									width="18"
-									height="16"
-									viewBox="0 0 18 16"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg">
+								<svg width="18" height="16" viewBox="0 0 18 16" fill="none">
 									<path
 										d="M13.4167 0.541748C15.7917 0.541748 17.75 2.70841 17.75 5.33341C17.75 8.16675 15.2917 9.91675 12.9583 12.0001C10.625 14.0834 9.41667 15.2084 9 15.4584C8.54167 15.1667 7.04167 13.7917 5.04167 12.0001C2.66667 9.91675 0.25 8.16675 0.25 5.33341C0.25 2.70841 2.20833 0.541748 4.58333 0.541748C6.33333 0.541748 7.29167 1.37508 7.95833 2.33341C8.75 3.41675 8.875 3.95841 9 3.95841C9.125 3.95841 9.25 3.41675 10.0417 2.33341C10.7083 1.37508 11.6667 0.541748 13.4167 0.541748Z"
 										fill="white"
@@ -146,12 +140,7 @@ const ProfilePosts = ({ userId, isPrivate, isDisabled, currentUserId }: ProfileP
 								0
 							</PostLikesContainer>
 							<PostCommentsContainer>
-								<svg
-									width="18"
-									height="18"
-									viewBox="0 0 18 18"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg">
+								<svg width="18" height="18" viewBox="0 0 18 18" fill="none">
 									<path
 										d="M17.3333 8.79167C17.3333 10.4583 16.9167 11.7083 16.25 12.9583C16.1667 13.125 16.125 13.3333 16.1667 13.5417L17.0417 17.0417L13.5833 16.1667C13.375 16.125 13.1667 16.125 13 16.25C12.25 16.6667 10.8333 17.3333 8.83333 17.3333C4.08333 17.3333 0.25 13.5 0.25 8.79167C0.25 4.08333 4.08333 0.25 8.79167 0.25C13.5 0.25 17.3333 4.08333 17.3333 8.79167Z"
 										fill="white"
@@ -176,7 +165,9 @@ const ProfilePosts = ({ userId, isPrivate, isDisabled, currentUserId }: ProfileP
 
 ProfilePosts.propTypes = {
 	userId: PropTypes.number.isRequired,
-	isPrivate: PropTypes.bool.isRequired
+	isPrivate: PropTypes.bool.isRequired,
+	isDisabled: PropTypes.bool.isRequired,
+	currentUserId: PropTypes.number
 };
 
 export default ProfilePosts;

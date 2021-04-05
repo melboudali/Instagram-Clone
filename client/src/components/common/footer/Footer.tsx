@@ -157,7 +157,7 @@ const Footer = () => (
 						</svg>
 					</span>
 				</div>
-				<div>© 2020 Instagram from Facebook</div>
+				<div>© {new Date().getFullYear()} Instagram from Facebook</div>
 			</FooterLang>
 		</FooterLinksContainer>
 	</FooterContainer>

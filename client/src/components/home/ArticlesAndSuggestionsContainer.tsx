@@ -20,7 +20,7 @@ const ErrorContainer = styled.div`
 const ArticlesAndSuggestionsContainer = () => {
 	const { data, error } = useMeQuery();
 
-	if (!error || !data || !data.me)
+	if (error || !data || !data.me)
 		return (
 			<ErrorContainer>
 				<ArticlesError />

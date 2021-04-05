@@ -1,10 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import {
-	GetUserDocument,
-	GetUserImagesDocument,
-	GetUserImagesQuery,
-	useUploadImageMutation
-} from "../../generated/graphql";
+import { useUploadImageMutation } from "../../generated/graphql";
 import Button from "../signin_signup/Button";
 import styled, { keyframes } from "styled-components";
 import { useMeQuery } from "../../generated/graphql";
@@ -29,7 +24,7 @@ const ModalContainer = styled.div`
 const ModalSlide = keyframes`
 			 0% {
 				transform: translateY(-50%);
-			}
+				}
 `;
 
 const ModalMain = styled.div`
@@ -49,26 +44,21 @@ const ModalMain = styled.div`
 `;
 
 const ModalClose = styled.button`
-	cursor: pointer;
 	width: 30px;
 	height: 30px;
 	padding: 5px;
-	background: 0 0;
-	border: 0;
-	outline: 0;
 	position: absolute;
 	top: 10px;
 	right: 10px;
 	z-index: 2;
-	background-color: #dfdfdf;
+	background-color: var(--borderColor);
 	border-radius: 100%;
 	svg {
-		stroke: var(--textColorGray);
+		stroke: var(--backgroudColor);
 	}
 `;
 
 const ModalImageContainer = styled.img`
-	display: block;
 	width: 300px;
 	min-height: 300px;
 	max-height: 450px;
@@ -119,7 +109,7 @@ const ModalCaptionArea = styled.textarea`
 	height: 100px;
 	background: none;
 	border: 0;
-	color: #262626;
+	color: var(--textColorDarkGray);
 	outline: 0;
 	padding: 0;
 	resize: none;
@@ -141,13 +131,7 @@ interface ModalProps {
 	Scrollbar: (arg: "show" | "hide") => void;
 }
 
-const Modal = ({
-	imageFile,
-	imageUri,
-	setOpenModal,
-	setUploadSuccessfulMessage,
-	Scrollbar
-}: ModalProps) => {
+const Modal = ({ imageFile, imageUri, setOpenModal, setUploadSuccessfulMessage, Scrollbar }: ModalProps) => {
 	const { data, error } = useMeQuery();
 	const [uploadImageFunc] = useUploadImageMutation();
 
@@ -209,14 +193,7 @@ const Modal = ({
 						setOpenModal(false);
 						Scrollbar("show");
 					}}>
-					<svg
-						width="20"
-						height="20"
-						viewBox="0 0 24 24"
-						strokeWidth="1.5"
-						fill="none"
-						strokeLinecap="round"
-						strokeLinejoin="round">
+					<svg width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
 						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 						<line x1="18" y1="6" x2="6" y2="18" />
 						<line x1="6" y1="6" x2="18" y2="18" />
@@ -252,9 +229,9 @@ const Modal = ({
 Modal.propTypes = {
 	imageUri: PropTypes.string,
 	imageFile: PropTypes.object,
-	setOpenModal: PropTypes.func,
-	setUploadSuccessfulMessage: PropTypes.func,
-	Scrollbar: PropTypes.func
+	setOpenModal: PropTypes.func.isRequired,
+	setUploadSuccessfulMessage: PropTypes.func.isRequired,
+	Scrollbar: PropTypes.func.isRequired
 };
 
 export default Modal;

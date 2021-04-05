@@ -11,8 +11,8 @@ const FileUploadContainer = styled.div`
 	margin: 24px auto 0;
 	height: 150px;
 	width: 100%;
-	background-color: #fff;
-	border: 1px dashed #dbdbdb;
+	background-color: var(--whiteColor);
+	border: 1px dashed var(--borderColor);
 	border-radius: 10px;
 	@media (min-width: 800px) {
 		width: 70%;
@@ -25,7 +25,7 @@ const FileUploadSvgContainer = styled.div`
 
 const FileUploadText = styled.div`
 	flex-wrap: 1;
-	color: #8e8e8e;
+	color: var(--textColorGray);
 	margin-top: 15px;
 	letter-spacing: 1px;
 	text-align: center;
@@ -75,9 +75,7 @@ const FileUploadInput = () => {
 	const [uploadSuccessfulMessage, setUploadSuccessfulMessage] = useState<string | null>(null);
 
 	const Scrollbar = (arg: "show" | "hide") => {
-		arg === "show"
-			? (document.documentElement.style.overflowY = "visible")
-			: (document.documentElement.style.overflowY = "hidden");
+		arg === "show" ? (document.documentElement.style.overflowY = "visible") : (document.documentElement.style.overflowY = "hidden");
 	};
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,12 +136,7 @@ const FileUploadInput = () => {
 				{uploadErrorMessage && <FileUploadErrorMessage>{uploadErrorMessage}</FileUploadErrorMessage>}
 				{uploadSuccessfulMessage && (
 					<FileUploadSuccessful>
-						<svg
-							viewBox="0 0 24 24"
-							strokeWidth="1.5"
-							fill="none"
-							strokeLinecap="round"
-							strokeLinejoin="round">
+						<svg viewBox="0 0 24 24" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
 							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
 							<path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1" />
 							<polyline points="9 15 12 12 15 15" />
@@ -153,13 +146,7 @@ const FileUploadInput = () => {
 					</FileUploadSuccessful>
 				)}
 			</FileUploadText>
-			<FileInput
-				type="file"
-				title="Choose a file or drag it here."
-				accept="image/jpeg,image/png"
-				multiple
-				onChange={onChange}
-			/>
+			<FileInput type="file" title="Choose a file or drag it here." accept="image/jpeg,image/png" multiple onChange={onChange} />
 		</FileUploadContainer>
 	);
 };
