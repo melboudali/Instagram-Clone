@@ -11,7 +11,7 @@ const AppContainer = () => {
 
 	if (loading) return <LoadingFullScreen />;
 
-	if (!data || !data.me || error) return <ErrorPage />;
+	if (!data || error) return <ErrorPage />;
 
 	return <>{data.me ? <AuthenticatedApp /> : <UnauthenticatedApp />}</>;
 };

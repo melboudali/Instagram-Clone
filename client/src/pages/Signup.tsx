@@ -126,6 +126,7 @@ const LoginContainer = styled.div`
 		text-align: center;
 	}
 `;
+
 const LoginLink = styled(Link)`
 	span {
 		font-weight: 600;
@@ -133,6 +134,7 @@ const LoginLink = styled(Link)`
 		margin-left: 5px;
 	}
 `;
+
 const GetTheAppContainer = styled.div`
 	position: relative;
 	overflow: auto;
@@ -144,6 +146,7 @@ const GetTheAppContainer = styled.div`
 		margin: 10px 20px;
 	}
 `;
+
 const AppsButtons = styled.div`
 	display: inline-flex;
 	margin: 10px 0;
