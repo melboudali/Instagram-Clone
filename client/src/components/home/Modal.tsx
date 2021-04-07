@@ -22,9 +22,9 @@ const ModalContainer = styled.div`
 `;
 
 const ModalSlide = keyframes`
-			 0% {
-				transform: translateY(-50%);
-				}
+	0% {
+		transform: translateY(-50%);
+	}
 `;
 
 const ModalMain = styled.div`
@@ -141,6 +141,7 @@ const Modal = ({ imageFile, imageUri, setOpenModal, setUploadSuccessfulMessage, 
 	const [caption, setCaption] = useState("");
 	const [uploadLoading, setUploadLoading] = useState(false);
 	const [connectionError, setConnectionError] = useState(false);
+	const [uploadError, setUploadError] = useState("");
 
 	useEffect(() => {
 		if (clickOutside) {
@@ -160,24 +161,18 @@ const Modal = ({ imageFile, imageUri, setOpenModal, setUploadSuccessfulMessage, 
 		setUploadLoading(true);
 		if (imageFile) {
 			try {
-				const res = await uploadImageFunc({
+				await uploadImageFunc({
 					variables: { file: imageFile, caption: caption },
 					update: cache => {
 						cache.evict({ fieldName: "getAllImages" });
 						cache.evict({ fieldName: "getUserImages" });
 					}
 				});
-				if (res.data?.uploadImage) {
-					setUploadSuccessfulMessage(`Image has been successfully uploaded!`);
-					closeModal();
-				} else {
-					setConnectionError(true);
-					setUploadSuccessfulMessage(null);
-					closeModal();
-				}
+				setUploadSuccessfulMessage(`Image has been successfully uploaded!`);
+				closeModal();
 			} catch (error) {
-				setConnectionError(true);
 				setUploadLoading(false);
+				setUploadError(error.message);
 			}
 		}
 	};
@@ -219,6 +214,7 @@ const Modal = ({ imageFile, imageUri, setOpenModal, setUploadSuccessfulMessage, 
 							Post
 						</Button>
 						{connectionError && <ModalErrorMessage>503 Service Unavailable</ModalErrorMessage>}
+						{uploadError && <ModalErrorMessage>{uploadError}</ModalErrorMessage>}
 					</ModalCaptionContainer>
 				</ModalImageCaptionContainer>
 			</ModalMain>

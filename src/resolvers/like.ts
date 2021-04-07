@@ -6,7 +6,6 @@ import { Arg, Ctx, FieldResolver, Mutation, Resolver, Root, UseMiddleware } from
 
 @Resolver(Like)
 export class LikeResolver {
-	// Mutations
 	@Mutation(() => like_image)
 	@UseMiddleware(isAuth)
 	async likeImage(@Arg("imageId") imageId: string, @Ctx() { req }: MyContext): Promise<like_image> {

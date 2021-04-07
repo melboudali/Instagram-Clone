@@ -123,9 +123,6 @@ const Edit = () => {
 					}
 				}
 			});
-			if (res.data?.editUser.error) {
-				console.log("Mutation Error");
-			}
 			if (res.data?.editUser.user) {
 				setUpdated(true);
 				setTimeout(() => setUpdated(false), 3000);

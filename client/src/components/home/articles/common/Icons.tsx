@@ -104,14 +104,8 @@ const Icons = ({ me, liked, imageId, showComment = true }: IconsProps) => {
 						}
 					}
 				});
-
-				if (res.data?.likeImage.liked) {
-					console.log("Liked!");
-				} else {
-					console.log(res.data?.likeImage.message);
-				}
 			} catch (error) {
-				console.log(error.message);
+				throw new Error(error.message);
 			}
 		}
 	};

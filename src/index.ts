@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import "dotenv/config";
+require("dotenv").config();
 import express, { Request, Response, NextFunction } from "express";
 import { Connection, createConnection } from "typeorm";
 import { ApolloServer } from "apollo-server-express";
@@ -93,9 +93,7 @@ const main = async () => {
 	}
 
 	app.listen(PORT, () =>
-		console.log(
-			`⚡️[server] => Server is running: \n - Home: http://localhost:3000 \n - Graphql: http://localhost:${PORT}/graphql`
-		)
+		console.log(`⚡️[server] => Server is running: \n - Home: http://localhost:3000 \n - Graphql: http://localhost:${PORT}/graphql`)
 	);
 };
 

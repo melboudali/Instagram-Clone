@@ -1,4 +1,3 @@
-import { User } from "../entities/user";
 import { Field, ObjectType } from "type-graphql";
 import { Like } from "../entities/like";
 import { Image } from "../entities/image";
@@ -58,7 +57,7 @@ export class image_res {
 }
 
 export const CLOUDINARY_CONFIG = {
-	CLOUD_NAME: process.env.CLOUD_NAME,
-	API_KEY: process.env.API_KEY,
-	API_SECRET: process.env.API_SECRET
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.API_KEY,
+	api_secret: process.env.API_SECRET
 };

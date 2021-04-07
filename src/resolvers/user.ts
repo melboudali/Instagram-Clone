@@ -5,20 +5,13 @@ import argon2 from "argon2";
 import { COOKIE_NAME } from "../config/constants";
 import { getConnection } from "typeorm";
 import { isAuth } from "../middleware/isAuthenticated";
-import {
-	register_inputs,
-	response,
-	responses,
-	user_response,
-	passwordVerification
-} from "../models/user";
+import { register_inputs, response, responses, user_response, passwordVerification } from "../models/user";
 import { FileUpload, GraphQLUpload } from "graphql-upload";
 import { CLOUDINARY_CONFIG } from "../models/images";
 import { v2 as cloudinary } from "cloudinary";
 
 @Resolver(User)
 export class UserResolver {
-	// Queries
 	@Query(() => user_response, { nullable: true })
 	async me(@Ctx() { req }: MyContext) {
 		if (!req.session!.user_id) {
@@ -45,17 +38,7 @@ export class UserResolver {
 			};
 		}
 
-		const {
-			id,
-			username: userName,
-			fullname,
-			image_link,
-			website,
-			bio,
-			private: isPrivate,
-			images_length,
-			disabled
-		} = user;
+		const { id, username: userName, fullname, image_link, website, bio, private: isPrivate, images_length, disabled } = user;
 
 		return {
 			user: {
@@ -77,6 +60,7 @@ export class UserResolver {
 	async suggestedUsers(@Ctx() { req }: MyContext): Promise<responses> {
 		const users = await User.createQueryBuilder()
 			.where("id != :id", { id: req.session.user_id })
+			.andWhere("recomended")
 			.orderBy("id", "DESC")
 			.limit(4)
 			.getMany();
@@ -86,31 +70,27 @@ export class UserResolver {
 		};
 	}
 
-	// Mutations
 	@Mutation(() => response)
-	async register(
-		@Arg("registerInputs") registerInputs: register_inputs,
-		@Ctx() { req }: MyContext
-	): Promise<response> {
+	async register(@Arg("registerInputs") registerInputs: register_inputs, @Ctx() { req }: MyContext): Promise<response> {
 		const { email, fullName: fullname, password } = registerInputs;
-		// const username = registerInputs.userName.toLowerCase().split(" ").join(".");
-		if (/\W+/.test(registerInputs.userName)) {
-			return {
-				error: { message: "Full name or Username or Password length should be greater than 5." }
-			};
-		}
-		const username = registerInputs.userName.toLowerCase().replace(/\s+/, ".");
 
-		const hashedPassword = await argon2.hash(registerInputs.password);
-
-		if (fullname.length <= 3 || username.length <= 3 || password.length <= 3) {
-			return {
-				error: { message: "Full name or Username or Password length should be greater than 5." }
-			};
-		}
-		if (email.length <= 3 || !email.includes("@")) {
+		if (email.length <= 6 || !email.includes("@") || email.includes(" ")) {
 			return { error: { message: "Invalid email." } };
 		}
+
+		if (fullname.length <= 6 || registerInputs.userName.length <= 6 || password.length <= 6) {
+			return {
+				error: { message: "Full Name, Username and Password length should be greater than 5." }
+			};
+		}
+
+		if (/\W+/.test(registerInputs.userName)) {
+			return {
+				error: { message: "Invalid Username." }
+			};
+		}
+
+		const hashedPassword = await argon2.hash(registerInputs.password);
 
 		let user: user_response | null = null;
 		try {
@@ -119,7 +99,7 @@ export class UserResolver {
 				.insert()
 				.into(User)
 				.values({
-					username,
+					username: registerInputs.userName.toLowerCase(),
 					fullname,
 					email,
 					password: hashedPassword
@@ -132,7 +112,9 @@ export class UserResolver {
 				return { error: { message: "That username or email address is already in use." } };
 			}
 		}
+
 		req.session.user_id = user!.id!;
+
 		return {
 			user: {
 				id: user!.id,
@@ -159,6 +141,16 @@ export class UserResolver {
 		@Ctx() { req }: MyContext
 	): Promise<response> {
 		const isEmail = userNameOrEmail.includes("@");
+
+		if (userNameOrEmail.length <= 6 || !isEmail || userNameOrEmail.includes(" ")) {
+			return { error: { message: "Invalid Username or Email." } };
+		}
+		if (password.length <= 6) {
+			return {
+				error: { message: "Password length should be greater than 5." }
+			};
+		}
+
 		const user = await User.findOne({
 			where: isEmail ? { email: userNameOrEmail } : { username: userNameOrEmail }
 		});
@@ -166,12 +158,13 @@ export class UserResolver {
 		if (!user) {
 			return {
 				error: {
-					message:
-						"The username you entered doesn't belong to an account. Please check your username and try again."
+					message: "The username you entered doesn't belong to an account. Please check your username and try again."
 				}
 			};
 		}
+
 		const isMatch = await argon2.verify(user.password, password);
+
 		if (!isMatch) {
 			return {
 				error: {
@@ -179,7 +172,9 @@ export class UserResolver {
 				}
 			};
 		}
+
 		req.session.user_id = user.id;
+
 		return {
 			user: {
 				id: user.id,
@@ -199,7 +194,6 @@ export class UserResolver {
 		};
 	}
 
-	// Edit Mutations
 	@Mutation(() => response)
 	@UseMiddleware(isAuth)
 	async editUser(
@@ -218,22 +212,28 @@ export class UserResolver {
 		@Arg("similarAccountSuggestions") similarAccountSuggestions: boolean,
 		@Ctx() { req }: MyContext
 	): Promise<response> {
-		if (name.length <= 3 || username.length <= 3 || email.length <= 3) {
-			return {
-				error: { message: "Full name or Username or Email length should be greater than 5." }
-			};
-		}
-		if (email.length <= 3 || !email.includes("@") || email.includes(" ")) {
+		if (email.length <= 6 || !email.includes("@") || email.includes(" ")) {
 			return { error: { message: "Invalid email." } };
 		}
+
+		if (name.length <= 6 || username.length <= 6 || email.length <= 6) {
+			return {
+				error: { message: "FullName, Username and Email length should be greater than 5." }
+			};
+		}
+
+		if (/\W+/.test(username)) {
+			return {
+				error: { message: "Invalid Username." }
+			};
+		}
+
 		const id = req.session.user_id;
-		cloudinary.config(CLOUDINARY_CONFIG);
-		const newUsername = username.toLowerCase().split(" ").join(".");
 
 		let user = {
 			id,
 			fullname: name,
-			username: newUsername,
+			username: username.toLowerCase(),
 			email,
 			image_link,
 			website: website!,
@@ -244,26 +244,24 @@ export class UserResolver {
 		};
 
 		if (File) {
+			cloudinary.config(CLOUDINARY_CONFIG);
 			File.createReadStream().pipe(
-				cloudinary.uploader.upload_stream(
-					{ folder: process.env.CLOUDINARY_FOLDER },
-					async (error, result) => {
-						if (error) {
-							return { error: { message: error.message } };
-						}
-						user.image_link = result?.secure_url as string;
-						try {
-							await User.update({ id }, user);
-						} catch (error) {
-							if (error.code === "23505") {
-								return { error: { message: "That username or email address is already in use." } };
-							}
-						}
-						return {
-							user
-						};
+				cloudinary.uploader.upload_stream({ folder: process.env.CLOUDINARY_FOLDER }, async (error, result) => {
+					if (error) {
+						return { error: { message: error.message } };
 					}
-				)
+					try {
+						user = { ...user, image_link: result?.secure_url as string };
+						await User.update({ id }, user);
+					} catch (error) {
+						if (error.code === "23505") {
+							return { error: { message: "That username or email address is already in use." } };
+						}
+					}
+					return {
+						user
+					};
+				})
 			);
 		} else {
 			try {
@@ -281,15 +279,10 @@ export class UserResolver {
 
 	@Mutation(() => passwordVerification)
 	@UseMiddleware(isAuth)
-	async changePassword(
-		@Arg("oldPassword") oldPassword: string,
-		@Arg("newPassword") newPassword: string,
-		@Ctx() { req, res }: MyContext
-	) {
+	async changePassword(@Arg("oldPassword") oldPassword: string, @Arg("newPassword") newPassword: string, @Ctx() { req, res }: MyContext) {
 		const id = req.session.user_id;
 		const user = await User.findOne({ select: ["id", "password"], where: { id } });
-		const passwordVerification =
-			user?.password && (await argon2.verify(user?.password!, oldPassword));
+		const passwordVerification = user?.password && (await argon2.verify(user?.password!, oldPassword));
 		if (passwordVerification) {
 			const nPassword = await argon2.hash(newPassword);
 			await User.update({ id }, { password: nPassword });
