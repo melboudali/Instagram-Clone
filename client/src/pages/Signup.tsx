@@ -197,17 +197,14 @@ const Signup = () => {
 				}
 			});
 			if (res.data?.register.error) {
-				setSignupLoading(false);
 				setSignupError(res.data?.register.error.message);
-			}
-			if (res.data?.register.user) {
-				setSignupLoading(false);
+			} else {
 				history.push("/");
 			}
 		} catch (error) {
-			setSignupLoading(false);
 			setSignupError("503 Service Unavailable");
 		}
+		setSignupLoading(false);
 	};
 
 	return (

@@ -207,15 +207,11 @@ const Signin = () => {
 			});
 			if (res.data?.login.error) {
 				setLoginError(res.data?.login.error.message);
-				setLoginLoading(false);
-			}
-			if (res.data?.login.user) {
-				setLoginLoading(false);
 			}
 		} catch (error) {
 			setLoginError("503 Service Unavailable");
-			setLoginLoading(false);
 		}
+		setLoginLoading(false);
 	};
 
 	return (

@@ -161,18 +161,24 @@ const Modal = ({ imageFile, imageUri, setOpenModal, setUploadSuccessfulMessage, 
 		setUploadLoading(true);
 		if (imageFile) {
 			try {
-				await uploadImageFunc({
+				const res = await uploadImageFunc({
 					variables: { file: imageFile, caption: caption },
 					update: cache => {
 						cache.evict({ fieldName: "getAllImages" });
 						cache.evict({ fieldName: "getUserImages" });
 					}
 				});
-				setUploadSuccessfulMessage(`Image has been successfully uploaded!`);
-				closeModal();
+				if (res.data?.uploadImage.image) {
+					setUploadSuccessfulMessage(`Image has been successfully uploaded!`);
+					closeModal();
+				} else {
+					setUploadError(res.data?.uploadImage.error?.message!);
+					setUploadSuccessfulMessage(null);
+					setUploadLoading(false);
+				}
 			} catch (error) {
+				setConnectionError(true);
 				setUploadLoading(false);
-				setUploadError(error.message);
 			}
 		}
 	};
