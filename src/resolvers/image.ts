@@ -92,8 +92,8 @@ export class ImageResolver {
 		@Ctx() { req }: MyContext
 	): Promise<image_upload_response> {
 		return new Promise((resolve, reject) => {
-			if (!caption || caption.length <= 6) {
-				reject({ error: { message: "Title should be greater than 5!" } });
+			if (!caption || caption.length < 6) {
+				reject({ error: { message: "Title should be greater than 6." } });
 				return;
 			}
 

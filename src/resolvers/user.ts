@@ -74,13 +74,13 @@ export class UserResolver {
 	async register(@Arg("registerInputs") registerInputs: register_inputs, @Ctx() { req }: MyContext): Promise<response> {
 		const { email, fullName: fullname, password } = registerInputs;
 
-		if (email.length <= 6 || !email.includes("@") || email.includes(" ")) {
+		if (email.length < 6 || !email.includes("@") || email.includes(" ")) {
 			return { error: { message: "Invalid email." } };
 		}
 
-		if (fullname.length <= 6 || registerInputs.userName.length <= 6 || password.length <= 6) {
+		if (fullname.length < 6 || registerInputs.userName.length < 6 || password.length < 6) {
 			return {
-				error: { message: "Full Name, Username and Password length should be greater than 5." }
+				error: { message: "Full Name, Username and Password length should be greater than 6." }
 			};
 		}
 
@@ -142,12 +142,12 @@ export class UserResolver {
 	): Promise<response> {
 		const isEmail = userNameOrEmail.includes("@");
 
-		if (userNameOrEmail.length <= 6 || !isEmail || userNameOrEmail.includes(" ")) {
+		if (userNameOrEmail.length < 6 || userNameOrEmail.includes(" ")) {
 			return { error: { message: "Invalid Username or Email." } };
 		}
-		if (password.length <= 6) {
+		if (password.length < 6) {
 			return {
-				error: { message: "Password length should be greater than 5." }
+				error: { message: "Password length should be greater than 6." }
 			};
 		}
 
@@ -212,13 +212,13 @@ export class UserResolver {
 		@Arg("similarAccountSuggestions") similarAccountSuggestions: boolean,
 		@Ctx() { req }: MyContext
 	): Promise<response> {
-		if (email.length <= 6 || !email.includes("@") || email.includes(" ")) {
+		if (email.length < 6 || !email.includes("@") || email.includes(" ")) {
 			return { error: { message: "Invalid email." } };
 		}
 
-		if (name.length <= 6 || username.length <= 6 || email.length <= 6) {
+		if (name.length < 6 || username.length < 6 || email.length < 6) {
 			return {
-				error: { message: "FullName, Username and Email length should be greater than 5." }
+				error: { message: "FullName, Username and Email length should be greater than 6." }
 			};
 		}
 
