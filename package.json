@@ -19,6 +19,8 @@
 		"client": "yarn --cwd client start",
 		"server": "nodemon ./dist/index.js",
 		"all": "concurrently \"yarn server\" \"yarn client\"",
+		"createmigration": "yarn run typeorm migration:create -n migration",
+		"genmigration": "yarn run typeorm migration:generate -n migration",
 		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
 	},
 	"dependencies": {
