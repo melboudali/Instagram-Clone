@@ -153,8 +153,11 @@ const PhotoModal = ({ setOpenModal, Scrollbar, setFormData, formData, setImageFi
 					Upload Photo
 					<FileInput type="file" title="Choose a file or drag it here." accept="image/jpeg,image/png" multiple onChange={onChange} />
 				</ChangePhotoButton>
-				<RemovePhotoButton onClick={RemovePhoto}>Remove Current Photo</RemovePhotoButton>
+				<RemovePhotoButton type="button" onClick={RemovePhoto}>
+					Remove Current Photo
+				</RemovePhotoButton>
 				<CancelButton
+					type="button"
 					onClick={() => {
 						Scrollbar("show");
 						setOpenModal(false);

@@ -118,7 +118,7 @@ const UnauthFooter = () => {
 
 	return (
 		<UnauthFooterContainer closed={data.showFooter[0].showUnauthFooter}>
-			<UnauthFooterCloseButton onClick={onClose}>
+			<UnauthFooterCloseButton type="button" onClick={onClose}>
 				<UnauthFooterCloseImage />
 			</UnauthFooterCloseButton>
 			<UnauthFooterMain>

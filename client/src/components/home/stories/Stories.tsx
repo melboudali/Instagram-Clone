@@ -209,12 +209,12 @@ const Stories = () => {
 				))}
 			</StoriesMain>
 			{slideButtons.leftButton && (
-				<PrevButton>
+				<PrevButton type="button">
 					<PrevClickable onClick={slideLeft} />
 				</PrevButton>
 			)}
 			{slideButtons.rightButton && (
-				<NextButton>
+				<NextButton type="button">
 					<NextClickable onClick={slideRight} />
 				</NextButton>
 			)}
