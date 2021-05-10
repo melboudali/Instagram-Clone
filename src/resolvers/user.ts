@@ -74,13 +74,13 @@ export class UserResolver {
 	async register(@Arg("registerInputs") registerInputs: register_inputs, @Ctx() { req }: MyContext): Promise<response> {
 		const { email, fullName: fullname, password } = registerInputs;
 
-		if (email.length < 6 || !email.includes("@") || email.includes(" ")) {
+		if (email.length < 10 || !email.includes("@") || email.includes(" ")) {
 			return { error: { message: "Invalid email." } };
 		}
 
-		if (fullname.length < 6 || registerInputs.userName.length < 6 || password.length < 6) {
+		if (fullname.length < 4 || registerInputs.userName.length < 4 || password.length < 6) {
 			return {
-				error: { message: "Full Name, Username and Password length should be greater than 6." }
+				error: { message: "Full Name, Username and Password length should be greater than 4." }
 			};
 		}
 
@@ -142,12 +142,13 @@ export class UserResolver {
 	): Promise<response> {
 		const isEmail = userNameOrEmail.includes("@");
 
-		if (userNameOrEmail.length < 6 || userNameOrEmail.includes(" ")) {
+		if (userNameOrEmail.length < 4 || userNameOrEmail.includes(" ")) {
 			return { error: { message: "Invalid Username or Email." } };
 		}
+
 		if (password.length < 6) {
 			return {
-				error: { message: "Password length should be greater than 6." }
+				error: { message: "Password should be greater than 6." }
 			};
 		}
 
@@ -212,13 +213,13 @@ export class UserResolver {
 		@Arg("similarAccountSuggestions") similarAccountSuggestions: boolean,
 		@Ctx() { req }: MyContext
 	): Promise<response> {
-		if (email.length < 6 || !email.includes("@") || email.includes(" ")) {
+		if (email.length < 10 || !email.includes("@") || email.includes(" ")) {
 			return { error: { message: "Invalid email." } };
 		}
 
-		if (name.length < 6 || username.length < 6 || email.length < 6) {
+		if (name.length < 4 || username.length < 4) {
 			return {
-				error: { message: "FullName, Username and Email length should be greater than 6." }
+				error: { message: "FullName and Username should be greater than 4." }
 			};
 		}
 
@@ -283,22 +284,29 @@ export class UserResolver {
 		const id = req.session.user_id;
 		const user = await User.findOne({ select: ["id", "password"], where: { id } });
 		const passwordVerification = user?.password && (await argon2.verify(user?.password!, oldPassword));
-		if (passwordVerification) {
-			const nPassword = await argon2.hash(newPassword);
-			await User.update({ id }, { password: nPassword });
-			return new Promise(resolve => {
-				req.session?.destroy(err => {
-					res.clearCookie(COOKIE_NAME);
-					if (err) {
-						resolve({ error: { message: "Wrong Password!" } });
-					} else {
-						resolve({ success: { message: "Password Changed!" } });
-					}
-				});
-			});
-		} else {
+
+		if (!passwordVerification) {
 			return { error: { message: "Wrong Password!" } };
 		}
+
+		if (newPassword.length < 6) {
+			return {
+				error: { message: "New password should be greater than 6." }
+			};
+		}
+
+		const nPassword = await argon2.hash(newPassword);
+		await User.update({ id }, { password: nPassword });
+		return new Promise(resolve => {
+			req.session?.destroy(err => {
+				res.clearCookie(COOKIE_NAME);
+				if (err) {
+					resolve({ error: { message: "Wrong Password!" } });
+				} else {
+					resolve({ success: { message: "Password Changed!" } });
+				}
+			});
+		});
 	}
 
 	@Mutation(() => passwordVerification)

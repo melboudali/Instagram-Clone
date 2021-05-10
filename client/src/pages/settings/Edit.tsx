@@ -31,7 +31,7 @@ const Edit = () => {
 		"Similar Account Suggestions": data?.me?.recomended!
 	});
 	const [loading, setLoading] = useState(false);
-	const [updated, setUpdated] = useState(false);
+	const [updatedMessage, setUpdatedMessage] = useState("");
 	const [openModal, setOpenModal] = useState(false);
 
 	const [imageFile, setImageFile] = useState<File | null>(null);
@@ -59,6 +59,9 @@ const Edit = () => {
 					similarAccountSuggestions: formData["Similar Account Suggestions"]
 				},
 				update: (cache, { data }) => {
+					if (data?.editUser.error?.message) {
+						throw new Error(data?.editUser.error?.message);
+					}
 					cache.writeQuery<MeQuery>({
 						query: MeDocument,
 						data: {
@@ -71,6 +74,7 @@ const Edit = () => {
 						query: GetAllImagesDocument,
 						variables: { limit: 3, cursor: null }
 					});
+
 					if (existedImages?.getAllImages.images) {
 						const newImages = existedImages.getAllImages.images.map(image => {
 							if (image.user.username === formData.Username) {
@@ -85,6 +89,7 @@ const Edit = () => {
 							}
 							return image;
 						});
+
 						cache.writeQuery<GetAllImagesQuery>({
 							query: GetAllImagesDocument,
 							data: {
@@ -101,6 +106,7 @@ const Edit = () => {
 						query: GetUserDocument,
 						variables: { username: formData.Username }
 					});
+
 					if (existedUser?.getUser.user) {
 						cache.writeQuery<GetUserQuery>({
 							query: GetUserDocument,
@@ -123,18 +129,20 @@ const Edit = () => {
 					}
 				}
 			});
+
 			if (res.data?.editUser.user) {
-				setUpdated(true);
-				setTimeout(() => setUpdated(false), 3000);
+				setUpdatedMessage("Profile saved.");
+				setTimeout(() => setUpdatedMessage(""), 3000);
 			}
 		} catch (error) {
-			console.error("503 Service Unavailable");
+			setUpdatedMessage(error.message);
+			setTimeout(() => setUpdatedMessage(""), 3000);
 		}
 		setLoading(false);
 	};
 
 	return (
-		<SettingsContainer updated={updated} Scrollbar={Scrollbar} setOpenModal={setOpenModal} image_url={formData.image_link}>
+		<SettingsContainer updatedMessage={updatedMessage} Scrollbar={Scrollbar} setOpenModal={setOpenModal} image_url={formData.image_link}>
 			<Helmet>
 				<title>Edit Account</title>
 				<meta name="title" content="Edit Account" />

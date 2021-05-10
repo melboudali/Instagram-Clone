@@ -25,7 +25,7 @@ const SettingsContainerMain = styled.main`
 	width: 100%;
 `;
 
-const UpdatedMessage = styled.div<{ updated: boolean }>`
+const UpdatedMessage = styled.div<{ updatedMessage: string }>`
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -35,7 +35,7 @@ const UpdatedMessage = styled.div<{ updated: boolean }>`
 	display: flex;
 	align-items: center;
 	padding: 0 30px;
-	transform: ${({ updated }) => (updated ? "translateY(0)" : "translateY(60px)")};
+	transform: ${({ updatedMessage }) => (updatedMessage ? "translateY(0)" : "translateY(60px)")};
 	transition: all 0.3s ease-in-out;
 	h1 {
 		color: #eee;
@@ -82,14 +82,14 @@ const ChangeProfilePhoto = styled.button`
 `;
 
 interface SettingsContainerProps {
-	updated?: boolean;
+	updatedMessage?: string;
 	children: React.ReactNode;
 	Scrollbar?: Function;
 	setOpenModal?: Function;
 	image_url?: string;
 }
 
-const SettingsContainer = ({ updated, children, Scrollbar, setOpenModal, image_url }: SettingsContainerProps) => {
+const SettingsContainer = ({ updatedMessage, children, Scrollbar, setOpenModal, image_url }: SettingsContainerProps) => {
 	const { data } = useMeQuery();
 
 	return (
@@ -117,8 +117,8 @@ const SettingsContainer = ({ updated, children, Scrollbar, setOpenModal, image_u
 					{children}
 				</SettingsContainerMain>
 			</SettingsContainerSection>
-			<UpdatedMessage updated={updated!}>
-				<h1>Profile saved.</h1>
+			<UpdatedMessage updatedMessage={updatedMessage!}>
+				<h1>{updatedMessage}</h1>
 			</UpdatedMessage>
 		</Container>
 	);

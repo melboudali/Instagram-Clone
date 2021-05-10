@@ -33,36 +33,39 @@ const ChangePassword = () => {
 		e.preventDefault();
 		setErrorMessage("");
 		setLoading(true);
-		if (formData["New Password"] === formData["Confirm New Password"]) {
-			try {
-				const res = await changePassword({
-					variables: {
-						newPassword: formData["New Password"],
-						oldPassword: formData["Old Password"]
-					},
-					update: cache => {
-						cache.writeQuery<MeQuery>({
-							query: MeDocument,
-							data: {
-								__typename: "Query",
-								me: null
-							}
-						});
-						history.push("/");
-					}
-				});
-				if (res.data?.changePassword.error?.message) {
-					setErrorMessage(res.data?.changePassword.error?.message);
-				}
-			} catch (error) {
-				setErrorMessage("503 Service Unavailable");
-				setLoading(false);
-			}
-		} else {
+
+		if (formData["New Password"] !== formData["Confirm New Password"]) {
 			setErrorMessage("Your password and confirmation password do not match.");
+			setLoading(false);
+			return;
+		}
+
+		try {
+			await changePassword({
+				variables: {
+					newPassword: formData["New Password"],
+					oldPassword: formData["Old Password"]
+				},
+				update: (cache, data) => {
+					if (data.data?.changePassword.error?.message) {
+						throw new Error(data.data?.changePassword.error?.message);
+					}
+					cache.writeQuery<MeQuery>({
+						query: MeDocument,
+						data: {
+							__typename: "Query",
+							me: null
+						}
+					});
+					history.push("/");
+				}
+			});
+		} catch (error) {
+			setErrorMessage(error.message);
 			setLoading(false);
 		}
 	};
+
 	return (
 		<SettingsContainer>
 			<Helmet>

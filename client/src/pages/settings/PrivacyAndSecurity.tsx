@@ -8,7 +8,7 @@ import { Helmet } from "react-helmet";
 const PrivacyAndSecurity = () => {
 	const { data: meData } = useMeQuery();
 	const [editPrivacy] = useEditPrivacyMutation();
-	const [updated, setUpdated] = useState(false);
+	const [updatedMessage, setUpdatedMessage] = useState("");
 
 	const [formData, setFormData] = useState({
 		"Private Account": meData?.me?.private as boolean,
@@ -16,7 +16,6 @@ const PrivacyAndSecurity = () => {
 	});
 
 	const [loading, setLoading] = useState(false);
-	const [_, setErrorMessage] = useState("");
 
 	const onSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -27,7 +26,10 @@ const PrivacyAndSecurity = () => {
 					privateAccount: formData["Private Account"],
 					disableAccount: formData["Disable Account"]
 				},
-				update: cache => {
+				update: (cache, data) => {
+					if (data.data?.editPrivacy.error?.message) {
+						throw new Error(data.data?.editPrivacy.error?.message);
+					}
 					const existedMe = cache.readQuery<MeQuery>({
 						query: MeDocument
 					});
@@ -67,21 +69,18 @@ const PrivacyAndSecurity = () => {
 					}
 				}
 			});
-			if (res.data?.editPrivacy.error?.message) {
-				throw new Error(res.data.editPrivacy.error.message);
-			}
 			if (res.data?.editPrivacy.success) {
-				setUpdated(true);
-				setTimeout(() => setUpdated(false), 3000);
+				setUpdatedMessage("Profile saved.");
+				setTimeout(() => setUpdatedMessage(""), 3000);
 			}
 		} catch (error) {
-			setErrorMessage(error.message);
+			setUpdatedMessage(error.message);
 		}
 		setLoading(false);
 	};
 
 	return (
-		<SettingsContainer updated={updated}>
+		<SettingsContainer updatedMessage={updatedMessage}>
 			<Helmet>
 				<title>Privacy And Security</title>
 				<meta name="title" content="Privacy And Security" />

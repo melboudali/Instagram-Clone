@@ -50,7 +50,7 @@ const Icons = ({ me, liked, imageId, showComment = true }: IconsProps) => {
 	const onClick = async () => {
 		if (!liked) {
 			try {
-				const res = await likeImage({
+				await likeImage({
 					variables: { imageId },
 					update: cache => {
 						if (showComment) {
