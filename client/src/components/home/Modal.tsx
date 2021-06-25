@@ -114,6 +114,7 @@ const ModalCaptionArea = styled.textarea`
 	padding: 0;
 	resize: none;
 	margin-left: 10px;
+	flex: 1 1 auto;
 `;
 
 const ModalErrorMessage = styled.p`
